@@ -11,6 +11,8 @@ ZSH_CONF_DIR="${ZSH_DIR}/conf"
 ZSH_LIB_DIR="${ZSH_DIR}/lib"
 ZSH_PLUGIN_DIR="${ZSH_DIR}/plugins"
 
+EDITOR=vi
+
 # Zash
 source "${0:h}/zash.zsh"
 
