@@ -9,4 +9,4 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
 setopt inc_append_history
-setopt share_history
+#setopt share_history
