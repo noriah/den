@@ -33,16 +33,11 @@ zash base terminal
 env_default 'PAGER' 'less'
 env_default 'LESS' '-R'
 
-# Plugins
-zash plugin osx
-zash plugin spotify
-zash plugin terraform
-zash plugin todo
-zash plugin z
+zash plugins "${0:h}/plugins-osx"
 
 # Theme
 zash library p10k
 
 # Zash stuff
 zash do autoload
-zash do compinit
+zash do hook

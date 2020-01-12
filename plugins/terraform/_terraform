@@ -1,7 +1,7 @@
 #compdef terraform
 
-local -a _terraform_cmds opt_args
-_terraform_cmds=(
+local -a __terraform_cmds opt_args
+__terraform_cmds=(
     'apply:Builds or changes infrastructure'
     'console:Interactive console for Terraform interpolations'
     'destroy:Destroy Terraform-managed infrastructure'
@@ -25,13 +25,13 @@ _terraform_cmds=(
     '0.12upgrade:Rewrites pre-0.12 module source code for v0.12'
 )
 
-__012upgrade() {
+__terraform_012upgrade() {
   _arguments \
     '-yes[Skip the initial introduction messages and interactive confirmation. This can be used to run this command in batch from a script.]' \
     '-force[ Override the heuristic that attempts to detect if a configuration is already written for v0.12 or later.  Some of the transformations made by this command are not idempotent, so re-running against the same module may change the meanings expressions in the module.]'
 }
 
-__apply() {
+__terraform_apply() {
     _arguments \
         '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
         '-auto-approve[Skip interactive approval of plan before applying.]' \
@@ -43,19 +43,19 @@ __apply() {
         '-refresh=[(true) Update state prior to checking for differences. This has no effect if a plan file is given to apply.]' \
         '-state=[(terraform.tfstate) Path to read and save state (unless state-out is specified).]' \
         '-state-out=[(path) Path to write state to that is different than "-state". This can be used to preserve the old state.]' \
-        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__statelist' \
+        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__terraform_statelist' \
         '-var[("foo=bar") Set a variable in the Terraform configuration. This flag can be set multiple times.]' \
         '-var-file=[(foo) Set variables in the Terraform configuration from a file. If "terraform.tfvars" or any ".auto.tfvars" files are present, they will be automatically loaded.]'
 }
 
-__console() {
+__terraform_console() {
     _arguments \
         '-state=[(terraform.tfstate) Path to read state.]' \
         '-var[("foo=bar") Set a variable in the Terraform configuration. This flag can be set multiple times.]' \
         '-var-file=[(foo) Set variables in the Terraform configuration from a file. If "terraform.tfvars" or any ".auto.tfvars" files are present, they will be automatically loaded.]'
 }
 
-__destroy() {
+__terraform_destroy() {
     _arguments \
         '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
         '-auto-approve[Skip interactive approval before destroying.]' \
@@ -67,12 +67,12 @@ __destroy() {
         '-refresh=[(true) Update state prior to checking for differences. This has no effect if a plan file is given to apply.]' \
         '-state=[(terraform.tfstate) Path to read and save state (unless state-out is specified).]' \
         '-state-out=[(path) Path to write state to that is different than "-state". This can be used to preserve the old state.]' \
-        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__statelist' \
+        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__terraform_statelist' \
         '-var[("foo=bar") Set a variable in the Terraform configuration. This flag can be set multiple times.]' \
         '-var-file=[(foo) Set variables in the Terraform configuration from a file. If "terraform.tfvars" or any ".auto.tfvars" files are present, they will be automatically loaded.]'
 }
 
-__fmt() {
+__terraform_fmt() {
     _arguments \
         '-list=[(true) List files whose formatting differs (always false if using STDIN)]' \
         '-write=[(true) Write result to source file instead of STDOUT (always false if using STDIN or -check)]' \
@@ -80,20 +80,20 @@ __fmt() {
         '-check=[(false) Check if the input is formatted. Exit status will be 0 if all input is properly formatted and non-zero otherwise.]'
 }
 
-__get() {
+__terraform_get() {
     _arguments \
         '-update=[(false) If true, modules already downloaded will be checked for updates and updated if necessary.]' \
         '-no-color[If specified, output will contain no color.]'
 }
 
-__graph() {
+__terraform_graph() {
     _arguments \
         '-draw-cycles[Highlight any cycles in the graph with colored edges. This helps when diagnosing cycle errors.]' \
         '-no-color[If specified, output will contain no color.]' \
         '-type=[(plan) Type of graph to output. Can be: plan, plan-destroy, apply, validate, input, refresh.]'
 }
 
-__import() {
+__terraform_import() {
     _arguments \
         '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
         '-config=[(path) Path to a directory of Terraform configuration files to use to configure the provider. Defaults to pwd. If no config files are present, they must be provided via the input prompts or env vars.]' \
@@ -109,7 +109,7 @@ __import() {
         '-var-file=[(foo) Set variables in the Terraform configuration from a file. If "terraform.tfvars" or any ".auto.tfvars" files are present, they will be automatically loaded.]'
 }
 
-__init() {
+__terraform_init() {
     _arguments \
         '-backend=[(true) Configure the backend for this configuration.]' \
         '-backend-config=[This can be either a path to an HCL file with key/value assignments (same format as terraform.tfvars) or a 'key=value' format. This is merged with what is in the configuration file. This can be specified multiple times. The backend type must be in the configuration itself.]' \
@@ -127,7 +127,7 @@ __init() {
         '-verify-plugins=[(true) Verify the authenticity and integrity of automatically downloaded plugins.]'
 }
 
-__output() {
+__terraform_output() {
     _arguments \
         '-state=[(path) Path to the state file to read. Defaults to "terraform.tfstate".]' \
         '-no-color[ If specified, output will contain no color.]' \
@@ -135,7 +135,7 @@ __output() {
         '-json[If specified, machine readable output will be printed in JSON format]'
 }
 
-__plan() {
+__terraform_plan() {
     _arguments \
         '-destroy[() If set, a plan will be generated to destroy all resources managed by the given configuration and state.]' \
         '-detailed-exitcode[() Return detailed exit codes when the command exits. This will change the meaning of exit codes to: 0 - Succeeded, diff is empty (no changes); 1 - Errored, 2 - Succeeded; there is a diff]' \
@@ -148,17 +148,17 @@ __plan() {
         '-parallelism=[(10) Limit the number of concurrent operations.]' \
         '-refresh=[(true) Update state prior to checking for differences.]' \
         '-state=[(statefile) Path to a Terraform state file to use to look up Terraform-managed resources. By default it will use the state "terraform.tfstate" if it exists.]' \
-        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__statelist' \
+        '-target=[(resource) Resource to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__terraform_statelist' \
         '-var[("foo=bar") Set a variable in the Terraform configuration. This flag can be set multiple times.]' \
         '-var-file=[(foo) Set variables in the Terraform configuration from a file. If "terraform.tfvars" or any ".auto.tfvars" files are present, they will be automatically loaded.]' \
 }
 
-__providers() {
+__terraform_providers() {
     _arguments \
 
 }
 
-__push() {
+__terraform_push() {
     _arguments \
         '-atlas-address=[(url) An alternate address to an Atlas instance. Defaults to https://atlas.hashicorp.com.]' \
         '-upload-modules=[(true) If true (default), then the modules being used are all locked at their current checkout and uploaded completely to Atlas. This prevents Atlas from running terraform get for you.]' \
@@ -171,7 +171,7 @@ __push() {
         '-vcs=[(true) If true (default), then Terraform will detect if a VCS is in use, such as Git, and will only upload files that are committed to version control. If no version control system is detected, Terraform will upload all files in path (parameter to the command).]'
 }
 
-__refresh() {
+__terraform_refresh() {
     _arguments \
         '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
         '-input=[(true) Ask for input for variables if not directly set.]' \
@@ -180,38 +180,38 @@ __refresh() {
         '-no-color[If specified, output will not contain any color.]' \
         '-state=[(path) Path to read and save state (unless state-out is specified). Defaults to "terraform.tfstate".]' \
         '-state-out=[(path) Path to write state to that is different than "-state". This can be used to preserve the old state.]' \
-        '-target=[(resource) A Resource Address to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__statelist' \
+        '-target=[(resource) A Resource Address to target. Operation will be limited to this resource and its dependencies. This flag can be used multiple times.]:target:__terraform_statelist' \
         '-var[("foo=bar") Set a variable in the Terraform configuration. This flag can be set multiple times.]' \
         '-var-file=[(path) Set variables in the Terraform configuration from a file. If "terraform.tfvars" is present, it will be automatically loaded if this flag is not specified.]'
 }
 
-__show() {
+__terraform_show() {
     _arguments \
         '-module-depth=[(n) The maximum depth to expand modules. By default this is zero, which will not expand modules at all.]' \
         '-no-color[If specified, output will not contain any color.]'
 }
 
-__state() {
-    local -a __state_cmds
-    __state_cmds=(
+__terraform_state() {
+    local -a __terraform_state_cmds
+    __terraform_state_cmds=(
       'list:List resources in the state'
       'mv:Move an item in the state'
       'pull:Pull current state and output to stdout'
       'push:Update remote state from a local state file'
-      'rm:Remove instances from the state' 
+      'rm:Remove instances from the state'
       'show:Show a resource in the state'
     )
-    _describe -t state "state commands" __state_cmds
+    _describe -t state "state commands" __terraform_state_cmds
 }
 
-__state_list() {
+__terraform_state_list() {
   _arguments \
     '-state=[(path) Path to a Terraform state file to use to look up Terraform-managed resources. By default it will use the state "terraform.tfstate" if it exists.]' \
     '-id=[(id) Filters the results to include only instances whose resource types have an attribute named id whose value equals the given id string.]' \
-    "*:address:__statelist" 
+    "*:address:__terraform_statelist"
 }
 
-__state_mv() {
+__terraform_state_mv() {
   _arguments \
     "-dry-run[If set, prints out what would've been moved but doesn't actually move anything.]" \
     "-backup=[(path) Path where Terraform should write the backup for the original state. This can't be disabled. If not set, Terraform will write it to the same path as the statefile with a \".backup\" extension.]:file:_files" \
@@ -221,11 +221,11 @@ __state_mv() {
     '-state=[(path) Path to the source state file. Defaults to the configured backend, or "terraform.tfstate"]:file:_files' \
     "-state-out=[(path) Path to the destination state file to write to. If this isn't specified, the source state file will be used. This can be a new or existing path.]:file:_files" \
     "::" \
-    ":source:__statelist" \
-    ":destination: " 
+    ":source:__terraform_statelist" \
+    ":destination: "
 }
 
-__state_push() {
+__terraform_state_push() {
   _arguments \
     "-force[Write the state even if lineages don't match or the remote serial is higher.]" \
     '-lock=[(true|false) Lock the state file when locking is supported.]:lock:(true false)' \
@@ -234,28 +234,28 @@ __state_push() {
     ":destination:_files"
 }
 
-__state_rm() {
+__terraform_state_rm() {
   _arguments \
     "-dry-run[If set, prints out what would've been removed but doesn't actually remove anything.]" \
     "-backup=[(path) Path where Terraform should write the backup for the original state.]:file:_files" \
     "-lock=[(true|false) Lock the state files when locking is supported.]:lock:(true false)" \
     "-lock-timeout=[(seconds) Duration to retry a state lock.]" \
     '-state=[(path) Path to the state file to update. Defaults to the current workspace state.]:file:_files' \
-    "*:address:__statelist" 
+    "*:address:__terraform_statelist"
 }
 
 
-__state_show() {
+__terraform_state_show() {
   _arguments \
     '-state=[(path) Path to a Terraform state file to use to look up Terraform-managed resources. By default it will use the state "terraform.tfstate" if it exists.]' \
-    "*:address:__statelist" 
+    "*:address:__terraform_statelist"
 }
 
-__statelist() {
+__terraform_statelist() {
   compadd $(terraform state list $opt_args[-state])
 }
 
-__taint() {
+__terraform_taint() {
     _arguments \
         '-allow-missing[If specified, the command will succeed (exit code 0) even if the resource is missing.]' \
         '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
@@ -265,10 +265,10 @@ __taint() {
         '-no-color[If specified, output will not contain any color.]' \
         '-state=[(path) Path to read and save state (unless state-out is  specified). Defaults to "terraform.tfstate".]' \
         '-state-out=[(path) Path to write updated state file. By default, the "-state" path will be used.]' \
-        "*:address:__statelist" 
+        "*:address:__terraform_statelist"
 }
 
-__untaint() {
+__terraform_untaint() {
     _arguments \
     '-allow-missing[If specified, the command will succeed (exit code 0) even if the resource is missing.]' \
     '-backup=[(path) Path to backup the existing state file before modifying. Defaults to the "-state-out" path with ".backup" extension. Set to "-" to disable backup.]' \
@@ -280,7 +280,7 @@ __untaint() {
     '-state-out=[(path) Path to write updated state file. By default, the "-state" path will be used.]'
 }
 
-__validate() {
+__terraform_validate() {
     _arguments \
     '-check-variables=[(true) If set to true (default), the command will check whether all required variables have been specified.]' \
     '-no-color[If specified, output will not contain any color.]' \
@@ -288,71 +288,71 @@ __validate() {
     '-var-file=[(path) Set variables in the Terraform configuration from a file. If "terraform.tfvars" is present, it will be automatically loaded if this flag is not specified.]'
 }
 
-__workspace() {
-    local -a __workspace_cmds
-    __workspace_cmds=(
+__terraform_workspace() {
+    local -a __terraform_workspace_cmds
+    __terraform_workspace_cmds=(
         'delete:Delete a workspace'
         'list:List Workspaces'
         'new:Create a new workspace'
         'select:Select a workspace'
         'show:Show the name of the current workspace'
     )
-    _describe -t workspace "workspace commands" __workspace_cmds
+    _describe -t workspace "workspace commands" __terraform_workspace_cmds
 }
 
 _arguments '*:: :->command'
 
 if (( CURRENT == 1 )); then
-  _describe -t commands "terraform command" _terraform_cmds
+  _describe -t commands "terraform command" __terraform_cmds
   return
 fi
 
 local -a _command_args
 case "$words[1]" in
   0.12upgrade)
-    __012upgrade ;;
+    __terraform_012upgrade ;;
   apply)
-    __apply ;;
+    __terraform_apply ;;
   console)
-    __console;;
+    __terraform_console;;
   destroy)
-    __destroy ;;
+    __terraform_destroy ;;
   fmt)
-    __fmt;;
+    __terraform_fmt;;
   get)
-    __get ;;
+    __terraform_get ;;
   graph)
-    __graph ;;
+    __terraform_graph ;;
   import)
-    __import;;
+    __terraform_import;;
   init)
-    __init ;;
+    __terraform_init ;;
   output)
-    __output ;;
+    __terraform_output ;;
   plan)
-    __plan ;;
+    __terraform_plan ;;
   providers)
-    __providers ;;
+    __terraform_providers ;;
   push)
-    __push ;;
+    __terraform_push ;;
   refresh)
-    __refresh ;;
+    __terraform_refresh ;;
   show)
-    __show ;;
+    __terraform_show ;;
   state)
-    test $CURRENT -lt 3 && __state
-    [[ $words[2] = "list" ]] && __state_list
-    [[ $words[2] = "mv" ]] && __state_mv
-    [[ $words[2] = "push" ]] && __state_push
-    [[ $words[2] = "rm" ]] && __state_rm
-    [[ $words[2] = "show" ]] && __state_show
+    test $CURRENT -lt 3 && __terraform_state
+    [[ $words[2] = "list" ]] && __terraform_state_list
+    [[ $words[2] = "mv" ]] && __terraform_state_mv
+    [[ $words[2] = "push" ]] && __terraform_state_push
+    [[ $words[2] = "rm" ]] && __terraform_state_rm
+    [[ $words[2] = "show" ]] && __terraform_state_show
     ;;
   taint)
-    __taint ;;
+    __terraform_taint ;;
   untaint)
-    __untaint ;;
+    __terraform_untaint ;;
   validate)
-    __validate ;;
+    __terraform_validate ;;
   workspace)
-    test $CURRENT -lt 3 && __workspace ;;
+    test $CURRENT -lt 3 && __terraform_workspace ;;
 esac
