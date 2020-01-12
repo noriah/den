@@ -26,6 +26,33 @@ function _zash_plugin() {
   fi
 }
 
+function _zash_do() {
+  local action
+
+  action="$1"
+
+  case "$action" in
+    "compinit")
+      _zash_do_compinit
+      ;;
+
+    "autoload")
+      _zash_do_autoload
+      ;;
+
+    *)
+      return
+      ;;
+  esac
+}
+
+function _zash_do_autoload() {
+  autoload -Uz compinit
+}
+
+function _zash_do_compinit() {
+  compinit -C -d "${ZSH_COMP_FILE}"
+}
 
 function zash() {
   local action
@@ -47,6 +74,10 @@ function zash() {
       _zash_plugin "$item"
       ;;
 
+    "do")
+      _zash_do "$item"
+      ;;
+
     *)
       return
       ;;
@@ -54,7 +85,7 @@ function zash() {
 }
 
 function _zash_compinit () {
-  autoload -Uz compinit; compinit -C -d "${ZSH_COMP_FILE}";
+  compinit -C -d "${ZSH_COMP_FILE}"
   add-zsh-hook -D precmd _zash_compinit
 }
 

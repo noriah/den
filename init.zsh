@@ -13,8 +13,6 @@ ZSH_PLUGIN_DIR="${ZSH_DIR}/plugins"
 
 EDITOR=vi
 
-WORKSPACE_DIR="$HOME/workspace"
-
 CORP_KEY=${CORP_KEY:-corp}
 
 # Zash
@@ -38,9 +36,13 @@ env_default 'LESS' '-R'
 # Plugins
 zash plugin osx
 zash plugin spotify
+zash plugin terraform
 zash plugin todo
 zash plugin z
 
 # Theme
 zash library p10k
 
+# Zash stuff
+zash do autoload
+zash do compinit
