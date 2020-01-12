@@ -62,6 +62,9 @@
       rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
       rvm                     # ruby version from rvm (https://rvm.io)
       fvm                     # flutter version management (https://github.com/leoafarias/fvm)
+      luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
+      jenv                    # java version from jenv (https://github.com/jenv/jenv)
+      plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
       kubecontext             # current kubernetes context (https://kubernetes.io/)
       terraform               # terraform workspace (https://www.terraform.io)
       aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
@@ -72,12 +75,14 @@
       context                 # user@hostname
       nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
       ranger                  # ranger shell (https://github.com/ranger/ranger)
+      nnn                     # nnn shell (https://github.com/jarun/nnn)
       vim_shell               # vim shell indicator (:sh)
       # midnight_commander    # midnight commander shell (https://midnight-commander.org/)
       vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
       # vpn_ip                # virtual private network indicator
       # ram                   # free RAM
       # load                  # CPU load
+      todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
       # time                  # current time
       # =========================[ Line #2 ]=========================
       newline
@@ -526,6 +531,13 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_RANGER_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
+  ######################[ nnn: nnn shell (https://github.com/jarun/nnn) ]#######################
+  # Nnn shell color.
+  # typeset -g POWERLEVEL9K_NNN_FOREGROUND=0
+  # typeset -g POWERLEVEL9K_NNN_BACKGROUND=6
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_NNN_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
   ###########################[ vim_shell: vim shell indicator (:sh) ]###########################
   # Vim shell indicator color.
   # typeset -g POWERLEVEL9K_VIM_SHELL_FOREGROUND=0
@@ -577,6 +589,31 @@
   # typeset -g POWERLEVEL9K_LOAD_CRITICAL_BACKGROUND=1
   # Custom icon.
   # typeset -g POWERLEVEL9K_LOAD_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  ################[ todo: todo items (https://github.com/todotxt/todo.txt-cli) ]################
+  # Todo color.
+  # typeset -g POWERLEVEL9K_TODO_FOREGROUND=0
+  # typeset -g POWERLEVEL9K_TODO_BACKGROUND=8
+  # Hide todo when the total number of tasks is zero.
+  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=true
+  # Hide todo when the number of tasks after filtering is zero.
+  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
+
+  # Todo format. The following parameters are available within the expansion.
+  #
+  # - P9K_TODO_TOTAL_TASK_COUNT     The total number of tasks.
+  # - P9K_TODO_FILTERED_TASK_COUNT  The number of tasks after filtering.
+  #
+  # These variables correspond to the last line of the output of `todo.sh -p ls`:
+  #
+  #   TODO: 24 of 42 tasks shown
+  #
+  # Here 24 is P9K_TODO_FILTERED_TASK_COUNT and 42 is P9K_TODO_TOTAL_TASK_COUNT.
+  #
+  # typeset -g POWERLEVEL9K_TODO_CONTENT_EXPANSION='$P9K_TODO_FILTERED_TASK_COUNT'
+
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   ##################################[ context: user@hostname ]##################################
   # Context color when running with privileges.
@@ -740,6 +777,42 @@
   # Custom icon.
   # typeset -g POWERLEVEL9K_FVM_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
+  ##########[ luaenv: lua version from luaenv (https://github.com/cehoffman/luaenv) ]###########
+  # Lua color.
+  # typeset -g POWERLEVEL9K_LUAENV_FOREGROUND=0
+  # typeset -g POWERLEVEL9K_LUAENV_BACKGROUND=4
+  # Hide lua version if it doesn't come from one of these sources.
+  typeset -g POWERLEVEL9K_LUAENV_SOURCES=(shell local global)
+  # If set to false, hide lua version if it's the same as global:
+  # $(luaenv version-name) == $(luaenv global).
+  typeset -g POWERLEVEL9K_LUAENV_PROMPT_ALWAYS_SHOW=false
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_LUAENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  ###############[ jenv: java version from jenv (https://github.com/jenv/jenv) ]################
+  # Java color.
+  # typeset -g POWERLEVEL9K_JENV_FOREGROUND=1
+  # typeset -g POWERLEVEL9K_JENV_BACKGROUND=7
+  # Hide java version if it doesn't come from one of these sources.
+  typeset -g POWERLEVEL9K_JENV_SOURCES=(shell local global)
+  # If set to false, hide java version if it's the same as global:
+  # $(jenv version-name) == $(jenv global).
+  typeset -g POWERLEVEL9K_JENV_PROMPT_ALWAYS_SHOW=false
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_JENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  ###########[ plenv: perl version from plenv (https://github.com/tokuhirom/plenv) ]############
+  # Perl color.
+  # typeset -g POWERLEVEL9K_PLENV_FOREGROUND=0
+  # typeset -g POWERLEVEL9K_PLENV_BACKGROUND=4
+  # Hide perl version if it doesn't come from one of these sources.
+  typeset -g POWERLEVEL9K_PLENV_SOURCES=(shell local global)
+  # If set to false, hide perl version if it's the same as global:
+  # $(plenv version-name) == $(plenv global).
+  typeset -g POWERLEVEL9K_PLENV_PROMPT_ALWAYS_SHOW=false
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_PLENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
   ################[ terraform: terraform workspace (https://www.terraform.io) ]#################
   # Terraform color.
   # typeset -g POWERLEVEL9K_TERRAFORM_FOREGROUND=4
@@ -812,17 +885,46 @@
   # typeset -g POWERLEVEL9K_GCLOUD_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   #[ google_app_cred: google application credentials (https://cloud.google.com/docs/authentication/production) ]#
-  # Default google application credentials color.
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_FOREGROUND=7
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_BACKGROUND=4
-  # Google application credentials color for service accounts.
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_SERVICE_ACCOUNT_FOREGROUND=7
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_SERVICE_ACCOUNT_BACKGROUND=4
+  # Google application credentials classes for the purpose of using different colors, icons and
+  # expansions with different credentials.
+  #
+  # POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES is an array with even number of elements. The first
+  # element in each pair defines a pattern against which the current kubernetes context gets
+  # matched. More specifically, it's P9K_CONTENT prior to the application of context expansion
+  # (see below) that gets matched. If you unset all POWERLEVEL9K_GOOGLE_APP_CRED_*CONTENT_EXPANSION
+  # parameters, you'll see this value in your prompt. The second element of each pair in
+  # POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES defines the context class. Patterns are tried in order.
+  # The first match wins.
+  #
+  # For example, given these settings:
+  #
+  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES=(
+  #     '*:*prod*:*'  PROD
+  #     '*:*test*:*'  TEST
+  #     '*'           DEFAULT)
+  #
+  # If your current Google application credentials is "service_account deathray-testing x@y.com",
+  # its class is TEST because it doesn't match the pattern '* *prod* *' but does match '* *test* *'.
+  #
+  # You can define different colors, icons and content expansions for different classes:
+  #
+  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_FOREGROUND=28
+  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  #   typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_TEST_CONTENT_EXPANSION='$P9K_GOOGLE_APP_CRED_PROJECT_ID'
+  typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES=(
+      # '*:*prod*:*'  PROD    # These values are examples that are unlikely
+      # '*:*test*:*'  TEST    # to match your needs. Customize them as needed.
+      '*'             DEFAULT)
+  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_FOREGROUND=7
+  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_BACKGROUND=4
+  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
-  # Google application credentials format. Uncomment POWERLEVEL9K_GOOGLE_APP_CRED_CONTENT_EXPANSION
-  # and edit its value if the default is too verbose. You can use the following parameters in the
-  # expansion. Each of them corresponds to one of the fields in the JSON file pointed to by
-  # GOOGLE_APPLICATION_CREDENTIALS.
+  # Use POWERLEVEL9K_GOOGLE_APP_CRED_CONTENT_EXPANSION to specify the content displayed by
+  # google_app_cred segment. Parameter expansions are very flexible and fast, too. See reference:
+  # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion.
+  #
+  # You can use the following parameters in the expansion. Each of them corresponds to one of the
+  # fields in the JSON file pointed to by GOOGLE_APPLICATION_CREDENTIALS.
   #
   #   Parameter                        | JSON key file field
   #   ---------------------------------+---------------
@@ -830,18 +932,8 @@
   #   P9K_GOOGLE_APP_CRED_PROJECT_ID   | project_id
   #   P9K_GOOGLE_APP_CRED_CLIENT_EMAIL | client_email
   #
-  # Note: ${VARIABLE%%.*} expands to ${VARIABLE} up to but not including the first period ('.').
-  # Note: ${VARIABLE//\%/%%} expands to ${VARIABLE} with all occurences of '%' replaced with '%%'.
-  #
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_CONTENT_EXPANSION='${${P9K_GOOGLE_APP_CRED_CLIENT_EMAIL%%.*}//\%/%%}'
-  #
-  # You can also define content expansion specifically for service accounts by defining
-  # POWERLEVEL9K_GOOGLE_APP_CRED_SERVICE_ACCOUNT_CONTENT_EXPANSION.
-
-  # Default google application credentials icon.
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  # Google application credentials icon for service accounts.
-  # typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_SERVICE_ACCOUNT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  # Note: ${VARIABLE//\%/%%} expands to ${VARIABLE} with all occurences of '%' replaced by '%%'.
+  typeset -g POWERLEVEL9K_GOOGLE_APP_CRED_DEFAULT_CONTENT_EXPANSION='${P9K_GOOGLE_APP_CRED_PROJECT_ID//\%/%%}'
 
   #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
   # Kubernetes context classes for the purpose of using different colors, icons and expansions with

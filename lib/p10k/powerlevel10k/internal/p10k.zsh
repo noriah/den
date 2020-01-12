@@ -468,7 +468,7 @@ _p9k_escape_style() {
 }
 
 _p9k_escape() {
-  [[ $1 == *["~!#\$^&*()\\\"'<>?{}[]"]* ]] && _p9k_ret="\${(Q)\${:-${(qqq)${(q)1}}}}" || _p9k_ret=$1
+  [[ $1 == *["~!#\`\$^&*()\\\"'<>?{}[]"]* ]] && _p9k_ret="\${(Q)\${:-${(qqq)${(q)1}}}}" || _p9k_ret=$1
 }
 
 # * $1: Name of the function that was originally invoked.
@@ -1496,7 +1496,7 @@ prompt_dir() {
           if [[ $pair == ${mtime:-x}:* ]]; then
             parts[i]=${pair#*:}
           else
-            [[ $sub != *["~!#\$^&*()\\\"'<>?{}[]"]* ]]
+            [[ $sub != *["~!#\`\$^&*()\\\"'<>?{}[]"]* ]]
             local -i q=$?
             if [[ -n $_POWERLEVEL9K_SHORTEN_FOLDER_MARKER &&
                   -n $parent/$sub/${~_POWERLEVEL9K_SHORTEN_FOLDER_MARKER}(#qN) ]]; then
@@ -1525,7 +1525,7 @@ prompt_dir() {
           parent+=/$sub
         done
         for ((; i <= $#parts; ++i)); do
-          [[ $parts[i] == *["~!#\$^&*()\\\"'<>?{}[]"]* ]] && parts[i]='${(Q)${:-'${(qqq)${(q)parts[i]}}'}}'
+          [[ $parts[i] == *["~!#\`\$^&*()\\\"'<>?{}[]"]* ]] && parts[i]='${(Q)${:-'${(qqq)${(q)parts[i]}}'}}'
           parts[i]+=$'\2'
         done
         [[ -n $key ]] && _p9k_cache_ephemeral_set "$key" "${parts[@]}"
@@ -2157,6 +2157,147 @@ prompt_rbenv() {
   _p9k_prompt_segment "$0" "red" "$_p9k_color1" 'RUBY_ICON' 0 '' "${v//\%/%%}"
 }
 
+function _p9k_read_luaenv_version_file() {
+  [[ -r $1 ]] || return
+  local rest
+  read _p9k_ret rest <$1 2>/dev/null
+  [[ -n $_p9k_ret ]]
+}
+
+function _p9k_luaenv_global_version() {
+  _p9k_read_luaenv_version_file ${LUAENV_ROOT:-$HOME/.luaenv}/version || _p9k_ret=system
+}
+
+################################################################
+# Segment to display luaenv information
+# https://github.com/cehoffman/luaenv
+prompt_luaenv() {
+  (( $+commands[luaenv] || $+functions[luaenv] )) || return
+  if [[ -n $LUAENV_VERSION ]]; then
+    (( ${_POWERLEVEL9K_LUAENV_SOURCES[(I)shell]} )) || return
+    local v=$LUAENV_VERSION
+  else
+    (( ${_POWERLEVEL9K_LUAENV_SOURCES[(I)local|global]} )) || return
+    [[ $LUAENV_DIR == /* ]] && local dir=$LUAENV_DIR || local dir="$_p9k_pwd_a/$LUAENV_DIR"
+    while true; do
+      if _p9k_read_luaenv_version_file $dir/.lua-version; then
+        (( ${_POWERLEVEL9K_LUAENV_SOURCES[(I)local]} )) || return
+        local v=$_p9k_ret
+        break
+      fi
+      if [[ $dir == / ]]; then
+        (( _POWERLEVEL9K_LUAENV_PROMPT_ALWAYS_SHOW )) || return
+        (( ${_POWERLEVEL9K_LUAENV_SOURCES[(I)global]} )) || return
+        _p9k_luaenv_global_version
+        local v=$_p9k_ret
+        break
+      fi
+      dir=${dir:h}
+    done
+  fi
+
+  if (( !_POWERLEVEL9K_LUAENV_PROMPT_ALWAYS_SHOW )); then
+    _p9k_luaenv_global_version
+    [[ $v == $_p9k_ret ]] && return
+  fi
+
+  _p9k_prompt_segment "$0" blue "$_p9k_color1" 'LUA_ICON' 0 '' "${v//\%/%%}"
+}
+
+function _p9k_read_jenv_version_file() {
+  [[ -r $1 ]] || return
+  local rest
+  read _p9k_ret rest <$1 2>/dev/null
+  [[ -n $_p9k_ret ]]
+}
+
+function _p9k_jenv_global_version() {
+  _p9k_read_jenv_version_file ${JENV_ROOT:-$HOME/.jenv}/version || _p9k_ret=system
+}
+
+function _p9k_read_plenv_version_file() {
+  [[ -r $1 ]] || return
+  local rest
+  read _p9k_ret rest <$1 2>/dev/null
+  [[ -n $_p9k_ret ]]
+}
+
+function _p9k_plenv_global_version() {
+  _p9k_read_plenv_version_file ${PLENV_ROOT:-$HOME/.plenv}/version || _p9k_ret=system
+}
+
+################################################################
+# Segment to display plenv information
+# https://github.com/plenv/plenv#choosing-the-perl-version
+prompt_plenv() {
+  (( $+commands[plenv] || $+functions[plenv] )) || return
+  if [[ -n $PLENV_VERSION ]]; then
+    (( ${_POWERLEVEL9K_PLENV_SOURCES[(I)shell]} )) || return
+    local v=$PLENV_VERSION
+  else
+    (( ${_POWERLEVEL9K_PLENV_SOURCES[(I)local|global]} )) || return
+    [[ $PLENV_DIR == /* ]] && local dir=$PLENV_DIR || local dir="$_p9k_pwd_a/$PLENV_DIR"
+    while true; do
+      if _p9k_read_plenv_version_file $dir/.perl-version; then
+        (( ${_POWERLEVEL9K_PLENV_SOURCES[(I)local]} )) || return
+        local v=$_p9k_ret
+        break
+      fi
+      if [[ $dir == / ]]; then
+        (( _POWERLEVEL9K_PLENV_PROMPT_ALWAYS_SHOW )) || return
+        (( ${_POWERLEVEL9K_PLENV_SOURCES[(I)global]} )) || return
+        _p9k_plenv_global_version
+        local v=$_p9k_ret
+        break
+      fi
+      dir=${dir:h}
+    done
+  fi
+
+  if (( !_POWERLEVEL9K_PLENV_PROMPT_ALWAYS_SHOW )); then
+    _p9k_plenv_global_version
+    [[ $v == $_p9k_ret ]] && return
+  fi
+
+  _p9k_prompt_segment "$0" "blue" "$_p9k_color1" 'PERL_ICON' 0 '' "${v//\%/%%}"
+}
+
+################################################################
+# Segment to display jenv information
+# https://github.com/jenv/jenv
+prompt_jenv() {
+  (( $+commands[jenv] || $+functions[jenv] )) || return
+  if [[ -n $JENV_VERSION ]]; then
+    (( ${_POWERLEVEL9K_JENV_SOURCES[(I)shell]} )) || return
+    local v=$JENV_VERSION
+  else
+    (( ${_POWERLEVEL9K_JENV_SOURCES[(I)local|global]} )) || return
+    [[ $JENV_DIR == /* ]] && local dir=$JENV_DIR || local dir="$_p9k_pwd_a/$JENV_DIR"
+    while true; do
+      if _p9k_read_jenv_version_file $dir/.java-version; then
+        (( ${_POWERLEVEL9K_JENV_SOURCES[(I)local]} )) || return
+        local v=$_p9k_ret
+        break
+      fi
+      if [[ $dir == / ]]; then
+        (( _POWERLEVEL9K_JENV_PROMPT_ALWAYS_SHOW )) || return
+        (( ${_POWERLEVEL9K_JENV_SOURCES[(I)global]} )) || return
+        _p9k_jenv_global_version
+        local v=$_p9k_ret
+        break
+      fi
+      dir=${dir:h}
+    done
+  fi
+
+  if (( !_POWERLEVEL9K_JENV_PROMPT_ALWAYS_SHOW )); then
+    _p9k_jenv_global_version
+    [[ $v == $_p9k_ret ]] && return
+  fi
+
+  _p9k_prompt_segment "$0" white red 'JAVA_ICON' 0 '' "${v//\%/%%}"
+}
+
 ################################################################
 # Segment to display chruby information
 # see https://github.com/postmodern/chruby/issues/245 for chruby_auto issue with ZSH
@@ -2471,7 +2612,15 @@ prompt_todo() {
   (( $_p9k_cache_val[1] )) || return
   typeset -gi P9K_TODO_FILTERED_TASK_COUNT=$_p9k_cache_val[2]
   typeset -gi P9K_TODO_TOTAL_TASK_COUNT=$_p9k_cache_val[3]
-  _p9k_prompt_segment "$0" "grey50" "$_p9k_color1" 'TODO_ICON' 0 '' "$P9K_TODO_TOTAL_TASK_COUNT"
+  if (( (P9K_TODO_TOTAL_TASK_COUNT    || !_POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL) &&
+        (P9K_TODO_FILTERED_TASK_COUNT || !_POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED) )); then
+    if (( P9K_TODO_TOTAL_TASK_COUNT == P9K_TODO_FILTERED_TASK_COUNT )); then
+      local text=$P9K_TODO_TOTAL_TASK_COUNT
+    else
+      local text="$P9K_TODO_FILTERED_TASK_COUNT/$P9K_TODO_TOTAL_TASK_COUNT"
+    fi
+    _p9k_prompt_segment "$0" "grey50" "$_p9k_color1" 'TODO_ICON' 0 '' "$text"
+  fi
 }
 
 ################################################################
@@ -3397,7 +3546,15 @@ prompt_google_app_cred() {
     local -a lines
     local q='[.type//"", .project_id//"", .client_email//"", 0][]'
     if lines=("${(@f)$(jq -r $q <$GOOGLE_APPLICATION_CREDENTIALS 2>/dev/null)}") && (( $#lines == 4 )); then
-      _p9k_cache_stat_set 1 "${(@)lines[1,-2]}"
+      local text="${(j.:.)lines[1,-2]}"
+      local pat class state
+      for pat class in "${_POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES[@]}"; do
+        if [[ $text == ${~pat} ]]; then
+          [[ -n $class ]] && state=_${(U)class}
+          break
+        fi
+      done
+      _p9k_cache_stat_set 1 "${(@)lines[1,-2]}" "$text" "$state"
     else
       _p9k_cache_stat_set 0
     fi
@@ -3407,9 +3564,7 @@ prompt_google_app_cred() {
   P9K_GOOGLE_APP_CRED_TYPE=$_p9k_cache_val[2]
   P9K_GOOGLE_APP_CRED_PROJECT_ID=$_p9k_cache_val[3]
   P9K_GOOGLE_APP_CRED_CLIENT_EMAIL=$_p9k_cache_val[4]
-
-  [[ -n $P9K_GOOGLE_APP_CRED_TYPE ]] && local state=_${(U)P9K_GOOGLE_APP_CRED_TYPE} || local state
-  _p9k_prompt_segment "$0$state" "blue" "white" "GCLOUD_ICON" 0 '' "${${P9K_GOOGLE_APP_CRED_CLIENT_EMAIL%%.*}//\%/%%}"
+  _p9k_prompt_segment "$0$_p9k_cache_val[6]" "blue" "white" "GCLOUD_ICON" 0 '' "$_p9k_cache_val[5]"
 }
 
 typeset -gra __p9k_nordvpn_tag=(
@@ -3529,6 +3684,15 @@ function prompt_midnight_commander() {
 
 function instant_prompt_midnight_commander() {
   _p9k_prompt_segment prompt_midnight_commander $_p9k_color1 yellow MIDNIGHT_COMMANDER_ICON 0 '$MC_TMPDIR' ''
+}
+
+function prompt_nnn() {
+  [[ $NNNLVL == (0|) ]] && return
+  _p9k_prompt_segment $0 6 $_p9k_color1 NNN_ICON 0 '' $NNNLVL
+}
+
+function instant_prompt_nnn() {
+  _p9k_prompt_segment prompt_nnn 6 $_p9k_color1 NNN_ICON 1 '${NNNLVL:#0}' '$NNNLVL'
 }
 
 function prompt_vim_shell() {
@@ -3741,7 +3905,7 @@ _p9k_set_instant_prompt() {
   RPROMPT=$saved_rprompt
 }
 
-typeset -gri __p9k_instant_prompt_version=13
+typeset -gri __p9k_instant_prompt_version=14
 
 _p9k_dump_instant_prompt() {
   local user=${(%):-%n}
@@ -3967,6 +4131,7 @@ _p9k_dump_instant_prompt() {
     precmd_functions=(${(@)precmd_functions:#_p9k_instant_prompt_precmd_first})
   }
   precmd_functions=(_p9k_instant_prompt_precmd_first $precmd_functions)
+  DISABLE_UPDATE_PROMPT=true
 } && unsetopt prompt_cr prompt_sp || true'
     } always {
       exec {fd}>&-
@@ -4109,47 +4274,53 @@ function _p9k_clear_instant_prompt() {
       local cr=$'\r'
       local sp="${(%):-%b%k%f%s%u$mark${(pl.$fill.. .)}$cr%b%k%f%s%u%E}"
       print -rn -- $terminfo[rc]${(%):-%b%k%f%s%u}$terminfo[ed]
-      if [[ -n ${(S)content//$'\e'*($'\a'|$'\e\\')} ]]; then
-        echo -E - ""
-        echo -E - "${(%):-[%3FWARNING%f]: Console output during zsh initialization detected.}"
-        echo -E - ""
-        echo -E - "${(%):-When using Powerlevel10k with instant prompt, console output during zsh}"
-        echo -E - "${(%):-initialization may indicate issues.}"
-        echo -E - ""
-        echo -E - "${(%):-You can:}"
-        echo -E - ""
-        echo -E - "${(%):-  - %BRecommended%b: Change %B$__p9k_zshrc_u%b so that it does not perform console I/O}"
-        echo -E - "${(%):-    after the instant prompt preamble. See the link below for details.}"
-        echo -E - ""
-        echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
-        echo -E - "${(%):-    * Zsh will start %Bquickly%b and prompt will update %Bsmoothly%b.}"
-        echo -E - ""
-        echo -E - "${(%):-  - Suppress this warning either by running %Bp10k configure%b or by manually}"
-        echo -E - "${(%):-    defining the following parameter:}"
-        echo -E - ""
-        echo -E - "${(%):-      %3Ftypeset%f -g POWERLEVEL9K_INSTANT_PROMPT=quiet}"
-        echo -E - ""
-        echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
-        echo -E - "${(%):-    * Zsh will start %Bquickly%b but prompt will %Bjump down%b after initialization.}"
-        echo -E - ""
-        echo -E - "${(%):-  - Disable instant prompt either by running %Bp10k configure%b or by manually}"
-        echo -E - "${(%):-    defining the following parameter:}"
-        echo -E - ""
-        echo -E - "${(%):-      %3Ftypeset%f -g POWERLEVEL9K_INSTANT_PROMPT=off}"
-        echo -E - ""
-        echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
-        echo -E - "${(%):-    * Zsh will start %Bslowly%b.}"
-        echo -E - ""
-        echo -E - "${(%):-  - Do nothing.}"
-        echo -E - ""
-        echo -E - "${(%):-    * You %Bwill%b see this error message every time you start zsh.}"
-        echo -E - "${(%):-    * Zsh will start %Bquickly%b but prompt will %Bjump down%b after initialization.}"
-        echo -E - ""
-        echo -E - "${(%):-For details, see:}"
-        echo    - "${(%):-\e]8;;https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt\ahttps://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt\e]8;;\a}"
-        echo -E - ""
-        echo    - "${(%):-%3F-- console output produced during zsh initialization follows --%f}"
-        echo -E - ""
+      local unexpected=${(S)content//$'\e'*($'\a'|$'\e\\')}
+      if [[ -n $unexpected ]]; then
+        local omz1='[Oh My Zsh] Would you like to update? [Y/n]: '
+        local omz2='Updating Oh My Zsh'
+        local omz3='https://shop.planetargon.com/collections/oh-my-zsh'
+        if [[ -n ${${unexpected/$omz1}/$omz2*$omz3($'\n'|)} ]]; then
+          echo -E - ""
+          echo -E - "${(%):-[%3FWARNING%f]: Console output during zsh initialization detected.}"
+          echo -E - ""
+          echo -E - "${(%):-When using Powerlevel10k with instant prompt, console output during zsh}"
+          echo -E - "${(%):-initialization may indicate issues.}"
+          echo -E - ""
+          echo -E - "${(%):-You can:}"
+          echo -E - ""
+          echo -E - "${(%):-  - %BRecommended%b: Change %B$__p9k_zshrc_u%b so that it does not perform console I/O}"
+          echo -E - "${(%):-    after the instant prompt preamble. See the link below for details.}"
+          echo -E - ""
+          echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
+          echo -E - "${(%):-    * Zsh will start %Bquickly%b and prompt will update %Bsmoothly%b.}"
+          echo -E - ""
+          echo -E - "${(%):-  - Suppress this warning either by running %Bp10k configure%b or by manually}"
+          echo -E - "${(%):-    defining the following parameter:}"
+          echo -E - ""
+          echo -E - "${(%):-      %3Ftypeset%f -g POWERLEVEL9K_INSTANT_PROMPT=quiet}"
+          echo -E - ""
+          echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
+          echo -E - "${(%):-    * Zsh will start %Bquickly%b but prompt will %Bjump down%b after initialization.}"
+          echo -E - ""
+          echo -E - "${(%):-  - Disable instant prompt either by running %Bp10k configure%b or by manually}"
+          echo -E - "${(%):-    defining the following parameter:}"
+          echo -E - ""
+          echo -E - "${(%):-      %3Ftypeset%f -g POWERLEVEL9K_INSTANT_PROMPT=off}"
+          echo -E - ""
+          echo -E - "${(%):-    * You %Bwill not%b see this error message again.}"
+          echo -E - "${(%):-    * Zsh will start %Bslowly%b.}"
+          echo -E - ""
+          echo -E - "${(%):-  - Do nothing.}"
+          echo -E - ""
+          echo -E - "${(%):-    * You %Bwill%b see this error message every time you start zsh.}"
+          echo -E - "${(%):-    * Zsh will start %Bquickly%b but prompt will %Bjump down%b after initialization.}"
+          echo -E - ""
+          echo -E - "${(%):-For details, see:}"
+          echo    - "${(%):-\e]8;;https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt\ahttps://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt\e]8;;\a}"
+          echo -E - ""
+          echo    - "${(%):-%3F-- console output produced during zsh initialization follows --%f}"
+          echo -E - ""
+        fi
       fi
       cat $__p9k_instant_prompt_output
       echo -nE - $sp
@@ -4263,6 +4434,7 @@ function _p9k_on_expand() {
       fi
     fi
 
+    _p9k__last_tty=$P9K_TTY
     __p9k_reset_state=1
 
     if (( _POWERLEVEL9K_PROMPT_ADD_NEWLINE )); then
@@ -4300,14 +4472,16 @@ function _p9k_on_expand() {
     __p9k_reset_state=0
     P9K_TTY=old
 
-    [[ $_p9k__display_v[2] == print ]] && print -rn -- $_p9k_t[_p9k_empty_line_idx]
-    if [[ $_p9k__display_v[4] == print ]]; then
-      local ruler=$_p9k_t[_p9k_ruler_idx]
-      () {
-        (( __p9k_ksh_arrays )) && setopt ksh_arrays
-        (( __p9k_sh_glob )) && setopt sh_glob
-        print -rnP -- $ruler
-      }
+    if ! zle; then
+      [[ $_p9k__display_v[2] == print ]] && print -rn -- $_p9k_t[_p9k_empty_line_idx]
+      if [[ $_p9k__display_v[4] == print ]]; then
+        local ruler=$_p9k_t[_p9k_ruler_idx]
+        () {
+          (( __p9k_ksh_arrays )) && setopt ksh_arrays
+          (( __p9k_sh_glob )) && setopt sh_glob
+          print -rnP -- $ruler
+        }
+      fi
     fi
   }
 
@@ -4332,6 +4506,7 @@ _p9k_precmd_impl() {
       _p9k__expanded=1
     else
       _p9k__expanded=0
+      _p9k__must_restore_prompt=0
     fi
 
     if (( $+_p9k_real_zle_rprompt_indent )); then
@@ -4407,8 +4582,9 @@ _p9k_trapint() {
   if (( __p9k_enabled )); then
     emulate -L zsh
     setopt no_hist_expand extended_glob no_prompt_bang prompt_{percent,subst}
-    _p9k_zle_line_finish
+    zle && _p9k_zle_line_finish int
   fi
+  return 0
 }
 
 _p9k_precmd() {
@@ -4629,6 +4805,9 @@ typeset -g  _p9k__param_pat
 typeset -g  _p9k__param_sig
 
 _p9k_init_vars() {
+  typeset -g  _p9k__last_tty
+  typeset -gi _p9k__must_restore_prompt
+  typeset -gi _p9k__restore_prompt_fd
   typeset -gi _p9k__can_hide_cursor=$(( $+terminfo[civis] && $+terminfo[cnorm] ))
   typeset -gi _p9k__cursor_hidden
   typeset -gi _p9k__instant_prompt_disabled
@@ -4769,6 +4948,8 @@ _p9k_init_params() {
   _p9k_declare -s POWERLEVEL9K_TRANSIENT_PROMPT off
   [[ $_POWERLEVEL9K_TRANSIENT_PROMPT == (off|always|same-dir) ]] || _POWERLEVEL9K_TRANSIENT_PROMPT=off
 
+  _p9k_declare -b POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL 0
+  _p9k_declare -b POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED 0
   _p9k_declare -b POWERLEVEL9K_DISABLE_HOT_RELOAD 0
   _p9k_declare -F POWERLEVEL9K_NEW_TTY_MAX_AGE_SECONDS 5
   _p9k_declare -i POWERLEVEL9K_INSTANT_PROMPT_COMMAND_LINES 1
@@ -4920,6 +5101,12 @@ _p9k_init_params() {
   _p9k_declare -b POWERLEVEL9K_RUST_VERSION_PROJECT_ONLY 1
   _p9k_declare -b POWERLEVEL9K_RBENV_PROMPT_ALWAYS_SHOW 0
   _p9k_declare -a POWERLEVEL9K_RBENV_SOURCES -- shell local global
+  _p9k_declare -b POWERLEVEL9K_LUAENV_PROMPT_ALWAYS_SHOW 0
+  _p9k_declare -a POWERLEVEL9K_LUAENV_SOURCES -- shell local global
+  _p9k_declare -b POWERLEVEL9K_JENV_PROMPT_ALWAYS_SHOW 0
+  _p9k_declare -a POWERLEVEL9K_JENV_SOURCES -- shell local global
+  _p9k_declare -b POWERLEVEL9K_PLENV_PROMPT_ALWAYS_SHOW 0
+  _p9k_declare -a POWERLEVEL9K_PLENV_SOURCES -- shell local global
   _p9k_declare -b POWERLEVEL9K_RVM_SHOW_GEMSET 0
   _p9k_declare -b POWERLEVEL9K_RVM_SHOW_PREFIX 0
   _p9k_declare -b POWERLEVEL9K_CHRUBY_SHOW_VERSION 1
@@ -5008,6 +5195,7 @@ _p9k_init_params() {
   #   POWERLEVEL9K_KUBECONTEXT_OTHER_BACKGROUND=yellow
   _p9k_declare -a POWERLEVEL9K_KUBECONTEXT_CLASSES --
   _p9k_declare -a POWERLEVEL9K_AWS_CLASSES --
+  _p9k_declare -a POWERLEVEL9K_GOOGLE_APP_CRED_CLASSES -- 'service_account:*' SERVICE_ACCOUNT
   # Specifies the format of java version.
   #
   #   POWERLEVEL9K_JAVA_VERSION_FULL=true  => 1.8.0_212-8u212-b03-0ubuntu1.18.04.1-b03
@@ -5083,7 +5271,32 @@ function _p9k_zle_line_init() {
   echoti cnorm
 }
 
+function _p9k_restore_prompt() {
+  emulate -L zsh
+  setopt no_hist_expand extended_glob no_prompt_bang prompt_{percent,subst}
+  {
+    (( _p9k__must_restore_prompt )) || return
+    _p9k__must_restore_prompt=0
+
+    unset _p9k__line_finished
+    _p9k_refresh_reason=restore
+    _p9k_set_prompt
+    _p9k_refresh_reason=
+
+    local tty=$P9K_TTY
+    P9K_TTY=$_p9k__last_tty
+    _p9k__expanded=0
+    _p9k_reset_prompt
+    P9K_TTY=$tty
+  } always {
+    zle -F $1
+    exec {1}>&-
+    _p9k__restore_prompt_fd=0
+  }
+}
+
 function _p9k_zle_line_finish() {
+  [[ -z $1 && $CONTEXT != start ]] && _p9k__must_restore_prompt=0
   (( $+_p9k__line_finished )) && return
 
   _p9k__line_finished=
@@ -5109,7 +5322,14 @@ function _p9k_zle_line_finish() {
   fi
 
   if (( reset )); then
-    if zle && (( $+termcap[up] )); then
+    if [[ $1 == int ]]; then
+      _p9k__must_restore_prompt=1
+      if (( !_p9k__restore_prompt_fd )); then
+        exec {_p9k__restore_prompt_fd}</dev/null
+        zle -F $_p9k__restore_prompt_fd _p9k_restore_prompt
+      fi
+    fi
+    if (( $+termcap[up] )); then
       (( _p9k__can_hide_cursor )) && local hide=$terminfo[civis] || local hide=
       echo -nE - $hide$'\n'$termcap[up]
     fi
@@ -5473,7 +5693,7 @@ _p9k_must_init() {
     [[ $sig == $_p9k__param_sig ]] && return 1
     _p9k_deinit
   fi
-  _p9k__param_pat=$'v16\1'${ZSH_VERSION}$'\1'${ZSH_PATCHLEVEL}$'\1'
+  _p9k__param_pat=$'v22\1'${ZSH_VERSION}$'\1'${ZSH_PATCHLEVEL}$'\1'
   _p9k__param_pat+=$'${#parameters[(I)POWERLEVEL9K_*]}\1${(%):-%n%#}\1$GITSTATUS_LOG_LEVEL\1'
   _p9k__param_pat+=$'$GITSTATUS_ENABLE_LOGGING\1$GITSTATUS_DAEMON\1$GITSTATUS_NUM_THREADS\1'
   _p9k__param_pat+=$'$DEFAULT_USER\1${ZLE_RPROMPT_INDENT:-1}\1$P9K_SSH\1$__p9k_ksh_arrays'
@@ -5761,7 +5981,7 @@ _p9k_init() {
     local todo=$commands[todo.sh]
     if [[ -n $todo ]]; then
       local bash=${commands[bash]:-:}
-      _p9k_todo_file="$($bash 2>/dev/null -c "
+      _p9k_todo_file="$(exec -a $todo $bash 2>/dev/null -c "
         [ -e \"\$TODOTXT_CFG_FILE\" ] || TODOTXT_CFG_FILE=\$HOME/.todo/config
         [ -e \"\$TODOTXT_CFG_FILE\" ] || TODOTXT_CFG_FILE=\$HOME/todo.cfg
         [ -e \"\$TODOTXT_CFG_FILE\" ] || TODOTXT_CFG_FILE=\$HOME/.todo.cfg

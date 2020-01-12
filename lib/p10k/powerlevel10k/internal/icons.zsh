@@ -120,6 +120,9 @@ function _p9k_init_icons() {
         DIRENV_ICON                    '\u25BC'               # ▼
         FLUTTER_ICON                   'F'
         GCLOUD_ICON                    'G'
+        LUA_ICON                       'lua'
+        PERL_ICON                      'perl'
+        NNN_ICON                       'nnn'
       )
     ;;
     'awesome-fontconfig')
@@ -227,6 +230,9 @@ function _p9k_init_icons() {
         DIRENV_ICON                    '\u25BC'               # ▼
         FLUTTER_ICON                   'F'
         GCLOUD_ICON                    'G'
+        LUA_ICON                       'lua'
+        PERL_ICON                      'perl'
+        NNN_ICON                       'nnn'
       )
     ;;
     'awesome-mapped-fontconfig')
@@ -338,6 +344,9 @@ function _p9k_init_icons() {
         DIRENV_ICON                    '\u25BC'                                       # ▼
         FLUTTER_ICON                   'F'
         GCLOUD_ICON                    'G'
+        LUA_ICON                       'lua'
+        PERL_ICON                      'perl'
+        NNN_ICON                       'nnn'
       )
     ;;
     'nerdfont-complete'|'nerdfont-fontconfig')
@@ -359,7 +368,7 @@ function _p9k_init_icons() {
         AWS_EB_ICON                    '\UF1BD'               # 
         BACKGROUND_JOBS_ICON           '\uF013 '              # 
         TEST_ICON                      '\uF188 '              # 
-        TODO_ICON                      '\uF133 '              # 
+        TODO_ICON                      '\u2611'               # ☑
         BATTERY_ICON                   '\UF240 '              # 
         DISK_ICON                      '\uF0A0 '              # 
         OK_ICON                        '\uF00C '              # 
@@ -446,6 +455,9 @@ function _p9k_init_icons() {
         DIRENV_ICON                    '\u25BC'               # ▼
         FLUTTER_ICON                   'F'
         GCLOUD_ICON                    '\uF7B7'               # 
+        LUA_ICON                       '\uE620'               # 
+        PERL_ICON                      '\uE769'               # 
+        NNN_ICON                       'nnn'
       )
     ;;
     *)
@@ -466,7 +478,7 @@ function _p9k_init_icons() {
         AWS_EB_ICON                    '\U1F331'              # 🌱
         BACKGROUND_JOBS_ICON           '\u2699'               # ⚙
         TEST_ICON                      ''
-        TODO_ICON                      '\u2611'               # ☑ (portable alternative: ∆)
+        TODO_ICON                      '\u2206'               # ∆
         BATTERY_ICON                   '\U1F50B'              # 🔋
         DISK_ICON                      'hdd' 
         OK_ICON                        '\u2714'               # ✔
@@ -553,6 +565,9 @@ function _p9k_init_icons() {
         DIRENV_ICON                    '\u25BC'               # ▼
         FLUTTER_ICON                   'F'
         GCLOUD_ICON                    'G'
+        LUA_ICON                       'lua'
+        PERL_ICON                      'perl'
+        NNN_ICON                       'nnn'
       )
     ;;
   esac

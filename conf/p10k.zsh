@@ -34,6 +34,7 @@
       context
       ranger vim_shell
       vpn_ip
+      todo
       time
       newline
       battery
@@ -80,6 +81,21 @@
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
+  pro_dir="$WORKSPACE_DIR/ashpup"
+  corp_dir="$WORKSPACE_DIR/$CORP_KEY"
+  local_dir="$WORKSPACE_DIR/local"
+
+  typeset -g POWERLEVEL9K_DIR_CLASSES=(
+    '/etc|/etc/*' ETC '\uF013 '
+    '~' HOME '\uF015 '
+    "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
+    "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
+    "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
+    "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
+    '~/*' HOME_SUBFOLDER '\uF07C '
+    '*' DEFAULT '\uF115 '
+  )
+
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER='->'
   typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
@@ -99,6 +115,11 @@
   typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_VISUAL_IDENTIFIER_EXPANSION='✘'
   typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_FOREGROUND=196
   typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false
+
+  typeset -g POWERLEVEL9K_TODO_FOREGROUND=110
+  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=true
+  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
+  # typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
 
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=3
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
