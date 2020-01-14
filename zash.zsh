@@ -3,6 +3,13 @@
 #
 # See LICENSE file
 
+ZASH_PLUGINS=()
+
+function zash_has_plugin() {
+  local item
+  item="$1"
+  return (( ${ZASH_PLUGINS[(r)$item]} ))
+}
 
 function zash() {
   function _zash_base() {
@@ -23,15 +30,18 @@ function zash() {
 
   function _zash_plugin() {
     local pdir
-    pdir="${ZSH_PLUGIN_DIR}/$1"
-    if [[ -d "$pdir" ]] && [[ -f "$pdir/$1.plugin.zsh" ]]; then
+    local item
+    item="$1"
+    pdir="${ZSH_PLUGIN_DIR}/$item"
+    if [[ -d "$pdir" ]] && [[ -f "$pdir/$item.plugin.zsh" ]]; then
       _zash_config "$1"
 
       typeset -g fpath=($pdir $fpath)
-
-      source "$pdir/$1.plugin.zsh"
+      typeset -g ZASH_PLUGINS=($ZASH_PLUGINS $item)
+      source "$pdir/$item.plugin.zsh"
     fi
   }
+
 
   function _zash_plugins() {
     while read i

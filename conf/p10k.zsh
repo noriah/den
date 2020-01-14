@@ -34,7 +34,6 @@
       context
       ranger vim_shell
       vpn_ip
-      todo
       time
       newline
       battery
@@ -81,8 +80,8 @@
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
-  pro_dir="$WORKSPACE_DIR/ashpup"
-  corp_dir="$WORKSPACE_DIR/$CORP_KEY"
+  pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
+  corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
   local_dir="$WORKSPACE_DIR/local"
 
   typeset -g POWERLEVEL9K_DIR_CLASSES=(

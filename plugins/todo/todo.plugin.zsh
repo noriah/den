@@ -1,1 +1,5 @@
-alias t='todo.sh'
+# () {
+#   emulate -L zsh
+
+#   if (( $+commands[todo.sh] ))
+# }
