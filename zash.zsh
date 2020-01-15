@@ -1,5 +1,5 @@
 # ZAsh ZSH framwork
-# noriah <code@ashpup.com>
+# noriah <vix@noriah.dev>
 #
 # See LICENSE file
 

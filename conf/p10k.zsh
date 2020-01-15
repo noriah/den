@@ -1,5 +1,5 @@
 # Powerlevel10k Config
-# noriah (code@ashpup.com)
+# noriah (vix@noriah.dev)
 
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
