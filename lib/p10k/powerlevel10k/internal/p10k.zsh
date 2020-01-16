@@ -1367,7 +1367,7 @@ prompt_dir() {
       # for "~[a/b]" it'll give the nonsensical "~[a". To solve this problem we have to
       # repeat what "${(%):-%~}" does and hope that it produces the same result.
       local func=''
-      local -a parts=()
+      local -a parts=() reply=()
       for func in zsh_directory_name $zsh_directory_name_functions; do
         if (( $+functions[$func] )) && $func d $_p9k_pwd && [[ $p == '~['$reply[1]']'* ]]; then
           parts+='~['$reply[1]']'
@@ -1657,15 +1657,15 @@ prompt_dir() {
 
     local content="${(pj.$sep.)parts}"
     if (( _POWERLEVEL9K_DIR_HYPERLINK )); then
-      local pref=$'%{\e]8;;file://'${${_p9k_pwd//\%/%%25}//'#'/%%23}$'\a%}'
-      local suf=$'%{\e]8;;\a%}'
+      local header=$'%{\e]8;;file://'${${_p9k_pwd//\%/%%25}//'#'/%%23}$'\a%}'
+      local footer=$'%{\e]8;;\a%}'
       if (( expand )); then
-        _p9k_escape $pref
-        pref=$_p9k_ret
-        _p9k_escape $suf
-        suf=$_p9k_ret
+        _p9k_escape $header
+        header=$_p9k_ret
+        _p9k_escape $footer
+        footer=$_p9k_ret
       fi
-      content=$pref$content$suf
+      content=$header$content$footer
     fi
 
     (( expand )) && _p9k_prompt_length "${(e):-"\${\${_p9k_d::=0}+}$content"}" || _p9k_ret=
@@ -2320,6 +2320,7 @@ instant_prompt_root_indicator() { prompt_root_indicator; }
 ################################################################
 # Segment to display Rust version number
 prompt_rust_version() {
+  unset P9K_RUST_VERSION
   (( $+commands[rustc] )) || return
   if (( _POWERLEVEL9K_RUST_VERSION_PROJECT_ONLY )); then
     local dir=$_p9k_pwd_a
@@ -2329,12 +2330,10 @@ prompt_rust_version() {
       dir=${dir:h}
     done
   fi
-  local rustc=$commands[rustc] so
+  local rustc=$commands[rustc] toolchain deps=()
   if (( $+commands[ldd] )); then
-    if _p9k_cache_stat_get $0_so $rustc; then
-      so=$_p9k_cache_val[1]
-    else
-      local line match
+    if ! _p9k_cache_stat_get $0_so $rustc; then
+      local line match so
       for line in "${(@f)$(ldd $rustc 2>/dev/null)}"; do
         [[ $line == (#b)[[:space:]]#librustc_driver[^[:space:]]#.so' => '(*)' (0x'[[:xdigit:]]#')' ]] || continue
         so=$match[1]
@@ -2342,12 +2341,41 @@ prompt_rust_version() {
       done
       _p9k_cache_stat_set "$so"
     fi
+    deps+=$_p9k_cache_val[1]
   fi
-  if ! _p9k_cache_stat_get $0_v $rustc $so; then
+  if (( $+commands[rustup] )); then
+    local rustup=$commands[rustup]
+    local rustup_home=${RUSTUP_HOME:-~/.rustup}
+    local cfg=($rustup_home/settings.toml(.N))
+    deps+=($cfg $rustup_home/update-hashes/*(.N))
+    if [[ -z ${toolchain::=$RUSTUP_TOOLCHAIN} ]]; then
+      if ! _p9k_cache_stat_get $0_overrides $rustup $cfg; then
+        local lines=(${(f)"$(rustup override list 2>/dev/null)"})
+        local keys=(/ ${lines%%[[:space:]]#[^[:space:]]#})
+        local vals=(_ ${lines##*[[:space:]]})
+        _p9k_cache_stat_set ${keys:^vals}
+      fi
+      local -A overrides=($_p9k_cache_val)
+      local dir=$_p9k_pwd_a
+      while true; do
+        if (( $+overrides[$dir] )); then
+          toolchain=$overrides[$dir]
+          break
+        fi
+        if [[ -r $dir/rust-toolchain ]]; then
+          { toolchain="$(<$dir/rust-toolchain)" } 2>/dev/null
+          break
+        fi
+        dir=${dir:h}
+      done
+    fi
+  fi
+  if ! _p9k_cache_stat_get $0_v$toolchain $rustc $deps; then
     _p9k_cache_stat_set "$($rustc --version 2>/dev/null)"
   fi
   local v=${${_p9k_cache_val[1]#rustc }%% *}
   [[ -n $v ]] || return
+  typeset -g P9K_RUST_VERSION=$_p9k_cache_val[1]
   _p9k_prompt_segment "$0" "darkorange" "$_p9k_color1" 'RUST_ICON' 0 '' "${v//\%/%%}"
 }
 
@@ -3905,7 +3933,7 @@ _p9k_set_instant_prompt() {
   RPROMPT=$saved_rprompt
 }
 
-typeset -gri __p9k_instant_prompt_version=14
+typeset -gri __p9k_instant_prompt_version=17
 
 _p9k_dump_instant_prompt() {
   local user=${(%):-%n}
@@ -3973,19 +4001,42 @@ _p9k_dump_instant_prompt() {
       fi
       >&$fd print -r -- '  fi
   local -i _p9k__empty_line_i=3 _p9k__ruler_i=3
-  local -A _p9k__display_k=('${(j: :)${(@q)${(kv)_p9k__display_k}}}')
+  local -A _p9k_display_k=('${(j: :)${(@q)${(kv)_p9k_display_k}}}')
   local -a _p9k__display_v=('${(j: :)${(@q)display_v}}')
   function p10k() {
     emulate -L zsh
     setopt no_hist_expand extended_glob prompt_percent prompt_subst no_aliases
     [[ $1 == display ]] || return
     shift
-    local opt match MATCH prev new pair list name var
-    local -i k
-    for opt; do
+    local -i OPTIND k dump
+    local OPTARG opt match MATCH prev new pair list name var
+    while getopts ":ha" opt; do
+      case $opt in
+        a) dump=1;;
+        h) return 0;;
+        ?) return 1;;
+      esac
+    done
+    if (( dump )); then
+      reply=()
+      shift $((OPTIND-1))
+      (( ARGC )) || set -- "*"
+      for opt; do
+        for k in ${(u@)_p9k_display_k[(I)$opt]:/(#m)*/$_p9k_display_k[$MATCH]}; do
+          reply+=($_p9k__display_v[k,k+1])
+        done
+      done
+      return 0
+    fi
+    for opt in "${@:$OPTIND}"; do
       pair=(${(s:=:)opt})
       list=(${(s:,:)${pair[2]}})
-      for k in ${(u@)_p9k__display_k[(I)$pair[1]]:/(#m)*/$_p9k__display_k[$MATCH]}; do
+      if [[ ${(b)pair[1]} == $pair[1] ]]; then
+        local ks=($_p9k_display_k[$pair[1]])
+      else
+        local ks=(${(u@)_p9k_display_k[(I)$pair[1]]:/(#m)*/$_p9k_display_k[$MATCH]})
+      fi
+      for k in $ks; do
         if (( $#list == 1 )); then
           [[ $_p9k__display_v[k+1] == $list[1] ]] && continue
           new=$list[1]
@@ -4011,11 +4062,51 @@ _p9k_dump_instant_prompt() {
       if (( _POWERLEVEL9K_SHOW_RULER )); then
         >&$fd print -r -- '[[ $P9K_TTY == old ]] && { unset _p9k__ruler_i; _p9k__display_v[4]=print }'
       fi
+      if (( $+functions[p10k-on-init] )); then
+        >&$fd print -r -- '
+  p10k-on-init() { '$functions[p10k-on-init]' }'
+      fi
       if (( $+functions[p10k-on-pre-prompt] )); then
         >&$fd print -r -- '
-  p10k-on-pre-prompt() { '$functions[p10k-on-pre-prompt]' }
-  p10k-on-pre-prompt
+  p10k-on-pre-prompt() { '$functions[p10k-on-pre-prompt]' }'
+      fi
+      if (( $+functions[p10k-on-post-prompt] )); then
+        >&$fd print -r -- '
+  p10k-on-post-prompt() { '$functions[p10k-on-post-prompt]' }'
+      fi
+      if (( $+functions[p10k-on-post-widget] )); then
+        >&$fd print -r -- '
+  p10k-on-post-widget() { '$functions[p10k-on-post-widget]' }'
+      fi
+      if (( $+functions[p10k-on-init] )); then
+        >&$fd print -r -- '
+  p10k-on-init'
+      fi
+      local pat idx var
+      for pat idx var in $_p9k_show_on_command; do
+        >&$fd print -r -- "
+  local $var=
+  _p9k__display_v[$idx]=hide"
+      done
+      if (( $+functions[p10k-on-pre-prompt] )); then
+        >&$fd print -r -- '
+  p10k-on-pre-prompt'
+      fi
+      if (( $+functions[p10k-on-init] )); then
+        >&$fd print -r -- '
+  unfunction p10k-on-init'
+      fi
+      if (( $+functions[p10k-on-pre-prompt] )); then
+        >&$fd print -r -- '
   unfunction p10k-on-pre-prompt'
+      fi
+      if (( $+functions[p10k-on-post-prompt] )); then
+        >&$fd print -r -- '
+  unfunction p10k-on-post-prompt'
+      fi
+      if (( $+functions[p10k-on-post-widget] )); then
+        >&$fd print -r -- '
+  unfunction p10k-on-post-widget'
       fi
       >&$fd print -r -- '
   trap "unset -m _p9k__\*; unfunction p10k" EXIT
@@ -4434,14 +4525,13 @@ function _p9k_on_expand() {
       fi
     fi
 
-    _p9k__last_tty=$P9K_TTY
     __p9k_reset_state=1
 
     if (( _POWERLEVEL9K_PROMPT_ADD_NEWLINE )); then
       if [[ $P9K_TTY == new ]]; then
         _p9k__empty_line_i=3
         _p9k__display_v[2]=hide
-      elif [[ -z $_p9k_transient_prompt ]]; then
+      elif [[ -z $_p9k_transient_prompt && $+functions[p10k-on-post-prompt] == 0 ]]; then
         _p9k__empty_line_i=3
         _p9k__display_v[2]=print
       else
@@ -4454,7 +4544,7 @@ function _p9k_on_expand() {
       if [[ $P9K_TTY == new ]]; then
         _p9k__ruler_i=3
         _p9k__display_v[4]=hide
-      elif [[ -z $_p9k_transient_prompt ]]; then
+      elif [[ -z $_p9k_transient_prompt && $+functions[p10k-on-post-prompt] == 0 ]]; then
         _p9k__ruler_i=3
         _p9k__display_v[4]=print
       else
@@ -4463,23 +4553,32 @@ function _p9k_on_expand() {
       fi
     fi
 
-    typeset -g P9K_PROMPT=regular
-
-    if (( $+functions[p10k-on-pre-prompt] )); then
-      p10k-on-pre-prompt
+    if [[ -z $_p9k__last_tty ]]; then
+      _p9k_wrap_widgets
+      (( $+functions[p10k-on-init] )) && p10k-on-init
     fi
 
+    local pat idx var
+    for pat idx var in $_p9k_show_on_command; do
+      _p9k_display_segment $idx $var hide
+    done
+    (( $+functions[p10k-on-pre-prompt] )) && p10k-on-pre-prompt
+
     __p9k_reset_state=0
+    _p9k__last_tty=$P9K_TTY
     P9K_TTY=old
 
     if ! zle; then
-      [[ $_p9k__display_v[2] == print ]] && print -rn -- $_p9k_t[_p9k_empty_line_idx]
+      if [[ $_p9k__display_v[2] == print && -n $_p9k_t[_p9k_empty_line_idx] ]]; then
+        print -rnP -- '%b%k%f%E'$_p9k_t[_p9k_empty_line_idx]
+      fi
       if [[ $_p9k__display_v[4] == print ]]; then
-        local ruler=$_p9k_t[_p9k_ruler_idx]
         () {
+          local ruler=$_p9k_t[_p9k_ruler_idx]
+          local -i _p9k_clm=COLUMNS _p9k_ind=${ZLE_RPROMPT_INDENT:-1}
           (( __p9k_ksh_arrays )) && setopt ksh_arrays
           (( __p9k_sh_glob )) && setopt sh_glob
-          print -rnP -- $ruler
+          print -rnP -- '%b%k%f%E'$ruler
         }
       fi
     fi
@@ -4582,7 +4681,7 @@ _p9k_trapint() {
   if (( __p9k_enabled )); then
     emulate -L zsh
     setopt no_hist_expand extended_glob no_prompt_bang prompt_{percent,subst}
-    zle && _p9k_zle_line_finish int
+    zle && _p9k_on_widget_zle-line-finish int
   fi
   return 0
 }
@@ -4612,14 +4711,6 @@ function _p9k_reset_prompt() {
     zle -R
     (( _p9k__can_hide_cursor )) && echoti cnorm
   fi
-}
-
-function _p9k_zle_keymap_select() {
-  _p9k_reset_prompt
-}
-
-function _p9k_zle_state_changed() {
-  _p9k_reset_prompt
 }
 
 _p9k_deinit_async_pump() {
@@ -4805,6 +4896,9 @@ typeset -g  _p9k__param_pat
 typeset -g  _p9k__param_sig
 
 _p9k_init_vars() {
+  typeset -ga _p9k_show_on_command
+  typeset -g  _p9k__last_buffer
+  typeset -ga _p9k__last_commands
   typeset -g  _p9k__last_tty
   typeset -gi _p9k__must_restore_prompt
   typeset -gi _p9k__restore_prompt_fd
@@ -4917,7 +5011,7 @@ _p9k_init_vars() {
   typeset -g  _p9k_uname_m
   typeset -g  _p9k_transient_prompt
   typeset -g  _p9k__last_prompt_pwd
-  typeset -gA _p9k__display_k
+  typeset -gA _p9k_display_k
   typeset -ga _p9k__display_v
 
   typeset -gA _p9k__dotnet_stat_cache
@@ -4928,6 +5022,7 @@ _p9k_init_vars() {
   typeset -g  P9K_VISUAL_IDENTIFIER
   typeset -g  P9K_CONTENT
   typeset -g  P9K_GAP
+  typeset -g  P9K_PROMPT=regular
 }
 
 _p9k_init_params() {
@@ -4948,6 +5043,8 @@ _p9k_init_params() {
   _p9k_declare -s POWERLEVEL9K_TRANSIENT_PROMPT off
   [[ $_POWERLEVEL9K_TRANSIENT_PROMPT == (off|always|same-dir) ]] || _POWERLEVEL9K_TRANSIENT_PROMPT=off
 
+  _p9k_declare -i POWERLEVEL9K_COMMANDS_MAX_TOKEN_COUNT 64
+  _p9k_declare -a POWERLEVEL9K_HOOK_WIDGETS --
   _p9k_declare -b POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL 0
   _p9k_declare -b POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED 0
   _p9k_declare -b POWERLEVEL9K_DISABLE_HOT_RELOAD 0
@@ -5236,39 +5333,537 @@ _p9k_init_params() {
   done
 }
 
-typeset -ga __p9k_wrapped_zle_widgets
+typeset -grA __p9k_pb_cmd_skip=(
+  '}'         'always'  # handled specially
+  '{'         ''
+  '{'         ''
+  '|'         ''
+  '||'        ''
+  '&'         ''
+  '&&'        ''
+  '|&'        ''
+  '&!'        ''
+  '&|'        ''
+  ')'         ''
+  '('         ''
+  '()'        ''
+  '!'         ''
+  ';'         ''
+  'if'        ''
+  'fi'        ''
+  'elif'      ''
+  'else'      ''
+  'then'      ''
+  'while'     ''
+  'until'     ''
+  'do'        ''
+  'done'      ''
+  'esac'      ''
+  'end'       ''
+  'coproc'    ''
+  'nocorrect' ''
+  'noglob'    ''
+  'time'      ''
+  '[['        '\]\]'
+  '(('        '\)\)'
+  'case'      '\)|esac'
+  ';;'        '\)|esac'
+  ';&'        '\)|esac'
+  ';|'        '\)|esac'
+  'foreach'   '\(*\)'
+)
 
-# _p9k_wrap_zle_widget zle-keymap-select _p9k_zle_keymap_select
-_p9k_wrap_zle_widget() {
-  local widget=$1
-  local hook=$2
-  (( __p9k_wrapped_zle_widgets[(I)$widget:$hook] )) && return
-  __p9k_wrapped_zle_widgets+=$widget:$hook
-  local orig=p9k-orig-$widget
-  case $widgets[$widget] in
-    user:*)
-      zle -N $orig ${widgets[$widget]#user:}
-      ;;
-    builtin)
-      functions[_p9k_orig_$widget]="zle .${(q)widget}"
-      zle -N $orig _p9k_orig_$widget
-      ;;
-  esac
+typeset -grA __p9k_pb_precommand=(
+  '-'         ''
+  'builtin'   ''
+  'command'   ''
+  'exec'      '-[^a]#[a]'
+  'nohup'     ''
+  'setsid'    ''
+  'eatmydata' ''
+  'catchsegv' ''
+  'pkexec'    '--user'
+  'doas'      '-[^aCu]#[acU]'
+  'nice'      '-[^n]#[n]|--adjustment'
+  'stdbuf'    '-[^ioe]#[ioe]|--(input|output|error)'
+  'sudo'      '-[^aghpuUCcrtT]#[aghpuUCcrtT]|--(close-from|group|host|prompt|role|type|other-user|command-timeout|user)'
+  'ssh-agent' '-[^aEPt]#[aEPt]'
+)
 
-  local wrapper=_p9k_wrapper_$widget_$hook
-  functions[$wrapper]="
-    emulate -L zsh
-    setopt no_hist_expand extended_glob no_prompt_bang prompt_{percent,subst}
-    (( __p9k_enabled )) && ${(q)hook} \"\$@\"
-    (( \$+widgets[${(q)orig}] )) && zle ${(q)orig} -- \"\$@\""
+typeset -grA __p9k_pb_redirect=(
+  '&>'   ''
+  '>'    ''
+  '>&'   ''
+  '<'    ''
+  '<&'   ''
+  '<>'   ''
+  '&>|'  ''
+  '>|'   ''
+  '&>>'  ''
+  '>>'   ''
+  '>>&'  ''
+  '&>>|' ''
+  '>>|'  ''
+  '<<<'  ''
+)
 
-  zle -N -- $widget $wrapper
+typeset -grA __p9k_pb_term=(
+  '|'  ''
+  '||' ''
+  ';'  ''
+  '&'  ''
+  '&&' ''
+  '|&' ''
+  '&!' ''
+  '&|' ''
+  ';;' ''
+  ';&' ''
+  ';|' ''
+  '('  ''
+  ')'  ''
+  '()' ''  # handled specially
+  '}'  ''  # handled specially
+)
+
+typeset -grA __p9k_pb_term_skip=(
+  '('  '\)'
+  ';;' '\)|esac'
+  ';&' '\)|esac'
+  ';|' '\)|esac'
+)
+
+# Usage: _p9k_parse_buffer <buffer> [token-limit]
+#
+# Parses the specified command line buffer and pupulates array P9K_COMMANDS
+# with commands from it. Terminates early and returns 1 if there are more
+# tokens than the specified limit.
+#
+# Broken:
+#
+#   ---------------
+#   : $(x)
+#   ---------------
+#   : `x`
+#   ---------------
+#   ${x/}
+#   ---------------
+#   - -- x
+#   ---------------
+#   command -p -p x
+#   ---------------
+#   *
+#   ---------------
+#   x=$y; $x
+#   ---------------
+#   alias x=y; y
+#   ---------------
+#   x <<END
+#   ; END
+#   END
+#   ---------------
+#   Setup:
+#     setopt interactive_comments
+#     alias x='#'
+#   Punchline:
+#     x; y
+#   ---------------
+#
+# More brokenness with non-standard options (ignore_braces, ignore_close_braces, etc.).
+function _p9k_parse_buffer() {
+  [[ ${2:-0} == <-> ]] || return 2
+
+  local rcquotes
+  [[ -o rcquotes ]] && rcquotes=(-o rcquotes)
+
+  emulate -L zsh -o extended_glob -o no_nomatch $rcquotes
+
+  typeset -ga P9K_COMMANDS=()
+
+  local -r id='(<->|[[:alpha:]_][[:IDENT:]]#)'
+  local -r var="\$$id|\${$id}|\"\$$id\"|\"\${$id}\""
+
+  local -i e ic c=${2:-'1 << 62'}
+  local skip n s r state cmd prev
+  local -a aln alp alf v
+
+  if [[ -o interactive_comments ]]; then
+    ic=1
+    local tokens=(${(Z+C+)1})
+  else
+    local tokens=(${(z)1})
+  fi
+
+  {
+    while (( $#tokens )); do
+      (( e = $#state ))
+
+      while (( $#tokens == alp[-1] )); do
+        aln[-1]=()
+        alp[-1]=()
+        if (( $#tokens == alf[-1] )); then
+          alf[-1]=()
+          (( e = 0 ))
+        fi
+      done
+
+      while (( c-- > 0 )) || return; do
+        token=$tokens[1]
+        tokens[1]=()
+        if (( $+galiases[$token] )); then
+          (( $aln[(eI)p$token] )) && break
+          s=$galiases[$token]
+          n=p$token
+        elif (( e )); then
+          break
+        elif (( $+aliases[$token] )); then
+          (( $aln[(eI)p$token] )) && break
+          s=$aliases[$token]
+          n=p$token
+        elif [[ $token == ?*.?* ]] && (( $+saliases[${token##*.}] )); then
+          r=${token##*.}
+          (( $aln[(eI)s$r] )) && break
+          s=${saliases[$r]%% #}
+          n=s$r
+        else
+          break
+        fi
+        aln+=$n
+        alp+=$#tokens
+        [[ $s == *' ' ]] && alf+=$#tokens
+        (( ic )) && tokens[1,0]=(${(Z+C+)s}) || tokens[1,0]=(${(z)s})
+      done
+
+      case $token in
+        '<<'(|-))
+          state=h
+          continue
+          ;;
+        *('`'|['<>=$']'(')*)
+          if [[ $token == ('`'[^'`']##'`'|'"`'[^'`']##'`"'|'$('[^')']##')'|'"$('[^')']##')"'|['<>=']'('[^')']##')') ]]; then
+            s=${${token##('"'|)(['$<>']|)?}%%?('"'|)}
+            (( ic )) && tokens+=(';' ${(Z+C+)s}) || tokens+=(';' ${(z)s})
+          fi
+          ;;
+      esac
+
+      case $state in
+        *r)
+          state[-1]=
+          continue
+          ;;
+        a)
+          if [[ $token == $skip ]]; then
+            if [[ $token == '{' ]]; then
+              P9K_COMMANDS+=$cmd
+              cmd=
+              state=
+            else
+              skip='{'
+            fi
+            continue
+          else
+            state=t
+          fi
+          ;&  # fall through
+        t|p*)
+          if (( $+__p9k_pb_term[$token] )); then
+            if [[ $token == '()' ]]; then
+              state=
+            else
+              P9K_COMMANDS+=$cmd
+              if [[ $token == '}' ]]; then
+                state=a
+                skip=always
+              else
+                skip=$__p9k_pb_term_skip[$token]
+                state=${skip:+s}
+              fi
+            fi
+            cmd=
+            continue
+          elif [[ $state == t ]]; then
+            continue
+          elif [[ $state == *x ]]; then
+            if (( $+__p9k_pb_redirect[$token] )); then
+              prev=
+              state[-1]=r
+              continue
+            else
+              state[-1]=
+            fi
+          fi
+          ;;
+        s)
+          if [[ $token == $~skip ]]; then
+            state=
+          fi
+          continue
+          ;;
+        h)
+          while (( $#tokens )); do
+            (( e = ${tokens[(i)${(Q)token}]} ))
+            if [[ $tokens[e-1] == ';' && $tokens[e+1] == ';' ]]; then
+              tokens[1,e]=()
+              break
+            else
+              tokens[1,e]=()
+            fi
+          done
+          while (( $#alp && alp[-1] >= $#tokens )); do
+            aln[-1]=()
+            alp[-1]=()
+          done
+          state=t
+          continue
+          ;;
+      esac
+
+      if (( $+__p9k_pb_redirect[${token#<0-255>}] )); then
+        state+=r
+        continue
+      fi
+
+      if [[ $token == *'$'* ]]; then
+        if [[ $token == $~var ]]; then
+          n=${${token##[^[:IDENT:]]}%%[^[:IDENT:]]}
+          [[ $token == *'"' ]] && v=("${(P)n}") || v=(${(P)n})
+          tokens[1,0]=(${(qq)v})
+          continue
+        fi
+      fi
+
+      case $state in
+        '')
+          if (( $+__p9k_pb_cmd_skip[$token] )); then
+            skip=$__p9k_pb_cmd_skip[$token]
+            [[ $token == '}' ]] && state=a || state=${skip:+s}
+            continue
+          fi
+          if [[ $token == *=* ]]; then
+            v=${(S)token/#(<->|([[:alpha:]_][[:IDENT:]]#(|'['*[^\\](\\\\)#']')))(|'+')=}
+            if (( $#v < $#token )); then
+              if [[ $v == '(' ]]; then
+                state=s
+                skip='\)'
+              fi
+              continue
+            fi
+          fi
+          : ${token::=${(Q)${~token}}}
+          ;;
+        p2)
+          if [[ -n $prev ]]; then
+            prev=
+          else
+            : ${token::=${(Q)${~token}}}
+            if [[ $token == '{'$~id'}' ]]; then
+              state=p2x
+              prev=$token
+            else
+              state=p
+            fi
+            continue
+          fi
+          ;&  # fall through
+        p)
+          if [[ -n $prev ]]; then
+            token=$prev
+            prev=
+          else
+            : ${token::=${(Q)${~token}}}
+            case $token in
+              '{'$~id'}') prev=$token; state=px; continue;;
+              [^-]*)                                     ;;
+              --)                      state=p1; continue;;
+              $~skip)                  state=p2; continue;;
+              *)                                 continue;;
+            esac
+          fi
+          ;;
+        p1)
+          if [[ -n $prev ]]; then
+            token=$prev
+            prev=
+          else
+            : ${token::=${(Q)${~token}}}
+            if [[ $token == '{'$~id'}' ]]; then
+              state=p1x
+              prev=$token
+              continue
+            fi
+          fi
+          ;;
+      esac
+
+      if (( $+__p9k_pb_precommand[$token] )); then
+        prev=
+        state=p
+        skip=$__p9k_pb_precommand[$token]
+        cmd+=$token$'\0'
+      else
+        state=t
+        [[ $token == ('(('*'))'|'`'*'`'|'$'*|['<>=']'('*')'|*$'\0'*) ]] || cmd+=$token$'\0'
+      fi
+    done
+  } always {
+    [[ $state == (px|p1x) ]] && cmd+=$prev
+    P9K_COMMANDS+=$cmd
+    P9K_COMMANDS=(${(u)P9K_COMMANDS%$'\0'})
+  }
 }
 
-function _p9k_zle_line_init() {
+function _p9k_on_widget_zle-keymap-select() { __p9k_reset_state=2; }
+function _p9k_on_widget_overwrite-mode()    { __p9k_reset_state=2; }
+function _p9k_on_widget_vi-replace()        { __p9k_reset_state=2; }
+
+function _p9k_check_visual_mode() {
+  [[ ${KEYMAP:-} == vicmd ]] || return 0
+  local region=${${REGION_ACTIVE:-0}/2/1}
+  [[ $region != $_p9k__region_active ]] || return 0
+  _p9k__region_active=$region
+  __p9k_reset_state=2
+}
+function _p9k_on_widget_visual-mode()       { _p9k_check_visual_mode; }
+function _p9k_on_widget_visual-line-mode()  { _p9k_check_visual_mode; }
+function _p9k_on_widget_deactivate-region() { _p9k_check_visual_mode; }
+
+function _p9k_on_widget_zle-line-init() {
   (( _p9k__cursor_hidden )) || return 0
   _p9k__cursor_hidden=0
   echoti cnorm
+}
+
+function _p9k_on_widget_zle-line-finish() {
+  (( $+_p9k__line_finished )) && return
+
+  _p9k__line_finished=
+  (( _p9k_reset_on_line_finish )) && __p9k_reset_state=2
+  (( $+functions[p10k-on-post-prompt] )) && p10k-on-post-prompt
+
+  if [[ -n $_p9k_transient_prompt ]]; then
+    if [[ $_POWERLEVEL9K_TRANSIENT_PROMPT == always || $_p9k_pwd == $_p9k__last_prompt_pwd ]]; then
+      RPROMPT=
+      PROMPT=$_p9k_transient_prompt
+      __p9k_reset_state=2
+    else
+      _p9k__last_prompt_pwd=$_p9k_pwd
+    fi
+  fi
+
+  if (( __p9k_reset_state == 2 )); then
+    if [[ $1 == int ]]; then
+      _p9k__must_restore_prompt=1
+      if (( !_p9k__restore_prompt_fd )); then
+        exec {_p9k__restore_prompt_fd}</dev/null
+        zle -F $_p9k__restore_prompt_fd _p9k_restore_prompt
+      fi
+    fi
+    if (( $+termcap[up] )); then
+      (( _p9k__can_hide_cursor )) && local hide=$terminfo[civis] || local hide=
+      echo -nE - $hide$'\n'$termcap[up]
+    fi
+    _p9k_reset_prompt
+    __p9k_reset_state=0
+  fi
+
+  _p9k__line_finished='%{%}'
+}
+
+# Usage example: _p9k_display_segment 58 _p9k__1rkubecontext hide
+function _p9k_display_segment() {
+  [[ $_p9k__display_v[$1] == $3 ]] && return
+  _p9k__display_v[$1]=$3
+  [[ $3 == hide ]] && typeset -g $2= || unset $2
+  __p9k_reset_state=2
+}
+
+function _p9k_widget_hook() {
+  if (( $+functions[p10k-on-post-widget] || $#_p9k_show_on_command )); then
+    local -a P9K_COMMANDS
+    if [[ "$_p9k__last_buffer" == "$PREBUFFER$BUFFER" ]]; then
+      P9K_COMMANDS=(${_p9k__last_commands[@]})
+    else
+      _p9k__last_buffer="$PREBUFFER$BUFFER"
+      if [[ -n "$_p9k__last_buffer" ]]; then
+        # this must run with user options
+        _p9k_parse_buffer "$_p9k__last_buffer" $_POWERLEVEL9K_COMMANDS_MAX_TOKEN_COUNT
+      fi
+      _p9k__last_commands=(${P9K_COMMANDS[@]})
+    fi
+  fi
+
+  emulate -L zsh
+  setopt no_hist_expand extended_glob no_prompt_bang prompt_{percent,subst}
+  (( _p9k__restore_prompt_fd )) && _p9k_restore_prompt $_p9k__restore_prompt_fd
+  __p9k_reset_state=1
+  local pat idx var
+  for pat idx var in $_p9k_show_on_command; do
+    if (( $P9K_COMMANDS[(I)$pat] )); then
+      _p9k_display_segment $idx $var show
+    else
+      _p9k_display_segment $idx $var hide
+    fi
+  done
+  (( $+functions[p10k-on-post-widget] )) && p10k-on-post-widget "${@:2}"
+  (( $+functions[_p9k_on_widget_$1] )) && _p9k_on_widget_$1
+  (( __p9k_reset_state == 2 )) && _p9k_reset_prompt
+  __p9k_reset_state=0
+}
+
+function _p9k_widget() {
+  (( ! ${+widgets[._p9k_orig_$1]} )) || zle ._p9k_orig_$1 "${@:2}"
+  local res=$?
+  (( ! __p9k_enabled )) || [[ $CONTEXT != start ]] || _p9k_widget_hook "$@"
+  return res
+}
+
+typeset -gi __p9k_widgets_wrapped=0
+
+function _p9k_wrap_widgets() {
+  (( __p9k_widgets_wrapped )) && return
+  typeset -gir __p9k_widgets_wrapped=1
+  local -a widget_list
+  if is-at-least 5.3; then
+    local -aU widget_list=(
+      zle-line-pre-redraw
+      zle-line-init
+      zle-line-finish
+      zle-keymap-select
+      overwrite-mode
+      vi-replace
+      visual-mode
+      visual-line-mode
+      deactivate-region
+      $_POWERLEVEL9K_HOOK_WIDGETS
+    )
+  else
+    # There is no zle-line-pre-redraw in zsh < 5.3, so we have to wrap all widgets
+    # with key bindings. This costs extra 3ms: 1.5ms to fetch the list of widgets and
+    # another 1.5ms to wrap them.
+    local keymap tmp=${TMPDIR:-/tmp}/p10k.bindings.$sysparams[pid]
+    {
+      for keymap in $keymaps; do bindkey -M $keymap; done >$tmp
+      local -aU widget_list=(
+        zle-isearch-exit
+        zle-isearch-update
+        zle-line-init
+        zle-line-finish
+        zle-history-line-set
+        zle-keymap-select
+        $_POWERLEVEL9K_HOOK_WIDGETS
+        ${${${(f)"$(<$tmp)"}##* }:#(*\"|.*)}
+      )
+    } always {
+      zf_rm -f $tmp
+    }
+  fi
+  local widget
+  for widget in $widget_list; do
+    functions[_p9k_widget_$widget]='_p9k_widget '${(q)widget}' "$@"'
+    # The leading dot is to work around bugs in zsh-syntax-highlighting.
+    zle -A $widget ._p9k_orig_$widget
+    zle -N $widget _p9k_widget_$widget
+  done 2>/dev/null  # `zle -A` fails for inexisting widgets and complains to stderr
 }
 
 function _p9k_restore_prompt() {
@@ -5295,58 +5890,6 @@ function _p9k_restore_prompt() {
   }
 }
 
-function _p9k_zle_line_finish() {
-  [[ -z $1 && $CONTEXT != start ]] && _p9k__must_restore_prompt=0
-  (( $+_p9k__line_finished )) && return
-
-  _p9k__line_finished=
-  local -i reset=_p9k_reset_on_line_finish
-
-  if (( $+functions[p10k-on-post-prompt] )); then
-    __p9k_reset_state=1
-    p10k-on-post-prompt
-    if (( __p9k_reset_state == 2 )); then
-      reset=1
-    fi
-    __p9k_reset_state=0
-  fi
-
-  if [[ -n $_p9k_transient_prompt ]]; then
-    if [[ $_POWERLEVEL9K_TRANSIENT_PROMPT == always || $_p9k_pwd == $_p9k__last_prompt_pwd ]]; then
-      RPROMPT=
-      PROMPT=$_p9k_transient_prompt
-      reset=1
-    else
-      _p9k__last_prompt_pwd=$_p9k_pwd
-    fi
-  fi
-
-  if (( reset )); then
-    if [[ $1 == int ]]; then
-      _p9k__must_restore_prompt=1
-      if (( !_p9k__restore_prompt_fd )); then
-        exec {_p9k__restore_prompt_fd}</dev/null
-        zle -F $_p9k__restore_prompt_fd _p9k_restore_prompt
-      fi
-    fi
-    if (( $+termcap[up] )); then
-      (( _p9k__can_hide_cursor )) && local hide=$terminfo[civis] || local hide=
-      echo -nE - $hide$'\n'$termcap[up]
-    fi
-    _p9k_reset_prompt
-  fi
-
-  _p9k__line_finished='%{%}'
-}
-
-function _p9k_zle_line_pre_redraw() {
-  [[ ${KEYMAP:-} == vicmd ]] || return 0
-  local region=${${REGION_ACTIVE:-0}/2/1}
-  [[ $region != $_p9k__region_active ]] || return 0
-  _p9k__region_active=$region
-  _p9k_reset_prompt
-}
-
 prompt__p9k_internal_nothing() { _p9k__prompt+='${_p9k_sss::=}'; }
 instant_prompt__p9k_internal_nothing() { prompt__p9k_internal_nothing; }
 
@@ -5357,8 +5900,8 @@ _p9k_build_gap_post() {
   local char=${_p9k_ret:- }
   _p9k_prompt_length $char
   if (( _p9k_ret != 1 || $#char != 1 )); then
-    print -rP -- "%F{red}WARNING!%f %BMULTILINE_${(U)kind}_PROMPT_GAP_CHAR%b is not one character long. Will use ' '."
-    print -rP -- "Either change the value of %BPOWERLEVEL9K_MULTILINE_${(U)kind}_PROMPT_GAP_CHAR%b or remove it."
+    >&2 print -rP -- "%F{red}WARNING!%f %BMULTILINE_${(U)kind}_PROMPT_GAP_CHAR%b is not one character long. Will use ' '."
+    >&2 print -rP -- "Either change the value of %BPOWERLEVEL9K_MULTILINE_${(U)kind}_PROMPT_GAP_CHAR%b or remove it."
     char=' '
   fi
   local style
@@ -5522,33 +6065,23 @@ _p9k_all_params_eq() {
 }
 
 _p9k_init_display() {
-  _p9k__display_k=(empty_line 1 ruler 3)
-  _p9k__display_v=(empty_line hide ruler hide)
+  _p9k_display_k=(empty_line 1 ruler 3)
   local -i n=3 i
   local name
   for i in {1..$#_p9k_line_segments_left}; do
     local -i j=$((-$#_p9k_line_segments_left+i-1))
-    _p9k__display_k+=(
+    _p9k_display_k+=(
       $i              $((n+=2)) $j             $n
       $i/left_frame   $((n+=2)) $j/left_frame  $n
       $i/right_frame  $((n+=2)) $j/right_frame $n
       $i/left         $((n+=2)) $j/left        $n
       $i/right        $((n+=2)) $j/right       $n
       $i/gap          $((n+=2)) $j/gap         $n)
-    _p9k__display_v+=(
-      $i             show
-      $i/left_frame  show
-      $i/right_frame show
-      $i/left        show
-      $i/right       show
-      $i/gap         show)
     for name in ${(@0)_p9k_line_segments_left[i]}; do
-      _p9k__display_k+=($i/left/$name $((n+=2)) $j/left/$name $n)
-      _p9k__display_v+=($i/left/$name show)
+      _p9k_display_k+=($i/left/$name $((n+=2)) $j/left/$name $n)
     done
     for name in ${(@0)_p9k_line_segments_right[i]}; do
-      _p9k__display_k+=($i/right/$name $((n+=2)) $j/right/$name $n)
-      _p9k__display_v+=($i/right/$name show)
+      _p9k_display_k+=($i/right/$name $((n+=2)) $j/right/$name $n)
     done
   done
 }
@@ -5693,13 +6226,14 @@ _p9k_must_init() {
     [[ $sig == $_p9k__param_sig ]] && return 1
     _p9k_deinit
   fi
-  _p9k__param_pat=$'v22\1'${ZSH_VERSION}$'\1'${ZSH_PATCHLEVEL}$'\1'
+  _p9k__param_pat=$'v26\1'${ZSH_VERSION}$'\1'${ZSH_PATCHLEVEL}$'\1'
   _p9k__param_pat+=$'${#parameters[(I)POWERLEVEL9K_*]}\1${(%):-%n%#}\1$GITSTATUS_LOG_LEVEL\1'
   _p9k__param_pat+=$'$GITSTATUS_ENABLE_LOGGING\1$GITSTATUS_DAEMON\1$GITSTATUS_NUM_THREADS\1'
   _p9k__param_pat+=$'$DEFAULT_USER\1${ZLE_RPROMPT_INDENT:-1}\1$P9K_SSH\1$__p9k_ksh_arrays'
   _p9k__param_pat+=$'$__p9k_sh_glob\1$ITERM_SHELL_INTEGRATION_INSTALLED\1'
   _p9k__param_pat+=$'${PROMPT_EOL_MARK-%B%S%#%s%b}\1$LANG\1$LC_ALL\1$LC_CTYPE\1'
-  _p9k__param_pat+=$'$functions[p10k-on-pre-prompt]\1'
+  _p9k__param_pat+=$'$functions[p10k-on-init]$functions[p10k-on-pre-prompt]\1'
+  _p9k__param_pat+=$'$functions[p10k-on-post-widget]$functions[p10k-on-post-prompt]\1'
   local MATCH
   IFS=$'\1' _p9k__param_pat+="${(@)${(@o)parameters[(I)POWERLEVEL9K_*]}:/(#m)*/\${${(q)MATCH}-$IFS\}}"
   IFS=$'\2' _p9k__param_sig="${(e)_p9k__param_pat}"
@@ -5716,6 +6250,30 @@ function _p9k_init_cacheable() {
   _p9k_init_icons
   _p9k_init_params
   _p9k_init_prompt
+  _p9k_init_display
+
+  local elem
+  local -i i=0
+
+  for i in {1..$#_p9k_line_segments_left}; do
+    for elem in ${(@0)_p9k_line_segments_left[i]}; do
+      local var=POWERLEVEL9K_${(U)elem}_SHOW_ON_COMMAND
+      (( $+parameters[$var] )) || continue
+      _p9k_show_on_command+=(
+        $'(|*[/\0])('${(j.|.)${(P)var}}')'
+        $((1+_p9k_display_k[$i/left/$elem]))
+        _p9k__${i}l$elem)
+    done
+    for elem in ${(@0)_p9k_line_segments_right[i]}; do
+      local var=POWERLEVEL9K_${(U)elem}_SHOW_ON_COMMAND
+      (( $+parameters[$var] )) || continue
+      local cmds=(${(P)var})
+      _p9k_show_on_command+=(
+        $'(|*[/\0])('${(j.|.)${(P)var}}')'
+        $((1+$_p9k_display_k[$i/right/$elem]))
+        _p9k__${i}r$elem)
+    done
+  done
 
   if [[ $_POWERLEVEL9K_TRANSIENT_PROMPT != off ]]; then
     _p9k_transient_prompt='%b%k%s%u%F{%(?.'
@@ -5796,14 +6354,13 @@ function _p9k_init_cacheable() {
     'DISCONNECTED'  "$_p9k_color2"
   )
 
-  local -i i=0
   # This simpler construct doesn't work on zsh-5.1 with multi-line prompt:
   #
   #   ${(@0)_p9k_line_segments_left[@]}
   local -a left_segments=(${(@0)${(pj:\0:)_p9k_line_segments_left}})
   _p9k_left_join=(1)
   for ((i = 2; i <= $#left_segments; ++i)); do
-    local elem=$left_segments[i]
+    elem=$left_segments[i]
     if [[ $elem == *_joined ]]; then
       _p9k_left_join+=$_p9k_left_join[((i-1))]
     else
@@ -5814,7 +6371,7 @@ function _p9k_init_cacheable() {
   local -a right_segments=(${(@0)${(pj:\0:)_p9k_line_segments_right}})
   _p9k_right_join=(1)
   for ((i = 2; i <= $#right_segments; ++i)); do
-    local elem=$right_segments[i]
+    elem=$right_segments[i]
     if [[ $elem == *_joined ]]; then
       _p9k_right_join+=$_p9k_right_join[((i-1))]
     else
@@ -5963,7 +6520,14 @@ _p9k_init() {
   _p9k_init_vars
   _p9k_restore_state || _p9k_init_cacheable
 
-  _p9k_init_display
+  local k v
+  for k v in ${(kv)_p9k_display_k}; do
+    [[ $k == -* ]] && continue
+    _p9k__display_v[v]=$k
+    _p9k__display_v[v+1]=show
+  done
+  _p9k__display_v[2]=hide
+  _p9k__display_v[4]=hide
 
   if (( $+functions[iterm2_decorate_prompt] )); then
     _p9k__iterm2_decorate_prompt=$functions[iterm2_decorate_prompt]
@@ -5992,23 +6556,6 @@ _p9k_init() {
         source \"\$TODOTXT_CFG_FILE\" &>/dev/null
         echo \"\$TODO_FILE\"")"
     fi
-  fi
-
-  _p9k_wrap_zle_widget zle-line-finish _p9k_zle_line_finish
-  _p9k_wrap_zle_widget zle-line-init _p9k_zle_line_init
-
-  if _p9k_segment_in_use vi_mode || _p9k_segment_in_use prompt_char; then
-    _p9k_wrap_zle_widget zle-keymap-select _p9k_zle_keymap_select
-  fi
-
-  if _p9k_segment_in_use vi_mode && (( $+_POWERLEVEL9K_VI_VISUAL_MODE_STRING )) || _p9k_segment_in_use prompt_char; then
-    _p9k_wrap_zle_widget zle-line-pre-redraw _p9k_zle_line_pre_redraw
-  fi
-
-  if { _p9k_segment_in_use vi_mode && (( $+_POWERLEVEL9K_VI_OVERWRITE_MODE_STRING )) } ||
-     { _p9k_segment_in_use prompt_char && (( _POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE )) }; then
-    _p9k_wrap_zle_widget overwrite-mode _p9k_zle_state_changed
-    _p9k_wrap_zle_widget vi-replace _p9k_zle_state_changed
   fi
 
   if _p9k_segment_in_use dir &&
@@ -6210,9 +6757,15 @@ typeset -gr __p9k_p10k_display_usage="Usage: %2Fp10k%f %Bdisplay%b part-pattern=
 Show, hide or toggle prompt parts. If called from zle, the current
 prompt is refreshed.
 
+Usage: %2Fp10k%f %Bdisplay%b -a [part-pattern]...
+
+Populate array \\\`reply\\\` with states of prompt parts matching the patterns.
+If no patterns are supplied, assume \\\`*\\\`.
+
 Parts:
   empty_line    empty line (duh)
-  ruler         ruler; if POWERLEVEL9K_RULER_CHAR=' ', it's essentially another new_line
+  ruler         ruler; if POWERLEVEL9K_RULER_CHAR=' ', it's essentially another
+                new_line
   N             prompt line number N, 1-based; counting from the top if positive,
                 from the bottom if negative
   N/left_frame  left frame on the Nth line
@@ -6227,14 +6780,31 @@ Part States:
   show          the part is displayed
   hide          the part is not displayed
   print         the part is printed in precmd; only applicable to empty_line and
-                ruler; looks better than show after clear; unlike show, the effects
-                of print cannot be undone with hide
+                ruler; looks better than show after calling \\\`clear\\\`; unlike
+                show, the effects of print cannot be undone with hide
+
+part-pattern is a glob pattern for parts. Examples:
+
+  */kubecontext         all kubecontext prompt segments, regardless of where
+                        they are
+  1/(right|right_frame) all prompt segments and frame from the right side of
+                        the first line
+
+state-list is a comma-separated list of states. Must have at least one element.
+If more than one, states will rotate.
 
 Example: Bind Ctrl+P to toggle right prompt.
 
   function toggle-right-prompt() { p10k display '*/right'=hide,show; }
   zle -N toggle-right-prompt
-  bindkey '^P' toggle-right-prompt"
+  bindkey '^P' toggle-right-prompt
+
+Example: Print the state of all prompt parts:
+
+  local -A reply
+  p10k display -a '*'
+  printf '%%32s = %%q\n' \\\${(@kv)reply}
+"
 
 # 0  -- reset-prompt not blocked
 # 1  -- reset-prompt blocked and not needed
@@ -6255,7 +6825,8 @@ function p10k() {
   case $1 in
     segment)
       shift
-      local opt state bg=0 fg icon cond text ref=0 expand=0
+      local -i OPTIND
+      local OPTARG opt state bg=0 fg icon cond text ref=0 expand=0
       while getopts ':s:b:f:i:c:t:reh' opt; do
         case $opt in
           s) state=$OPTARG;;
@@ -6296,17 +6867,36 @@ function p10k() {
         print -rP -- $__p9k_p10k_display_usage >&2
         return 1
       fi
-      if [[ $2 == -h ]]; then
-        print -rP -- $__p9k_p10k_display_usage >&2
+      shift
+      local -i OPTIND k dump
+      local OPTARG opt match MATCH prev new pair list name var
+      while getopts ':ha' opt; do
+        case $opt in
+          a) dump=1;;
+          h) print -rP -- $__p9k_p10k_display_usage; return 0;;
+          ?) print -rP -- $__p9k_p10k_display_usage >&2; return 1;;
+        esac
+      done
+      if (( dump )); then
+        reply=()
+        shift $((OPTIND-1))
+        (( ARGC )) || set -- '*'
+        for opt; do
+          for k in ${(u@)_p9k_display_k[(I)$opt]:/(#m)*/$_p9k_display_k[$MATCH]}; do
+            reply+=($_p9k__display_v[k,k+1])
+          done
+        done
         return 0
       fi
-      shift
-      local opt match MATCH prev new pair list name var
-      local -i k
-      for opt; do
+      for opt in "${@:$OPTIND}"; do
         pair=(${(s:=:)opt})
         list=(${(s:,:)${pair[2]}})
-        for k in ${(u@)_p9k__display_k[(I)$pair[1]]:/(#m)*/$_p9k__display_k[$MATCH]}; do
+        if [[ ${(b)pair[1]} == $pair[1] ]]; then # this branch is purely for optimization
+          local ks=($_p9k_display_k[$pair[1]])
+        else
+          local ks=(${(u@)_p9k_display_k[(I)$pair[1]]:/(#m)*/$_p9k_display_k[$MATCH]})
+        fi
+        for k in $ks; do
           if (( $#list == 1 )); then  # this branch is purely for optimization
             [[ $_p9k__display_v[k+1] == $list[1] ]] && continue
             new=$list[1]
@@ -6389,6 +6979,7 @@ zmodload zsh/parameter 2>/dev/null  # https://github.com/romkatv/gitstatus/issue
 zmodload zsh/system
 zmodload zsh/termcap
 zmodload zsh/terminfo
+zmodload zsh/zleparameter
 zmodload -F zsh/stat b:zstat
 zmodload -F zsh/net/socket b:zsocket
 zmodload -F zsh/files b:zf_mv b:zf_rm
