@@ -7,6 +7,28 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+function _left_with_plugin() {
+  local item
+  local other
+  item="$1"
+  if (( ${+2} )); then other="$2"; else other="$item"; fi
+  if zash_has_plugin "$item"
+  then
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$other")
+  fi
+}
+
+function _right_with_plugin() {
+  local item
+  local other
+  item="$1"
+  if (( ${+2} )); then other="$2"; else other="$item"; fi
+  if zash_has_plugin "$item"
+  then
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$other")
+  fi
+}
+
 () {
   emulate -L zsh
 
@@ -28,15 +50,21 @@
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir dir_writable vcs newline prompt_char)
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-      status command_execution_time background_jobs
-      direnv virtualenv pyenv goenv nodenv
-      context
-      ranger vim_shell
-      vpn_ip
-      time
-      newline
-      battery
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time background_jobs)
+
+  _right_with_plugin direnv
+  _right_with_plugin terraform
+
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
+    virtualenv pyenv goenv nodenv
+    context ranger vim_shell vpn_ip
+  )
+
+  _right_with_plugin load
+  _right_with_plugin todo
+
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
+    time newline battery
   )
 
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
@@ -80,20 +108,28 @@
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
-  pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
-  corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
-  local_dir="$WORKSPACE_DIR/local"
+  if zash_has_plugin "workspace"
+  then
+    pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
+    corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
+    local_dir="$WORKSPACE_DIR/local"
 
-  typeset -g POWERLEVEL9K_DIR_CLASSES=(
-    '/etc|/etc/*' ETC '\uF013 '
-    '~' HOME '\uF015 '
-    "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
-    "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
-    "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
-    "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
-    '~/*' HOME_SUBFOLDER '\uF07C '
-    '*' DEFAULT '\uF115 '
-  )
+    typeset -g POWERLEVEL9K_DIR_CLASSES=(
+      '/etc|/etc/*' ETC '\uF013 '
+      '~' HOME '\uF015 '
+      "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
+      "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
+      "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
+      "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
+      '~/*' HOME_SUBFOLDER '\uF07C '
+      '*' DEFAULT '\uF115 '
+    )
+
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_FOREGROUND=208
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_SHORTENED_FOREGROUND=208
+    # typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_FOREGROUND=254
+    # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
+  fi
 
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER='->'

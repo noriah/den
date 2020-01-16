@@ -3,12 +3,16 @@
 #
 # See LICENSE file
 
-ZASH_PLUGINS=()
+typeset -g ZASH_PLUGINS=()
 
 function zash_has_plugin() {
   local item
   item="$1"
-  return (( ${ZASH_PLUGINS[(r)$item]} ))
+  if [[ ${ZASH_PLUGINS[(i)$item]} -le ${#ZASH_PLUGINS} ]]
+  then
+    return 0
+  fi
+  return 1
 }
 
 function zash() {
@@ -36,9 +40,14 @@ function zash() {
     if [[ -d "$pdir" ]] && [[ -f "$pdir/$item.plugin.zsh" ]]; then
       _zash_config "$1"
 
-      typeset -g fpath=($pdir $fpath)
-      typeset -g ZASH_PLUGINS=($ZASH_PLUGINS $item)
+      unset -m "ZASH_PLUGIN_FAIL"
+
       source "$pdir/$item.plugin.zsh"
+
+      if (( ${+ZASH_PLUGIN_FAIL} )); then echo "Zash: Failed to load '$item' plugin"; fi
+
+      fpath=($pdir $fpath)
+      ZASH_PLUGINS+=("$item")
     fi
   }
 
@@ -46,7 +55,7 @@ function zash() {
   function _zash_plugins() {
     while read i
     do
-      _zash_plugin "$i"
+      [[ "$i" != "#*" ]] && _zash_plugin "$i"
     done < "$1"
   }
 
