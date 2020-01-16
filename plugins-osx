@@ -1,8 +1,10 @@
 autoenv
 #direnv
+highlight
 osx
 spotify
+suggestions
 terraform
-#todo
+todo
 workspace
 z
