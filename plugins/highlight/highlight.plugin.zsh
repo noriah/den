@@ -1,7 +1,7 @@
 __HIGHLIGHTER_PATH="${0:h}/zsh-syntax-highlighting/"
 
 function highlight_do_update () {
-  BASE_URL="https://raw.githubusercontent.com/zsh-users/zsh-syntax-highlighting/master"
+  BASE_URL="https://raw.githubusercontent.com/zdharma/fast-syntax-highlighting/master"
 
   echo "Updating highlight"
 
@@ -12,4 +12,4 @@ function highlight_do_update () {
   done
 }
 
-source "${0:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "${0:h}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"

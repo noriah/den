@@ -8,8 +8,6 @@
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
 function _left_with_plugin() {
-  local item
-  local other
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
   if zash_has_plugin "$item"
@@ -19,8 +17,6 @@ function _left_with_plugin() {
 }
 
 function _right_with_plugin() {
-  local item
-  local other
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
   if zash_has_plugin "$item"
@@ -63,9 +59,9 @@ function _right_with_plugin() {
   _right_with_plugin todo
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
+    load
     time
     newline
-    load
     go_version
     rust_version
     node_version
@@ -190,7 +186,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND=8
 
   typeset -g POWERLEVEL9K_LOAD_WHICH=1
-  typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=2
+  typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=140
   typeset -g POWERLEVEL9K_LOAD_WARNING_FOREGROUND=3
   typeset -g POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND=1
 
@@ -211,7 +207,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=1
   typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=2
-  typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=20
+  # typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=3
   typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true

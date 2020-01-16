@@ -1,5 +1,6 @@
 autoenv
 #direnv
+gpg
 highlight
 osx
 spotify
