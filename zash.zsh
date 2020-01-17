@@ -3,72 +3,89 @@
 #
 # See LICENSE file
 
-typeset -g ZASH_PLUGINS=()
+typeset -g _zash_plugin_list=()
+typeset -g _zash_ext_fail=()
 
-function zash_has_plugin() {
-  item="$1"
-  if [[ ${ZASH_PLUGINS[(i)$item]} -le ${#ZASH_PLUGINS} ]]
-  then
-    return 0
-  fi
+zash_has_plugin() {
+  [[ ${_zash_plugin_list[(i)$1]} -le ${#_zash_plugin_list} ]] && return 0
   return 1
 }
 
-function _zash_base() {
-  [[ -f "${ZSH_BASE_DIR}/$1.zsh" ]] && source "${ZSH_BASE_DIR}/$1.zsh"
+_zash_base() {
+  [[ -f "$ZSH_BASE_DIR/$1.zsh" ]] && source "$ZSH_BASE_DIR/$1.zsh"
 }
 
-function _zash_config() {
-  [[ -f "${ZSH_CONF_DIR}/$1.zsh" ]] && source "${ZSH_CONF_DIR}/$1.zsh"
+_zash_config() {
+  [[ -f "$ZSH_CONF_DIR/$1.zsh" ]] && source "$ZSH_CONF_DIR/$1.zsh"
 }
 
-function _zash_library() {
-  if [[ -d "${ZSH_LIB_DIR}/$1" ]] && [[ -f "${ZSH_LIB_DIR}/$1/$1.lib.zsh" ]]; then
-    _zash_config "$1"
+_zash_library() {
+  [[ -d "$ZSH_LIB_DIR/$1" && -f "$ZSH_LIB_DIR/$1/$1.lib.zsh" ]] || return 1
+  _zash_config "$1"
+  source "$ZSH_LIB_DIR/$1/$1.lib.zsh" || return 1
+}
 
-    source "${ZSH_LIB_DIR}/$1/$1.lib.zsh"
+zash_fail() {
+  if [[ -z "$1" ]] then
+    _zash_ext_fail+=("Failed during load")
+  else
+    _zash_ext_fail+=("$@")
   fi
 }
 
-function _zash_plugin() {
-  item="$1"
-  pdir="${ZSH_PLUGIN_DIR}/$item"
-  if [[ -d "$pdir" ]] && [[ -f "$pdir/$item.plugin.zsh" ]]; then
-    _zash_config "$1"
+_zash_ext_fail_check() {
+  [[ -z "$_zash_ext_fail" ]] && return 0
+  printf "Zash: Failed to process '%s' %s:\n" "$1" "$2" >&2
+  for i in $_zash_ext_fail; do
+    printf "  -> %s\n" "$i" >&2
+  done
+  printf "\n" >&2
+  return 1
+}
 
-    unset -m "ZASH_PLUGIN_FAIL"
+_zash_plugin() {
+  local name="$1"
 
-    source "$pdir/$item.plugin.zsh"
+  [[ -z "$2" ]] || shift
+  local package="$@"
 
-    if (( ${+ZASH_PLUGIN_FAIL} )); then echo "Zash: Failed to load '$item' plugin"; fi
+  local pdir="$ZSH_PLUGIN_DIR/$package"
 
-    fpath=($pdir $fpath)
-    ZASH_PLUGINS+=("$item")
-  fi
+  [[ -d "$pdir" && -f "$pdir/$name.plugin.zsh" ]] || return 1
+  _zash_config "$name"
+
+  _zash_ext_fail=()
+
+  source "$pdir/$name.plugin.zsh" || zash_fail "sourcing error"
+
+  _zash_ext_fail_check "$name" "plugin" || return 1
+
+  fpath=($pdir $fpath)
+  _zash_plugin_list+=("$item")
 }
 
 
-function _zash_plugins() {
+_zash_plugins() {
   while read i
   do
-    [[ "$i" != "#*" ]] && _zash_plugin "$i"
+    [[ "$i" != "#*" ]] && _zash_plugin $i
   done < "$1"
 }
 
-function _zash_do_autoload() {
+_zash_do_autoload() {
   autoload -Uz add-zsh-hook compinit
 }
 
-function _zash_do_compinit() {
-  compinit -C -d "${ZSH_COMP_FILE}"
+_zash_do_compinit() {
+  compinit -C -d "$ZSH_COMP_FILE"
 }
 
-function _zash_do_clean() {
-  rm "${ZSH_COMP_FILE}"
+_zash_do_clean() {
+  rm "$ZSH_COMP_FILE"
 }
 
-function _zash_do_hook() {
-  function _zash_hook_compinit () {
+_zash_do_hook() {
+  _zash_hook_compinit () {
     _zash_do_compinit
     add-zsh-hook -D precmd _zash_hook_compinit
   }
@@ -76,10 +93,8 @@ function _zash_do_hook() {
   add-zsh-hook precmd _zash_hook_compinit
 }
 
-function _zash_do() {
-  action="$1"
-
-  case "$action" in
+_zash_do() {
+  case "$1" in
     "autoload")
       _zash_do_autoload
       ;;
@@ -102,10 +117,10 @@ function _zash_do() {
   esac
 }
 
-function zash() {
-  action="$1"
-  item="$2"
-  extra="${@:3}"
+zash() {
+  local action="$1"
+  local item="$2"
+  local extra="${@:3}"
 
   case "$action" in
     "base")

@@ -1,8 +1,8 @@
-source "${0:h}/shpotify.sh"
+source "${0:h}/shpotify.sh" || zash_fail "3rd party failure"
 
 alias spotify='shpotify'
 
-function splay() {
+splay() {
   title="$@"
 
   if [[ -n "$title" ]]; then

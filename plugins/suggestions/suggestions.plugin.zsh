@@ -1,6 +1,6 @@
 __SUGGESTIONS_PATH="${0:h}/zsh-autosuggestions/"
 
-function suggestions_do_update () {
+suggestions_do_update () {
   BASE_URL="https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master"
 
   echo "Updating suggestions"
@@ -12,4 +12,4 @@ function suggestions_do_update () {
   done
 }
 
-source "${0:h}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "${0:h}/zsh-autosuggestions/zsh-autosuggestions.zsh" || zash_fail "3rd party failure"

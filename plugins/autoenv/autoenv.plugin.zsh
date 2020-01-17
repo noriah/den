@@ -1,6 +1,6 @@
 __AUTOENV_PATH="${0:h}/zsh-autoenv/"
 
-function autoenv_do_update () {
+autoenv_do_update () {
   BASE_URL="https://raw.githubusercontent.com/Tarrasch/zsh-autoenv/master"
 
   echo "Updating autoenv"
@@ -12,4 +12,4 @@ function autoenv_do_update () {
   done
 }
 
-source "${0:h}/zsh-autoenv/autoenv.zsh"
+source "${0:h}/zsh-autoenv/autoenv.zsh" || zash_fail "3rd party failure"
