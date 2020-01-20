@@ -7,8 +7,7 @@ typeset -g _zash_plugin_list=()
 typeset -g _zash_ext_fail=()
 
 zash_has_plugin() {
-  [[ ${_zash_plugin_list[(i)$1]} -le ${#_zash_plugin_list} ]] && return 0
-  return 1
+  [[ ${_zash_plugin_list[(i)$1]} -le ${#_zash_plugin_list} ]] && return 1 || return 0
 }
 
 _zash_base() {
