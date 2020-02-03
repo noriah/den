@@ -1,8 +1,10 @@
 autoenv
 #direnv
+git
 gpg
 highlight
 osx
+rust
 spotify
 suggestions
 terraform

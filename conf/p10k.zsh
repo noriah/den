@@ -62,8 +62,13 @@ function _right_with_plugin() {
     load
     time
     newline
-    go_version
-    rust_version
+  )
+
+  _right_with_plugin golang go_version
+
+  _right_with_plugin rust rust_version
+
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
     node_version
     battery
   )
@@ -112,7 +117,7 @@ function _right_with_plugin() {
 
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=80
   typeset -g POWERLEVEL9K_DIR_{SHORTENED,ANCHOR}_FOREGROUND=80
-  typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// } '
+  typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
@@ -123,22 +128,22 @@ function _right_with_plugin() {
     local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
 
     typeset -g POWERLEVEL9K_DIR_CLASSES=(
-      '/etc|/etc/*' ETC '\uF013 '
-      '~' HOME '\uF015 '
+      '/etc|/etc/*' ETC '\uF013'
+      '~' HOME '\uF015'
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
       "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
-      '~/*' HOME_SUBFOLDER '\uF07C '
-      '*' DEFAULT '\uF115 '
+      '~/*' HOME_SUBFOLDER '\uF07C'
+      '*' DEFAULT '\uF115'
     )
 
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_FOREGROUND=209
     # typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VISUAL_IDENTIFIER_COLOR=202
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_VISUAL_IDENTIFIER_COLOR=210
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_VISUAL_IDENTIFIER_COLOR=105
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=206
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_VISUAL_IDENTIFIER_COLOR=3
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     # typeset -g POWERLEVEL9K_DIR_PATH_HIGHLIGHT_FOREGROUND=210
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_FOREGROUND=254
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
