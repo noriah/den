@@ -3,8 +3,9 @@ autoenv
 git
 gpg
 highlight
+neofetch
+node
 osx
-rust
 spotify
 suggestions
 terraform

@@ -1,5 +1,5 @@
 # Powerlevel10k Config
-# noriah (vix@noriah.dev)
+# Noriah (vix@noriah.dev)
 
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
@@ -56,8 +56,6 @@ function _right_with_plugin() {
     context ranger vim_shell vpn_ip
   )
 
-  _right_with_plugin todo
-
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
     load
     time
@@ -68,10 +66,13 @@ function _right_with_plugin() {
 
   _right_with_plugin rust rust_version
 
+  _right_with_plugin node node_version
+
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    node_version
     battery
   )
+
+  _right_with_plugin todo
 
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
@@ -79,15 +80,17 @@ function _right_with_plugin() {
 
   typeset -g POWERLEVEL9K_{BACKGROUND_JOBS,DIRENV,VIM_SHELL,VPN_IP}_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
 
-  typeset -g POWERLEVEL9K_BACKGROUND=0
+  typeset -g POWERLEVEL9K_BACKGROUND=
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_BACKGROUND=
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_GAP_BACKGROUND=
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_GAP_BACKGROUND=
 
-  typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='\uE0BD'
-  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='\uE0BD'
+  typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='\uE0B1'
+  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='\uE0B3'
   typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0BC'
   typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0BA'
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0BC'
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0BA'
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B1'
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B3'
   typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
 
@@ -126,6 +129,7 @@ function _right_with_plugin() {
     pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
     local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
+    vault_dir="$WORKSPACE_DIR/vault"
 
     typeset -g POWERLEVEL9K_DIR_CLASSES=(
       '/etc|/etc/*' ETC '\uF013'
@@ -134,6 +138,7 @@ function _right_with_plugin() {
       "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
       "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
+      "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
       '~/*' HOME_SUBFOLDER '\uF07C'
       '*' DEFAULT '\uF115'
     )
@@ -144,6 +149,7 @@ function _right_with_plugin() {
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_VISUAL_IDENTIFIER_COLOR=210
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_VISUAL_IDENTIFIER_COLOR=3
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_VAULT_VISUAL_IDENTIFIER_COLOR=1
     # typeset -g POWERLEVEL9K_DIR_PATH_HIGHLIGHT_FOREGROUND=210
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_FOREGROUND=254
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
@@ -164,10 +170,10 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
   typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
 
-  typeset -g POWERLEVEL9K_TODO_FOREGROUND=110
-  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=true
+  typeset -g POWERLEVEL9K_TODO_FOREGROUND=3
+  typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=false
   typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
-  # typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
+  typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
 
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=3
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3

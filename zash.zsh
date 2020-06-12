@@ -110,9 +110,10 @@ _zash_plugin() {
   local package="$@"
 
   local pdir="$ZSH_PLUGIN_DIR/$package"
+  ZSH_CURRENT_PLUGIN_DIR=${pdir}
 
   [[ -d "$pdir" && -f "$pdir/$name.plugin.zsh" ]] || return 1
-  _zash_config "$name"
+  _zash_config "$name" 
 
   _zash_ext_fail_reset
 

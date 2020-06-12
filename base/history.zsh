@@ -1,7 +1,7 @@
 # History
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
-SAVEHIST=10000
+SAVEHIST=50000
 
 setopt extended_history
 setopt hist_expire_dups_first
