@@ -11,6 +11,10 @@
 
   zstyle ':completion:*:*:task:*' group-name ''
 
-  alias t=task
   zash compdef _task t=task
+
+  local d=$(dirname "${(%):-%x}")
+  alias task="TASKRC=\"$d/taskrc\" task"
+  alias t=task
+
 }
