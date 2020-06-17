@@ -1,3 +1,5 @@
+data.location=~/.task
+
 # Color theme (uncomment one to use)
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-16.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-256.theme
