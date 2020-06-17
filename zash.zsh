@@ -7,6 +7,7 @@ typeset -g _zash_plugin_list=()
 typeset -g _zash_ext_fail=()
 typeset -g _zash_internal_fail=()
 typeset -ga _zash_hook_list=()
+typeset -ga _zash_compdef_list=()
 
 typeset -g _zash_ret_dir
 
@@ -152,10 +153,23 @@ _zash_do_hooks() {
   done
 
   add-zsh-hook precmd _zash_hook_compinit
+  add-zsh-hook precmd _zash_hook_compdef
+}
+
+_zash_hook_compdef() {
+  local a=''
+  for a in "${_zash_compdef_list[@]}"; do
+    compdef $a
+  done
+  add-zsh-hook -D precmd _zash_hook_compdef
 }
 
 _zash_add_hook() {
   _zash_hook_list+=("$1" "$2")
+}
+
+_zash_add_compdef() {
+  _zash_compdef_list+=("$@")
 }
 
 _zash_hook_compinit() {
@@ -199,6 +213,10 @@ zash() {
 
     "plugins")
       _zash_plugins "$item"
+      ;;
+
+    "compdef")
+      _zash_add_compdef "$@"
       ;;
 
     "hook")
