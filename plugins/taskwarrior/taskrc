@@ -20,7 +20,7 @@ verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,
 
 uda.life.type=string
 uda.life.label=Life
-uda.life.values=personal,social,work
+uda.life.values=personal,social,work,
 
 color.uda.life.personal=color208
 
