@@ -78,6 +78,14 @@ _regex_words values 'task priorities' \
   'L:Low'
 task_priorities=("$reply[@]")
 
+# lifes
+local -a task_lifes
+_regex_words values 'task lives' \
+  'personal:Personal life' \
+  'social:Social life' \
+  'work:Work life'
+task_lifes=("$reply[@]")
+
 # projects
 local -a task_projects
 task_projects=(
@@ -180,6 +188,7 @@ _regex_words -t ':' default 'task attributes' \
   'status:Status of task - pending, completed, deleted, waiting' \
   'pro*ject:Project name:$task_projects' \
   'pri*ority:priority:$task_priorities' \
+  'life:Life divide:$task_lifes' \
   'du*e:Due date:$task_dates' \
   're*cur:Recurrence frequency:$task_freqs' \
   'un*til:Expiration date:$task_dates' \
@@ -194,7 +203,7 @@ task_attributes=("$reply[@]")
 
 args=(
   \( "$task_attributes[@]" \|
-  \( /'(project|description|status|entry|end|start|scheduled|depends|due|wait|recur|priority|until|limit).'/- \( /$'[^:]#:'/ ":default:modifiers:compadd -S ':' -a _task_modifiers" \) \) \|
+  \( /'(project|description|status|entry|end|start|scheduled|depends|due|wait|recur|priority|life|until|limit).'/- \( /$'[^:]#:'/ ":default:modifiers:compadd -S ':' -a _task_modifiers" \) \) \|
   \( /'(rc).'/- \( /$'[^:]#:'/ ":arguments:config:compadd -S ':' -a _task_config" \) \) \|
   \( /'(+|-)'/- \( /"$word"/ ":values:remove tag:compadd -a _task_tags" \) \) \|
   \( /"$word"/ \)

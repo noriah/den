@@ -14,7 +14,7 @@ typeset -g _zash_ret_dir
 typeset -g ZASH_BASE_DIR="${0:h:A}"
 
 zash_has_plugin() {
-  [[ ${_zash_plugin_list[(i)$1]} -le ${#_zash_plugin_list} ]] && return 1 || return 0
+  [[ ${_zash_plugin_list[(ie)$1]} -le ${#_zash_plugin_list} ]] && return 0 || return 1
 }
 
 _zash_base() {
@@ -123,14 +123,14 @@ _zash_plugin() {
   _zash_ext_fail_check "$name" "plugin" || return 1
 
   fpath=($pdir $fpath)
-  _zash_plugin_list+=("$item")
+  _zash_plugin_list+=("$name")
 }
 
 
 _zash_plugins() {
   while read i
   do
-    [[ "$i" != "#*" ]] && _zash_plugin $i
+    [[ "$i" != "#*" ]] && _zash_plugin "$i"
   done < "$1"
 }
 

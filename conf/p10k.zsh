@@ -42,7 +42,7 @@ function _right_with_plugin() {
   fi
 
   typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-  typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
+  typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=false
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir dir_writable vcs newline prompt_char)
@@ -71,6 +71,8 @@ function _right_with_plugin() {
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
     battery
   )
+
+  _right_with_plugin taskwarrior
 
   _right_with_plugin todo
 
@@ -174,6 +176,8 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=false
   typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
   typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
+
+  typeset -g POWERLEVEL9K_TASKWARRIOR_FOREGROUND=7
 
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=3
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
