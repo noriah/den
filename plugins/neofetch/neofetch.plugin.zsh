@@ -7,5 +7,5 @@
   fi
 
   local d=$(dirname "${(%):-%x}")
-  alias neofetch="neofetch --config \"$d/config.conf\" --ascii \"$d/lambda.txt\" --ascii_colors 208 8 208"
+  alias neofetch="neofetch --config \"$d/config.conf\" --ascii \"$d/lambda2.txt\" --ascii_colors 208 8 208"
 }
