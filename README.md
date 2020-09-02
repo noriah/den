@@ -1,2 +1,3 @@
-# ash.zsh.d
-This repo contains zsh scripts for a zsh setup.
+# rc
+
+its a shell config repo
