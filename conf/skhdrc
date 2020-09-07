@@ -1,0 +1,16 @@
+# balance space
+shift + alt - space : yabai -m space --balance
+
+shift + fn + alt - r : yabai -m space --rotate 90
+shift + fn + alt - l : yabai -m space --rotate 270
+
+shift + alt - p : yabai -m window --focus prev
+shift + alt - n : yabai -m window --focus next
+
+shift + fn + alt - p : yabai -m window --swap prev
+shift + fn + alt - n : yabai -m window --swap next
+
+shift + cmd + alt - p : yabai -m window --warp prev
+shift + cmd + alt - n : yabai -m window --warp next 
+
+shift + alt - k : yabai -m window --toggle float
