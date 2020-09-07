@@ -12,4 +12,4 @@ suggestions_do_update () {
   done
 }
 
-source "${0:h}/zsh-autosuggestions/zsh-autosuggestions.zsh" || zash_fail "3rd party failure"
+source "${0:h}/zsh-autosuggestions/zsh-autosuggestions.zsh" || zrc_fail "3rd party failure"

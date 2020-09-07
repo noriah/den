@@ -2,12 +2,12 @@
   emulate -L zsh
 
   if ! type "pkg-config" > /dev/null; then
-    zash_fail "Missing pkg-config"
+    zrc_fail "Missing pkg-config"
     return
   fi
 
   if ! type "greadlink" > /dev/null; then
-    zash_fail "Missing coreutils"
+    zrc_fail "Missing coreutils"
     return
   fi
 }

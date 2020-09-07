@@ -12,4 +12,4 @@ highlight_do_update () {
   done
 }
 
-source "${0:h}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" || zash_fail "3rd party failure"
+source "${0:h}/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" || zrc_fail "3rd party failure"

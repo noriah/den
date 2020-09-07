@@ -64,11 +64,11 @@ _git_chpwd_handler() {
   emulate -L zsh
 
   if ! type "git" > /dev/null; then
-    zash_fail "Missing git"
+    zrc_fail "Missing git"
     return
   fi
 
-  zash hook chpwd _git_chpwd_handler
+  zrc hook chpwd _git_chpwd_handler
 
   _git_chpwd_handler
 }

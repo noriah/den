@@ -2,7 +2,7 @@
   emulate -L zsh
 
   if ! type "neofetch" > /dev/null; then
-    zash_fail "Missing neofetch"
+    zrc_fail "Missing neofetch"
     return
   fi
 

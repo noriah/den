@@ -2,7 +2,7 @@
   emulate -L zsh
 
   if ! type "gpg" > /dev/null; then
-    zash_fail "Missing GPG"
+    zrc_fail "Missing GPG"
     return
   fi
 

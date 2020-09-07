@@ -12,4 +12,4 @@ autoenv_do_update () {
   done
 }
 
-source "${0:h}/zsh-autoenv/autoenv.zsh" || zash_fail "3rd party failure"
+source "${0:h}/zsh-autoenv/autoenv.zsh" || zrc_fail "3rd party failure"

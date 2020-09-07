@@ -10,7 +10,7 @@
 function _left_with_plugin() {
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if zash_has_plugin "$item"
+  if zrc_has_plugin "$item"
   then
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$other")
   fi
@@ -19,18 +19,22 @@ function _left_with_plugin() {
 function _right_with_plugin() {
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if zash_has_plugin "$item"
+  if zrc_has_plugin "$item"
   then
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$other")
   fi
 }
 
 () {
-  emulate -L zsh
+  emulate -L zsh -o extended_glob
+
+
 
   typeset -g ZLE_RPROMPT_INDENT=0
 
-  unset -m 'POWERLEVEL9K_*'
+  # Unset all configuration options. This allows you to apply configuration changes without
+  # restarting zsh. Edit ~/.p10k.zsh and type `source ~/.p10k.zsh`.
+  unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
   setopt no_unset extended_glob
 
@@ -44,8 +48,10 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
   typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=false
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
+  # typeset -g POWERLEVEL9K_ICON_PADDING=none
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir dir_writable vcs newline prompt_char)
+
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time history background_jobs)
 
   _right_with_plugin direnv
@@ -57,9 +63,9 @@ function _right_with_plugin() {
   )
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    load
+#    load
     time
-    newline
+   newline
   )
 
   _right_with_plugin golang go_version
@@ -69,12 +75,16 @@ function _right_with_plugin() {
   _right_with_plugin node node_version
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    battery
+   battery
   )
 
   _right_with_plugin taskwarrior
 
-  _right_with_plugin todo
+  # _right_with_plugin todo
+
+  ### Stuffs
+
+  typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
 
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
@@ -95,6 +105,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B3'
   typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
   typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=7
   # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=0
@@ -111,7 +122,8 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=2
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+  # typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='>'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='Ⅴ'
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
@@ -126,7 +138,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
-  if zash_has_plugin "workspace"
+  if zrc_has_plugin "workspace"
   then
     pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
@@ -229,7 +241,7 @@ function _right_with_plugin() {
 
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
+  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
 
   typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\ufcd1'
   typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_COLOR=87
@@ -243,6 +255,10 @@ function _right_with_plugin() {
   # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\u'
   typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_COLOR=10
   typeset -g POWERLEVEL9K_NODE_VERSION_FOREGROUND=11
+
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
+
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 

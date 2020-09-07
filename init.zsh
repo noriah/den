@@ -15,29 +15,30 @@ EDITOR=vi
 
 CORP_KEY=${CORP_KEY:-corp}
 
-# Zash
-source "${0:h}/zash.zsh"
+# Zrc
+source "${0:h}/zrc.zsh"
 
 # Base
-zash base alias
-zash base appearance
-zash base completion
-zash base directory
-zash base functions
-zash base history
-zash base keys
-zash base load
-zash base misc
-zash base terminal
+zrc base alias
+zrc base appearance
+zrc base completion
+zrc base directory
+zrc base functions
+zrc base history
+zrc base keys
+zrc base load
+zrc base misc
+zrc base terminal
 
 env_default 'PAGER' 'less'
 env_default 'LESS' '-R'
 
-zash plugins "${0:h}/plugins-osx"
+zrc plugins "${0:h}/plugins-osx"
 
 # Theme
-zash library p10k
+zrc library p10k
+zrc library z
 
-# Zash stuff
-zash do autoload
-zash do hook
+# Zrc stuff
+zrc do autoload
+zrc do hook

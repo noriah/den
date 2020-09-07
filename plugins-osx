@@ -1,6 +1,7 @@
 autoenv
 #direnv
 git
+golang
 gpg
 highlight
 neofetch
@@ -12,4 +13,5 @@ taskwarrior
 terraform
 #todo
 workspace
+yabai
 z
