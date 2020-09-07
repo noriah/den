@@ -1,25 +1,5 @@
-function manage() {
-  local nospace=${@//[[:blank:]]/}
-  yabai -m rule --add label="manage-include-$nospace" app="^$@$" manage=on
-}
-
-function ignore() {
-  local nospace="${1//[[:blank:]]/}_${2//[[:blank:]]/}"
-  yabai -m rule --add label="manage-ignore-$nospace" title="^$2$" app="^$1$" manage=off
-}
-
-
 manage iTerm2
 manage Google Chrome
 manage Discord
 manage Firefox
 manage kitty
-
-sleep 0.1
-
-ignore iTerm2 'viss main'
-ignore iTerm2 Preferences
-
-ignore Discord "It's A Secret from the World"
-
-sleep 0.1

@@ -1,4 +1,0 @@
-yabai -m rule --add label='manage-ignore-all' app='^.*$' manage=off
-
-load widgets.rules.rc
-load manage.rules.rc

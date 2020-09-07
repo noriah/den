@@ -1,0 +1,51 @@
+#!/usr/bin/env zsh
+# Yabai RC File
+
+BASEDIR=$(dirname "$0")
+function load() {
+  source $BASEDIR/$1
+}
+
+# Load our framework into env
+load init.rc
+
+# Set the padding and gap
+config top_padding 20
+config bottom_padding 20
+config left_padding 20
+config right_padding 20
+config window_gap 20
+
+# config external_bar main:0:110
+
+# Only shadow floating windows
+config window_topmost off
+config window_shadow float
+
+# set mouse focus
+config mouse_follows_focus on
+
+# Window Borders
+config window_border on
+config window_border_width 20
+config active_window_border_color 0x808080A0
+config normal_window_border_color 0x80808050
+
+# Get rid of auto balance
+config auto_balance off
+
+# Mouse support config
+config mouse_modifier fn
+config mouse_action1 move
+config mouse_action2 resize
+config mouse_drop_action swap
+
+load manage.rules.rc
+
+load ignore.rules.rc
+
+# Make things happen
+commit
+
+# Apply the layout
+yabai -m config layout bsp
