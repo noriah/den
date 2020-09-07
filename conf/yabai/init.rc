@@ -51,8 +51,6 @@ function commit() {
 
   local a='' b=''
 
-  sleep 0.1
-
   for a in "${_yabairc_manage_list[@]}"; do
     _yabairc_int_manage "$a"
   done
@@ -66,6 +64,8 @@ function commit() {
   done
 
   _yabairc_ignore_list=()
+
+  sleep 0.1
 
   for a b in "${_yabairc_config_list[@]}"; do
     _yabairc_int_config "$a" "$b"
