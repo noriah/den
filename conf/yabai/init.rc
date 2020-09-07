@@ -1,0 +1,9 @@
+BASEDIR=$(dirname "$0")
+function load() {
+  source $BASEDIR/$1
+}
+
+load global.rc
+load rules.rc
+
+yabai -m config layout bsp

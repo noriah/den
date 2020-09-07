@@ -1,0 +1,31 @@
+# set shortcut
+alias yc='yabai -m config'
+
+yc top_padding 20
+yc bottom_padding 20
+yc left_padding 20
+yc right_padding 20
+
+yc window_gap 20
+
+# yc external_bar main:0:110
+
+yc window_topmost off
+yc window_shadow float
+
+# set mouse focus
+yc mouse_follows_focus on
+
+yc window_border on
+yc window_border_width 10
+yc active_window_border_color 0x000000a0
+yc normal_window_border_color 0x00000050
+
+yc auto_balance off
+
+yc mouse_modifier fn
+yc mouse_action1 move
+yc mouse_action2 resize
+yc mouse_drop_action swap
+
+
