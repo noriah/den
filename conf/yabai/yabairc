@@ -40,12 +40,14 @@ config mouse_action1 move
 config mouse_action2 resize
 config mouse_drop_action swap
 
+# set the layout to bsp
+config layout bsp
+
+# Load in our managed apps rules
 load manage.rules.rc
 
+# Load in our ignored items rules
 load ignore.rules.rc
 
 # Make things happen
 commit
-
-# Apply the layout
-yabai -m config layout bsp
