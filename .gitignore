@@ -1,7 +1,5 @@
+.DS_Store
 *.zwc
-
 *.code-workspace
-
 external
-
 .fetched

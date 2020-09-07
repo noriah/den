@@ -1,3 +1,3 @@
-# rc
+# dot
 
-its a shell config repo
+dotfiles

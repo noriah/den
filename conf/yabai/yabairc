@@ -16,7 +16,7 @@ config left_padding 20
 config right_padding 20
 config window_gap 20
 
-# config external_bar main:0:110
+config external_bar main:0:110
 
 # Only shadow floating windows
 config window_topmost off
@@ -26,8 +26,8 @@ config window_shadow float
 config mouse_follows_focus on
 
 # Window Borders
-config window_border on
-config window_border_width 20
+config window_border off
+config window_border_width 10
 config active_window_border_color 0x808080A0
 config normal_window_border_color 0x80808050
 
