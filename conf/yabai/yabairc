@@ -9,14 +9,16 @@ function load() {
 # Load our framework into env
 load init.rc
 
-# Set the padding and gap
-config top_padding 20
-config bottom_padding 20
-config left_padding 20
-config right_padding 20
-config window_gap 20
+pad='30'
 
-config external_bar main:0:85
+# Set the padding and gap
+config top_padding $pad
+config bottom_padding $pad
+config left_padding $pad
+config right_padding $pad
+config window_gap $pad
+
+config external_bar main:0:150
 
 # Only shadow floating windows
 config window_topmost off
@@ -26,10 +28,10 @@ config window_shadow float
 config mouse_follows_focus on
 
 # Window Borders
-config window_border off
+config window_border on
 config window_border_width 10
-config active_window_border_color 0x808080A0
-config normal_window_border_color 0x80808050
+config active_window_border_color 0xFFFB7BA1
+config normal_window_border_color 0x00314484
 
 # Get rid of auto balance
 config auto_balance off
