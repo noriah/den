@@ -4,7 +4,7 @@ git
 golang
 gpg
 highlight
-kitty
+#kitty
 neofetch
 node
 osx

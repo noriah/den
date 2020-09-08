@@ -15,7 +15,7 @@ function _yabairc_int_ignore() {
   if [ ! -z "$2" ]; then
     title="title$4=$2" 
   fi
-  yabai -m rule --add label="manage-ignore-$(_nospace $@)" $title app$3="$1" manage=off 
+  yabai -m rule --add label="manage-ignore-$(_nospace $@)" $title app$3="$1" manage=off border=off
   echo "Ignoring $3'$1' $title"
 }
 
