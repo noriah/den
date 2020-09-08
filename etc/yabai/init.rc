@@ -4,28 +4,38 @@ typeset -g _yabaiconf_basedir="${0:h:A}"
 
 typeset -ga _yabairc_manage_list=()
 typeset -ga _yabairc_ignore_list=()
+typeset -ga _yabairc_rule_list=()
 typeset -ga _yabairc_config_list=()
 
 function _nospace() {
   echo -n ${@//[[:blank:]]/_}
 }
 
+
+
+function _yabairc_int_rule() {
+  local label="rule-$(_nospace $@)"
+  yabai -m rule --add label="$label" ${@}
+  echo "Rule $@"
+}
+
 function _yabairc_int_ignore() {
   local title=''
   if [ ! -z "$2" ]; then
-    title="title$4=$2" 
+    title="title$4=$2"
   fi
-  yabai -m rule --add label="manage-ignore-$(_nospace $@)" $title app$3="$1" manage=off border=off
+  yabai -m rule --add label="manage-ignore-$(_nospace $@)" $title app$3="$1" manage=off
   echo "Ignoring $3'$1' $title"
 }
 
 function _yabairc_int_manage() {
-  local title=''
-  if [ ! -z "$2" ]; then
-    title="title$4=$2" 
-  fi
-  yabai -m rule --add label="manage-include-$(_nospace $@)" $title app$3="$1" manage=on 
-  echo "Managing $3'$1' $title"
+  function join_by {
+    local IFS="|"
+    echo "$*"
+  }
+
+  local keys=$(join_by ${_yabairc_manage_list[@]})
+  _yabairc_int_ignore "^($keys)$" '' '!'
 }
 
 function _yabairc_int_config() {
@@ -33,12 +43,16 @@ function _yabairc_int_config() {
   echo "Set global '$1' to '$2'"
 }
 
+function rule() {
+  _yabairc_rule_list+=( "$1" "$2" "$3" "$4" "$5" "$6" )
+}
+
 function ignore() {
   _yabairc_ignore_list+=("$1" "$2" "$3" "$4")
 }
 
 function manage() {
-  _yabairc_manage_list+=("$1" "$2" "$3" "$4")
+  _yabairc_manage_list+=("$@")
 }
 
 function config() {
@@ -46,15 +60,13 @@ function config() {
 }
 
 function commit() {
-  #yabai -m rule --add label='manage-ignore-all' app='^.*$' manage=off
-
   sleep 0.1
 
-  local a='' b='' c='' d=''
+  local a='' b='' c='' d='' e='' f=''
 
-  for a b c d in "${_yabairc_manage_list[@]}"; do
-    _yabairc_int_manage "$a" "$b" "$c" "$d"
-  done
+  if [ ! -z "$_yabairc_manage_list" ]; then
+    _yabairc_int_manage
+  fi
 
   _yabairc_manage_list=()
 
@@ -75,4 +87,15 @@ function commit() {
   _yabairc_config_list=()
 
   sleep 0.1
+
+
+  for a b c d e f in "${_yabairc_rule_list[@]}"; do
+    _yabairc_int_rule "$a" "$b" "$c" "$d" "$e" "$f"
+  done
+
+  _yabairc_rule_list=()
+
+  sleep 0.1
+
+  echo "Commit complete"
 }

@@ -1,2 +1,0 @@
-ignore '^(iTerm2|Discord|Google Chrome)$' '' '!'
-ignore '^iTerm2$' '^viss$' '' ''

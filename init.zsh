@@ -5,9 +5,9 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
 
-ZSH_DIR="${0:h}"
+ZSH_DIR="${0:h:A}"
 ZSH_BASE_DIR="$ZSH_DIR/base"
-ZSH_CONF_DIR="$ZSH_DIR/conf"
+ZSH_CONF_DIR="$ZSH_DIR/etc"
 ZSH_LIB_DIR="$ZSH_DIR/lib"
 ZSH_PLUGIN_DIR="$ZSH_DIR/plugins"
 
@@ -16,7 +16,7 @@ EDITOR=vi
 CORP_KEY=${CORP_KEY:-corp}
 
 # Zrc
-source "${0:h}/zrc.zsh"
+source "$ZSH_DIR/zrc.zsh"
 
 # Base
 zrc base alias
@@ -33,7 +33,7 @@ zrc base terminal
 env_default 'PAGER' 'less'
 env_default 'LESS' '-R'
 
-zrc plugins "${0:h}/plugins-osx"
+zrc plugins "$ZSH_CONF_DIR/plugins-osx"
 
 # Theme
 zrc library p10k

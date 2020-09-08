@@ -40,7 +40,7 @@ _zrc_ensure_dir() {
 
 _zrc_fail_int() {
   if [[ -z "$1" ]] then
-    _zrc_internal_fail+=("internal (Zrc) failure")
+    _zrc_internal_fail+=("internal (ZRC) failure")
   else
     _zrc_internal_fail+=("$@")
   fi
@@ -55,8 +55,8 @@ _zrc_assert_cmd() {
 }
 
 zrc_plugin_require_command() {
-  if ! type "node" > /dev/null; then
-    zrc_fail "Missing Node"
+  if ! type "$1" > /dev/null; then
+    zrc_fail "Missing $1"
     return
   fi
 }

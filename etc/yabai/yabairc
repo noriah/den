@@ -9,8 +9,6 @@ function load() {
 # Load our framework into env
 load init.rc
 
-load $(uname -n).global.rc
-
 # Only shadow floating windows
 config window_topmost off
 config window_shadow float
@@ -26,6 +24,9 @@ config mouse_modifier fn
 config mouse_action1 move
 config mouse_action2 resize
 config mouse_drop_action swap
+
+# load host specific items
+load $(uname -n).host.rc
 
 # set the layout to bsp
 config layout bsp

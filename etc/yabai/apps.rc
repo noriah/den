@@ -1,0 +1,6 @@
+manage iTerm2
+manage Discord
+manage 'Google Chrome'
+manage Slack
+
+ignore '^iTerm2$' '^viss$'
