@@ -11,13 +11,21 @@ function _nospace() {
 }
 
 function _yabairc_int_ignore() {
-  yabai -m rule --add label="manage-ignore-$(_nospace $@)" title="^$2$" app="^$1$" manage=off
-  echo "Ignoring '$1' with title '$2'"
+  local title=''
+  if [ ! -z "$2" ]; then
+    title=" title$4=\"$2\"" 
+  fi
+  yabai -m rule --add label="manage-ignore-$(_nospace $@)"$title app$3="$1" manage=off 
+  echo "Ignoring $3'$1' $title"
 }
 
 function _yabairc_int_manage() {
-  yabai -m rule --add label="manage-include-$(_nospace $@)" app="^$@$" manage=on
-  echo "Managing '$@'"
+  local title=''
+  if [ ! -z "$2" ]; then
+    title=" title$4=\"$2\"" 
+  fi
+  yabai -m rule --add label="manage-include-$(_nospace $@)"$title app$3="$1" manage=on 
+  echo "Managing $3'$1' $title"
 }
 
 function _yabairc_int_config() {
@@ -26,41 +34,34 @@ function _yabairc_int_config() {
 }
 
 function ignore() {
-  local a="$1"
-  shift 1
-  local b="$@"
-  _yabairc_ignore_list+=("$a" "$b")
+  _yabairc_ignore_list+=("$1" "$2" "$3" "$4")
 }
 
 function manage() {
-  local a="$@"
-  _yabairc_manage_list+=("$a")
+  _yabairc_manage_list+=("$1" "$2" "$3" "$4")
 }
 
 function config() {
-  local a="$1"
-  shift 1
-  local b="$@"
-  _yabairc_config_list+=("$a" "$b")
+  _yabairc_config_list+=("$1" "$2")
 }
 
 function commit() {
-  yabai -m rule --add label='manage-ignore-all' app='^.*$' manage=off
+  #yabai -m rule --add label='manage-ignore-all' app='^.*$' manage=off
 
   sleep 0.1
 
-  local a='' b=''
+  local a='' b='' c='' d=''
 
-  for a in "${_yabairc_manage_list[@]}"; do
-    _yabairc_int_manage "$a"
+  for a b c d in "${_yabairc_manage_list[@]}"; do
+    _yabairc_int_manage "$a" "$b" "$c" "$d"
   done
 
   _yabairc_manage_list=()
 
   sleep 0.1
 
-  for a b in "${_yabairc_ignore_list[@]}"; do
-    _yabairc_int_ignore "$a" "$b"
+  for a b c d in "${_yabairc_ignore_list[@]}"; do
+    _yabairc_int_ignore "$a" "$b" "$c" "$d"
   done
 
   _yabairc_ignore_list=()

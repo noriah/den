@@ -16,7 +16,7 @@ config left_padding 20
 config right_padding 20
 config window_gap 20
 
-config external_bar main:0:110
+config external_bar main:0:85
 
 # Only shadow floating windows
 config window_topmost off
@@ -43,11 +43,8 @@ config mouse_drop_action swap
 # set the layout to bsp
 config layout bsp
 
-# Load in our managed apps rules
-load manage.rules.rc
-
-# Load in our ignored items rules
-load ignore.rules.rc
+# Load in our app rules
+load apps.rc
 
 # Make things happen
 commit

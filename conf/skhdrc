@@ -13,4 +13,4 @@ shift + fn + alt - n : yabai -m window --swap next
 shift + cmd + alt - p : yabai -m window --warp prev
 shift + cmd + alt - n : yabai -m window --warp next 
 
-shift + alt - k : yabai -m window --toggle float
+shift + fn - k : yabai -m window --toggle float

@@ -8,6 +8,7 @@ typeset -g _zrc_ext_fail=()
 typeset -g _zrc_internal_fail=()
 typeset -ga _zrc_hook_list=()
 typeset -ga _zrc_compdef_list=()
+typeset -g _zrc_post_compdef_list=()
 
 typeset -g _zrc_ret_dir
 
@@ -168,6 +169,11 @@ _zrc_hook_compdef() {
   for a in "${_zrc_compdef_list[@]}"; do
     compdef $a
   done
+
+  for a in "${_zrc_post_compdef_list[@]}"; do
+    $a
+  done
+
   add-zsh-hook -D precmd _zrc_hook_compdef
 }
 
@@ -177,6 +183,10 @@ _zrc_add_hook() {
 
 _zrc_add_compdef() {
   _zrc_compdef_list+=("$@")
+}
+
+_zrc_add_post_compdef() {
+  _zrc_post_compdef_list+=("$@")
 }
 
 _zrc_hook_compinit() {
@@ -223,7 +233,11 @@ zrc() {
       ;;
 
     "compdef")
-      _zrc_add_compdef "$@"
+      _zrc_add_compdef "$item"
+      ;;
+
+    "postcompdef")
+      _zrc_add_post_compdef "$item"
       ;;
 
     "hook")
