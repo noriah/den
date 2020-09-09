@@ -26,11 +26,13 @@ if [ "$floating" -eq 1 ]; then
 else
   if [ -f "$resFile" ]; then
     windowData=($(cat "$resFile"))
-    windowData=("--move" "abs:${windowData[1]}:${windowData[2]}" "--resize" "abs:${windowData[3]}:${windowData[3]}")
+    windowData=("--move" "abs:${windowData[1]}:${windowData[2]}" "--resize" "abs:${windowData[3]}:${windowData[4]}")
   else
     windowData=("--grid" "5:4:1:1:2:3")
   fi
 
   yabai -m window $id --toggle float
-  yabai -m window $id ${windowData[@]}
+  for a b in "${windowData[@]}"; do
+    yabai -m window $id $a $b
+  done
 fi
