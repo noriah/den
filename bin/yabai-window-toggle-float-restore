@@ -33,6 +33,6 @@ else
 
   yabai -m window $id --toggle float
   for a b in "${windowData[@]}"; do
-    yabai -m window $id $a $b
+    yabai -m window $id "$a" "$b"
   done
 fi
