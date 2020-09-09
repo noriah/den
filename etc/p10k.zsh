@@ -50,20 +50,32 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   # typeset -g POWERLEVEL9K_ICON_PADDING=none
 
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir dir_writable vcs newline prompt_char)
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    os_icon
+    dir
+    dir_writable
+    vcs 
+    newline
+    prompt_char
+  )
 
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time history background_jobs)
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    status
+    history
+    command_execution_time
+    background_jobs
+  )
 
   _right_with_plugin direnv
   _right_with_plugin terraform
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    virtualenv pyenv goenv nodenv
+    # virtualenv pyenv goenv nodenv
     context ranger vim_shell vpn_ip
   )
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-#    load
+    # load
     time
    newline
   )

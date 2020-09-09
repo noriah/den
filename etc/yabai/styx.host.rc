@@ -17,3 +17,9 @@ config normal_window_border_color 0x00314484
 
 rule app="^iTerm2$" title!="^(viss|Preferences)?$" border=on
 
+rule app="^kitty$" title="^viss$" sticky=on display=1
+
+yabai -m signal --add event=window_moved app='^kitty$' title='^viss$' action="$DOT/bin/yabai-center-viss"
+yabai -m signal --add event=window_resized app='^kitty$' title='^viss$' action="$DOT/bin/yabai-center-viss"
+yabai -m signal --add event=window_created app='^kitty$' title='^viss$' action="$DOT/bin/yabai-center-viss"
+yabai-center-viss

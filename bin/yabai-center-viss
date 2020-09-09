@@ -12,6 +12,9 @@ IFS=$'\n' read -d '' -r -A displayData  <<< "$(yabai -m query --displays | jq 'm
 dw=${displayData[1]}
 dh=${displayData[2]}
 
-let "centerPoint = (dw / 2) - (ww / 2)"
+height=2080
 
-yabai -m window $wid --move abs:$centerPoint:2012
+let "centerPoint = (dw / 2) - (ww / 2)"
+let "centerHeight = height - (wh / 2)"
+
+yabai -m window $wid --move abs:$centerPoint:$centerHeight

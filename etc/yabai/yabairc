@@ -1,10 +1,12 @@
 #!/usr/bin/env zsh
 # Yabai RC File
 
-BASEDIR=$(dirname "$0")
+BASEDIR=${0:h:A}
 function load() {
   source $BASEDIR/$1
 }
+
+DOT=$(dirname $(dirname $BASEDIR))
 
 # Load our framework into env
 load init.rc
@@ -14,7 +16,7 @@ config window_topmost off
 config window_shadow on
 
 # set mouse focus
-config mouse_follows_focus on
+config mouse_follows_focus off
 
 # Get rid of auto balance
 config auto_balance off

@@ -1,13 +1,16 @@
 #!/usr/bin/env zsh
 
 if [ -z "$1" ]; then
-  id="$(yabai -m query --windows | jq 'map(select(."focused" == 1))[0].id')"
+  id="$(yabai -m query --windows | jq 'map(select(."focused" == 1))[].id')"
 else
   id="$1"
 fi
 
-# frameData="$(yabai -m query --windows | jq 'map(select(."focused" == 1))[0].frame | .x, .y, .w, .h')"
+IFS=$'\n' read -d '' -r -A windowData  <<< "$(yabai -m query --windows | jq 'map(select(."id" == '$id'))[] | .frame.x, .frame.y, .frame.w, .frame.h, .display')"
 
-# frameData=${frameData//$'\n'/,}
+display=$windowData[5]
 
-screencapture -c -u -x -tPNG -l${id}
+
+frameData="${windowData[1]},${windowData[2]},${windowData[3]},${windowData[4]}"
+
+screencapture -c -u -x -tPNG -R${frameData} -D${display}
