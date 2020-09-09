@@ -13,7 +13,7 @@ external_bar_top=0
 external_bar_bottom=160
 
 window_border=off
-window_border_width=4
+window_border_width=6
 
 active_border=0xFFFB7BA1
 normal_border=0xFF384886
