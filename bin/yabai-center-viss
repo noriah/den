@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-IFS=$'\n' read -d '' -r -A windowData  <<< "$(yabai -m query --windows | jq 'map(select(."title" == "viss"))[] | .id, .frame.x, .frame.y, .frame.w, .frame.h, .display')"
+windowData=($(yabai -m query --windows | jq 'map(select(."title" == "viss"))[] | .id, .frame.x, .frame.y, .frame.w, .frame.h, .display'))
 wid=${windowData[1]}
 wx=${windowData[2]}
 wy=${windowData[3]}
@@ -8,13 +8,21 @@ ww=${windowData[4]}
 wh=${windowData[5]}
 wd=${windowData[6]}
 
-IFS=$'\n' read -d '' -r -A displayData  <<< "$(yabai -m query --displays | jq 'map(select(."index" == 1))[].frame | .w, .h')"
+if [ -z $wid ]; then
+	exit
+fi
+
+displayData=($(yabai -m query --displays --display 1 | jq '.frame.w, .frame.h'))
 dw=${displayData[1]}
 dh=${displayData[2]}
 
 height=2080
 
+typeset -g space_padding=10
+
+dotLoad "etc/yabai/$(uname -n).vars.rc"
+
 let "centerPoint = (dw / 2) - (ww / 2)"
-let "centerHeight = height - (wh / 2)"
+let "centerHeight = dh - wh - $space_padding"
 
 yabai -m window $wid --move abs:$centerPoint:$centerHeight

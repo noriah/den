@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+space_padding=5
+window_gap=10
+
+external_bar=main
+external_bar_top=0
+external_bar_bottom=80
+
+window_border=off
+window_border_width=4
+
+active_border=0xFFFB7BA1
+normal_border=0x00000000
+

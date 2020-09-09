@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+spaceIndicies=$(yabai -m query --spaces --display | jq '.[].index')
+spaceIndicies=${spaceIndicies//$'\n'/,}
+
+
+yabai -m space --create
+
+newIndex=$(yabai -m query --spaces --display | jq '[.[].index] | map(select(in(['$spaceIndicies']) != true))[-1]')
+
+yabai -m space --focus $newIndex
+

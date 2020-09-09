@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+load_extra=(
+  iterm2.app.rc
+  viss.app.rc
+)
+
+space_padding=15
+window_gap=30
+
+external_bar=main
+external_bar_top=0
+external_bar_bottom=160
+
+window_border=off
+window_border_width=4
+
+active_border=0xFFFB7BA1
+normal_border=0xFF384886
+

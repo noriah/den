@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+if [ -z "$1" ]; then
+  id="$(yabai -m query --displays --display | jq '.index')"
+else
+  id="$1"
+fi
+
+screencapture -c -u -x -tPNG -D${id} 

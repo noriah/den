@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+
+if [ -z "$1" ]; then
+  id=$(yabai -m query --windows --window | jq '.id')
+else
+  id="$1"
+fi
+
+resDir=/tmp/yabai-script/windows
+
+if [ ! -d $resDir ]; then
+  mkdir -p $resDir
+fi
+
+resFile="$resDir/$id"
+
+windowData=($(yabai -m query --windows --window $id | jq '.frame.x, .frame.y, .frame.w, .frame.h, .floating'))
+
+floating=${windowData[5]}
+
+windowData=(${windowData[@]:0:4})
+
+if [ "$floating" -eq 1 ]; then
+  echo ${windowData[@]} > "$resFile"
+  yabai -m window $id --toggle float
+else
+  if [ -f "$resFile" ]; then
+    windowData=($(cat "$resFile"))
+    windowData=("--move" "abs:${windowData[1]}:${windowData[2]}" "--resize" "abs:${windowData[3]}:${windowData[3]}")
+  else
+    windowData=("--grid" "5:4:1:1:2:3")
+  fi
+
+  yabai -m window $id --toggle float
+  yabai -m window $id ${windowData[@]}
+fi

@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+activeIndex=$(yabai -m query --spaces --space | jq '.index')
+
+spaceIndicies=($(yabai -m query --spaces --display | jq '.[].index'))
+
+if [ ${#spaceIndicies[@]} -eq 1 ]; then
+  tput bel
+  exit
+fi
+
+set -- "${spaceIndicies[@]}"
+while [ ! "$1" -gt "$activeIndex" ] && (( $# )); do
+  shift
+done
+
+next=$1
+
+if [ -z "$next" ]; then
+  tput bel
+  next=${spaceIndicies[1]}
+fi
+
+yabai -m space --focus $next

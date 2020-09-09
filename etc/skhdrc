@@ -8,11 +8,11 @@ shift + fn + alt - i : yabai -m window --toggle split
 shift + fn - o : yabai -m display --focus next || yabai -m display --focus first
 shift + fn + alt - o : yabai-window-swap-display
 
-shift + fn + cmd - 0x18 : yabai -m space --create
-shift + fn + cmd - 0x1B : yabai -m space --destroy
+shift + fn + cmd - 0x18 : yabai-space-create-focus
+shift + fn + cmd - 0x1B : yabai-space-destroy
 
-shift + fn + cmd - l : yabai -m space --focus next || yabai -m space -- focus first
-shift + fn + cmd - h : yabai -m space --focus prev || yabai -m space -- focus last
+shift + fn + cmd - l : yabai-space-next
+shift + fn + cmd - h : yabai-space-prev
 
 shift + fn - p : yabai -m window --focus prev
 shift + fn - n : yabai -m window --focus next
@@ -35,7 +35,7 @@ shift + fn + ctrl - l : yabai -m window --swap east
 shift + fn + alt - r : yabai -m space --rotate 90
 shift + fn + alt - e : yabai -m space --rotate 270
 
-shift + fn - f : yabai -m window --toggle float;\
-                 yabai -m window --grid 5:4:1:1:2:3
+shift + fn - f : yabai-window-toggle-float-restore
 
-shift + fn + cmd - w : yabai-screenshot-window
+shift + ctrl + cmd - w : yabai-screenshot-window
+shift + ctrl + cmd - d : yabai-screenshot-display 

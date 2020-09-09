@@ -3,13 +3,30 @@
 
 BASEDIR=${0:h:A}
 function load() {
-  source $BASEDIR/$1
+  if [ -f "$BASEDIR/$1" ]; then
+    source "$BASEDIR/$1"
+  fi
 }
 
 DOT=$(dirname $(dirname $BASEDIR))
 
 # Load our framework into env
 load init.rc
+
+typeset -g space_padding=10
+typeset -g window_gap=10
+typeset -g external_bar=off
+typeset -g external_bar_top=0
+typeset -g external_bar_bottom=0
+typeset -g window_border=off
+typeset -g window_border_width=0
+typeset -g active_border=0x00FFFFFF
+typeset -g normal_border=0x00FFFFFF
+
+typeset -ga load_extra=()
+
+# load host specific items
+load $(uname -n).vars.rc
 
 # Only shadow floating windows
 config window_topmost off
@@ -27,14 +44,31 @@ config mouse_action1 move
 config mouse_action2 resize
 config mouse_drop_action swap
 
-# load host specific items
-load $(uname -n).host.rc
+
+# Set the padding and gap
+config top_padding $space_padding
+config bottom_padding $space_padding
+config left_padding $space_padding
+config right_padding $space_padding
+config window_gap $window_gap
+
+config external_bar "${external_bar}:${external_bar_top}:${external_bar_bottom}"
+
+# Window Borders
+config window_border $window_border
+config window_border_width $window_border_width
+config active_window_border_color $active_border
+config normal_window_border_color $normal_border
 
 # set the layout to bsp
 config layout bsp
 
 # Load in our app rules
 load apps.rc
+
+for f in "${load_extra[@]}"; do
+  load "$f"
+done
 
 # Make things happen
 commit
