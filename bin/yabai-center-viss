@@ -22,7 +22,7 @@ typeset -g space_padding=10
 
 dotLoad "etc/yabai/$(uname -n).vars.rc"
 
-let "centerPoint = (dw / 2) - (ww / 2)"
+let "centerWidth = (dw / 2) - (ww / 2)"
 let "centerHeight = dh - wh - $space_padding"
 
-yabai -m window $wid --move abs:$centerPoint:$centerHeight
+yabai -m window $wid --move abs:$centerWidth:$centerHeight
