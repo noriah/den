@@ -14,3 +14,5 @@ shift + cmd + alt - p : yabai -m window --warp prev
 shift + cmd + alt - n : yabai -m window --warp next 
 
 shift + fn - k : yabai -m window --toggle float
+
+shift + fn + cmd - w : yabai-screenshot-window

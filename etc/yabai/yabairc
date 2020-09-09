@@ -11,7 +11,7 @@ load init.rc
 
 # Only shadow floating windows
 config window_topmost off
-config window_shadow float
+config window_shadow on
 
 # set mouse focus
 config mouse_follows_focus on
