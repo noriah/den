@@ -1,3 +1,6 @@
 # dot
 
-dotfiles
+![](res/grid.png)
+
+a slow work in progress
+
