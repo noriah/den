@@ -1,4 +1,9 @@
 #!/usr/bin/env zsh
+
+load_extra=(
+#	viss.app.rc
+)
+
 space_padding=5
 window_gap=10
 
