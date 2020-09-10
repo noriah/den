@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [ -z "$1" ]; then
-  id="$(yabai -m query --windows | jq 'map(select(."focused" == 1))[].id')"
+  id="$(yabai -m query --windows --window | jq '.id')"
 else
   id="$1"
 fi

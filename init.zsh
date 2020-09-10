@@ -35,7 +35,7 @@ env_default 'LESS' '-R'
 
 zrc plugins "$ZSH_CONF_DIR/plugins-osx"
 
-# Theme
+# Themes and stuff
 zrc library p10k
 zrc library z
 

@@ -23,7 +23,7 @@ _zrc_base() {
 }
 
 _zrc_config() {
-  [[ -f "$ZSH_CONF_DIR/$1.zsh" ]] && source "$ZSH_CONF_DIR/$1.zsh"
+  [[ -f "$ZSH_CONF_DIR/zrc/$1.zsh" ]] && source "$ZSH_CONF_DIR/zrc/$1.zsh"
 }
 
 _zrc_library() {

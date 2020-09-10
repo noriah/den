@@ -32,5 +32,5 @@ visualizer.spectrum.left.margin=0
 #visualizer.spectrum.reversed=false
 
 colors.override.terminal=true
-colors.scheme=rainbow,basic_colors,sun_grid
+colors.scheme=sun_grid
 

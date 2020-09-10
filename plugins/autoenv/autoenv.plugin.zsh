@@ -1,4 +1,4 @@
-__AUTOENV_PATH="${0:h}/zsh-autoenv/"
+__AUTOENV_PATH="${0:h:A}/zsh-autoenv/"
 
 autoenv_do_update () {
   BASE_URL="https://raw.githubusercontent.com/Tarrasch/zsh-autoenv/master"

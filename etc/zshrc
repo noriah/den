@@ -1,0 +1,26 @@
+CORP_KEY=supplyframe
+
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+
+export GO_PATH="$HOMEi/opt/go"
+# Go is special so it gets a special deviation from the norm
+export GOPATH="$GO_PATH"
+
+export NPM_PATH="$HOME/opt/npm"
+
+export CARGO_PATH="$HOME/opt/.cargo"
+
+export GEM_PATH="$HOME/.gem/ruby/2.6.0"
+
+export PATH="/usr/local/sbin:$PATH"
+
+# We need some paths. Let us have paths
+paths=( GEM_PATH CARGO_PATH NPM_PATH GO_PATH HOME )
+
+for p in "${paths[@]}"; do
+	# Export our path paths in the PATH
+	export PATH="${(P)p}/bin:$PATH"
+done
+
+dotLoad init.zsh
