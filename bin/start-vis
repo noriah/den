@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+denLoad etc/den/vars.zsh
+
+VIS_BIN="$HOME/bin/vis"
+CONF_FILE="$DEN/etc/vis/${DEN_THEME}
+
+"$VIS_BIN" -c "$CONF_FILE"

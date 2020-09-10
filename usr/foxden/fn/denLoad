@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function denLoad() {
+	if [ -f "$DEN/$1" ]; then
+		source "$DEN/$1"
+		return 0
+	fi
+	printf "sorry. i could not find '%s' in '%s'\n" "$1" "$DEN" 1>&2
+	return 1
+}

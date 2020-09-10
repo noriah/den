@@ -1,6 +1,5 @@
-# dot
+# den
 
-![](res/grid.png)
+![](usr/image/grid.png)
 
-a slow work in progress
-
+a fox den is a fox home

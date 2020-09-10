@@ -1,5 +1,3 @@
-autoenv
-#direnv
 git
 golang
 gpg
@@ -15,4 +13,3 @@ terraform
 #todo
 workspace
 yabai
-z

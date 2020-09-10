@@ -1,0 +1,12 @@
+export DEN="$(dirname "$(dirname ${0:h:A})")"
+export FOX_DEN="usr/foxden"
+export XDG_CONFIG_HOME="$DEN/etc"
+
+export _PATH="$PATH"
+export PATH="$DEN/bin:$PATH"
+
+local denFuncPath="$DEN/$FOX_DEN/fn"
+
+fpath=("$denFuncPath" "${fpath[@]}")
+
+for func in $^denFuncPath/*; autoload -Uz $func

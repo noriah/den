@@ -4,3 +4,4 @@
 external
 .fetched
 *.swp
+/opt/

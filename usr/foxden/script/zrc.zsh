@@ -23,13 +23,13 @@ _zrc_base() {
 }
 
 _zrc_config() {
-  [[ -f "$ZSH_CONF_DIR/zrc/$1.zsh" ]] && source "$ZSH_CONF_DIR/zrc/$1.zsh"
+  [[ -f "$ZSH_CONF_DIR/den/$1.zsh" ]] && source "$ZSH_CONF_DIR/den/$1.zsh"
 }
 
 _zrc_library() {
-  [[ -d "$ZSH_LIB_DIR/$1" && -f "$ZSH_LIB_DIR/$1/$1.lib.zsh" ]] || return 1
+  [[ -d "$ZSH_LIB_DIR" && -f "$ZSH_LIB_DIR/$1.zsh" ]] || return 1
   _zrc_config "$1"
-  source "$ZSH_LIB_DIR/$1/$1.lib.zsh" || return 1
+  source "$ZSH_LIB_DIR/$1.zsh" || return 1
 }
 
 _zrc_ensure_dir() {

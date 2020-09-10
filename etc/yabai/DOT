@@ -1,10 +1,14 @@
 #!/usr/bin/env zsh
 # Yabai RC File
 
+BASEDIR=${0:h:A}
 function load() {
-  denLoad "etc/yabai/$1"
-  return "$?"
+  if [ -f "$BASEDIR/$1" ]; then
+    source "$BASEDIR/$1"
+  fi
 }
+
+DOT=$(dirname $(dirname $BASEDIR))
 
 # Load our framework into env
 load init.rc

@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Setup
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
@@ -5,18 +7,18 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
 
-ZSH_DIR="${0:h:A}"
-ZSH_BASE_DIR="$ZSH_DIR/base"
+ZSH_DIR="$DEN"
+ZSH_BASE_DIR="$DEN/$FOX_DEN/base"
 ZSH_CONF_DIR="$ZSH_DIR/etc"
-ZSH_LIB_DIR="$ZSH_DIR/lib"
-ZSH_PLUGIN_DIR="$ZSH_DIR/plugins"
+ZSH_LIB_DIR="$DEN/$FOX_DEN/pkg"
+ZSH_PLUGIN_DIR="$DEN/$FOX_DEN/plugins"
 
 EDITOR=vi
 
 CORP_KEY=${CORP_KEY:-corp}
 
 # Zrc
-source "$ZSH_DIR/zrc.zsh"
+denScript zrc.zsh
 
 # Base
 zrc base alias
@@ -36,8 +38,9 @@ env_default 'LESS' '-R'
 zrc plugins "$ZSH_CONF_DIR/plugins-osx"
 
 # Themes and stuff
-zrc library p10k
 zrc library z
+zrc library autoenv
+zrc library p10k
 
 # Zrc stuff
 zrc do autoload
