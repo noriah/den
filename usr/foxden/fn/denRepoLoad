@@ -2,6 +2,6 @@
 
 function denRepoLoad() {
 	if denRepo "$1" "$2"; then
-		source "$DEN_REPO_PATH/$3"
+		source "$_DEN_REPO_PATH/$3"
 	fi
 }

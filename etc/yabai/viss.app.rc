@@ -1,10 +1,12 @@
 #!/usr/bin/env zsh
 
-rule app="^kitty$" title="^viss$" sticky=on display=1
+local title='^viss-term$'
 
-yabai -m signal --add event=window_moved app='^kitty$' title='^viss$' action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_resized app='^kitty$' title='^viss$' action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_created app='^kitty$' title='^viss$' action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_title_changed app='^kitty$' title='^viss$' action="$DEN/bin/yabai-center-viss"
+rule app="^kitty$" title="$title" sticky=on display=1
+
+yabai -m signal --add event=window_moved app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
+yabai -m signal --add event=window_resized app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
+yabai -m signal --add event=window_created app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
+yabai -m signal --add event=window_title_changed app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
 
 yabai-center-viss

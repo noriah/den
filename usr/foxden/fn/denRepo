@@ -13,7 +13,7 @@ function denRepo() {
 		git clone "$repoURL" "$repoDir" || return 1
 	fi
 
-	export DEN_REPO_PATH="$repoDir"
+	export _DEN_REPO_PATH="$repoDir"
 
 	return 0
 }

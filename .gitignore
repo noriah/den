@@ -5,3 +5,4 @@ external
 .fetched
 *.swp
 /opt/
+/etc/vis/vis.log
