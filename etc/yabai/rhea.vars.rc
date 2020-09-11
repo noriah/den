@@ -2,6 +2,7 @@
 
 load_extra=(
 #	viss.app.rc
+	iterm2.app.rc
 )
 
 space_padding=5
@@ -14,6 +15,5 @@ external_bar_bottom=80
 window_border=off
 window_border_width=4
 
-active_border=0xFFFB7BA1
-normal_border=0x00000000
-
+active_border=0xFFFDBAC3
+normal_border=0xFF9673AD
