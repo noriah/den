@@ -6,9 +6,22 @@
 # 
 ######################################
 
+FOX_BURROW="$DEN/$FOX_DEN/burrow"
+
+burrow $FOX_BURROW workspace.zsh
+
+burrow $FOX_BURROW osx.zsh
+
+burrow golang
+
+burrow rust
+
+burrow suggestions github/zsh-users/zsh-autosuggestions zsh-autosuggestions.zsh
+
 burrow github/rupa/z z.sh
 
-export __AUTOENV_PATH="$DEN/opt/autoenv"
+burrow highlight github/zdharma/fast-syntax-highlighting fast-syntax-highlighting.plugin.zsh
+
 burrow autoenv github/Tarrasch/zsh-autoenv autoenv.zsh
 
 burrow p10k github/romkatv/powerlevel10k powerlevel10k.zsh-theme

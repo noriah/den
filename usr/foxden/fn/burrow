@@ -6,6 +6,7 @@ function burrow() {
 	local burrowName
 	local burrowFile
 	local burrowConf
+	local burrowLight
 	local repoURI
 
 	# lazt fix for now
@@ -20,8 +21,9 @@ function burrow() {
 		1)
 			# printf "loading up '%s'!\n" "$1"
 			if [ ! -f "$1" ]; then
-				printf "*** uh oh. i could not find '%s'. try again later?\n" "$1"
-				return 1
+				burrowLight=1
+			#	printf "*** uh oh. i could not find '%s'. try again later?\n" "$1"
+			#	return 1
 			fi
 
 			burrowDir="$(dirname $1)"
@@ -113,9 +115,16 @@ function burrow() {
 	
 	fi
 
-	source "$burrowConf"
-	source "$burrowDir/$burrowFile"
+	[[ -f "$burrowConf" ]] && source "$burrowConf"
+	[[ ! "$burrowLight" -eq "1" ]] && source "$burrowDir/$burrowFile"
+
+	if [ -z "$_DEN_BURROW_LIST" ]; then
+		typeset -ga _DEN_BURROW_LIST
+	fi
+	
+	_DEN_BURROW_LIST+=( "$burrowName" )
 
 
 	return 0
 }
+

@@ -10,7 +10,7 @@
 function _left_with_plugin() {
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if zrc_has_plugin "$item"
+  if burrowCheck "$item"
   then
     POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$other")
   fi
@@ -19,7 +19,7 @@ function _left_with_plugin() {
 function _right_with_plugin() {
   item="$1"
   if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if zrc_has_plugin "$item"
+  if burrowCheck "$item"
   then
     POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$other")
   fi
@@ -150,7 +150,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
-  if zrc_has_plugin "workspace"
+  if burrowCheck "workspace"
   then
     pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
