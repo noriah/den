@@ -38,4 +38,9 @@ shift + fn + alt - e : yabai -m space --rotate 270
 shift + fn - f : yabai-window-toggle-float-restore
 
 shift + ctrl + cmd - w : yabai-screenshot-window
-shift + ctrl + cmd - d : yabai-screenshot-display 
+shift + ctrl + cmd - d : yabai-screenshot-display
+
+shift + ctrl + cmd - h : yabai -m window --resize left:-50:0
+shift + ctrl + alt + cmd - h : yabai -m window --resize left:50:0
+shift + ctrl + cmd - k : yabai -m window --resize top:0:-50
+shift + ctrl + alt + cmd - k : yabai -m window --resize top:0:50

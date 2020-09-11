@@ -1,5 +1,3 @@
-CORP_KEY=supplyframe
-
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 
@@ -9,7 +7,7 @@ export GOPATH="$GO_PATH"
 
 export NPM_PATH="$DEN/opt/npm"
 
-export CARGO_PATH="$HOME/opt/.cargo"
+export CARGO_PATH="$HOME/.cargo"
 
 export GEM_PATH="$HOME/.gem/ruby/2.6.0"
 

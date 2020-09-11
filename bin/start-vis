@@ -1,10 +1,26 @@
 #!/usr/bin/env zsh
 
+
 denConf vars.zsh
 
 VIS_BIN="$HOME/bin/viss"
 CONF_FILE="$DEN/etc/vis/${DEN_THEME}"
 
-echo -en "\033]0;viss-term\a"
 
-$VIS_BIN -c "$CONF_FILE"
+printf '(s|v) '
+read -s -k -r y
+
+case "$y" in
+	s)
+		echo -en "\033]0;spt-term\a"
+		spt
+		;;
+
+	v)
+		echo -en "\033]0;viss-term\a"
+		$VIS_BIN -c "$CONF_FILE"
+		;;
+	*)
+		exit
+		;;
+esac

@@ -26,3 +26,4 @@ let "centerWidth = (dw / 2) - (ww / 2)"
 let "centerHeight = dh - wh - $space_padding"
 
 yabai -m window $wid --move abs:$centerWidth:$centerHeight
+

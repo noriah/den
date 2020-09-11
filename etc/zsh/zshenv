@@ -9,4 +9,4 @@ local denFuncPath="$DEN/$FOX_DEN/fn"
 
 fpath=("$denFuncPath" "${fpath[@]}")
 
-for func in $^denFuncPath/*; autoload -Uz $func
+for func in $^denFuncPath/*; autoload -z $func

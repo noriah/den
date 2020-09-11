@@ -7,6 +7,6 @@ rule app="^kitty$" title="$title" sticky=on display=1
 yabai -m signal --add event=window_moved app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
 yabai -m signal --add event=window_resized app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
 yabai -m signal --add event=window_created app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_title_changed app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss"
+yabai -m signal --add event=window_title_changed app='^kitty$' title="$title" action="$DEN/bin/yabai-center-viss yes"
 
 yabai-center-viss

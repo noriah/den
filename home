@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+#
+# noriah's den
+#
+# please wipe your feet on the way in.
+# 
+######################################
+
+burrow github/rupa/z z.sh
+
+export __AUTOENV_PATH="$DEN/opt/autoenv"
+burrow autoenv github/Tarrasch/zsh-autoenv autoenv.zsh
+
+burrow p10k github/romkatv/powerlevel10k powerlevel10k.zsh-theme
+

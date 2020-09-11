@@ -37,10 +37,7 @@ env_default 'LESS' '-R'
 
 zrc plugins "$ZSH_CONF_DIR/plugins-osx"
 
-# Themes and stuff
-zrc library z
-zrc library autoenv
-zrc library p10k
+denLoad home
 
 # Zrc stuff
 zrc do autoload

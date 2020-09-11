@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+osascript -e 'tell application "System Events"
+    tell process "kitty"
+        set frontmost to true
+        key code 15
+    end tell
+end tell'
