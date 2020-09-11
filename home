@@ -12,6 +12,8 @@ burrow $FOX_BURROW workspace.zsh
 
 burrow $FOX_BURROW osx.zsh
 
+burrow $FOX_BURROW taskwarrior.zsh
+
 burrow golang
 
 burrow rust
