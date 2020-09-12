@@ -6,9 +6,12 @@ denConf vars.zsh
 VIS_BIN="$HOME/bin/viss"
 CONF_FILE="$DEN/etc/vis/${DEN_THEME}"
 
+y="$1"
 
-printf '(s|v) '
-read -s -k -r y
+if [ -z "$y" ]; then
+	printf '(s|v) '
+	read -s -k -r y
+fi
 
 case "$y" in
 	s)
@@ -17,6 +20,8 @@ case "$y" in
 		;;
 
 	v)
+		echo -en "\033]0;viss\a"
+		sleep 1
 		echo -en "\033]0;viss-term\a"
 		$VIS_BIN -c "$CONF_FILE"
 		;;

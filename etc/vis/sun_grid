@@ -4,20 +4,19 @@ audio.port.source=VisOut
 audio.stereo.enabled=true
 
 audio.sampling.frequency=48000
-audio.low.cutoff.frequency=380
+audio.low.cutoff.frequency=320
 audio.high.cutoff.frequency=16000
 
-visualizer.scaling.multiplier=2
+visualizer.scaling.multiplier=1
 
 visualizers=spectrum
 
-visualizer.spectrum.character=●
-visualizer.spectrum.bar.width=3
+#visualizer.spectrum.character=●
+visualizer.spectrum.character=█
+visualizer.spectrum.bar.width=2
 visualizer.spectrum.bar.spacing=1
 
-# visualizer.spectrum.smoothing.mode=none
 visualizer.spectrum.smoothing.mode=monstercat
-# visualizer.spectrum.smoothing.mode=sgs
 
 visualizer.sgs.smoothing.points=2
 visualizer.sgs.smoothing.passes=1
@@ -34,5 +33,5 @@ visualizer.spectrum.left.margin=0
 #visualizer.spectrum.reversed=false
 
 colors.override.terminal=true
-colors.scheme=sun_grid
+colors.scheme=sun_grid2
 
