@@ -1,16 +1,14 @@
-#!/usr/bin/env zsh
-
 load_extra=(
   iterm2.app.rc
   viss.app.rc
 )
 
-space_padding=15
-window_gap=30
+space_padding=150
+window_gap=90
 
 external_bar=main
 external_bar_top=0
-external_bar_bottom=160
+external_bar_bottom=175
 
 window_border=off
 window_border_width=8

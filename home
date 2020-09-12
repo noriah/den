@@ -6,7 +6,16 @@
 # 
 ######################################
 
+# our home made den additions
 FOX_BURROW="$DEN/$FOX_DEN/burrow"
+
+# we have langauges but handle them separate.
+# just add entries so other plugins know.
+# sharing is caring.
+burrow golang
+burrow node
+burrow rust
+
 
 burrow $FOX_BURROW workspace.zsh
 
@@ -14,17 +23,29 @@ burrow $FOX_BURROW osx.zsh
 
 burrow $FOX_BURROW taskwarrior.zsh
 
-burrow golang
+burrow $FOX_BURROW neofetch.zsh
 
-burrow rust
+# auto suggestions are always wrong
+burrow suggestions \
+	github/zsh-users/zsh-autosuggestions \
+	zsh-autosuggestions.zsh
 
-burrow suggestions github/zsh-users/zsh-autosuggestions zsh-autosuggestions.zsh
-
+# jump around?
 burrow github/rupa/z z.sh
 
-burrow highlight github/zdharma/fast-syntax-highlighting fast-syntax-highlighting.plugin.zsh
+# it is nice to look nice. but it also helps
+# us see things easier.
+burrow highlight \
+	github/zdharma/fast-syntax-highlighting \
+	fast-syntax-highlighting.plugin.zsh
 
-burrow autoenv github/Tarrasch/zsh-autoenv autoenv.zsh
+# for that one problem
+burrow autoenv \
+	github/Tarrasch/zsh-autoenv \
+	autoenv.zsh
 
-burrow p10k github/romkatv/powerlevel10k powerlevel10k.zsh-theme
+# power the levels. 10k of them.
+burrow p10k \
+	github/romkatv/powerlevel10k \
+	powerlevel10k.zsh-theme
 

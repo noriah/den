@@ -7,22 +7,24 @@ audio.sampling.frequency=48000
 audio.low.cutoff.frequency=380
 audio.high.cutoff.frequency=16000
 
-visualizer.scaling.multiplier=1
+visualizer.scaling.multiplier=2
 
 visualizers=spectrum
 
 visualizer.spectrum.character=●
-visualizer.spectrum.bar.width=1
-visualizer.spectrum.bar.spacing=0
+visualizer.spectrum.bar.width=3
+visualizer.spectrum.bar.spacing=1
 
+# visualizer.spectrum.smoothing.mode=none
 visualizer.spectrum.smoothing.mode=monstercat
+# visualizer.spectrum.smoothing.mode=sgs
 
 visualizer.sgs.smoothing.points=2
 visualizer.sgs.smoothing.passes=1
 
 visualizer.spectrum.falloff.mode=fill
 
-visualizer.spectrum.falloff.weight=0.95
+visualizer.spectrum.falloff.weight=0.96
 
 visualizer.spectrum.top.margin=0
 visualizer.spectrum.bottom.margin=0
