@@ -4,8 +4,6 @@ fnPath="${0:h:A}/fn"
 
 fpath=("$fnPath" "${fpath[@]}")
 
-for func in $^fnPath/*; do
-	autoload -Uz $func
-done
+for func in $^fnPath/*; autoload -Uz $func
 
 unset fnPath

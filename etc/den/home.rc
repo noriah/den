@@ -26,9 +26,7 @@ local_burrows=(
 	workspace.zsh
 )
 
-for i in "${local_burrows[@]}"; do
-	burrow $FOX_DEN/usr/burrow/plans $i
-done
+for i in "${local_burrows[@]}"; burrow $FOX_DEN/usr/burrow/plans $i
 
 unset local_burrows
 
