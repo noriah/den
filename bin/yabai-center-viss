@@ -20,7 +20,7 @@ height=2080
 
 typeset -g space_padding=10
 
-denLoad "etc/yabai/$(uname -n).vars.rc"
+denSource "etc/yabai/$(uname -n).vars.rc"
 
 let "centerWidth = (dw / 2) - (ww / 2)"
 let "centerHeight = dh - wh"

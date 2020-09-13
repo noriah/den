@@ -4,3 +4,4 @@ export XDG_CONFIG_HOME="$FOX_DEN/etc"
 
 export PATH="$FOX_DEN/bin:$PATH"
 
+source "$FOX_DEN/usr/foxden/autoload.zsh"

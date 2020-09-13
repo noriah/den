@@ -4,16 +4,6 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
 
-fnPath="${0:h:A}/fn"
-
-fpath=("$fnPath" "${fpath[@]}")
-
-for func in $^fnPath/*; do
-	autoload -Uz $func
-done
-
-unset fnPath
-
 baseSubPath="usr/foxden/base"
 
 denSource "$baseSubPath/functions.zsh"

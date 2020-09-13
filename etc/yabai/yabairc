@@ -2,7 +2,7 @@
 # Yabai RC File
 
 function load() {
-  denLoad "etc/yabai/$1"
+  denSource "etc/yabai/$1"
   return "$?"
 }
 
