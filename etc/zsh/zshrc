@@ -1,14 +1,6 @@
 export PATH="/usr/local/sbin:$PATH"
 
-export GO_PATH="$DOTS/go"
-# Go is special so it gets a special deviation from the norm
-export GOPATH="$GO_PATH"
-
-export NPM_PATH="$HOME/optnpm"
-
-export CARGO_PATH="$HOME/.cargo"
-
-export GEM_PATH="$HOME/.gem/ruby/2.6.0"
+denSource etc/sh/profile
 
 # We need some paths. Let us have paths
 paths=(
@@ -29,7 +21,7 @@ done
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-source "$FOX_DEN/usr/foxden/rc.zsh"
+denSource usr/foxden/rc.zsh
 
 # load our home
 denConf home.rc

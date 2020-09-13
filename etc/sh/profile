@@ -1,0 +1,9 @@
+export GO_PATH="$HOME/opt/go"
+# Go is special so it gets a special deviation from the norm
+export GOPATH="$GO_PATH"
+
+export NPM_PATH="$HOME/opt/npm"
+
+export CARGO_PATH="$HOME/.cargo"
+
+export GEM_PATH="$HOME/.gem/ruby/2.6.0"
