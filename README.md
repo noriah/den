@@ -7,6 +7,6 @@ it is a work in progress but if you wanna look around:
 - [**etc**](etc/) - this is where we store all our configuration files
 - [**usr**](usr/) - contains things for our environment that we made
 
-![](usr/image/grid.png)
+![](usr/image/sun_grid-ex.png)
 
 a fox den is a fox home
