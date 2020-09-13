@@ -3,7 +3,7 @@
 app='^kitty$'
 title='^viss-term$'
 
-action='$FOX_DEN/bin/yabai-center-viss'
+action="$FOX_DEN/bin/yabai-center-viss"
 
 ignore "$app" "$title"
 
