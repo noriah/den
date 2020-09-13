@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-function denRepoLoad() {
-	if denRepo "$1"; then
-		source "$_DEN_REPO_PATH/$2"
-	fi
-}

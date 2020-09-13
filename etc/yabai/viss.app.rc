@@ -1,16 +1,18 @@
 #!/usr/bin/env zsh
 
-local app='^kitty$'
-local title='^viss-term$'
+app='^kitty$'
+title='^viss-term$'
 
-ignore "$app" "$title" 
+action='$FOX_DEN/bin/yabai-center-viss'
+
+ignore "$app" "$title"
 
 rule app="$app" title="$title" sticky=on display=1 layer=above
 rule app="$app" title="$title" sticky=on display=1 layer=above
 
-yabai -m signal --add event=window_moved app="$app" title="$title" action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_resized app="$app" title="$title" action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_created app="$app" title="$title" action="$DEN/bin/yabai-center-viss"
-yabai -m signal --add event=window_title_changed app="$app" title="$title" action="$DEN/bin/yabai-center-viss"
+yabai -m signal --add event=window_moved app="$app" title="$title" action="$action"
+yabai -m signal --add event=window_resized app="$app" title="$title" action="$action"
+yabai -m signal --add event=window_created app="$app" title="$title" action="$action"
+yabai -m signal --add event=window_title_changed app="$app" title="$title" action="$action"
 
 yabai-center-viss

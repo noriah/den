@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function burrowCheck() {
+	[[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
+}

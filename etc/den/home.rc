@@ -1,37 +1,44 @@
 #!/usr/bin/env zsh
+
+##############
 #
 # noriah's den
 #
 # please wipe your feet on the way in.
-# 
+#
 ######################################
 
-# our home made den additions
-FOX_BURROW="$DEN/$FOX_DEN/burrow"
+# load our den manager
+denSource usr/burrow/rc.zsh
 
-# we have langauges but handle them separate.
+# we have languages but handle them separate.
 # just add entries so other plugins know.
 # sharing is caring.
 burrow golang
 burrow node
 burrow rust
 
+# our home-made den additions
+local_burrows=(
+	osx.zsh
+	neofetch.zsh
+	taskwarrior.zsh
+	workspace.zsh
+)
 
-burrow $FOX_BURROW workspace.zsh
+for i in "${local_burrows[@]}"; do
+	burrow $FOX_DEN/usr/burrow/plans $i
+done
 
-burrow $FOX_BURROW osx.zsh
+unset local_burrows
 
-burrow $FOX_BURROW taskwarrior.zsh
-
-burrow $FOX_BURROW neofetch.zsh
+# jump around?
+burrow github/rupa/z z.sh
 
 # auto suggestions are always wrong
 burrow suggestions \
 	github/zsh-users/zsh-autosuggestions \
 	zsh-autosuggestions.zsh
-
-# jump around?
-burrow github/rupa/z z.sh
 
 # it is nice to look nice. but it also helps
 # us see things easier.
@@ -48,4 +55,3 @@ burrow autoenv \
 burrow p10k \
 	github/romkatv/powerlevel10k \
 	powerlevel10k.zsh-theme
-

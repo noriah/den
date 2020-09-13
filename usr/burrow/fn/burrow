@@ -9,9 +9,6 @@ function burrow() {
 	local burrowLight
 	local repoURI
 
-	# lazt fix for now
-	local DEN_OPT="$DEN/opt"
-
 	case "$#" in
 		0)
 			printf "*** uh oh. please add some arguments for me to process!\n"
@@ -38,7 +35,7 @@ function burrow() {
 				burrowFile="$(basename $2)"
 				burrowName="${burrowFile%.zsh}"
 			else
-				burrowDir="$DEN_OPT/$(basename $(dirname $1))_$(basename $1)"
+				burrowDir="$BURROW_OPT/$(basename $(dirname $1))_$(basename $1)"
 				burrowFile="$2"
 				burrowName="$(basename $1)"
 				if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" || ! -f "$burrowDir/$burrowFile" ]]; then
@@ -48,7 +45,7 @@ function burrow() {
 			;;
 
 		3)
-			burrowDir="$DEN_OPT/$(basename $(dirname $2))_$(basename $2)"
+			burrowDir="$BURROW_OPT/$(basename $(dirname $2))_$(basename $2)"
 			burrowFile="$3"
 			burrowName="$1"
 			if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" || ! -f "$burrowDir/$burrowFile" ]]; then
@@ -61,14 +58,11 @@ function burrow() {
 			return 1
 			;;
 	esac
-	
+
 	# TODO: check for already existing burrow
-				
-	local burrowConf="$DEN/etc/burrow/$burrowName"
 
-
-	if [ ! -d "$DEN_OPT" ]; then
-		mkdir "$DEN_OPT"
+	if [ ! -d "$BURROW_OPT" ]; then
+		mkdir "$BURROW_OPT"
 	fi
 
 	# Repo Download
@@ -77,7 +71,7 @@ function burrow() {
 		if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" ]]; then
 
 			printf "*** digging for '%s' in the clouds ('%s' in '%s').\n" "$burrowName" "$burrowFile" "$repoURI"
-		
+
 			local repoURL
 
 			case "$repoURI" in
@@ -109,20 +103,23 @@ function burrow() {
 
 		if [ ! -f "$burrowDir/$burrowFile" ]; then
 			printf "*** uh oh! i did not find '%s' in '%s' (%s)!\n." "$burrowFile" "$repoURI" "$burrowName"
-			
+
 			return 1
 		fi
-	
+
 	fi
+
+	local burrowConf="$FOX_DEN/etc/burrow/$burrowName.zsh"
+
 
 	[[ -f "$burrowConf" ]] && source "$burrowConf"
 	[[ ! "$burrowLight" -eq "1" ]] && source "$burrowDir/$burrowFile"
 
-	if [ -z "$_DEN_BURROW_LIST" ]; then
-		typeset -ga _DEN_BURROW_LIST
+	if [ -z "$_FOX_DEN_BURROW_LIST" ]; then
+		typeset -ga _FOX_DEN_BURROW_LIST
 	fi
-	
-	_DEN_BURROW_LIST+=( "$burrowName" )
+
+	_FOX_DEN_BURROW_LIST+=( "$burrowName" )
 
 
 	return 0

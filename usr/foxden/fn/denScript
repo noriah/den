@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-
-function denScript() {
-	denLoad "$FOX_DEN/script/$1"
-	return "$?"
-}

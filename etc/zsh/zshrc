@@ -1,17 +1,14 @@
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export PATH="/usr/local/sbin:$PATH"
 
-
-export GO_PATH="$DEN/opt/go"
+export GO_PATH="$DOTS/go"
 # Go is special so it gets a special deviation from the norm
 export GOPATH="$GO_PATH"
 
-export NPM_PATH="$DEN/opt/npm"
+export NPM_PATH="$HOME/optnpm"
 
 export CARGO_PATH="$HOME/.cargo"
 
 export GEM_PATH="$HOME/.gem/ruby/2.6.0"
-
-export PATH="/usr/local/sbin:$PATH"
 
 # We need some paths. Let us have paths
 paths=(
@@ -20,14 +17,19 @@ paths=(
 	CARGO_PATH
 	NPM_PATH
 	GO_PATH
-	DEN
+	DOTS
 	HOME
 )
 
+# Export our path paths in the PATH]
 for p in "${paths[@]}"; do
-	# Export our path paths in the PATH
-	export PATH="${(P)p}/bin:$PATH"
+	p="${(P)p}/bin"
+	[ -d "$p" ] && export PATH="$p:$PATH"
 done
 
-denScript init.zsh
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+source "$FOX_DEN/usr/foxden/rc.zsh"
+
+# load our home
+denConf home.rc
