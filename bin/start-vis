@@ -4,7 +4,7 @@
 denConf vars.zsh
 
 VIS_BIN="$HOME/bin/viss"
-CONF_FILE="$DEN/etc/vis/${DEN_THEME}"
+CONF_FILE="$FOX_DEN/etc/vis/$DEN_THEME"
 
 y="$1"
 

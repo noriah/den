@@ -1,1 +1,1 @@
-export DEN_THEME=sun_grid
+DEN_THEME=sun_grid

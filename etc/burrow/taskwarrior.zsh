@@ -1,1 +1,1 @@
-export TASKRC="$DEN/etc/taskwarrior/taskrc"
+export TASKRC="$FOX_DEN/etc/taskwarrior/taskrc"
