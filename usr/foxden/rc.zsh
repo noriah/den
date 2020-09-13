@@ -1,9 +1,3 @@
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
-
-[ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
-
-ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
-
 baseSubPath="usr/foxden/base"
 
 denSource "$baseSubPath/functions.zsh"
@@ -21,3 +15,5 @@ denSource "$baseSubPath/misc.zsh"
 denSource "$baseSubPath/terminal.zsh"
 
 unset baseSubPath
+
+autoload -Uz add-zsh-hook compinit

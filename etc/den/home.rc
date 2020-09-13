@@ -53,3 +53,4 @@ burrow autoenv \
 burrow p10k \
 	github/romkatv/powerlevel10k \
 	powerlevel10k.zsh-theme
+

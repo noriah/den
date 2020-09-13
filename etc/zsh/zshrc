@@ -21,7 +21,15 @@ done
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
+ZSH_CACHE_DIR="$HOME/.cache/zsh"
+
+[ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
+
+ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
+
 denSource usr/foxden/rc.zsh
 
 # load our home
 denConf home.rc
+
+compinit -C -d "$ZSH_COMP_FILE"
