@@ -1,6 +1,7 @@
 export FOX_DEN="$(dirname "$(dirname ${0:h:A})")"
 
 export XDG_CONFIG_HOME="$FOX_DEN/etc"
+export XDG_CACHE_HOME="$HOME/var/cache"
 
 export PATH="$FOX_DEN/bin:$PATH"
 

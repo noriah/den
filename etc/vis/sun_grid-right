@@ -30,7 +30,7 @@ visualizer.spectrum.bottom.margin=0
 visualizer.spectrum.right.margin=0
 visualizer.spectrum.left.margin=0
 
-visualizer.spectrum.reversed=false
+visualizer.spectrum.reversed=true
 
 colors.override.terminal=true
 colors.scheme=sun_grid2

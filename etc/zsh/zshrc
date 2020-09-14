@@ -21,7 +21,7 @@ done
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
+ZSH_CACHE_DIR="$HOME/var/cache/zsh"
 
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
 

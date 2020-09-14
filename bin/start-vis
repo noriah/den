@@ -9,7 +9,7 @@ CONF_FILE="$FOX_DEN/etc/vis/$DEN_THEME"
 y="$1"
 
 if [ -z "$y" ]; then
-	printf '(s|v) '
+	printf '(s|v|b) '
 	read -s -k -r y
 fi
 
@@ -24,6 +24,12 @@ case "$y" in
 		sleep 1
 		echo -en "\033]0;viss-term\a"
 		$VIS_BIN -c "$CONF_FILE"
+		;;
+	b)
+		echo -en "\033]0;viss\a"
+		sleep 1
+		echo -en "\033]0;viss-term-right\a"
+		$VIS_BIN -c "$CONF_FILE-right"
 		;;
 	*)
 		exit

@@ -1,6 +1,16 @@
 #!/usr/bin/env zsh
 
-windowData=($(yabai -m query --windows | jq 'map(select(."title" == "viss-term"))[] | .id, .frame.x, .frame.y, .frame.w, .frame.h, .display'))
+[ ! -z "$1" ] && id="$1"
+
+[ ! -z "$YABAI_WINDOW_ID" ] && id="$YABAI_WINDOW_ID"
+
+[ -z "$id" ] && id=$(yabai -m query --windows | jq 'map(select(.title == "viss-term-right"))[].id')
+
+[ -z "$id" ] && id=$(yabai -m query --windows | jq 'map(select(.title == "viss-term"))[].id')
+
+
+
+windowData=($(yabai -m query --windows --window $id | jq '.id, .frame.x, .frame.y, .frame.w, .frame.h, .display'))
 wid=${windowData[1]}
 wx=${windowData[2]}
 wy=${windowData[3]}
@@ -12,7 +22,7 @@ if [ -z $wid ]; then
 	exit
 fi
 
-displayData=($(yabai -m query --displays --display 1 | jq '.frame.w, .frame.h'))
+displayData=($(yabai -m query --displays --display $wd | jq '.frame.w, .frame.h'))
 dw=${displayData[1]}
 dh=${displayData[2]}
 
@@ -22,7 +32,7 @@ typeset -g space_padding=10
 
 denSource "etc/yabai/$(uname -n).vars.rc"
 
-let "centerWidth = (dw / 2) - (ww / 2)"
+let "centerWidth = (dw / 2) - (ww / 2) + (dw * (wd - 1))"
 let "centerHeight = dh - wh"
 
 yabai -m window $wid --move abs:$centerWidth:$centerHeight

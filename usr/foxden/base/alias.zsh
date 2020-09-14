@@ -3,4 +3,8 @@ alias l='ls -lh'
 alias ll='ls -lah'
 alias la='ls -lAh'
 
+alias cp='cp -i'
+alias rm='rm -i'
+alias git commit='git commit -S'
 alias please='sudo $(fc -ln -1)'
+alias boomx='chmod +x $(fc -ln -1)'

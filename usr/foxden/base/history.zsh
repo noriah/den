@@ -1,5 +1,7 @@
 # History
-[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+HISTORY="$HOME/var/history"
+
+HISTFILE="$HISTORY/zsh"
 HISTSIZE=50000
 SAVEHIST=50000
 

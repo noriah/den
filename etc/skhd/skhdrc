@@ -1,12 +1,18 @@
-# balance space
+# i do not know who fn thinks they are,
+# but they act like a jerk half the time.
+# pretending to be ctrl under my finger.
+# stop that.
+# that is not helpful.
+# lets remove fn from our keyset.
+# it is just poser mod keys anyway.
 shift + alt - space : yabai -m space --balance
 
 shift + fn - 0 : yabai -m window --focus stack.next || yabai -m window --focus stack.first
 
 shift + fn + alt - i : yabai -m window --toggle split
 
-shift + fn - o : yabai -m display --focus next || yabai -m display --focus first
-shift + fn + alt - o : yabai-window-swap-display
+shift + cmd - o : yabai -m display --focus next || yabai -m display --focus first
+shift + fn + cmd - o : yabai-window-swap-display
 
 shift + fn + cmd - 0x18 : yabai-space-create-focus
 shift + fn + cmd - 0x1B : yabai-space-destroy
