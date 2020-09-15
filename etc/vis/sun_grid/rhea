@@ -4,8 +4,8 @@ audio.port.source=VisOut
 audio.stereo.enabled=true
 
 audio.sampling.frequency=48000
-audio.low.cutoff.frequency=600
-audio.high.cutoff.frequency=9000
+audio.low.cutoff.frequency=220
+audio.high.cutoff.frequency=8000
 
 visualizer.scaling.multiplier=1
 
@@ -18,14 +18,11 @@ visualizer.spectrum.bar.spacing=1
 
 visualizer.spectrum.smoothing.mode=monstercat
 
-visualizer.monstercat.smoothing.factor=1.48
-
-visualizer.sgs.smoothing.points=2
-visualizer.sgs.smoothing.passes=1
+visualizer.monstercat.smoothing.factor=1.50
 
 visualizer.spectrum.falloff.mode=fill
 
-visualizer.spectrum.falloff.weight=0.90
+visualizer.spectrum.falloff.weight=0.92
 
 visualizer.spectrum.top.margin=0
 visualizer.spectrum.bottom.margin=0

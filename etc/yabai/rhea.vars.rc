@@ -5,8 +5,8 @@ load_extra=(
 	iterm2.app.rc
 )
 
-space_padding=10
-window_gap=10
+space_padding=20
+window_gap=20
 
 external_bar=main
 external_bar_top=0
