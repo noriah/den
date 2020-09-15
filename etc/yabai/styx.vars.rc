@@ -3,7 +3,7 @@ load_extra=(
   viss.app.rc
 )
 
-space_padding=10
+space_padding=100
 window_gap=90
 
 external_bar=main
