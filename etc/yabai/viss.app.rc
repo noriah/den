@@ -9,8 +9,8 @@ ignore "$app" "$title"
 
 rule app="$app" title="$title" layer=above
 rule app="$app" title="$title" sticky=on
-rule app="$app" title="$title\$" display=1
-rule app="$app" title="$title-right\$" display=2
+rule app="$app" title="${title}$" display=1
+rule app="$app" title="${title}-right$" display=2
 
 yabai -m signal --add event=window_moved app="$app" title="$title" action="$action"
 yabai -m signal --add event=window_resized app="$app" title="$title" action="$action"

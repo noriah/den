@@ -4,7 +4,10 @@
 denConf vars.zsh
 
 VIS_BIN="$HOME/bin/viss"
-CONF_FILE="$FOX_DEN/etc/vis/$DEN_THEME"
+CONF_DIR="$FOX_DEN/etc/vis/$DEN_THEME"
+CONF_FILE="$CONF_FILE/default"
+
+[ -f "$CONF_DIR/$(hostname -s)" ] && CONF_FILE="$CONF_DIR/$(hostname -s)"
 
 y="$1"
 

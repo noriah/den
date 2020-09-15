@@ -22,7 +22,7 @@ typeset -g normal_border=0x00FFFFFF
 typeset -ga load_extra=()
 
 # load host specific items
-load $(uname -n).vars.rc
+load $(hostname -s).vars.rc
 
 # Only shadow floating windows
 config window_topmost off

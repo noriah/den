@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
 function denConf() {
-	denSource "etc/den/$1"
+	[ -f "$FOX_DEN/etc/den/$1" ] && source "$FOX_DEN/etc/den/$1"
 	return "$?"
 }

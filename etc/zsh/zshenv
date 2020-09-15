@@ -5,4 +5,4 @@ export XDG_CACHE_HOME="$HOME/var/cache"
 
 export PATH="$FOX_DEN/bin:$PATH"
 
-source "$FOX_DEN/usr/foxden/autoload.zsh"
+source "$FOX_DEN/usr/foxden/fn.zsh"
