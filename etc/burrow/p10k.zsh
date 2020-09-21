@@ -1,6 +1,8 @@
 # Powerlevel10k Config
 # Noriah (vix@noriah.dev)
 
+echo ${(pl.$LINES..\n.)}
+
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
 [[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
@@ -8,35 +10,28 @@
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
 function _left_with_plugin() {
-  item="$1"
-  if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if burrowCheck "$item"
-  then
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$other")
+  if burrowCheck "$1"; then
+    (( ${+2} )) && shift
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$@")
   fi
 }
 
 function _right_with_plugin() {
-  item="$1"
-  if (( ${+2} )); then other="$2"; else other="$item"; fi
-  if burrowCheck "$item"
-  then
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$other")
+  if burrowCheck "$1"; then
+    (( ${+2} )) && shift
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$@")
   fi
 }
 
 () {
-  emulate -L zsh -o extended_glob
+  emulate -L zsh
 
-
-
-  typeset -g ZLE_RPROMPT_INDENT=0
-
-  # Unset all configuration options. This allows you to apply configuration changes without
-  # restarting zsh. Edit ~/.p10k.zsh and type `source ~/.p10k.zsh`.
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
   setopt no_unset extended_glob
+
+  #typeset -g ZLE_RPROMPT_INDENT=0
+
 
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
@@ -44,6 +39,10 @@ function _right_with_plugin() {
   if [[ ${langinfo[CODESET]:-} != (utf|UTF)(-|)8 ]]; then
     local LC_ALL=${${(@M)$(locale -a):#*.(utf|UTF)(-|)8}[1]:-en_US.UTF-8}
   fi
+
+
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT_COMMAND_LINES=0
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
   typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
   typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=false
@@ -76,7 +75,6 @@ function _right_with_plugin() {
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
     # load
-    time
    newline
   )
 
@@ -87,7 +85,7 @@ function _right_with_plugin() {
   _right_with_plugin node node_version
 
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-   battery
+    battery
   )
 
   _right_with_plugin taskwarrior
@@ -96,15 +94,18 @@ function _right_with_plugin() {
 
   ### Stuffs
 
-  typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
+  #typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=''
+  #typeset -g POWERLEVEL9K_LEGACY_ICON_SPACING=false
 
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE_COUNT=2
+  
   typeset -g POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
 
   typeset -g POWERLEVEL9K_{BACKGROUND_JOBS,DIRENV,VIM_SHELL,VPN_IP}_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
 
   typeset -g POWERLEVEL9K_BACKGROUND=
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=''
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_BACKGROUND=
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_GAP_BACKGROUND=
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_GAP_BACKGROUND=
@@ -119,13 +120,15 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
   typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
 
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=7
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=201
   # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=0
-  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='%B${P9K_CONTENT}'
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='λ'
+  typeset -g POWERLEVEL9K_OS_ICON_LEFT_LEFT_WHITESPACE=''
 
-  typeset -g POWERLEVEL9K_STATUS_{EXTENDED_STATES,OK,OK_PIPE,ERROR,ERROR_SIGNAL,ERROR_PIPE}=true
+  typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE,ERROR,ERROR_SIGNAL,ERROR_PIPE}=true
   typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE}_VISUAL_IDENTIFIER_EXPANSION='✔'
   typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE}_FOREGROUND=2
+  typeset -g POWERLEVEL9K_STATUS_EXTENDED_STATES=false
 
   typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_VISUAL_IDENTIFIER_EXPANSION='✘'
   typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_FOREGROUND=196
@@ -209,7 +212,7 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
 
   typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=6
-  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_{VERBOSE,VERBOSE_ALWAYS}=true
+  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_{VERBOSE,VERBOSE_ALWAYS}=false
 
   typeset -g POWERLEVEL9K_VPN_IP_FOREGROUND=6
   typeset -g POWERLEVEL9K_VPN_IP_CONTENT_EXPANSION=
@@ -246,14 +249,14 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=1
   typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=2
-  # typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=20
+  typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=20
   typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=3
   typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
-  typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true
+  typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=false
+  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
 
   typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\ufcd1'
   typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_COLOR=87
@@ -270,11 +273,9 @@ function _right_with_plugin() {
 
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
 
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
-  # (( ! $+functions[p10k] )) || p10k reload
+  (( ! $+functions[p10k] )) || p10k reload
 }
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}

@@ -1,5 +1,7 @@
 export PATH="/usr/local/sbin:$PATH"
 
+GCP_SDK="$HOME/opt/google-cloud-sdk"
+
 denSource etc/sh/profile
 
 # We need some paths. Let us have paths
@@ -9,7 +11,8 @@ paths=(
 	CARGO_PATH
 	NPM_PATH
 	GO_PATH
-	DOTS
+	GCP_SDK
+	FOX_DEN
 	HOME
 )
 
@@ -30,6 +33,8 @@ ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
 denSource usr/foxden/rc.zsh
 
 # load our home
-denConf home.rc
+denConf home.zsh
+
+[ -d "$GCP_SDK" ] && . "$GCP_SDK/completion.zsh.inc"
 
 compinit -C -d "$ZSH_COMP_FILE"
