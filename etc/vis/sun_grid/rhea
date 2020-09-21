@@ -1,4 +1,4 @@
-visualizer.fps=60
+visualizer.fps=75
 audio.sources=port
 audio.port.source=VisOut
 audio.stereo.enabled=true
@@ -18,11 +18,11 @@ visualizer.spectrum.bar.spacing=1
 
 visualizer.spectrum.smoothing.mode=monstercat
 
-visualizer.monstercat.smoothing.factor=1.50
+visualizer.monstercat.smoothing.factor=1.72
 
 visualizer.spectrum.falloff.mode=fill
 
-visualizer.spectrum.falloff.weight=0.92
+visualizer.spectrum.falloff.weight=0.93
 
 visualizer.spectrum.top.margin=0
 visualizer.spectrum.bottom.margin=0
@@ -32,5 +32,5 @@ visualizer.spectrum.left.margin=0
 visualizer.spectrum.reversed=false
 
 colors.override.terminal=true
-colors.scheme=sun_grid2
+colors.scheme=sun_grid5
 
