@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+record_pid_file="$HOME/tmp/run/screencapture.record.pid"
+
+function checkAndEnd() {
+	runningPID=$(pgrep screencapture)
+	[ ! -z "$runningPID" ] && kill -SIGINT $runningPID && return 1
+	return 0
+}
+
+checkAndEnd || exit
+
+if [ -z "$1" ]; then
+  id="$(yabai -m query --windows --window | jq '.id')"
+else
+  id="$1"
+fi
+
+windowData=($(yabai -m query --windows --window $id | jq '.frame.x, .frame.y, .frame.w, .frame.h, .display'))
+
+display=$windowData[5]
+
+
+frameData="${windowData[1]},${windowData[2]},${windowData[3]},${windowData[4]}"
+
+screencapture -v -g -R${frameData} -D${display} "$HOME/tmp/scrcap/$(date +%F_%H-%M-%S).mov"
+
