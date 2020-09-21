@@ -5,7 +5,7 @@ denConf vars.zsh
 
 VIS_BIN="$HOME/bin/viss"
 CONF_DIR="$FOX_DEN/etc/vis/$DEN_THEME"
-CONF_FILE="$CONF_FILE/default"
+CONF_FILE="$CONF_DIR/default"
 
 [ -f "$CONF_DIR/$(hostname -s)" ] && CONF_FILE="$CONF_DIR/$(hostname -s)"
 
@@ -26,7 +26,7 @@ case "$y" in
 		echo -en "\033]0;viss\a"
 		sleep 1
 		echo -en "\033]0;viss-term\a"
-		$VIS_BIN -c "$CONF_FILE"
+		exec $VIS_BIN -c "$CONF_FILE"
 		;;
 	b)
 		echo -en "\033]0;viss\a"

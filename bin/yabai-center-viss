@@ -35,5 +35,5 @@ denSource "etc/yabai/$(hostname -s).vars.rc"
 let "centerWidth = (dw / 2) - (ww / 2) + (dw * (wd - 1))"
 let "centerHeight = dh - wh"
 
-yabai -m window $wid --move abs:$centerWidth:$centerHeight
+yabai -m window $wid --move abs:$centerWidth:$wy
 

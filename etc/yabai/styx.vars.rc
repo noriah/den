@@ -4,11 +4,11 @@ load_extra=(
 )
 
 space_padding=100
-window_gap=90
+window_gap=50
 
 external_bar=main
 external_bar_top=0
-external_bar_bottom=175
+external_bar_bottom=90
 
 window_border=off
 window_border_width=8
