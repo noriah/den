@@ -13,8 +13,8 @@ visualizers=spectrum
 
 #visualizer.spectrum.character=●
 visualizer.spectrum.character=█
-visualizer.spectrum.bar.width=2
-visualizer.spectrum.bar.spacing=0
+visualizer.spectrum.bar.width=3
+visualizer.spectrum.bar.spacing=1
 
 visualizer.spectrum.smoothing.mode=monstercat
 

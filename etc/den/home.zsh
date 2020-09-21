@@ -34,9 +34,10 @@ unset local_burrows
 burrow github/rupa/z z.sh
 
 # auto suggestions are always wrong
-burrow suggestions \
-	github/zsh-users/zsh-autosuggestions \
-	zsh-autosuggestions.zsh
+# NO. BAD. DO NOT USE. DOES NOT SCRUB SECRETS.
+#burrow suggestions \
+#	github/zsh-users/zsh-autosuggestions \
+#	zsh-autosuggestions.zsh
 
 # it is nice to look nice. but it also helps
 # us see things easier.
