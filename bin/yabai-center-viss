@@ -4,7 +4,7 @@
 
 [ ! -z "$YABAI_WINDOW_ID" ] && id="$YABAI_WINDOW_ID"
 
-[ -z "$id" ] && id=$(yabai -m query --windows | jq 'map(select(.title == "viss-term-right"))[].id')
+# [ -z "$id" ] && id=$(yabai -m query --windows | jq 'map(select(.title == "viss-term-right"))[].id')
 
 [ -z "$id" ] && id=$(yabai -m query --windows | jq 'map(select(.title == "viss-term"))[].id')
 
@@ -32,9 +32,10 @@ typeset -g space_padding=10
 
 denSource "etc/yabai/$(hostname -s).vars.rc"
 
-let "centerWidth = (dw / 2) - (ww / 2) + (dw * (wd - 1))"
-#let "centerHeight = (dh / 2 )- (wh / 2)"
-let "centerHeight = 830 - (wh / 2)"
+#let "centerWidth = (dw / 2) - (ww / 2)" 
+let "centerWidth = -(ww / 2) + (dw / 2)" 
+#let "centerHeight = (dh / 2) - (wh / 2)"
+let "centerHeight = dh - wh"
 
 yabai -m window $wid --move abs:$centerWidth:$centerHeight
 

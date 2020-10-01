@@ -4,6 +4,8 @@
 denConf vars.zsh
 
 VIS_BIN="$HOME/bin/viss"
+TAVIS_BIN="$HOME/workspace/noriah/tavis/tavis"
+TAVIS_ARGS=(-d VisOut -s 48000 -lf 410 -hf 4000 -mf 3.64 -fw 0.91 -bw 2 -sw 1 -fps 100)
 CONF_DIR="$FOX_DEN/etc/vis/$DEN_THEME"
 CONF_FILE="$CONF_DIR/default"
 
@@ -27,6 +29,12 @@ case "$y" in
 		sleep 1
 		echo -en "\033]0;viss-term\a"
 		exec $VIS_BIN -c "$CONF_FILE"
+		;;
+	t)
+		echo -en "\033]0;viss\a"
+		sleep 1
+		echo -en "\033]0;viss-term-right\a"
+		exec $TAVIS_BIN "${TAVIS_ARGS[@]}"
 		;;
 	b)
 		echo -en "\033]0;viss\a"

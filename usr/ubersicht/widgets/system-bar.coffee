@@ -22,8 +22,11 @@ text-shadow: 0 2px 0px rgba(#000, .7)
   clear: both
 
 .widget-title
-  text-align: widget-align
   margin-bottom: 5px
+  font-size: .6em
+  font-weight: bold
+  text-transform: lowercase
+  text-align: widget-align
 
 .stats-container
   border-collapse collapse
@@ -42,11 +45,6 @@ text-shadow: 0 2px 0px rgba(#000, .7)
 
 .memory td.stat, .memory td.label
   width: 20%
-
-.widget-title
-  font-size: .6em
-  font-weight: bold
-  text-transform: lowercase
 
 .label
   padding-top: 5px
