@@ -2,6 +2,8 @@ export GO_PATH="$HOME/opt/go"
 # Go is special so it gets a special deviation from the norm
 export GOPATH="$GO_PATH"
 
+export BREW_PATH="/opt/homebrew"
+
 export NPM_PATH="$HOME/opt/npm"
 
 export CARGO_PATH="$HOME/.cargo"

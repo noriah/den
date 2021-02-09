@@ -1,7 +1,7 @@
 # Powerlevel10k Config
 # Noriah (vix@noriah.dev)
 
-echo ${(pl.$LINES..\n.)}
+# echo ${(pl.$LINES..\n.)}
 
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
@@ -161,7 +161,7 @@ function _right_with_plugin() {
   if burrowCheck "workspace"
   then
     pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
-    corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
+    # corp_dir="$WORKSPACE_DIR/$WORKSPACE_CORP_KEY"
     local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
     vault_dir="$WORKSPACE_DIR/vault"
 
@@ -170,7 +170,7 @@ function _right_with_plugin() {
       '~' HOME '\uF015'
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
-      "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
+    #   "$corp_dir|$corp_dir/*" WORKSPACE_CORP '%B\uF0F7'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
       '~/*' HOME_SUBFOLDER '\uF07C'
@@ -181,7 +181,7 @@ function _right_with_plugin() {
     # typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VISUAL_IDENTIFIER_COLOR=202
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_VISUAL_IDENTIFIER_COLOR=210
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_VISUAL_IDENTIFIER_COLOR=3
+    # typeset -g POWERLEVEL9K_DIR_WORKSPACE_CORP_VISUAL_IDENTIFIER_COLOR=3
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VAULT_VISUAL_IDENTIFIER_COLOR=1
     # typeset -g POWERLEVEL9K_DIR_PATH_HIGHLIGHT_FOREGROUND=210

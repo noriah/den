@@ -12,6 +12,7 @@ paths=(
 	NPM_PATH
 	GO_PATH
 	GCP_SDK
+	BREW_PATH
 	FOX_DEN
 	HOME
 )
