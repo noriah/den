@@ -1,11 +1,11 @@
 # noriah's den
 
-hi! if you are reading this, then you have found our den.
+hi! if you are reading this, you have found noriah's den.
 it is a work in progress but if you wanna look around:
 
 - [**bin**](bin/) - shell scripts (and possibly binaries)
-- [**etc**](etc/) - this is where we store all our configuration files
-- [**usr**](usr/) - contains things for our environment that we made
+- [**etc**](etc/) - this is where configuration files are
+- [**usr**](usr/) - contains things for the environment 
 
 ![](usr/image/sun_grid-ex.png)
 
