@@ -1,11 +1,27 @@
+# Common Stuff
+export XDG_CONFIG_HOME="$HOME/etc"
+export XDG_CACHE_HOME="$HOME/var/cache"
+export XDG_DATA_HOME="$HOME/var"
+
+# Go
 export GO_PATH="$HOME/opt/go"
-# Go is special so it gets a special deviation from the norm
 export GOPATH="$GO_PATH"
 
+# Homebrew
 export BREW_PATH="/opt/homebrew"
 
+# Node
+export NPM_LOCAL_BIN_PATH="./node_modules/.bin"
 export NPM_PATH="$HOME/opt/npm"
+export NPM_CONFIG_CACHE="$NPM_PATH/cache"
 
-export CARGO_PATH="$HOME/.cargo"
+# Rust
+export CARGO_HOME="$HOME/opt/cargo"
 
+# Ruby
 export GEM_PATH="$HOME/.gem/ruby/2.6.0"
+
+# Dart
+export DART_PUB_PATH="$HOME/opt/pub-cache"
+export PUB_CACHE="$DART_PUB_PATH"
+

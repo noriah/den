@@ -15,13 +15,13 @@ denSource usr/burrow/rc.zsh
 # just add entries so other plugins know.
 # sharing is caring.
 burrow golang
-burrow node
 burrow rust
 
 # our home-made den additions
 local_burrows=(
 	osx.zsh
 	neofetch.zsh
+	node.zsh
 	taskwarrior.zsh
 	workspace.zsh
 )
