@@ -6,7 +6,7 @@ DEN_OK="$FOX_DEN/.ok"
 
 [[ -f "$DEN_OK" ]] && echo "den is already installed." && exit 0
 
-function checkFile() {
+function checkExists() {
   if [[ -e "$2/$1" ]]; then
     echo "'$1' already exists in '$2'. can't continue."
     echo "no changes made."
