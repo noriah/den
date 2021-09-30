@@ -1,7 +1,35 @@
+export HOME_ETC="$HOME/etc"
+export HOME_OPT="$HOME/opt"
+export HOME_TMP="$HOME/tmp"
+export HOME_USR="$HOME/usr"
+export HOME_VAR="$HOME/var"
+
 export FOX_DEN="$(dirname "$(dirname ${0:h:A})")"
 
-export PATH="$FOX_DEN/bin:$PATH"
+export CACHE_DIR="$HOME_VAR/cache"
 
-export PATH="$PATH:./node_modules/.bin"
+export ZSH_CACHE_DIR="$CACHE_DIR/zsh"
 
-source "$FOX_DEN/usr/foxden/fn.zsh"
+export XDG_CACHE_HOME="$CACHE_DIR"
+export XDG_DATA_HOME="$HOME_VAR"
+
+# Go
+export GO_PATH="$HOME_OPT/go"
+export GOPATH="$GO_PATH"
+
+# Node
+export NPM_PATH="$HOME_OPT/npm"
+export NPM_CONFIG_CACHE="$NPM_PATH/cache"
+
+# Rust
+export CARGO_HOME="$HOME_OPT/cargo"
+
+# Ruby
+export GEM_PATH="$HOME_OPT/.gem/ruby/2.6.0"
+
+# Dart
+export DART_PUB_PATH="$HOME_OPT/pub-cache"
+export PUB_CACHE="$DART_PUB_PATH"
+
+# GCP
+export GCP_SDK="$HOME_OPT/google-cloud-sdk"

@@ -16,22 +16,15 @@ denSource usr/burrow/rc.zsh
 # sharing is caring.
 burrow golang
 burrow rust
+burrow node
+burrow neofetch
+# burrow taskwarrior
+burrow workspace
 
-# our home-made den additions
-local_burrows=(
-	osx.zsh
-	neofetch.zsh
-	node.zsh
-	taskwarrior.zsh
-	workspace.zsh
-)
-
-for i in "${local_burrows[@]}"; burrow $FOX_DEN/usr/burrow/plans $i
-
-unset local_burrows
+denConf host/$(hostname -s).zsh
 
 # jump around?
-burrow github/rupa/z z.sh
+burrow z github/rupa/z z.sh
 
 # auto suggestions are always wrong
 # NO. BAD. DO NOT USE. DOES NOT SCRUB SECRETS.

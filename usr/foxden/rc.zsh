@@ -17,3 +17,7 @@ denSource "$baseSubPath/terminal.zsh"
 unset baseSubPath
 
 autoload -Uz add-zsh-hook compinit
+
+export ZSH_COMP_FILE="$ZSH_CACHE_DIR/zcompdump"
+
+compinit -C -d "$ZSH_COMP_FILE"

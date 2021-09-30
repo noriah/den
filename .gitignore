@@ -1,8 +1,6 @@
 .DS_Store
 *.zwc
 *.code-workspace
-external
-.fetched
-*.swp
-/opt/
-/etc/vis/vis.log
+/opt
+/var
+/tmp

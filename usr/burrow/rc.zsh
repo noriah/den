@@ -1,9 +1,3 @@
-env_default 'BURROW_OPT' "$HOME/opt/burrow"
+env_default 'BURROW_OPT' "$HOME_OPT/burrow"
 
-fnPath="${0:h:A}/fn"
-
-fpath=("$fnPath" "${fpath[@]}")
-
-for func in $^fnPath/*; autoload -Uz $func
-
-unset fnPath
+. ${0:h:A}/fn.zsh

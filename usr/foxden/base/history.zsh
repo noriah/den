@@ -1,5 +1,5 @@
 # History
-HISTORY="$HOME/var/history"
+HISTORY="$HOME_VAR/history"
 
 HISTFILE="$HISTORY/zsh"
 HISTSIZE=50000

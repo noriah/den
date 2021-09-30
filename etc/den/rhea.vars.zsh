@@ -1,2 +1,0 @@
-
-#DEN_THEME="$DEN_THEME"

@@ -26,6 +26,12 @@ function burrow() {
 			burrowDir="$(dirname $1)"
 			burrowFile="$(basename $1)"
 			burrowName="${burrowFile%.zsh}"
+
+			if [ -f "$FOX_DEN/usr/burrow/plans/$burrowName.zsh" ]; then
+				burrowDir="$FOX_DEN/usr/burrow/plans"
+				burrowFile="$burrowName.zsh"
+				burrowLight=0
+			fi
 			;;
 
 		2)
@@ -112,8 +118,8 @@ function burrow() {
 	local burrowConf="$FOX_DEN/etc/burrow/$burrowName.zsh"
 
 
-	[[ -f "$burrowConf" ]] && source "$burrowConf"
-	[[ ! "$burrowLight" -eq "1" ]] && source "$burrowDir/$burrowFile"
+	[[ -f "$burrowConf" ]] && . "$burrowConf"
+	[[ ! "$burrowLight" -eq "1" ]] && . "$burrowDir/$burrowFile"
 
 	if [ -z "$_FOX_DEN_BURROW_LIST" ]; then
 		typeset -ga _FOX_DEN_BURROW_LIST
@@ -125,3 +131,6 @@ function burrow() {
 	return 0
 }
 
+function burrowCheck() {
+	[[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
+}

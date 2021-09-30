@@ -1,42 +1,11 @@
-export PATH="/usr/local/sbin:$PATH"
-
-GCP_SDK="$HOME/opt/google-cloud-sdk"
-
-denSource etc/sh/profile
-
-# We need some paths. Let us have paths
-paths=(
-	# Reverse order so we get bottom at first search
-	DART_PUB_PATH
-	GEM_PATH
-	CARGO_PATH
-	NPM_PATH
-	GO_PATH
-	GCP_SDK
-	BREW_PATH
-	FOX_DEN
-	HOME
-)
-
-# Export our path paths in the PATH]
-for p in "${paths[@]}"; do
-	p="${(P)p}/bin"
-	[ -d "$p" ] && export PATH="$p:$PATH"
-done
-
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
-ZSH_CACHE_DIR="$HOME/var/cache/zsh"
-
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
 
-ZSH_COMP_FILE="$ZSH_CACHE_DIR/.zcompdump"
+. "$FOX_DEN/usr/foxden/fn.zsh"
+
+export PATH="$PATH:$HOME/bin:$FOX_DEN/bin"
 
 denSource usr/foxden/rc.zsh
 
 # load our home
 denConf home.zsh
 
-[ -d "$GCP_SDK" ] && . "$GCP_SDK/completion.zsh.inc"
-
-compinit -C -d "$ZSH_COMP_FILE"
