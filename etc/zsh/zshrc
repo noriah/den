@@ -1,4 +1,4 @@
-[ ! -d "$ZSH_CACHE_DIR" ] && mkdir -p "$ZSH_CACHE_DIR"
+[ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
 
 . "$FOX_DEN/usr/foxden/fn.zsh"
 
