@@ -25,7 +25,7 @@ export NPM_CONFIG_CACHE="$NPM_PATH/cache"
 export CARGO_HOME="$HOME_OPT/cargo"
 
 # Ruby
-export GEM_PATH="$HOME_OPT/.gem/ruby/2.6.0"
+export GEM_PATH="$HOME_OPT/gem/ruby/2.6.0"
 
 # Dart
 export DART_PUB_PATH="$HOME_OPT/pub-cache"
