@@ -40,6 +40,8 @@ function sourceDen() {
   echo ". \"$FOX_DEN/etc/zsh/$1\"" > "$HOME/.$1"
 }
 
+[ ! -d "$HOME/opt" ] && mkdir "$HOME/opt"
+
 linkDen 'etc'
 linkDen 'usr'
 
