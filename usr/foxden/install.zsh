@@ -25,7 +25,7 @@ echo "all good. continuing."
 
 unset checkExists
 
-function linDen() {
+function linkDen() {
   echo "creating symlink '$HOME/$1' -> '$FOX_DEN/$1'"
   ln -s "$FOX_DEN/$1" "$HOME/$1"
 }
