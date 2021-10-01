@@ -1,0 +1,19 @@
+{
+    "name": "noriah-themes",
+    "displayName": "noriah-themes",
+    "description": "noriah's themes",
+    "version": "1.0.0",
+    "publisher": "noriah",
+    "engines": {
+        "vscode": "*"
+    },
+    "contributes": {
+        "themes": [
+            {
+                "label": "Noriah Dark",
+                "uiTheme": "vs-dark",
+                "path": "./themes/NoriahDark.json"
+            }
+        ]
+    }
+}
