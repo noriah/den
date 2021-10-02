@@ -60,7 +60,7 @@ function burrow() {
 			;;
 
 		*)
-			printf "*** what am i supposed do with this garbage '%s'?\n" "$4"
+			printf "*** what am i supposed do with this garbage '%s'?\n" "${@:4}"
 			return 1
 			;;
 	esac
