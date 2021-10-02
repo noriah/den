@@ -31,9 +31,6 @@ export GEM_PATH="$HOME_OPT/gem/ruby/2.6.0"
 export DART_PUB_PATH="$HOME_OPT/pub-cache"
 export PUB_CACHE="$DART_PUB_PATH"
 
-# GCP
-export GCP_SDK="$HOME_OPT/google-cloud-sdk"
-
 # We need some paths. Let us have paths
 paths=(
 	# Reverse order so we get bottom at first search
@@ -44,7 +41,6 @@ paths=(
 	CARGO_HOME
 	GEM_PATH
 	DART_PUB_PATH
-	GCP_SDK
 )
 
 # Export our path paths in the PATH]
