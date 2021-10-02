@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-. "${0:h:A}/../../den.zsh"
+FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 DEN_OK="$FOX_DEN/.ok"
 
@@ -18,12 +18,8 @@ checkExists 'etc' "$HOME"
 checkExists 'usr' "$HOME"
 checkExists 'var' "$HOME"
 checkExists 'var' "$FOX_DEN"
-checkExists 'tmp' "$HOME"
-checkExists 'tmp' "$FOX_DEN"
 
 echo "all good. continuing."
-
-unset checkExists
 
 function linkDen() {
   echo "creating symlink '$HOME/$1' -> '$FOX_DEN/$1'"
@@ -51,18 +47,9 @@ mkdir "$FOX_DEN/var/history"
 
 linkDen 'var'
 
-mkdir "$FOX_DEN/tmp"
-
-linkDen 'tmp'
-
 sourceDen 'zshenv'
 sourceDen 'zshrc'
 
-unset linkDen
-unset sourceDen
-
 touch "$DEN_OK"
-
-unset DEN_OK
 
 echo "den installation complete. enjoy!"

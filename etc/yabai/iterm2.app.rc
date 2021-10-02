@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-rule app="^iTerm2$" title!="^(viss-term|Preferences)?$" border=on

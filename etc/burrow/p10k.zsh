@@ -9,17 +9,25 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
-function _left_with_plugin() {
+function left() {
+  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$@")
+}
+
+function leftPlugin() {
   if burrowCheck "$1"; then
     (( ${+2} )) && shift
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$@")
+    left $@
   fi
 }
 
-function _right_with_plugin() {
+function right() {
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$@")
+}
+
+function rightPlugin() {
   if burrowCheck "$1"; then
     (( ${+2} )) && shift
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$@")
+    right $@
   fi
 }
 
@@ -30,8 +38,6 @@ function _right_with_plugin() {
 
   setopt no_unset extended_glob
 
-  #typeset -g ZLE_RPROMPT_INDENT=0
-
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
   zmodload zsh/langinfo
@@ -39,11 +45,12 @@ function _right_with_plugin() {
     local LC_ALL=${${(@M)$(locale -a):#*.(utf|UTF)(-|)8}[1]:-en_US.UTF-8}
   fi
 
+  typeset -g ZLE_RPROMPT_INDENT=0
+
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE_COUNT=2
 
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
-
 
   typeset -g POWERLEVEL9K_INSTANT_PROMPT_COMMAND_LINES=0
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
@@ -56,45 +63,43 @@ function _right_with_plugin() {
 
   # typeset -g POWERLEVEL9K_ICON_PADDING=none
 
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    os_icon
-    dir
-    dir_writable
-    vcs
-    blank
-    newline
-    status
-  )
+  typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS
+  typeset -ga POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS
 
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    command_execution_time
-    background_jobs
-  )
+  ###
+  # left prompt elements
+  left os_icon
+  left dir dir_writable
+  left vcs
+  left blank newline
+  left status
 
-  _right_with_plugin direnv
-  _right_with_plugin terraform
+  ###
+  # right prompt elements
+  right command_execution_time
+  right background_jobs
 
-  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    # virtualenv pyenv goenv nodenv
-    context ranger vim_shell vpn_ip
-  )
+  rightPlugin battery
 
-  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=(
-    # load
-   newline
-  )
+  right context
+  # right load
+  right newline
 
-  _right_with_plugin golang go_version
+  rightPlugin direnv
+  rightPlugin terraform
 
-  _right_with_plugin rust rust_version
+  # right virtualenv pyenv goenv nodenv
+  right ranger vim_shell vpn_ip
 
-  _right_with_plugin node node_version
+  rightPlugin golang go_version
 
-  _right_with_plugin battery
+  rightPlugin rust rust_version
 
-  _right_with_plugin taskwarrior
+  rightPlugin node node_version
 
-  _right_with_plugin todo
+  rightPlugin taskwarrior
+
+  rightPlugin todo
 
   ### Stuffs
 
@@ -128,14 +133,14 @@ function _right_with_plugin() {
   #typeset -g POWERLEVEL9K_OS_ICON_LEFT_LEFT_WHITESPACE=''
 
   typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE,ERROR,ERROR_SIGNAL,ERROR_PIPE}=true
-  typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE}_VISUAL_IDENTIFIER_EXPANSION='✔'
+  typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE}_VISUAL_IDENTIFIER_EXPANSION=$'\u2714'
   typeset -g POWERLEVEL9K_STATUS_{OK,OK_PIPE}_FOREGROUND=2
   typeset -g POWERLEVEL9K_STATUS_EXTENDED_STATES=true
 
   typeset -g POWERLEVEL9K_STATUS_CROSS=false
   typeset -g POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=true
 
-  typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_VISUAL_IDENTIFIER_EXPANSION='✘'
+  typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_VISUAL_IDENTIFIER_EXPANSION=$'\u2718'
   typeset -g POWERLEVEL9K_STATUS_{ERROR,ERROR_SIGNAL,ERROR_PIPE}_FOREGROUND=196
   typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true
   typeset -g POWERLEVEL9K_STATUS_HIDE_SIGNAME=true
@@ -157,6 +162,8 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=80
   typeset -g POWERLEVEL9K_DIR_{SHORTENED,ANCHOR}_FOREGROUND=80
   typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
+  # typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER
+  # typeset -g POWERLEVEL9K_DIR_PATH_HIGHLIGHT_FOREGROUND=210
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=40
 
@@ -168,8 +175,6 @@ function _right_with_plugin() {
 
   typeset -g POWERLEVEL9K_DIR_FOX_DEN_VISUAL_IDENTIFIER_COLOR=196
 
-  # typeset -g POWERLEVEL9K_DIR_VISUAL_IDENTIFIER
-  # typeset -g POWERLEVEL9K_DIR_PATH_HIGHLIGHT_FOREGROUND=210
 
   if burrowCheck 'workspace'
   then
@@ -264,13 +269,13 @@ function _right_with_plugin() {
   typeset -g POWERLEVEL9K_NODEENV_SHOW_NODE_VERSION=false
 
   if burrowCheck 'battery'; then
+    typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=100
     typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
     typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=1
     typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=2
-    typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=35
     typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=3
     typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
-    typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
+    typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true
   fi
 
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
@@ -301,3 +306,6 @@ function _right_with_plugin() {
 
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
+
+unset -f left leftPlugin
+unset -f right rightPlugin

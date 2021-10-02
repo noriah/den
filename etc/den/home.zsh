@@ -8,6 +8,8 @@
 #
 ######################################
 
+export DEN_USER='noriah'
+
 # load our den manager
 denSource usr/burrow/rc.zsh
 
@@ -17,6 +19,7 @@ denSource usr/burrow/rc.zsh
 burrow golang
 burrow rust
 burrow node
+
 burrow neofetch
 # burrow taskwarrior
 burrow workspace

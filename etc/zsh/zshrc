@@ -2,8 +2,6 @@
 
 . "$FOX_DEN/usr/foxden/fn.zsh"
 
-export PATH="$PATH:$HOME/bin:$FOX_DEN/bin"
-
 denSource usr/foxden/rc.zsh
 
 # load our home

@@ -4,7 +4,7 @@ export HOME_TMP="$HOME/tmp"
 export HOME_USR="$HOME/usr"
 export HOME_VAR="$HOME/var"
 
-export FOX_DEN="$(dirname "$(dirname ${0:h:A})")"
+export FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 export CACHE_DIR="$HOME_VAR/cache"
 
@@ -33,3 +33,22 @@ export PUB_CACHE="$DART_PUB_PATH"
 
 # GCP
 export GCP_SDK="$HOME_OPT/google-cloud-sdk"
+
+# We need some paths. Let us have paths
+paths=(
+	# Reverse order so we get bottom at first search
+	HOME
+	FOX_DEN
+	GO_PATH
+	NPM_PATH
+	CARGO_HOME
+	GEM_PATH
+	DART_PUB_PATH
+	GCP_SDK
+)
+
+# Export our path paths in the PATH]
+for p in "${paths[@]}"; do
+	p="${(P)p}/bin"
+	[ -d "$p" ] && export PATH="$PATH:$p"
+done
