@@ -180,12 +180,14 @@ function rightPlugin() {
   then
     local pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     local local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
+    local notes_dir="$WORKSPACE_DIR/$WORKSPACE_NOTES_KEY"
     local vault_dir="$WORKSPACE_DIR/vault"
 
     POWERLEVEL9K_DIR_CLASSES+=(
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
+      "$notes_dir|$notes_dir/*" WORKSPACE_NOTES '%B\uFD2C'
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
     )
 
@@ -194,6 +196,7 @@ function rightPlugin() {
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_FOREGROUND=209
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_NOTES_VISUAL_IDENTIFIER_COLOR=34
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VAULT_VISUAL_IDENTIFIER_COLOR=1
   fi
 
@@ -216,17 +219,6 @@ function rightPlugin() {
   typeset -g POWERLEVEL9K_VCS_LOADING_FOREGROUND=8
   typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
   typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
-
-  if burrowCheck 'todo'; then
-    typeset -g POWERLEVEL9K_TODO_FOREGROUND=3
-    typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=false
-    typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
-    typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
-  fi
-
-  if burrowCheck 'taskwarrior'; then
-    typeset -g POWERLEVEL9K_TASKWARRIOR_FOREGROUND=7
-  fi
 
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=3
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
@@ -268,6 +260,21 @@ function rightPlugin() {
   typeset -g POWERLEVEL9K_PYENV_SOURCES=(shell local global)
   typeset -g POWERLEVEL9K_NODEENV_SHOW_NODE_VERSION=false
 
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
+  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
+  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
+
+  if burrowCheck 'todo'; then
+    typeset -g POWERLEVEL9K_TODO_FOREGROUND=3
+    typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=false
+    typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
+    typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
+  fi
+
+  if burrowCheck 'taskwarrior'; then
+    typeset -g POWERLEVEL9K_TASKWARRIOR_FOREGROUND=7
+  fi
+
   if burrowCheck 'battery'; then
     typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=100
     typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
@@ -277,10 +284,6 @@ function rightPlugin() {
     typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
     typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true
   fi
-
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
-  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
 
   if burrowCheck 'golang'; then
     typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\ufcd1'

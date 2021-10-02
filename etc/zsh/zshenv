@@ -52,3 +52,5 @@ for p in "${paths[@]}"; do
 	p="${(P)p}/bin"
 	[ -d "$p" ] && export PATH="$PATH:$p"
 done
+
+unset paths
