@@ -215,7 +215,8 @@
     {
       "name": "Imports",
       "scope": [
-        "storage.modifier.import"
+        "storage.modifier.import",
+        "entity.name.import.go"
       ],
       "settings": {
         "foreground": "#50e79cff",
