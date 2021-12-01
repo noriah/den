@@ -41,6 +41,7 @@ function rightPlugin() {
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
   zmodload zsh/langinfo
+
   if [[ ${langinfo[CODESET]:-} != (utf|UTF)(-|)8 ]]; then
     local LC_ALL=${${(@M)$(locale -a):#*.(utf|UTF)(-|)8}[1]:-en_US.UTF-8}
   fi
@@ -175,9 +176,7 @@ function rightPlugin() {
 
   typeset -g POWERLEVEL9K_DIR_FOX_DEN_VISUAL_IDENTIFIER_COLOR=196
 
-
-  if burrow check 'workspace'
-  then
+  if burrow check 'workspace'; then
     local pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     local local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
     local notes_dir="$WORKSPACE_DIR/$WORKSPACE_NOTES_KEY"

@@ -75,13 +75,11 @@ function __burrow_plugin() {
 	if [ ! -z "$repoURI" ]; then
 
 		if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" ]]; then
-
 			printf "*** digging for '%s' in the clouds ('%s' in '%s').\n" "$burrowName" "$burrowFile" "$repoURI"
 
 			local repoURL
 
 			case "$repoURI" in
-
 				github/*)
 					repoURL="https://github.com${repoURI#"github"}"
 					;;
@@ -89,19 +87,16 @@ function __burrow_plugin() {
 				*)
 					repoURL="$repoURI"
 					;;
+
 			esac
 
 			retTxt=$(git clone "$repoURL" "$burrowDir" 2>&1 1>/dev/null )
 			ret="$?"
 
 			if [ ! "$ret" -eq 0 ]; then
-
 				printf "*** sorry! i could not get you that repo. here is the address i tried:\n\n\t%s\n\n" "$repoURL"
-
 				printf "*** and here is the error:\n\n\t%s\n\n" "$retTxt"
-
 				return $ret
-
 			fi
 
 			printf "*** done with that! (%s)\n" "$burrowName"
@@ -109,7 +104,6 @@ function __burrow_plugin() {
 
 		if [ ! -f "$burrowDir/$burrowFile" ]; then
 			printf "*** uh oh! i did not find '%s' in '%s' (%s)!\n." "$burrowFile" "$repoURI" "$burrowName"
-
 			return 1
 		fi
 
@@ -136,6 +130,7 @@ function __burrow_update() {
 	for burrowName in ${(k)_FOX_DEN_BURROW_REPO_LIST}; do
 		printf "*** updating '%s' from the clouds.\n" "$burrowName"
 		local burrowDir="$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$burrowName]"
+
 		if [ ! -d "$burrowDir/.git" ]; then
 			printf "*** why is '%s' not a git repo? (%s)\n" "$burrowDir" "$burrowName"
 			continue
