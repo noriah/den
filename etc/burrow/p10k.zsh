@@ -14,7 +14,7 @@ function left() {
 }
 
 function leftPlugin() {
-  if burrowCheck "$1"; then
+  if burrow check "$1"; then
     (( ${+2} )) && shift
     left $@
   fi
@@ -25,7 +25,7 @@ function right() {
 }
 
 function rightPlugin() {
-  if burrowCheck "$1"; then
+  if burrow check "$1"; then
     (( ${+2} )) && shift
     right $@
   fi
@@ -176,7 +176,7 @@ function rightPlugin() {
   typeset -g POWERLEVEL9K_DIR_FOX_DEN_VISUAL_IDENTIFIER_COLOR=196
 
 
-  if burrowCheck 'workspace'
+  if burrow check 'workspace'
   then
     local pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
     local local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
@@ -264,18 +264,18 @@ function rightPlugin() {
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
   typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
 
-  if burrowCheck 'todo'; then
+  if burrow check 'todo'; then
     typeset -g POWERLEVEL9K_TODO_FOREGROUND=3
     typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_TOTAL=false
     typeset -g POWERLEVEL9K_TODO_HIDE_ZERO_FILTERED=false
     typeset -g POWERLEVEL9K_TODO_VISUAL_IDENTIFIER_EXPANSION=$'\u2611'
   fi
 
-  if burrowCheck 'taskwarrior'; then
+  if burrow check 'taskwarrior'; then
     typeset -g POWERLEVEL9K_TASKWARRIOR_FOREGROUND=7
   fi
 
-  if burrowCheck 'battery'; then
+  if burrow check 'battery'; then
     typeset -g POWERLEVEL9K_BATTERY_HIDE_ABOVE_THRESHOLD=100
     typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
     typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=1
@@ -285,19 +285,19 @@ function rightPlugin() {
     typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true
   fi
 
-  if burrowCheck 'golang'; then
+  if burrow check 'golang'; then
     typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\ufcd1'
     typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_COLOR=87
     typeset -g POWERLEVEL9K_GO_VERSION_FOREGROUND=11
   fi
 
-  if burrowCheck 'rust'; then
+  if burrow check 'rust'; then
     typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\uf827'
     typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_COLOR=166
     typeset -g POWERLEVEL9K_RUST_VERSION_FOREGROUND=11
   fi
 
-  if burrowCheck 'node'; then
+  if burrow check 'node'; then
     typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=true
     # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\u'
     typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_COLOR=10

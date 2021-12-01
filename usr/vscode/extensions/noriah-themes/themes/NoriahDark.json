@@ -122,29 +122,32 @@
       }
     },
     {
-      "name": "Other Keyword",
-      "scope": [
-        "keyword.other"
-      ],
-      "settings": {
-        "foreground": "#F78C6C"
-      }
-    },
-    {
       "name": "Keyword",
       "scope": [
         "keyword",
         "keyword.control",
+        "keyword.other",
+        "keyword.other storage.type",
         "modifier",
         "support.type.object"
       ],
       "settings": {
-        "foreground": "#fa4943",
+        "foreground": "#FA7878",
         "fontStyle": "italic"
       }
     },
     {
-      "name": "Keyword - Reset",
+      "name": "Keyword - Struct/Interface",
+      "scope": [
+        "keyword.struct",
+        "keyword.interface"
+      ],
+      "settings": {
+        "foreground": "#22e3dd"
+      }
+    },
+    {
+      "name": "Keyword - Reset Style",
       "scope": [
         "keyword.control.ternary",
         "keyword.operator.logical",
@@ -197,10 +200,20 @@
     {
       "name": "Storage Type",
       "scope": [
-        "storage.type"
+        "storage.type",
+        "entity.name.type"
       ],
       "settings": {
-        "foreground": "#e799ffff"
+        "foreground": "#FF99AAFF"
+      }
+    },
+    {
+      "name": "Rust Storage Type Suffix",
+      "scope": [
+        "constant.numeric entity.name.type"
+      ],
+      "settings": {
+        "fontStyle": "underline"
       }
     },
     {
@@ -257,7 +270,6 @@
     {
       "name": "Type",
       "scope": [
-        "entity.name.type",
         "entity.other.inherited-class",
         "entity.other"
       ],
@@ -344,6 +356,7 @@
       "name": "Function Call",
       "scope": [
         "entity.name.function.call",
+        "meta.function.call entity.name.function",
         "source.python meta.function-call.python",
         "meta.method-call entity.name.function",
         "meta.function-call entity.name.function"

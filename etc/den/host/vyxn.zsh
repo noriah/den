@@ -1,19 +1,19 @@
 # vyxn is a MacBook running macOS
 
 # Include OSX Specific Things
-burrow osx
+burrow plugin osx
 
 # We have a battery
-burrow battery
+burrow plugin battery
 
 # We have homebrew installed
-burrow homebrew
+burrow plugin homebrew
 
 # GCP SDK
-# burrow gcp
+# burrow plugin gcp
 
 # SSH Specific things
-burrow ssh
+burrow plugin ssh
 
 # Set our prompt icon color
 export POWERLEVEL9K_OS_ICON_FOREGROUND=201

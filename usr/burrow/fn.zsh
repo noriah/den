@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function burrow() {
+function __burrow_plugin() {
 
 	local burronDir
 	local burrowName
@@ -54,9 +54,9 @@ function burrow() {
 			burrowDir="$BURROW_OPT/$(basename $(dirname $2))_$(basename $2)"
 			burrowFile="$3"
 			burrowName="$1"
-			if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" || ! -f "$burrowDir/$burrowFile" ]]; then
-				repoURI="$2"
-			fi
+			# if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" || ! -f "$burrowDir/$burrowFile" ]]; then
+			repoURI="$2"
+			# fi
 			;;
 
 		*)
@@ -113,6 +113,8 @@ function burrow() {
 			return 1
 		fi
 
+		_FOX_DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
+
 	fi
 
 	local burrowConf="$FOX_DEN/etc/burrow/$burrowName.zsh"
@@ -123,10 +125,42 @@ function burrow() {
 
 	_FOX_DEN_BURROW_LIST+=( "$burrowName" )
 
-
 	return 0
 }
 
-function burrowCheck() {
+function __burrow_check() {
 	[[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
+}
+
+function __burrow_update() {
+	for burrowName in ${(k)_FOX_DEN_BURROW_REPO_LIST}; do
+		printf "*** updating '%s' from the clouds.\n" "$burrowName"
+		local burrowDir="$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$burrowName]"
+		if [ ! -d "$burrowDir/.git" ]; then
+			printf "*** why is '%s' not a git repo? (%s)\n" "$burrowDir" "$burrowName"
+			continue
+		fi
+
+		retTxt=$(git -C "$burrowDir" pull 2>&1 1>/dev/null)
+		ret="$?"
+
+		if [ ! "$ret" -eq 0 ]; then
+			printf "*** sorry! i hit an error with that (%s):\n\n" "$burrowName"
+			printf "*** here is the error:\n\n\t%s\n\n" "$retTxt"
+			continue
+		fi
+
+		printf "*** done with that! (%s)\n" "$burrowName"
+	done
+
+	printf "*** all done with updates! restart your shell for updates to take effect. \n"
+}
+
+function burrow() {
+	case "$1" in
+		plugin) __burrow_plugin "${@:2}" ;;
+		check) __burrow_check "${@:2}" ;;
+		update) __burrow_update ;;
+		*) return 1 ;;
+	esac
 }
