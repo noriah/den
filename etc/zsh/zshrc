@@ -1,7 +1,19 @@
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
 
-. "$FOX_DEN/usr/foxden/rc.zsh"
+. "$FOX_DEN/usr/foxden/fn.zsh"
+
+# load den
+denSource usr/foxden/rc.zsh
+
+# aliases
+denSource etc/zsh/zaliases
+
+if [ -f ~/.zaliases ]; then
+  . ~/.zaliases
+fi
 
 # load our home
 denConf home.zsh
+
+export FOX_DEN_ZSHRC_RUN=1
 

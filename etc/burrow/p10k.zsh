@@ -1,8 +1,6 @@
 # Powerlevel10k Config
 # Noriah (vix@noriah.dev)
 
-# echo ${(pl.$LINES..\n.)}
-
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
 [[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
@@ -67,16 +65,18 @@ function rightPlugin() {
   typeset -ga POWERLEVEL9K_LEFT_PROMPT_ELEMENTS
   typeset -ga POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS
 
-  ###
-  # left prompt elements
+  # ---- Left Elements ----
+  # ---- Line 1
   left os_icon
   left dir dir_writable
   left vcs
   left blank newline
+  # ---- Line 2
   left status
 
-  ###
-  # right prompt elements
+
+  # ---- Right Elements ----
+  # ---- Line 1
   right command_execution_time
   right background_jobs
 
@@ -84,8 +84,9 @@ function rightPlugin() {
 
   right context
   # right load
+  # right time
   right newline
-
+  # ---- Line 2
   rightPlugin direnv
   rightPlugin terraform
 

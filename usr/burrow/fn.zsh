@@ -113,13 +113,25 @@ function __burrow_plugin() {
 
 	local burrowConf="$FOX_DEN/etc/burrow/$burrowName.zsh"
 
+	export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=0
 
 	[[ -f "$burrowConf" ]] && . "$burrowConf"
+
 	[[ ! "$burrowLight" -eq "1" ]] && . "$burrowDir/$burrowFile"
 
-	_FOX_DEN_BURROW_LIST+=( "$burrowName" )
+	[[ ! "$_FOX_DEN_BURROW_PLUGIN_LOAD_FAIL" -eq "1" ]] && _FOX_DEN_BURROW_LIST+=( "$burrowName" )
+
+	unset _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL
 
 	return 0
+}
+
+function __burrow_plugin_fail() {
+	export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=1
+}
+
+function __burrow_plugin_pass() {
+	export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=0
 }
 
 function __burrow_check() {
@@ -154,6 +166,8 @@ function __burrow_update() {
 function burrow() {
 	case "$1" in
 		plugin) __burrow_plugin "${@:2}" ;;
+		plugin-fail) __burrow_plugin_fail ;;
+		plugin-pass) __burrow_plugin_pass ;;
 		check) __burrow_check "${@:2}" ;;
 		update) __burrow_update ;;
 		*) return 1 ;;

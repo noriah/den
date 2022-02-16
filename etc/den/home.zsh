@@ -13,6 +13,8 @@ export DEN_USER='noriah'
 # load our den manager
 denSource usr/burrow/rc.zsh
 
+denConf host/$(hostname -s).zsh
+
 # we have languages but handle them separate.
 # just add entries so other plugins know.
 # sharing is caring.
@@ -23,8 +25,6 @@ burrow plugin node
 burrow plugin neofetch
 # burrow plugin taskwarrior
 burrow plugin workspace
-
-denConf host/$(hostname -s).zsh
 
 # jump around?
 burrow plugin z github/rupa/z z.sh

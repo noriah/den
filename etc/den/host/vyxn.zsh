@@ -1,13 +1,8 @@
-# vyxn is a MacBook running macOS
-
-# Include OSX Specific Things
-burrow plugin osx
+# vyxn is a MacBook Pro running macOS
+denConf mac.zsh
 
 # We have a battery
 burrow plugin battery
-
-# We have homebrew installed
-burrow plugin homebrew
 
 # GCP SDK
 # burrow plugin gcp

@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+#
+# print the result of base64 encode
+
+b64="base64"
+
+if [[ $OSTYPE == 'linux-gnu' ]]; then
+  b64="$b64 -w 0"
+fi
+
+echo -n "$1" | $b64
