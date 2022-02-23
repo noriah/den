@@ -1,0 +1,10 @@
+$clock-border-radius: 7px;
+
+.clock {
+  display: flex;
+  font-size: 3em;
+
+  > div {
+    display: inline-block;
+  }
+}

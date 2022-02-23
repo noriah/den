@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Startpage</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">The time is</div>
+      <div class="clock">
+        <div id="hours"></div>
+        <div class="divider">:</div>
+        <div id="minutes"></div>
+        <div class="divider">:</div>
+        <div id="seconds"></div>
+      </div>
+    </div>
+
+    <div class="card"></div>
+  </div>
+
+  <script>
+    function updateTime() {
+      let date = new Date();
+      let h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds();
+
+      document.getElementById("hours").innerHTML = h < 10 ? ("0" + h) : h
+      document.getElementById("minutes").innerHTML = m < 10 ? ("0" + m) : m
+      document.getElementById("seconds").innerHTML = s < 10 ? ("0" + s) : s
+    }
+
+    window.onload = () => {
+      updateTime();
+      setInterval(updateTime, 500);
+    }
+  </script>
+</body>
+
+</html>

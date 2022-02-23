@@ -21,6 +21,15 @@ checkExists 'var' "$FOX_DEN"
 
 echo "all good. continuing."
 
+echo "building startpage."
+
+if !"$FOX_DEN/usr/startpage/build.zsh"; then; else
+  echo "failed to make startpage. make sure you have sass installed."
+  echo "no changes made."
+  exit 1
+fi
+
+
 function linkDen() {
   echo "creating symlink '$HOME/$1' -> '$FOX_DEN/$1'"
   ln -s "$FOX_DEN/$1" "$HOME/$1"

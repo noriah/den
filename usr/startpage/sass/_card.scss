@@ -1,0 +1,15 @@
+$card-border-radius: 7px;
+
+.card {
+  background-color: $black;
+  border-radius: $card-border-radius;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.35);
+  color: $white;
+  margin: 10px;
+  padding: 0.5em 1em;
+
+  .header {
+    font-size: 1em;
+    margin: 5px 0px;
+  }
+}
