@@ -29,6 +29,7 @@ if !"$FOX_DEN/usr/startpage/build.zsh"; then; else
   exit 1
 fi
 
+echo "done."
 
 function linkDen() {
   echo "creating symlink '$HOME/$1' -> '$FOX_DEN/$1'"
