@@ -1,9 +1,9 @@
+# zsh entry point
+
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
 
-. "$FOX_DEN/usr/foxden/fn.zsh"
-
 # load den
-denSource usr/foxden/rc.zsh
+. "$FOX_DEN/usr/foxden/rc.zsh"
 
 # aliases
 denSource etc/zsh/zaliases

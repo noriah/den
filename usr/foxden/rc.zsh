@@ -1,6 +1,6 @@
-. "$FOX_DEN/usr/foxden/fn.zsh"
-
 baseSubPath="usr/foxden/base"
+
+. "$FOX_DEN/usr/foxden/fn.zsh"
 
 denSource "$baseSubPath/functions.zsh"
 

@@ -1,0 +1,26 @@
+[user]
+	name = noriah
+	signingkey = C6ACD7663C0FE39B
+	useConfigOnly = true
+
+[core]
+	editor = vi
+	excludesfile = IGNORE_FILE_LOCATION
+
+[commit]
+	gpgsign = true
+
+[includeIf "gitdir:~/opt/den/.git"]
+	path = "~/workspace/noriah/.gitconfig"
+
+[includeIf "gitdir:~/workspace/noriah/"]
+	path = "~/workspace/noriah/.gitconfig"
+
+[includeIf "gitdir:~/workspace/notes/"]
+	path = "~/workspace/noriah/.gitconfig"
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

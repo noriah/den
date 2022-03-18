@@ -22,6 +22,7 @@ burrow plugin golang
 burrow plugin rust
 burrow plugin node
 
+burrow plugin python
 burrow plugin neofetch
 # burrow plugin taskwarrior
 burrow plugin workspace
@@ -38,16 +39,16 @@ burrow plugin z github/rupa/z z.sh
 # it is nice to look nice. but it also helps
 # us see things easier.
 burrow plugin highlight \
-	github/zdharma-continuum/fast-syntax-highlighting \
-	fast-syntax-highlighting.plugin.zsh
+  github/zdharma-continuum/fast-syntax-highlighting \
+  fast-syntax-highlighting.plugin.zsh
 
 # for that one problem
 burrow plugin autoenv \
-	github/Tarrasch/zsh-autoenv \
-	autoenv.zsh
+  github/Tarrasch/zsh-autoenv \
+  autoenv.zsh
 
 # power the levels. 10k of them.
 burrow plugin p10k \
-	github/romkatv/powerlevel10k \
-	powerlevel10k.zsh-theme
+  github/romkatv/powerlevel10k \
+  powerlevel10k.zsh-theme
 

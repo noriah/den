@@ -7,22 +7,22 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
-function left() {
+left() {
   POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$@")
 }
 
-function leftPlugin() {
+leftPlugin() {
   if burrow check "$1"; then
     (( ${+2} )) && shift
     left $@
   fi
 }
 
-function right() {
+right() {
   POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS+=("$@")
 }
 
-function rightPlugin() {
+rightPlugin() {
   if burrow check "$1"; then
     (( ${+2} )) && shift
     right $@

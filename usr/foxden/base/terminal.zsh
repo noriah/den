@@ -8,7 +8,7 @@
 # Fully supports screen, iterm, and probably most modern xterm and rxvt
 # (In screen, only short_tab_title is used)
 # Limited support for Apple Terminal (Terminal can't set window and tab separately)
-function title {
+title() {
   emulate -L zsh
   setopt prompt_subst
 
@@ -34,10 +34,10 @@ function title {
         # Try to use terminfo to set the title
         # If the feature is available set title
         if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
-	  echoti tsl
-	  print -Pn "$1"
-	  echoti fsl
-	fi
+    echoti tsl
+    print -Pn "$1"
+    echoti fsl
+  fi
       fi
       ;;
   esac
@@ -51,7 +51,7 @@ if [[ "$TERM_PROGRAM" == Apple_Terminal ]]; then
 fi
 
 # Runs before showing the prompt
-function omz_termsupport_precmd {
+omz_termsupport_precmd() {
   emulate -L zsh
 
   if [[ "$DISABLE_AUTO_TITLE" == true ]]; then
@@ -62,7 +62,7 @@ function omz_termsupport_precmd {
 }
 
 # Runs before executing the command
-function omz_termsupport_preexec {
+omz_termsupport_preexec() {
   emulate -L zsh
   setopt extended_glob
 
@@ -90,7 +90,7 @@ if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]] && [[ -z "$INSIDE_EMACS" ]]; then
   # Emits the control sequence to notify Terminal.app of the cwd
   # Identifies the directory using a file: URI scheme, including
   # the host name to disambiguate local vs. remote paths.
-  function update_terminalapp_cwd() {
+  update_terminalapp_cwd() {
     emulate -L zsh
 
     # Percent-encode the pathname.

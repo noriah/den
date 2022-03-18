@@ -1,23 +1,23 @@
-function vncviewer() {
+vncviewer() {
   open vnc://$@
 }
 
 # Remove .DS_Store files recursively in a directory, default .
-function rmdsstore() {
+rmdsstore() {
 	find "${@:-.}" -type f -name .DS_Store -delete
 }
 
 OSX_CAPTURE_FOLDER="$HOME/Desktop"
 
-function cap() {
+cap() {
   screencapture "${OSX_CAPTURE_FOLDER}/capture-$(date +%Y%m%d_%H%M%S).png"
 }
 
-function capi() {
+capi() {
   screencapture -i "${OSX_CAPTURE_FOLDER}/capture-$(date +%Y%m%d_%H%M%S).png"
 }
 
-function capiw() {
+capiw() {
   screencapture -i -w "${OSX_CAPTURE_FOLDER}/capture-$(date +%Y%m%d_%H%M%S).png"
 }
 
