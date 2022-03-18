@@ -390,7 +390,6 @@
   },
   "go.languageServerExperimentalFeatures": {
     "diagnostics": true,
-    "documentLink": true
   },
   "gopls": {
     "usePlaceholders": true,
@@ -400,7 +399,7 @@
   "material-icon-theme.activeIconPack": "react_redux",
   "materialTheme.accent": "Pink",
   "npm.fetchOnlinePackageInfo": false,
-  "telemetry.enableTelemetry": false,
+  "telemetry.telemetryLevel": "off",
   "todo-tree.general.statusBar": "total",
   "todo-tree.filtering.ignoreGitSubmodules": true,
   "todo-tree.tree.grouped": true,

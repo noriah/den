@@ -5,7 +5,8 @@ denConf mac.zsh
 burrow plugin battery
 
 # GCP SDK
-# burrow plugin gcp
+# GCP_SDK=""
+# burrow plugin gcloud
 
 # SSH Specific things
 SSH_HOST_SOCK="~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
