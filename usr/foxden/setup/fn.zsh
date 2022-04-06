@@ -36,3 +36,11 @@ sourceDen() {
   echo "sourcing '$HOME/.$1' from '$FOX_DEN/etc/zsh/$1'"
   echo ". \"$FOX_DEN/etc/zsh/$1\"" > "$HOME/.$1"
 }
+
+isMac() {
+  [[ $OSTYPE =~ darwin ]] && return 0 || return 1
+}
+
+isLinux() {
+  [[ $OSTYPE =~ linux ]] && return 0 || return 1
+}

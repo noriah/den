@@ -7,11 +7,11 @@ fi
 
 source "$FOX_DEN/usr/foxden/setup/fn.zsh"
 
-if [[ $OSTYPE =~ darwin ]]; then
+if isMac; then
   echo "*** UNSUPPORTED: VSCode server on macOS. ***"
   exit 1
 
-elif [[ $OSTYPE =~ linux ]]; then
+elif isLinux; then
   ensureDir '.vscode-server/data/Machine'
 
   checkBackupHome '.vscode-server/data/Machine/settings.json'

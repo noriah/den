@@ -7,7 +7,7 @@ fi
 
 source "$FOX_DEN/usr/foxden/setup/fn.zsh"
 
-if [[ $OSTYPE =~ darwin ]]; then
+if isMac; then
   ensureDir '.vscode/extensions'
 
   linkDen '.vscode/extensions/noriah-themes' \
@@ -23,7 +23,11 @@ if [[ $OSTYPE =~ darwin ]]; then
   linkDen 'Library/Application Support/Code/User/keybindings.json' \
     'usr/vscode/settings/keybindings.macos.json'
 
-elif [[ $OSTYPE =~ linux ]]; then
+  checkBackupHome 'Library/Application Support/Code/User/snippets'
+  linkDen 'Library/Application Support/Code/User/snippets' \
+    'usr/vscode/snippits'
+
+elif isLinux; then
   echo "*** TODO: Linux VSCode client setup. ***"
   exit 1
 fi
