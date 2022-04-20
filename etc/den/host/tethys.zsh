@@ -1,4 +1,6 @@
-# tethys is a linux server 
+# tethys is a linux server
+
+burrow plugin tmux
 
 # SSH Specific things
 burrow plugin ssh
