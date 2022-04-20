@@ -1,7 +1,5 @@
-alias lsa='ls -lah'
 alias l='ls -lh'
-alias ll='ls -lah'
-alias la='ls -lAh'
+alias ll='LC_ALL=C ls -lah'
 
 alias cp='cp -i'
 alias rm='rm -i'
