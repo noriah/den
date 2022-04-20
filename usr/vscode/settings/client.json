@@ -5,11 +5,8 @@
       "snippet": "c++ header template"
     }
   ],
-
   "breadcrumbs.enabled": true,
-
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 100 }",
-
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 120 }",
   "editor.acceptSuggestionOnEnter": "off",
   "editor.accessibilitySupport": "off",
   "editor.autoIndent": "full",
@@ -19,7 +16,6 @@
   "editor.fontLigatures": true,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "modifications",
   "editor.mouseWheelScrollSensitivity": 0,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.showFoldingControls": "mouseover",
@@ -36,7 +32,6 @@
     }
   ],
   "editor.unicodeHighlight.nonBasicASCII": false,
-
   "files.exclude": {
     "**/.classpath": true,
     "**/.project": true,
@@ -46,7 +41,6 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-
   "go.autocompleteUnimportedPackages": true,
   "go.useLanguageServer": true,
   "go.useCodeSnippetsOnFunctionSuggest": true,
@@ -72,20 +66,15 @@
   "go.languageServerExperimentalFeatures": {
     "diagnostics": true
   },
-
   "gopls": {
     "usePlaceholders": true,
     "completeUnimported": true,
     "deepCompletion": true
   },
-
   "material-icon-theme.activeIconPack": "react_redux",
   "materialTheme.accent": "Pink",
-
   "npm.fetchOnlinePackageInfo": false,
-
   "telemetry.telemetryLevel": "off",
-
   "todo-tree.general.statusBar": "total",
   "todo-tree.filtering.ignoreGitSubmodules": true,
   "todo-tree.tree.grouped": true,
@@ -102,31 +91,24 @@
   "todo-tree.highlights.defaultHighlight": {
     "type": "text-and-comment"
   },
-
   "todo.embedded.provider": "rg",
-
   "vsicons.presets.foldersAllDefaultIcon": true,
-
   "window.closeWhenEmpty": false,
   "window.openFilesInNewWindow": "off",
   "window.title": "${activeEditorFull}${separator}${rootName}",
-
   "workbench.colorTheme": "Noriah Dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "newUntitledFile",
-
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
-
   "[cpp]": {
     "editor.rulers": [
       {
         "color": "#ff501030",
-        "column": 100
+        "column": 120
       }
     ]
   },
-
   "[go]": {
     "editor.snippetSuggestions": "inline",
     "editor.formatOnSave": true,

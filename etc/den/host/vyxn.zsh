@@ -1,5 +1,5 @@
 # vyxn is a MacBook Pro running macOS
-denConf mac.zsh
+denConf macos.zsh
 
 # We have a battery
 burrow plugin battery
