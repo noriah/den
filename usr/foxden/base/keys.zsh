@@ -50,8 +50,14 @@ fi
 
 bindkey ' ' magic-space                               # [Space] - do history expansion
 
-bindkey '^[[1;5C' forward-word                        # [Ctrl-RightArrow] - move forward one word
-bindkey '^[[1;5D' backward-word                       # [Ctrl-LeftArrow] - move backward one word
+bindkey '^[f' forward-word                            # [Option-RightArrow] - move forward one word
+forward-word-end () { zle vi-forward-word-end && zle forward-char }
+zle -N forward-word-end
+bindkey '^[[1;3C' forward-word-end                    # [Fn-Option-RightArrow] - move forward to end of next word
+bindkey '^[b' backward-word                           # [Option-LeftArrow] - move backward one word
+backward-word-end () { zle backward-char && zle vi-backward-word-end && zle forward-char }
+zle -N backward-word-end
+bindkey '^[[1;3D' backward-word-end
 
 if [[ "${terminfo[kcbt]}" != "" ]]; then
   bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards

@@ -510,7 +510,7 @@ Code Supreme:Restore Window Arrangement</string>
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>82</integer>
+			<integer>100</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Boost</key>
@@ -780,12 +780,16 @@ Code Supreme:Restore Window Arrangement</string>
 					<key>Text</key>
 					<string>0x1b 0x7f</string>
 				</dict>
-				<key>0xf700-0x220000</key>
+				<key>0xf700-0x220000-0x0</key>
 				<dict>
 					<key>Action</key>
-					<integer>10</integer>
+					<integer>13</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
-					<string>[1;2A</string>
+					<string></string>
+					<key>Version</key>
+					<integer>0</integer>
 				</dict>
 				<key>0xf700-0x240000</key>
 				<dict>
@@ -801,12 +805,16 @@ Code Supreme:Restore Window Arrangement</string>
 					<key>Text</key>
 					<string>[1;6A</string>
 				</dict>
-				<key>0xf701-0x220000</key>
+				<key>0xf701-0x220000-0x0</key>
 				<dict>
 					<key>Action</key>
-					<integer>10</integer>
+					<integer>13</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
-					<string>[1;2B</string>
+					<string></string>
+					<key>Version</key>
+					<integer>0</integer>
 				</dict>
 				<key>0xf701-0x240000</key>
 				<dict>
@@ -822,12 +830,16 @@ Code Supreme:Restore Window Arrangement</string>
 					<key>Text</key>
 					<string>[1;6B</string>
 				</dict>
-				<key>0xf702-0x220000</key>
+				<key>0xf702-0x220000-0x7b</key>
 				<dict>
 					<key>Action</key>
-					<integer>10</integer>
+					<integer>13</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
-					<string>[1;2D</string>
+					<string></string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
 				<key>0xf702-0x240000</key>
 				<dict>
@@ -857,12 +869,16 @@ Code Supreme:Restore Window Arrangement</string>
 					<key>Text</key>
 					<string>0x1</string>
 				</dict>
-				<key>0xf703-0x220000</key>
+				<key>0xf703-0x220000-0x7c</key>
 				<dict>
 					<key>Action</key>
-					<integer>10</integer>
+					<integer>13</integer>
+					<key>Label</key>
+					<string></string>
 					<key>Text</key>
-					<string>[1;2C</string>
+					<string></string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
 				<key>0xf703-0x240000</key>
 				<dict>
@@ -1004,6 +1020,17 @@ Code Supreme:Restore Window Arrangement</string>
 					<key>Text</key>
 					<string>[1;5H</string>
 				</dict>
+				<key>0xf729-0x80000-0x73</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[1;3D</string>
+					<key>Version</key>
+					<integer>0</integer>
+				</dict>
 				<key>0xf72b-0x20000</key>
 				<dict>
 					<key>Action</key>
@@ -1017,6 +1044,17 @@ Code Supreme:Restore Window Arrangement</string>
 					<integer>10</integer>
 					<key>Text</key>
 					<string>[1;5F</string>
+				</dict>
+				<key>0xf72b-0x80000-0x77</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[1;3C</string>
+					<key>Version</key>
+					<integer>0</integer>
 				</dict>
 				<key>0xf739-0x0</key>
 				<dict>
