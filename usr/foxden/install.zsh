@@ -44,7 +44,7 @@ sourceDen 'zshrc'
 
 echo "running install scripts from '$FOX_DEN_SETUP/plans'."
 
-for i in "$FOX_DEN_SETUP/plans/*.zsh"; do
+for i in "$FOX_DEN_SETUP/plans/"*.zsh; do
   echo "*** running script '$i'. ***"
   . "$i"
 done
