@@ -48,7 +48,9 @@ burrow plugin autoenv \
   autoenv.zsh
 
 # power the levels. 10k of them.
-burrow plugin p10k \
-  github/romkatv/powerlevel10k \
-  powerlevel10k.zsh-theme
+if [ "$TERM" != "linux" ]; then
+  burrow plugin p10k \
+    github/romkatv/powerlevel10k \
+    powerlevel10k.zsh-theme
+fi
 

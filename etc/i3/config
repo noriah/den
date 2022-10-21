@@ -1,0 +1,39 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# Den Env Setup
+
+# Alt=Mod1
+# Super=Mod4
+
+# set mod key
+set $mod Mod1
+set $ctrl Control
+
+# set font
+font pango:FiraCode Nerd Font 8
+
+# align titles
+title_align left
+
+# hide borders
+hide_edge_borders none
+default_border none
+default_floating_border none
+
+# Do not follow mouse focus
+focus_follows_mouse no
+
+gaps inner 12
+gaps top 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+include startup
+include colors
+include workspace
+include keys
+#include games
+

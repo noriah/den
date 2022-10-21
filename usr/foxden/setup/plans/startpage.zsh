@@ -10,4 +10,4 @@ if [ -f "$BUILD_SCRIPT" ]; then
   fi
 fi
 
-echo "done."
+#echo "done."

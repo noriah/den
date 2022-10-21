@@ -59,6 +59,8 @@ backward-word-end () { zle backward-char && zle vi-backward-word-end && zle forw
 zle -N backward-word-end
 bindkey '^[[1;3D' backward-word-end
 
+bindkey '\t' menu-complete
+
 if [[ "${terminfo[kcbt]}" != "" ]]; then
   bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards
 fi
