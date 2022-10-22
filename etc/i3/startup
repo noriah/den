@@ -13,7 +13,7 @@ exec_always --no-startup-id dbus-update-activation-environment --all
 exec_always --no-startup-id gnome-keyring-daemon --start --components=secrets
 
 # Composter
-exec_always --no-startup-id DISPLAY=":0" picom -b --experimental-backends
+exec_always --no-startup-id DISPLAY=":0" picom -b --backend xrender
 
 # Top Bar
 exec --no-startup-id polybar

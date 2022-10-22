@@ -10,6 +10,7 @@
 # set mod key
 set $mod Mod1
 set $ctrl Control
+set $super Mod4
 
 # set font
 font pango:FiraCode Nerd Font 8
