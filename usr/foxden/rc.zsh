@@ -1,11 +1,9 @@
-. "$FOX_DEN/usr/foxden/fn.zsh"
+. "$FOX_DEN/usr/foxden/base/functions.zsh"
 
 baseSubPath="usr/foxden/base"
 
-den::source "$baseSubPath/functions.zsh"
-
-env_default 'PAGER' 'less'
-env_default 'LESS' '-R'
+den::env::default 'PAGER' 'less'
+den::env::default 'LESS' '-R'
 
 den::source "$baseSubPath/alias.zsh"
 den::source "$baseSubPath/appearance.zsh"

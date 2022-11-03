@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-__burrow::download::repo() {
+burrow::download::repo() {
   local burrowName="$1"
   local burrowDir="$2"
   local repoURI="$3"
@@ -40,7 +40,7 @@ __burrow::download::repo() {
     return 0
 }
 
-__burrow::plugin() {
+burrow::plugin() {
 
   local burronDir
   local burrowName
@@ -115,7 +115,7 @@ __burrow::plugin() {
   # Repo Download
   if [ ! -z "$repoURI" ]; then
 
-    __burrow::download::repo "$burrowName" "$burrowDir" "$repoURI"
+    burrow::download::repo "$burrowName" "$burrowDir" "$repoURI"
 
     local ret="$?"
     if [ ! "$ret" -eq 0 ]; then
@@ -148,19 +148,19 @@ __burrow::plugin() {
   return 0
 }
 
-__burrow::plugin::fail() {
+burrow::plugin::fail() {
   export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=1
 }
 
-__burrow::plugin::pass() {
+burrow::plugin::pass() {
   export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=0
 }
 
-__burrow::check() {
+burrow::check() {
   [[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
 }
 
-__burrow::lib() {
+burrow::lib() {
 
   local burrowDir
   local burrowName
@@ -185,7 +185,7 @@ __burrow::lib() {
   # Repo Download
   if [ ! -z "$repoURI" ]; then
 
-    __burrow::download::repo "$burrowName" "$burrowDir" "$repoURI"
+    burrow::download::repo "$burrowName" "$burrowDir" "$repoURI"
 
     local ret="$?"
     if [ ! "$ret" -eq 0 ]; then
@@ -199,8 +199,8 @@ __burrow::lib() {
   _FOX_DEN_BURROW_LIST+=( "$burrowName" )
 }
 
-__burrow::path() {
-  if __burrow::check $1; then
+burrow::path() {
+  if burrow::check $1; then
     if [[ -v _FOX_DEN_BURROW_REPO_LIST["$1"] ]]; then
       echo "$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$1]";
       return 0
@@ -210,7 +210,7 @@ __burrow::path() {
   return 1
 }
 
-__burrow::update() {
+burrow::update() {
   for burrowName in ${(k)_FOX_DEN_BURROW_REPO_LIST}; do
     printf "*** updating '%s' from the clouds.\n" "$burrowName"
     local burrowDir="$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$burrowName]"
@@ -237,13 +237,11 @@ __burrow::update() {
 
 burrow() {
   case "$1" in
-    plugin) __burrow::plugin "${@:2}" ;;
-    plugin-fail) __burrow::plugin::fail ;;
-    plugin-pass) __burrow::plugin::pass ;;
-    lib) __burrow::lib "${@:2}" ;;
-    path) __burrow::path "${@:2}" ;;
-    check) __burrow::check "${@:2}" ;;
-    update) __burrow::update ;;
+    plugin) burrow::plugin "${@:2}" ;;
+    lib) burrow::lib "${@:2}" ;;
+    path) burrow::path "${@:2}" ;;
+    check) burrow::check "${@:2}" ;;
+    update) burrow::update ;;
     *) return 1 ;;
   esac
 }

@@ -13,20 +13,20 @@ INSTALL_OK="$FOX_DEN/.ok"
 
 den::source usr/burrow/rc.zsh
 
-checkExists 'etc' "$HOME"
-checkExists 'usr' "$HOME"
-checkExists 'var' "$HOME"
-checkExists 'var' "$FOX_DEN"
+den::install::checkExists 'etc' "$HOME"
+den::install::checkExists 'usr' "$HOME"
+den::install::checkExists 'var' "$HOME"
+den::install::checkExists 'var' "$FOX_DEN"
 
 echo "all good. continuing."
 
 [ ! -d "$HOME/opt" ] && mkdir "$HOME/opt"
 
 # link etc
-linkDen 'etc'
+den::install::link 'etc'
 
 # link usr
-linkDen 'usr'
+den::install::link 'usr'
 
 echo "making dir '$HOME/opt' (if it does not already exist)."
 mkdir "$HOME/opt"
@@ -37,13 +37,13 @@ mkdir "$FOX_DEN/var/cache"
 mkdir "$FOX_DEN/var/history"
 
 # link var
-linkDen 'var'
+den::install::link 'var'
 
 # source environment
-sourceDen 'zshenv'
+den::install::source 'zshenv'
 
 # source rc
-sourceDen 'zshrc'
+den::install::source 'zshrc'
 
 echo "running install scripts from '$FOX_DEN_SETUP/plans'."
 

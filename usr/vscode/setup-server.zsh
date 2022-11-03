@@ -7,14 +7,14 @@ fi
 
 source "$FOX_DEN/usr/foxden/setup/fn.zsh"
 
-if isMac; then
+if den::is::mac; then
   echo "*** UNSUPPORTED: VSCode server on macOS. ***"
   exit 1
 
-elif isLinux; then
-  ensureDir '.vscode-server/data/Machine'
+elif den::is::linux; then
+  den::install::ensureDir '.vscode-server/data/Machine'
 
-  checkBackupHome '.vscode-server/data/Machine/settings.json'
-  linkDen '.vscode-server/data/Machine/settings.json' \
+  den::install::checkBackupHome '.vscode-server/data/Machine/settings.json'
+  den::install::link '.vscode-server/data/Machine/settings.json' \
     'usr/vscode/settings/server.json'
 fi

@@ -1,4 +1,4 @@
-env_default 'NVM_DIR' "$HOME_OPT/nvm"
+den::env::default 'NVM_DIR' "$HOME_OPT/nvm"
 
 # This loads nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

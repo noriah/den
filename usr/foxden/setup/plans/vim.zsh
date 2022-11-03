@@ -1,2 +1,2 @@
-checkBackupHome '.vimrc'
-linkDen '.vimrc' 'etc/vim/rc.vim'
+den::install::checkBackupHome '.vimrc'
+den::install::link '.vimrc' 'etc/vim/rc.vim'

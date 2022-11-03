@@ -1,3 +1,3 @@
-env_default 'NODE_REPL_HISTORY' "$HISTORY/node_repl"
+den::env::default 'NODE_REPL_HISTORY' "$HISTORY/node_repl"
 
-export_once 'PATH' "$PATH:./node_modules/.bin"
+den::export_once 'PATH' "$PATH:./node_modules/.bin"

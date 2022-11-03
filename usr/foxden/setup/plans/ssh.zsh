@@ -1,4 +1,4 @@
 echo "noop"
-# ensureDir '.ssh'
-# checkBackupHome '.ssh/rc'
-# linkDen '.ssh/rc' 'etc/ssh/rc'
+# den::install::ensureDir '.ssh'
+# den::install::checkBackupHome '.ssh/rc'
+# den::install::link '.ssh/rc' 'etc/ssh/rc'

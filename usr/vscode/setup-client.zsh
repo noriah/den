@@ -7,27 +7,27 @@ fi
 
 source "$FOX_DEN/usr/foxden/setup/fn.zsh"
 
-if isMac; then
-  ensureDir '.vscode/extensions'
+if den::is::mac; then
+  den::install::ensureDir '.vscode/extensions'
 
-  linkDen '.vscode/extensions/noriah-themes' \
+  den::install::link '.vscode/extensions/noriah-themes' \
     'usr/vscode/extensions/noriah-themes'
 
-  ensureDir 'Library/Application Support/Code/User'
+  den::install::ensureDir 'Library/Application Support/Code/User'
 
-  checkBackupHome 'Library/Application Support/Code/User/settings.json'
-  linkDen 'Library/Application Support/Code/User/settings.json' \
+  den::install::checkBackupHome 'Library/Application Support/Code/User/settings.json'
+  den::install::link 'Library/Application Support/Code/User/settings.json' \
     'usr/vscode/settings/client.json'
 
-  checkBackupHome 'Library/Application Support/Code/User/keybindings.json'
-  linkDen 'Library/Application Support/Code/User/keybindings.json' \
+  den::install::checkBackupHome 'Library/Application Support/Code/User/keybindings.json'
+  den::install::link 'Library/Application Support/Code/User/keybindings.json' \
     'usr/vscode/settings/keybindings.macos.json'
 
-  checkBackupHome 'Library/Application Support/Code/User/snippets'
-  linkDen 'Library/Application Support/Code/User/snippets' \
+  den::install::checkBackupHome 'Library/Application Support/Code/User/snippets'
+  den::install::link 'Library/Application Support/Code/User/snippets' \
     'usr/vscode/snippets'
 
-elif isLinux; then
+elif den::is::linux; then
   echo "*** TODO: Linux VSCode client setup. ***"
   exit 1
 fi

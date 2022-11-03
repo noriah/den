@@ -1,2 +1,2 @@
-checkBackupHome '.tmux.conf'
-linkDen '.tmux.conf' 'etc/tmux/tmux.conf'
+den::install::checkBackupHome '.tmux.conf'
+den::install::link '.tmux.conf' 'etc/tmux/tmux.conf'

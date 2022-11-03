@@ -1,4 +1,4 @@
-checkBackupHome '.gitconfig'
+den::install::checkBackupHome '.gitconfig'
 
 echo "creating user git config."
 

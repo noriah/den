@@ -1,7 +1,7 @@
-env_default 'WORKSPACE_DIR' "$HOME/workspace"
-env_default 'WORKSPACE_PRO_KEY' "$DEN_USER"
-env_default 'WORKSPACE_LOCAL_KEY' 'local'
-env_default 'WORKSPACE_NOTES_KEY' 'notes'
+den::env::default 'WORKSPACE_DIR' "$HOME/workspace"
+den::env::default 'WORKSPACE_PRO_KEY' "$DEN_USER"
+den::env::default 'WORKSPACE_LOCAL_KEY' 'local'
+den::env::default 'WORKSPACE_NOTES_KEY' 'notes'
 
 alias prosp="cd $WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
 alias localsp="cd $WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"

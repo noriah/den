@@ -1,6 +1,6 @@
 # fzf
 
-burrow plugin-fail
+burrow::plugin::fail
 
 burrow lib libfzf github/junegunn/fzf
 
@@ -27,7 +27,7 @@ if [[ -d ${libfzfDir} ]]; then
   bindkey -M vicmd '^f' fzf-file-widget
   bindkey -M viins '^f' fzf-file-widget
 
-  burrow plugin-pass
+  burrow::plugin::pass
 fi
 
 unset libfzfDir
