@@ -83,12 +83,12 @@ rightPlugin() {
   right command_execution_time
   right background_jobs
 
-  rightPlugin battery
-
   right context
   # right load
   # right time
   right newline
+
+  rightPlugin battery
 
   # ---- Line 2
   rightPlugin direnv
@@ -103,7 +103,7 @@ rightPlugin() {
 
   rightPlugin node node_version
 
-  rightPlugin taskwarrior
+  # rightPlugin taskwarrior
 
   rightPlugin todo
 

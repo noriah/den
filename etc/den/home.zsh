@@ -51,6 +51,11 @@ burrow plugin \
 
 # fzf
 burrow plugin fzf
+# fzf-tab
+burrow plugin \
+  fzf-tab \
+  github/Aloxaf/fzf-tab \
+  fzf-tab.plugin.zsh
 
 # it is nice to look nice. but it also helps
 # us see things easier.
@@ -59,9 +64,9 @@ burrow plugin \
   github/zdharma-continuum/fast-syntax-highlighting \
   fast-syntax-highlighting.plugin.zsh
 
-
-# power the levels. 10k of them.
+# Make sure we are not running in a linux console. The font does not work.
 if [ "$TERM" != "linux" ]; then
+# power the levels. 10k of them.
   burrow plugin p10k \
     github/romkatv/powerlevel10k \
     powerlevel10k.zsh-theme
