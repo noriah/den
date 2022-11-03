@@ -14,4 +14,6 @@ if isLinux; then
   done
 
   unset NEW_DIR
+else
+  echo "noop"
 fi

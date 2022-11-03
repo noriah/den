@@ -1,3 +1,5 @@
+#!/usr/bin/zsh
+
 checkExists() {
   if [ -e "$2/$1" ]; then
     echo "'$1' already exists in '$2'. can not continue."
@@ -10,6 +12,15 @@ checkBackupHome() {
   if [ -e "$HOME/$1" ]; then
     echo "replacing '$HOME/$1' (backup in '$HOME/$1.old')"
     mv "$HOME/$1" "$HOME/$1.old"
+  fi
+}
+
+checkRmHome() {
+  if [ -f "$HOME/$1" ]; then
+    echo "removing '$HOME/$1'"
+    rm "$HOME/$1"
+  else
+    echo "noop ('$1')"
   fi
 }
 

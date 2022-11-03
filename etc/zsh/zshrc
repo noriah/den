@@ -16,4 +16,3 @@ fi
 denConf home.zsh
 
 export FOX_DEN_ZSHRC_RUN=1
-

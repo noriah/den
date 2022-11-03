@@ -1,5 +1,45 @@
 #!/usr/bin/env zsh
 
+__burrow_download_repo() {
+  local burrowName="$1"
+  local burrowDir="$2"
+  local repoURI="$3"
+  if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" ]]; then
+
+      printf "*** digging for '%s' in the clouds ('%s').\n" "$burrowName" "$repoURI"
+
+      local repoURL
+
+      case "$repoURI" in
+
+        github/*)
+          repoURL="https://github.com${repoURI#"github"}"
+          ;;
+
+        *)
+          repoURL="$repoURI"
+          ;;
+      esac
+
+      retTxt=$(git clone "$repoURL" "$burrowDir" 2>&1 1>/dev/null )
+      ret="$?"
+
+      if [ ! "$ret" -eq 0 ]; then
+
+        printf "*** sorry! i could not get you that repo. here is the address i tried:\n\n\t%s\n\n" "$repoURL"
+
+        printf "*** and here is the error:\n\n\t%s\n\n" "$retTxt"
+
+        return $ret
+
+      fi
+
+      printf "*** done with that! (%s)\n" "$burrowName"
+    fi
+
+    return 0
+}
+
 __burrow_plugin() {
 
   local burronDir
@@ -74,36 +114,17 @@ __burrow_plugin() {
 
   # Repo Download
   if [ ! -z "$repoURI" ]; then
-    if [[ ! -d "$burrowDir" || ! -d "$burrowDir/.git" ]]; then
-      printf "*** digging for '%s' in the clouds ('%s' in '%s').\n" "$burrowName" "$burrowFile" "$repoURI"
 
-      local repoURL
+    __burrow_download_repo "$burrowName" "$burrowDir" "$repoURI"
 
-      case "$repoURI" in
-        github/*)
-          repoURL="https://github.com${repoURI#"github"}"
-          ;;
-
-        *)
-          repoURL="$repoURI"
-          ;;
-
-      esac
-
-      retTxt=$(git clone "$repoURL" "$burrowDir" 2>&1 1>/dev/null )
-      ret="$?"
-
-      if [ ! "$ret" -eq 0 ]; then
-        printf "*** sorry! i could not get you that repo. here is the address i tried:\n\n\t%s\n\n" "$repoURL"
-        printf "*** and here is the error:\n\n\t%s\n\n" "$retTxt"
-        return $ret
-      fi
-
-      printf "*** done with that! (%s)\n" "$burrowName"
+    local ret="$?"
+    if [ ! "$ret" -eq 0 ]; then
+      return $ret
     fi
 
     if [ ! -f "$burrowDir/$burrowFile" ]; then
       printf "*** uh oh! i did not find '%s' in '%s' (%s)!\n." "$burrowFile" "$repoURI" "$burrowName"
+
       return 1
     fi
 
@@ -119,7 +140,8 @@ __burrow_plugin() {
 
   [[ ! "$burrowLight" -eq "1" ]] && . "$burrowDir/$burrowFile"
 
-  [[ ! "$_FOX_DEN_BURROW_PLUGIN_LOAD_FAIL" -eq "1" ]] && _FOX_DEN_BURROW_LIST+=( "$burrowName" )
+
+  [ $_FOX_DEN_BURROW_PLUGIN_LOAD_FAIL -eq 0 ] && _FOX_DEN_BURROW_LIST+=( "$burrowName" )
 
   unset _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL
 
@@ -136,6 +158,56 @@ __burrow_plugin_pass() {
 
 __burrow_check() {
   [[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
+}
+
+__burrow_lib() {
+
+  local burrowDir
+  local burrowName
+  local repoURI
+
+  case "$#" in
+    0)
+      printf "*** uh oh. please add some arguments for me to process!\n"
+      return 1
+      ;;
+    2)
+      burrowDir="$BURROW_OPT/$(basename $(dirname $2))_$(basename $2)"
+      burrowName="$(basename $1)"
+      repoURI="$2"
+      ;;
+    *)
+      printf "*** what am i supposed do with this garbage '%s'?\n" "$4"
+      return 1
+      ;;
+  esac
+
+  # Repo Download
+  if [ ! -z "$repoURI" ]; then
+
+    __burrow_download_repo "$burrowName" "$burrowDir" "$repoURI"
+
+    local ret="$?"
+    if [ ! "$ret" -eq 0 ]; then
+      return $ret
+    fi
+
+    _FOX_DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
+
+  fi
+
+  _FOX_DEN_BURROW_LIST+=( "$burrowName" )
+}
+
+__burrow_path() {
+  if __burrow_check $1; then
+    if [[ -v _FOX_DEN_BURROW_REPO_LIST["$1"] ]]; then
+      echo "$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$1]";
+      return 0
+    fi
+  fi
+
+  return 1
 }
 
 __burrow_update() {
@@ -160,7 +232,7 @@ __burrow_update() {
     printf "*** done with that! (%s)\n" "$burrowName"
   done
 
-  printf "*** all done with updates! restart your shell for updates to take effect. \n"
+  printf "*** all done with updates! restart your shell for updates to take effect.\n"
 }
 
 burrow() {
@@ -168,6 +240,8 @@ burrow() {
     plugin) __burrow_plugin "${@:2}" ;;
     plugin-fail) __burrow_plugin_fail ;;
     plugin-pass) __burrow_plugin_pass ;;
+    lib) __burrow_lib "${@:2}" ;;
+    path) __burrow_path "${@:2}" ;;
     check) __burrow_check "${@:2}" ;;
     update) __burrow_update ;;
     *) return 1 ;;

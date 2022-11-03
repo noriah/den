@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [[ ! -v FOX_DEN ]]; then
-  printf "*** FOX_DEN variable not set. cannont continue. ***"
+  printf "*** FOX_DEN variable not set. cannot continue. ***"
   exit 1
 fi
 
@@ -25,7 +25,7 @@ if isMac; then
 
   checkBackupHome 'Library/Application Support/Code/User/snippets'
   linkDen 'Library/Application Support/Code/User/snippets' \
-    'usr/vscode/snippits'
+    'usr/vscode/snippets'
 
 elif isLinux; then
   echo "*** TODO: Linux VSCode client setup. ***"

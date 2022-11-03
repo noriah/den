@@ -4,11 +4,14 @@
 FOX_DEN_SETUP="${0:h:A}/setup"
 FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
 
-DEN_OK="$FOX_DEN/.ok"
+INSTALL_OK="$FOX_DEN/.ok"
 
-[[ -f "$DEN_OK" ]] && echo "den is already installed." && exit 0
+[ -f "$INSTALL_OK" ] && echo "den is already installed." && exit 0
 
+. "${0:h:A}/fn.zsh"
 . "$FOX_DEN_SETUP/fn.zsh"
+
+denSource usr/burrow/rc.zsh
 
 checkExists 'etc' "$HOME"
 checkExists 'usr' "$HOME"
@@ -36,7 +39,7 @@ mkdir "$FOX_DEN/var/history"
 # link var
 linkDen 'var'
 
-# source env
+# source environment
 sourceDen 'zshenv'
 
 # source rc
@@ -52,7 +55,7 @@ done
 echo "done with scripts."
 
 # set the flag
-touch "$DEN_OK"
+touch "$INSTALL_OK"
 
 echo "den installation complete. enjoy!"
 

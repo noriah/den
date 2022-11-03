@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 if [[ ! -v FOX_DEN ]]; then
-  printf "*** FOX_DEN variable not set. cannont continue. ***"
+  printf "*** FOX_DEN variable not set. cannot continue. ***"
   exit 1
 fi
 

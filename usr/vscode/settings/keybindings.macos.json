@@ -1,22 +1,63 @@
+// Place your key bindings in this file to override the defaults
 [
   {
-    "key": "shift+cmd+p",
-    "command": "workbench.action.showCommands"
+    "key": "shift+alt+cmd+i",
+    "command": "editor.action.inspectTMScopes",
+    "when": "editorFocus"
+  },
+
+  // Cursor Movements
+  {
+    "key": "ctrl+up",
+    "command": "cursorMove",
+    "args": {
+      "to": "up",
+      "by": "line",
+      "value": 10
+    }
   },
   {
-    "key": "shift+cmd+p",
-    "command": "-workbench.action.showCommands"
+    "key": "ctrl+down",
+    "command": "cursorMove",
+    "args": {
+      "to": "down",
+      "by": "line",
+      "value": 10
+    }
+  },
+
+  // Removals
+  {
+    "key": "cmd+w",
+    "command": "-workbench.action.closeWindow",
+    "when": "!editorIsOpen && !multipleEditorGroups"
   },
   {
-    "key": "cmd+p",
-    "command": "workbench.action.quickOpen"
+    "key": "cmd+-",
+    "command": "-workbench.action.zoomOut"
   },
   {
-    "key": "cmd+p",
-    "command": "-workbench.action.quickOpen"
+    "key": "cmd+=",
+    "command": "-workbench.action.zoomIn"
   },
   {
-    "key": "ctrl+shift+p",
-    "command": "editor.action.inspectTMScopes"
+    "key": "shift+cmd+=",
+    "command": "-workbench.action.zoomIn"
+  },
+  {
+    "key": "shift+cmd+-",
+    "command": "-workbench.action.zoomOut"
+  },
+  {
+    "key": "cmd+numpad_subtract",
+    "command": "-workbench.action.zoomOut"
+  },
+  {
+    "key": "cmd+numpad_add",
+    "command": "-workbench.action.zoomIn"
+  },
+  {
+    "key": "cmd+numpad0",
+    "command": "-workbench.action.zoomReset"
   }
 ]

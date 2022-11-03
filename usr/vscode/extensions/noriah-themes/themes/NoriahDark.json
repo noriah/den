@@ -122,6 +122,15 @@
       }
     },
     {
+      "name": "Other Keyword",
+      "scope": [
+        "keyword.other"
+      ],
+      "settings": {
+        "foreground": "#F78C6C"
+      }
+    },
+    {
       "name": "Keyword",
       "scope": [
         "keyword",
@@ -132,7 +141,7 @@
         "support.type.object"
       ],
       "settings": {
-        "foreground": "#FA7878",
+        "foreground": "#FA4943",
         "fontStyle": "italic"
       }
     },
@@ -147,7 +156,7 @@
       }
     },
     {
-      "name": "Keyword - Reset Style",
+      "name": "Keyword - Reset",
       "scope": [
         "keyword.control.ternary",
         "keyword.operator.logical",
@@ -204,7 +213,7 @@
         "entity.name.type"
       ],
       "settings": {
-        "foreground": "#FF99AAFF"
+        "foreground": "#E799ffff"
       }
     },
     {
@@ -270,6 +279,7 @@
     {
       "name": "Type",
       "scope": [
+        "entity.name.type",
         "entity.other.inherited-class",
         "entity.other"
       ],

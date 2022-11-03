@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+ssh $@
+rc=$?
+
+if [[ "$rc" -ne "0" ]]; then
+  reset
+fi
+
+exit $rc

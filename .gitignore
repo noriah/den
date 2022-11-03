@@ -1,7 +1,7 @@
 .DS_Store
 *.zwc
 *.code-workspace
-.ok
+/.ok
 /opt
 /var
 /tmp

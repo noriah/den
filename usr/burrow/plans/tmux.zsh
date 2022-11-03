@@ -4,7 +4,7 @@ alias ta='tmux attach'
 
 if [[ ! -z "$TMUX" ]]; then
 
-  # set tmux window environment variable from this shell
+  # set tmux window environment variable for this shell
   export TMUX_WINDOW=$(tmux display -pt "${TMUX_PANE:?}" '#I')
 
   tmux_title_set() {
@@ -18,10 +18,12 @@ if [[ ! -z "$TMUX" ]]; then
     tmux_title_set "$(basename "`pwd`")$1"
   }
 
+  # Handle tmux on prompt
   tmux_auto_title_precmd() {
     tmux_auto_title_set
   }
 
+  # Handle tmux on command
   tmux_auto_title_preexec() {
     emulate -L zsh
     setopt extended_glob

@@ -1,1 +1,1 @@
-_Z_DATA="${ZSH_CACHE_DIR}/z"
+_Z_DATA="${CACHE_DIR}/z"

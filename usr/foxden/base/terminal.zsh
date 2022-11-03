@@ -34,10 +34,10 @@ title() {
         # Try to use terminfo to set the title
         # If the feature is available set title
         if [[ -n "$terminfo[fsl]" ]] && [[ -n "$terminfo[tsl]" ]]; then
-    echoti tsl
-    print -Pn "$1"
-    echoti fsl
-  fi
+          echoti tsl
+          print -Pn "$1"
+          echoti fsl
+        fi
       fi
       ;;
   esac
@@ -82,7 +82,3 @@ if [[ -z "$TMUX" ]]; then
   add-zsh-hook precmd __termsupport_precmd
   add-zsh-hook preexec __termsupport_preexec
 fi
-
-# Keep Apple Terminal.app's current working directory updated
-# Based on this answer: https://superuser.com/a/315029
-# With extra fixes to handle multibyte chars and non-UTF-8 locales

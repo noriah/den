@@ -57,9 +57,9 @@ bindkey '^[[1;3C' forward-word-end                    # [Fn-Option-RightArrow] -
 bindkey '^[b' backward-word                           # [Option-LeftArrow] - move backward one word
 backward-word-end () { zle backward-char && zle vi-backward-word-end && zle forward-char }
 zle -N backward-word-end
-bindkey '^[[1;3D' backward-word-end
+bindkey '^[[1;3D' backward-word-end                   # [Shift-Alt-LeftArrow] - move backward to end of previous word
 
-bindkey '\t' menu-complete
+bindkey '\t' menu-complete                            # [Tab] - move through the completion menu
 
 if [[ "${terminfo[kcbt]}" != "" ]]; then
   bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards
