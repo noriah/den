@@ -11,10 +11,10 @@
 export DEN_USER='noriah'
 
 # load our den manager
-denSource usr/burrow/rc.zsh
+den::source usr/burrow/rc.zsh
 
 # load the host-specific configuration
-denConf host/$(hostname -s).zsh
+den::conf host/$(hostname -s).zsh
 
 # we have languages but handle them separate.
 # just add entries so other plugins know.

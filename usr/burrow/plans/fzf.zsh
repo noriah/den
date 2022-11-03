@@ -2,10 +2,9 @@
 
 burrow plugin-fail
 
-_BURROW_LIB_FZF=libfzf
-burrow lib $_BURROW_LIB_FZF github/junegunn/fzf
+burrow lib libfzf github/junegunn/fzf
 
-local libfzfDir=$(burrow path $_BURROW_LIB_FZF)
+local libfzfDir=$(burrow path libfzf)
 
 if [[ -d ${libfzfDir} ]]; then
 

@@ -6,13 +6,13 @@
 . "$FOX_DEN/usr/foxden/rc.zsh"
 
 # aliases
-denSource etc/zsh/zaliases
+den::source etc/zsh/zaliases
 
 if [ -f ~/.zaliases ]; then
   . ~/.zaliases
 fi
 
 # load our home
-denConf home.zsh
+den::conf home.zsh
 
 export FOX_DEN_ZSHRC_RUN=1

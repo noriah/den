@@ -1,5 +1,5 @@
 # vyxn is a MacBook Pro running macOS
-denConf macos.zsh
+den::conf macos.zsh
 
 # We have a battery
 burrow plugin battery
@@ -9,7 +9,6 @@ burrow plugin battery
 # burrow plugin gcloud
 
 # SSH Specific things
-unset SSH_AUTH_SOCK
 SSH_HOST_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 burrow plugin ssh
 

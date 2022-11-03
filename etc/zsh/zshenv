@@ -8,7 +8,6 @@ export HOME_VAR="$HOME/var"
 export FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 export CACHE_DIR="$HOME_VAR/cache"
-
 export ZSH_CACHE_DIR="$CACHE_DIR/zsh"
 
 export XDG_CACHE_HOME="$CACHE_DIR"

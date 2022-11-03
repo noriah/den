@@ -2,19 +2,19 @@
 
 baseSubPath="usr/foxden/base"
 
-denSource "$baseSubPath/functions.zsh"
+den::source "$baseSubPath/functions.zsh"
 
 env_default 'PAGER' 'less'
 env_default 'LESS' '-R'
 
-denSource "$baseSubPath/alias.zsh"
-denSource "$baseSubPath/appearance.zsh"
-denSource "$baseSubPath/completion.zsh"
-denSource "$baseSubPath/directory.zsh"
-denSource "$baseSubPath/history.zsh"
-denSource "$baseSubPath/keys.zsh"
-denSource "$baseSubPath/misc.zsh"
-denSource "$baseSubPath/terminal.zsh"
+den::source "$baseSubPath/alias.zsh"
+den::source "$baseSubPath/appearance.zsh"
+den::source "$baseSubPath/completion.zsh"
+den::source "$baseSubPath/directory.zsh"
+den::source "$baseSubPath/history.zsh"
+den::source "$baseSubPath/keys.zsh"
+den::source "$baseSubPath/misc.zsh"
+den::source "$baseSubPath/terminal.zsh"
 
 unset baseSubPath
 

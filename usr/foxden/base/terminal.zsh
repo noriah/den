@@ -51,7 +51,7 @@ if [[ "$TERM_PROGRAM" == Apple_Terminal ]]; then
 fi
 
 # Runs before showing the prompt
-__termsupport_precmd() {
+__termsupport::precmd() {
   emulate -L zsh
 
   if [[ "$DISABLE_AUTO_TITLE" == true ]]; then
@@ -62,7 +62,7 @@ __termsupport_precmd() {
 }
 
 # Runs before executing the command
-__termsupport_preexec() {
+__termsupport::preexec() {
   emulate -L zsh
   setopt extended_glob
 
@@ -79,6 +79,6 @@ __termsupport_preexec() {
 
 if [[ -z "$TMUX" ]]; then
   autoload -U add-zsh-hook
-  add-zsh-hook precmd __termsupport_precmd
-  add-zsh-hook preexec __termsupport_preexec
+  add-zsh-hook precmd __termsupport::precmd
+  add-zsh-hook preexec __termsupport::preexec
 fi

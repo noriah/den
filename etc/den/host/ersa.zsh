@@ -1,5 +1,5 @@
 # ersa is an AMD Desktop running Linux
-denConf linux.zsh
+den::conf linux.zsh
 
 # GCP SDK
 # GCP_SDK=""

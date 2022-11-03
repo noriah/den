@@ -11,7 +11,7 @@ INSTALL_OK="$FOX_DEN/.ok"
 . "${0:h:A}/fn.zsh"
 . "$FOX_DEN_SETUP/fn.zsh"
 
-denSource usr/burrow/rc.zsh
+den::source usr/burrow/rc.zsh
 
 checkExists 'etc' "$HOME"
 checkExists 'usr' "$HOME"

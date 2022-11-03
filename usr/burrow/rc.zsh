@@ -5,4 +5,4 @@ if [ -z "$_FOX_DEN_BURROW_LIST" ]; then
   typeset -gA _FOX_DEN_BURROW_REPO_LIST
 fi
 
-denSource  usr/burrow/fn.zsh
+den::source  usr/burrow/fn.zsh
