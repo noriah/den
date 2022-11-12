@@ -1,3 +1,3 @@
-den::env::default 'BREW_PATH' '/opt/homebrew'
+den::env::default 'HOMEBREW_PATH' '/opt/homebrew'
 
-den::export_once 'PATH' "$PATH:$BREW_PATH/bin"
+den::path::add "$HOMEBREW_PATH/bin"

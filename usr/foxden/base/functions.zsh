@@ -19,11 +19,25 @@ den::env::default() {
   export "$1=$2" && return 3
 }
 
+den::export::always() {
+  export "$1=$2" && return 0
+}
+
 # Set the value only if we are in shell level 1
-den::export_once() {
+den::export::once() {
   if [ ${FOX_DEN_ZSHRC_RUN:=0} -ne 1 ]; then
-    export "$1=$2" && return 0
+    den::export::always "$1" "$2"
   fi
+}
+
+den::path::add() {
+  den::path::check "$1" && return 0
+  export PATH="${PATH:+${PATH}:}${1}"
+  return 0
+}
+
+den::path::check() {
+  [[ "$PATH" == *${1}* ]] && return 0 || return 1
 }
 
 den::is::mac() {

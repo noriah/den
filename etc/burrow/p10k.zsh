@@ -14,7 +14,7 @@ left() {
 leftPlugin() {
   if burrow check "$1"; then
     (( ${+2} )) && shift
-    left $@
+    left "$@"
   fi
 }
 
@@ -25,7 +25,7 @@ right() {
 rightPlugin() {
   if burrow check "$1"; then
     (( ${+2} )) && shift
-    right $@
+    right "$@"
   fi
 }
 
@@ -204,7 +204,7 @@ rightPlugin() {
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_FOREGROUND=209
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_NOTES_VISUAL_IDENTIFIER_COLOR=34
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_NOTES_VISUAL_IDENTIFIER_COLOR=120
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VAULT_VISUAL_IDENTIFIER_COLOR=1
   fi
 

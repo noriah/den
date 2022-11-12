@@ -37,26 +37,23 @@ export GEM_PATH="$HOME_OPT/gem/ruby/2.6.0"
 export DART_PUB_PATH="$HOME_OPT/pub-cache"
 export PUB_CACHE="$DART_PUB_PATH"
 
-if [ ${FOX_DEN_ZSHENV_RUN:=0} -ne 1 ]; then
+# We need some paths. Let us have paths
+paths=(
+  HOME
+  FOX_DEN
+  GO_PATH
+  NPM_PATH
+  CARGO_HOME
+  GEM_PATH
+  DART_PUB_PATH
+)
 
-  # We need some paths. Let us have paths
-  paths=(
-    HOME
-    FOX_DEN
-    GO_PATH
-    NPM_PATH
-    CARGO_HOME
-    GEM_PATH
-    DART_PUB_PATH
-  )
+# Export our path paths in the PATH
+for p in "${paths[@]}"; do
+  p="${(P)p}/bin"
+  if [ -d "$p" ]; then
+    [[ "$PATH" =~ "$p" ]] || export PATH="$PATH:$p"
+  fi
+done
 
-  # Export our path paths in the PATH]
-  for p in "${paths[@]}"; do
-    p="${(P)p}/bin"
-    [ -d "$p" ] && export PATH="$PATH:$p"
-  done
-
-  unset paths
-
-  export FOX_DEN_ZSHENV_RUN=1
-fi
+unset paths

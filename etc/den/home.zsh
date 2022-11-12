@@ -9,12 +9,15 @@
 ######################################
 
 export DEN_USER='noriah'
+export DEN_HOST=$(hostname -f | cut -d. -f1)
 
 # load our den manager
 den::source usr/burrow/rc.zsh
 
+den::conf base.zsh
+
 # load the host-specific configuration
-den::conf host/$(hostname -s).zsh
+den::conf host/${DEN_HOST}.zsh
 
 # we have languages but handle them separate.
 # just add entries so other plugins know.
@@ -29,6 +32,9 @@ burrow plugin neofetch
 
 # workspace directories
 burrow plugin workspace
+
+# multiple history
+burrow plugin histspace
 
 # common dev things
 burrow plugin dev
@@ -51,6 +57,7 @@ burrow plugin \
 
 # fzf
 burrow plugin fzf
+
 # fzf-tab
 burrow plugin \
   fzf-tab \

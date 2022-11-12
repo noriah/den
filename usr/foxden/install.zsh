@@ -18,7 +18,7 @@ den::install::checkExists 'usr' "$HOME"
 den::install::checkExists 'var' "$HOME"
 den::install::checkExists 'var' "$FOX_DEN"
 
-echo "all good. continuing."
+echo "clean environment. can continue."
 
 [ ! -d "$HOME/opt" ] && mkdir "$HOME/opt"
 

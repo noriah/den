@@ -4,39 +4,43 @@ alias ta='tmux attach'
 
 if [[ ! -z "$TMUX" ]]; then
 
-  # set tmux window environment variable for this shell
-  export TMUX_WINDOW=$(tmux display -pt "${TMUX_PANE:?}" '#I')
+  tmux::window::get() {
+    echo $(tmux display -pt "${TMUX_PANE:?}" '#I')
+    return 0
+  }
 
-  tmux_title_set() {
+  tmux::title::set() {
     # set window name in TTY for faster update
     echo -n -e "\e]0;$@\e\\" > $TTY
     # set window name so it is already set on reconnect
-    tmux rename-window -t $TMUX_WINDOW "$@"
+    tmux rename-window -t $(tmux::window::get) "$@"
   }
 
-  tmux_auto_title_set() {
-    tmux_title_set "$(basename "`pwd`")$1"
+  tmux::auto::title::set() {
+    tmux::title::set "$(basename "`pwd`") $1"
   }
 
   # Handle tmux on prompt
-  tmux_auto_title_precmd() {
-    tmux_auto_title_set
+  tmux::auto::title::precmd() {
+    tmux::auto::title::set
   }
 
   # Handle tmux on command
-  tmux_auto_title_preexec() {
+  tmux::auto::title::preexec() {
     emulate -L zsh
     setopt extended_glob
 
     # cmd name only, or if this is sudo or ssh, the next cmd
-    local CMD=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
-    local LINE="${2:gs/%/%%}"
+    local _tmux_cmd=${1[(wr)^(*=*|sudo|ssh|mosh|rake|-*)]:gs/%/%%}
+    # local _tmux_line="${2:gs/%/%%}"
 
-    tmux_auto_title_set " ($CMD)"
+    tmux::auto::title::set "($_tmux_cmd)"
+
+    unset _tmux_cmd
+    # unset _tmux_line
   }
 
   autoload -U add-zsh-hook
-  add-zsh-hook precmd tmux_auto_title_precmd
-  add-zsh-hook preexec tmux_auto_title_preexec
-
+  add-zsh-hook precmd tmux::auto::title::precmd
+  add-zsh-hook preexec tmux::auto::title::preexec
 fi

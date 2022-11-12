@@ -8,9 +8,7 @@ local libfzfDir=$(burrow path libfzf)
 
 if [[ -d ${libfzfDir} ]]; then
 
-  if [[ ! "$PATH" == *${libfzfDir}/bin* ]]; then
-    PATH="${PATH:+${PATH}:}${libfzfDir}/bin"
-  fi
+  den::path::add "${libfzfDir}/bin"
 
   if ! (( $+commands[fzf] )); then
     $libfzfDir/install \
