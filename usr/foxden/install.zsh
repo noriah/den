@@ -36,6 +36,9 @@ mkdir "$HOME_VAR"
 mkdir "$HOME_VAR/cache"
 mkdir "$HOME_VAR/history"
 
+den::install::checkBackupHome '.cache'
+ln -s "$HOM_VAR/cache" "$HOME/.cache"
+
 # link var
 #den::install::link 'var'
 
