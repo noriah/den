@@ -5,14 +5,14 @@
 # load den
 . "$FOX_DEN/usr/foxden/rc.zsh"
 
+# load our home
+den::conf home.zsh
+
 # aliases
 den::source etc/zsh/zaliases
 
 if [ -f ~/.zaliases ]; then
   . ~/.zaliases
 fi
-
-# load our home
-den::conf home.zsh
 
 export FOX_DEN_ZSHRC_RUN=1
