@@ -26,3 +26,7 @@ exec --no-startup-id 1password --silent
 
 # Polkit Agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+
+# set configuration for items
+exec --no-startup-id xmodmap $HOME/etc/xorg/xmodmap

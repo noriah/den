@@ -16,7 +16,7 @@ den::source usr/burrow/rc.zsh
 den::install::checkExists 'etc' "$HOME"
 den::install::checkExists 'usr' "$HOME"
 den::install::checkExists 'var' "$HOME"
-den::install::checkExists 'var' "$FOX_DEN"
+#den::install::checkExists 'var' "$FOX_DEN"
 
 echo "clean environment. can continue."
 
@@ -32,12 +32,12 @@ echo "making dir '$HOME/opt' (if it does not already exist)."
 mkdir "$HOME/opt"
 
 # make var dir and subdirs
-mkdir "$FOX_DEN/var"
-mkdir "$FOX_DEN/var/cache"
-mkdir "$FOX_DEN/var/history"
+mkdir "$HOME_VAR"
+mkdir "$HOME_VAR/cache"
+mkdir "$HOME_VAR/history"
 
 # link var
-den::install::link 'var'
+#den::install::link 'var'
 
 # source environment
 den::install::source 'zshenv'

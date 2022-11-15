@@ -1,0 +1,35 @@
+[colors]
+foreground = '#f7f7f7'
+background = '#261f2a'
+
+cursor_fg = '#fffefe'
+cursor_bg = '#c7c7c7'
+cursor_border = '#c7c7c7'
+
+selection_fg = '#000000'
+selection_bg = '#ff8080'
+
+ansi = [
+  '#3b4d57',
+  '#d4386c',
+  '#8bc34a',
+  '#fca526',
+  '#2196f3',
+  '#9575cd',
+  '#00bcd4',
+  '#eceff1',
+]
+brights = [
+  '#617d8a',
+  '#fd4381',
+  '#9ccc65',
+  '#ffb74d',
+  '#42a5f5',
+  '#b39ddb',
+  '#26c6da',
+  '#ffffff',
+]
+
+[metadata]
+name = 'noriah'
+origin_url = 'https://github.com/noriah/den'

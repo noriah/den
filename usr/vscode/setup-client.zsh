@@ -28,6 +28,28 @@ if den::is::mac; then
     'usr/vscode/snippets'
 
 elif den::is::linux; then
-  echo "*** TODO: Linux VSCode client setup. ***"
-  exit 1
+  local _extDir='.vscode/extensions'
+  local _confDir='.config/Code/User'
+
+  den::install::ensureDir $_extDir
+
+  den::install::link "$_extDir/noriah-themes" \
+    'usr/vscode/extensions/noriah-themes'
+
+  den::install::ensureDir "$_extDir"
+
+  den::install::checkBackupHome "$_confDir/settings.json"
+  den::install::link "$_confDir/settings.json" \
+    'usr/vscode/settings/client.json'
+
+  den::install::checkBackupHome "$_confDir/keybindings.json"
+  den::install::link "$_confDir/keybindings.json" \
+    'usr/vscode/settings/keybindings.linux.json'
+
+  den::install::checkBackupHome "$_confDir/snippets"
+  den::install::link "$_confDir/snippets" \
+    'usr/vscode/snippets'
+
+  unset _extDir
+  unset _confDir
 fi
