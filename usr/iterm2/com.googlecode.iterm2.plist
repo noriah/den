@@ -1942,6 +1942,8 @@ Code Supreme:Restore Window Arrangement</string>
 	<true/>
 	<key>UseTmuxStatusBar</key>
 	<true/>
+	<key>UseUnevenTabs</key>
+	<true/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>Window Arrangements</key>
