@@ -1,0 +1,6 @@
+#!/bin/bash
+
+LIB_PATH="/usr/local/lib/steam"
+LIB_NAME="fix_steam_screensaver"
+
+exec env LD_PRELOAD="$LIB_PATH/${LIB_NAME}_lib.so $LIB_PATH/${LIB_NAME}_lib64.so" /usr/lib/steam/steam "$@"
