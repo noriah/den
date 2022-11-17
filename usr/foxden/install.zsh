@@ -1,14 +1,15 @@
 #!/usr/bin/env zsh
 
 # set common variables
-FOX_DEN_SETUP="${0:h:A}/setup"
-FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
+FOX_DEN="${0:h:A}"
+FOX_DEN_SETUP="$FOX_DEN/setup"
+DEN="$(dirname "$(dirname "${0:h:A}")")"
 
-INSTALL_OK="$FOX_DEN/.ok"
+INSTALL_OK="$DEN/.ok"
 
 [ -f "$INSTALL_OK" ] && echo "den is already installed." && exit 0
 
-. "${0:h:A}/fn.zsh"
+. "$FOX_DEN/base/functions.zsh"
 . "$FOX_DEN_SETUP/fn.zsh"
 
 den::source usr/burrow/rc.zsh
@@ -16,10 +17,10 @@ den::source usr/burrow/rc.zsh
 den::install::checkExists 'etc' "$HOME"
 den::install::checkExists 'usr' "$HOME"
 den::install::checkExists 'var' "$HOME"
-#den::install::checkExists 'var' "$FOX_DEN"
 
 echo "clean environment. can continue."
 
+echo "making dir '$HOME/opt' (if it does not already exist)."
 [ ! -d "$HOME/opt" ] && mkdir "$HOME/opt"
 
 # link etc
@@ -28,9 +29,6 @@ den::install::link 'etc'
 # link usr
 den::install::link 'usr'
 
-echo "making dir '$HOME/opt' (if it does not already exist)."
-mkdir "$HOME/opt"
-
 # make var dir and subdirs
 mkdir "$HOME_VAR"
 mkdir "$HOME_VAR/cache"
@@ -38,9 +36,6 @@ mkdir "$HOME_VAR/history"
 
 den::install::checkBackupHome '.cache'
 ln -s "$HOME_VAR/cache" "$HOME/.cache"
-
-# link var
-#den::install::link 'var'
 
 # source environment
 den::install::source 'zshenv'

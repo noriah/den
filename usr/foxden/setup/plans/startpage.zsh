@@ -1,6 +1,6 @@
 echo "building startpage."
 
-BUILD_SCRIPT="$FOX_DEN/usr/startpage/build.zsh"
+BUILD_SCRIPT="$DEN/usr/startpage/build.zsh"
 
 if [ -f "$BUILD_SCRIPT" ]; then
   if !"$BUILD_SCRIPT"; then; else

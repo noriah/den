@@ -3,7 +3,7 @@
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
 
 # load den
-. "$FOX_DEN/usr/foxden/rc.zsh"
+. "$DEN/usr/foxden/rc.zsh"
 
 # load our home
 den::conf home.zsh
@@ -15,4 +15,4 @@ if [ -f ~/.zaliases ]; then
   . ~/.zaliases
 fi
 
-export FOX_DEN_ZSHRC_RUN=1
+export DEN_ZSHRC_RUN=1

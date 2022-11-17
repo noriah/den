@@ -1,4 +1,4 @@
-. "$FOX_DEN/usr/foxden/base/functions.zsh"
+. "$DEN/usr/foxden/base/functions.zsh"
 
 baseSubPath="usr/foxden/base"
 

@@ -32,20 +32,32 @@ den::install::ensureDir() {
 }
 
 den::install::link() {
-  FILE="$1"
+  local _path="$1"
   if [ $# -eq 2 ]; then
     shift
   fi
 
-  echo "creating symlink '$HOME/$FILE' -> '$FOX_DEN/$1'"
-  ln -s "$FOX_DEN/$1" "$HOME/$FILE"
+  local _target="$DEN/$1"
+
+  if [[ $1 =~ (etc|usr)/(.+) ]]; then
+    case "${match[1]}" in
+      etc) _target="$HOME_ETC/${match[2]}" ;;
+      usr) _target="$HOME_USR/${match[2]}" ;;
+    esac
+  fi
+
+  echo "creating symlink '$HOME/${_path}' -> '${_target}'"
+  ln -s "${_target}" "$HOME/${_path}"
+
+  unset _path
+  unset _target
 }
 
 den::install::source() {
   den::install::checkBackupHome ".$1"
 
-  echo "sourcing '$HOME/.$1' from '$FOX_DEN/etc/zsh/$1'"
-  echo ". \"$FOX_DEN/etc/zsh/$1\"" > "$HOME/.$1"
+  echo "sourcing '$HOME/.$1' from '$DEN/etc/zsh/$1'"
+  echo ". \"$DEN/etc/zsh/$1\"" > "$HOME/.$1"
 }
 
 den::is::mac() {

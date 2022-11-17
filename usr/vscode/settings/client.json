@@ -96,7 +96,6 @@
   "window.closeWhenEmpty": false,
   "window.openFilesInNewWindow": "off",
   "window.title": "${activeEditorFull}${separator}${rootName}",
-  "window.zoomLevel": -0.25,
   "workbench.colorTheme": "Noriah Dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",

@@ -68,8 +68,8 @@ burrow::plugin() {
       burrowName="${burrowFile%.zsh}"
 
       # hack: support local plans
-      if [ -f "$FOX_DEN/usr/burrow/plans/$burrowName.zsh" ]; then
-        burrowDir="$FOX_DEN/usr/burrow/plans"
+      if [ -f "$DEN/usr/burrow/plans/$burrowName.zsh" ]; then
+        burrowDir="$DEN/usr/burrow/plans"
         burrowFile="$burrowName.zsh"
         burrowLight=0
       fi
@@ -128,36 +128,36 @@ burrow::plugin() {
       return 1
     fi
 
-    _FOX_DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
+    _DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
 
   fi
 
-  local burrowConf="$FOX_DEN/etc/burrow/$burrowName.zsh"
+  local burrowConf="$DEN/etc/burrow/$burrowName.zsh"
 
-  export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=0
+  export _DEN_BURROW_PLUGIN_LOAD_FAIL=0
 
   [[ -f "$burrowConf" ]] && . "$burrowConf"
 
   [[ ! "$burrowLight" -eq "1" ]] && . "$burrowDir/$burrowFile"
 
 
-  [ $_FOX_DEN_BURROW_PLUGIN_LOAD_FAIL -eq 0 ] && _FOX_DEN_BURROW_LIST+=( "$burrowName" )
+  [ $_DEN_BURROW_PLUGIN_LOAD_FAIL -eq 0 ] && _DEN_BURROW_LIST+=( "$burrowName" )
 
-  unset _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL
+  unset _DEN_BURROW_PLUGIN_LOAD_FAIL
 
   return 0
 }
 
 burrow::plugin::fail() {
-  export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=1
+  export _DEN_BURROW_PLUGIN_LOAD_FAIL=1
 }
 
 burrow::plugin::pass() {
-  export _FOX_DEN_BURROW_PLUGIN_LOAD_FAIL=0
+  export _DEN_BURROW_PLUGIN_LOAD_FAIL=0
 }
 
 burrow::check() {
-  [[ ${_FOX_DEN_BURROW_LIST[(ie)$1]} -le ${#_FOX_DEN_BURROW_LIST} ]] && return 0 || return 1
+  [[ ${_DEN_BURROW_LIST[(ie)$1]} -le ${#_DEN_BURROW_LIST} ]] && return 0 || return 1
 }
 
 burrow::lib() {
@@ -192,17 +192,17 @@ burrow::lib() {
       return $ret
     fi
 
-    _FOX_DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
+    _DEN_BURROW_REPO_LIST[$burrowName]="$(basename "$burrowDir")"
 
   fi
 
-  _FOX_DEN_BURROW_LIST+=( "$burrowName" )
+  _DEN_BURROW_LIST+=( "$burrowName" )
 }
 
 burrow::path() {
   if burrow::check $1; then
-    if [[ -v _FOX_DEN_BURROW_REPO_LIST["$1"] ]]; then
-      echo "$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$1]";
+    if [[ -v _DEN_BURROW_REPO_LIST["$1"] ]]; then
+      echo "$BURROW_OPT/$_DEN_BURROW_REPO_LIST[$1]";
       return 0
     fi
   fi
@@ -211,9 +211,9 @@ burrow::path() {
 }
 
 burrow::update() {
-  for burrowName in ${(k)_FOX_DEN_BURROW_REPO_LIST}; do
+  for burrowName in ${(k)_DEN_BURROW_REPO_LIST}; do
     printf "*** updating '%s' from the clouds.\n" "$burrowName"
-    local burrowDir="$BURROW_OPT/$_FOX_DEN_BURROW_REPO_LIST[$burrowName]"
+    local burrowDir="$BURROW_OPT/$_DEN_BURROW_REPO_LIST[$burrowName]"
 
     if [ ! -d "$burrowDir/.git" ]; then
       printf "*** why is '%s' not a git repo? (%s)\n" "$burrowDir" "$burrowName"

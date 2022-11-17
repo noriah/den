@@ -5,7 +5,7 @@ export HOME_TMP="$HOME/tmp"
 export HOME_USR="$HOME/usr"
 export HOME_VAR="$HOME/var"
 
-export FOX_DEN="$(dirname "$(dirname "${0:h:A}")")"
+export DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 export CACHE_DIR="$HOME_VAR/cache"
 export ZSH_CACHE_DIR="$CACHE_DIR/zsh"
@@ -40,7 +40,7 @@ export PUB_CACHE="$DART_PUB_PATH"
 # We need some paths. Let us have paths
 paths=(
   HOME
-  FOX_DEN
+  DEN
   GO_PATH
   NPM_PATH
   CARGO_HOME

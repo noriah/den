@@ -6,4 +6,4 @@ set tabstop=2
 set shiftwidth=2
 set expandtab ts=2 sw=2 ai
 
-source $FOX_DEN/etc/vim/syntax.vim
+source $HOME_ETC/vim/syntax.vim

@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
-if [[ ! -v FOX_DEN ]]; then
-  printf "*** FOX_DEN variable not set. cannot continue. ***"
+if [[ ! -v DEN ]]; then
+  printf "*** DEN variable not set. cannot continue. ***"
   exit 1
 fi
 
-source "$FOX_DEN/usr/foxden/setup/fn.zsh"
+source "$DEN/usr/foxden/setup/fn.zsh"
 
 if den::is::mac; then
   den::install::ensureDir '.vscode/extensions'

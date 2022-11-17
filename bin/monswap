@@ -1,0 +1,27 @@
+#!/usr/bin/zsh
+
+INPUT_ADDR=0x60
+
+INPUT_DISPLAYPORT1=15
+INPUT_DISPLAYPORT2=16
+INPUT_HDMI=17
+
+MONITOR_CENTER=7
+MONITOR_LEFT=5
+MONITOR_RIGHT=4
+
+swapinput() {
+  ddcutil --bus $MONITOR_CENTER setvcp $INPUT_ADDR $1
+  ddcutil --bus $MONITOR_LEFT setvcp $INPUT_ADDR $1
+}
+
+case "$1" in
+  dp)
+    swapinput $INPUT_DISPLAYPORT1
+    ;;
+  hdmi)
+    swapinput $INPUT_HDMI
+    ;;
+esac
+
+

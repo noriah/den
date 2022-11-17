@@ -1,6 +1,6 @@
 #!/bin/sh
 
-I3LOCK_ARGS="--ignore-empty-password --color=000000 --nofork"
+I3LOCK_ARGS="--ignore-empty-password --nofork --fuzzy --sigma 25.0 --radius 98 --once"
 
 revert() {
   xset dpms 0 0 0

@@ -1,16 +1,16 @@
 #!/usr/bin/env zsh
 
 den::conf() {
-  [ -f "$FOX_DEN/etc/den/$1" ] && . "$FOX_DEN/etc/den/$1"
+  [ -f "$DEN/etc/den/$1" ] && . "$DEN/etc/den/$1"
   return "$?"
 }
 
 den::source() {
-  if [ -f "$FOX_DEN/$1" ]; then
-    . "$FOX_DEN/$1"
+  if [ -f "$DEN/$1" ]; then
+    . "$DEN/$1"
     return 0
   fi
-  printf "sorry! i could not find '%s' in '%s'.\n" "$1" "$FOX_DEN" 1>&2
+  printf "sorry! i could not find '%s' in '%s'.\n" "$1" "$DEN" 1>&2
   return 1
 }
 
@@ -25,7 +25,7 @@ den::export::always() {
 
 # Set the value only if we are in shell level 1
 den::export::once() {
-  if [ ${FOX_DEN_ZSHRC_RUN:=0} -ne 1 ]; then
+  if [ ${DEN_ZSHRC_RUN:=0} -ne 1 ]; then
     den::export::always "$1" "$2"
   fi
 }

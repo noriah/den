@@ -16,7 +16,7 @@ exec_always --no-startup-id gnome-keyring-daemon --start --components=secrets
 exec_always --no-startup-id DISPLAY=":0" picom -b --backend xrender
 
 # Top Bar
-exec --no-startup-id polybar
+exec_always --no-startup-id polybar
 
 # Launch Bar
 exec_always --no-startup-id albert
