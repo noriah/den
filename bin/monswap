@@ -2,17 +2,33 @@
 
 INPUT_ADDR=0x60
 
+# DDC/CI codes for inputs sources
 INPUT_DISPLAYPORT1=15
 INPUT_DISPLAYPORT2=16
 INPUT_HDMI=17
 
-MONITOR_CENTER=7
-MONITOR_LEFT=5
-MONITOR_RIGHT=4
+# serial numbers of monitors
+MONITOR_CENTER=7SGX623
+MONITOR_LEFT=3XGX623
+MONITOR_RIGHT=D2FPF43
+
+SLEEP_MULTIPLIER=0.01
+
+commandDisplay() {
+  ddcutil --sleep-multiplier $SLEEP_MULTIPLIER --dsa \
+    --bus $1 setvcp $INPUT_ADDR $2
+}
 
 swapinput() {
-  ddcutil --bus $MONITOR_CENTER setvcp $INPUT_ADDR $1
-  ddcutil --bus $MONITOR_LEFT setvcp $INPUT_ADDR $1
+  eval $(ddcutil detect --sleep-multiplier $SLEEP_MULTIPLIER --dsa | awk -v RS= -F'\n' '
+    BEGIN { print "typeset -A displays=(" }
+    match($2, / +I2C bus:  \/dev\/i2c-([0-9]+)/, b) \
+      match($8, / +Serial number: +(\w+)/, s) \
+      { print "  [" s[1] "]=" b[1] }
+    END { print ")" }')
+
+  commandDisplay $displays[$MONITOR_CENTER] $1
+  commandDisplay $displays[$MONITOR_LEFT] $1
 }
 
 case "$1" in
