@@ -1,3 +1,12 @@
 [
-
+  {
+    "key": "ctrl+alt+meta+i",
+    "command": "editor.action.inspectTMScopes",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+alt+backspace",
+    "command": "deleteAllLeft",
+    "when": "editorTextFocus && !editorReadonly"
+  }
 ]

@@ -1,9 +1,0 @@
-#!/usr/bin/zsh
-
-# Get wattage from UPS unit (APC UPS)
-
-STATUS_CMD="apcaccess"
-
-$STATUS_CMD | awk '
-  /LOADPCT/{ p=$3 } /NOMPOWER/{ n=$3 }
-  END { print n * (p/100) }'

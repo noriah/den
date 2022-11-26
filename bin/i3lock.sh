@@ -6,6 +6,6 @@ revert() {
   xset dpms 0 0 0
 }
 trap revert HUP INT TERM
-xset +dpms dpms 5 5 5
+xset +dpms dpms 9 9 9
 i3lock $I3LOCK_ARGS
 revert

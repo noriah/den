@@ -1,0 +1,81 @@
+packages:
+  - 1password: aur/1password
+  - alacritty
+  - albert: aur/albert
+  - apcupsd
+  - autoconf
+  - automake
+  - bat
+  - bind
+  - bison
+  - bluez
+  - bluez-hciconfig
+  - bluez-libs
+  - bluez-utils
+  - braus: aur/braus-git
+  - bzip2
+  - ca-certificates
+  - ca-certificates-mozilla
+  - ca-certificates-utils
+  - clang
+  - cmake
+  - cryptsetup
+  - curl
+  - dbus
+  - ddccontrol: aur/ddccontrol
+  - ddcutil
+  - discord
+  - dkms
+  - docker
+  - element-desktop
+  - fail2ban
+  - ffmpeg
+  - git
+  - gnome-keyring
+  - go
+  - google-chrome
+  - htop
+  - i3-gaps
+  - i3lock-blur: aur/i3lock-blur
+  - libfontconfig
+  - libpcap
+  - libsecret
+  - ly: aur/ly
+  - neofetch
+  - netcat
+  - nitrogen
+  - nmap
+  - opensnitch: aur/opensnitch
+  - openssh
+  - parted
+  - pavucontrol
+  - picom
+  - pipewire
+  - pipewire-alsa
+  - pipewire-audio
+  - pipewire-jack
+  - pipewire-pulse
+  - playerctl
+  - plocate
+  - polkit-gnome
+  - polybar
+  - portaudio
+  - protobuf
+  - pw-bluetooth
+  - python3
+  - scp
+  - seahorse
+  - signal-desktop
+  - spotify: aur/spotify
+  - steam
+  - systemd-networkd
+  - tmx2
+  - ttf-twemoji
+  - ttf-ms-fonts
+  - unzip
+  - via: aur/via-bin
+  - vim
+  - visual-studio-code-bin: aur/visual-studio-code-bin
+  - vlc
+  - wezterm
+  - wget

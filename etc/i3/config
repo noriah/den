@@ -8,9 +8,9 @@
 # Super=Mod4
 
 # set mod key
-set $mod Mod1
+set $mod Mod4
 set $ctrl Control
-set $super Mod4
+set $super Mod1
 
 # set font
 font pango:FiraCode Nerd Font 8
@@ -26,8 +26,8 @@ default_floating_border none
 # Do not follow mouse focus
 focus_follows_mouse no
 
-gaps inner 12
-gaps top 10
+gaps inner 5
+# gaps top 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -37,4 +37,3 @@ include colors
 include workspace
 include keys
 #include games
-

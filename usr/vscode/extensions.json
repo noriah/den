@@ -1,0 +1,22 @@
+[
+  "BazelBuild.vscode-bazel",
+  "ms-vscode.cpptools",
+  "ms-vscode.cpptools-extension-pack",
+  "ms-vscode-remote.vscode-remote-extensionpack",
+  "ms-vscode.makefile-tools",
+  "ms-vscode.cmake-tools",
+  "twxs.cmake",
+  "golang.go",
+  "dcasella.i3",
+  "PKief.material-icon-theme",
+  "rust-lang.rust-analyzer",
+  "hashicorp.terraform",
+  "platformio.platformio-ide",
+  "puppet.puppet-vscode",
+  "zxh404.vscode-proto3",
+  "redhat.vscode-yaml",
+  "XadillaX.viml",
+  "naumovs.color-highlight",
+  "AntiAntiSepticeye.vscode-color-picker",
+  "codeout.vscode-junos"
+]

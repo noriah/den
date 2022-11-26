@@ -16,9 +16,10 @@ bindsym $ctrl+XF86AudioPlay exec --no-startup-id playerctl shuffle toggle
 
 # Screenshots
 bindsym $super+Shift+s exec --no-startup-id maim -s -u | xclip -selection clipboard -t image/png
+bindsym $super+Shift+$ctrl+s exec --no-startup-id ksnip -r
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+#bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -36,13 +37,13 @@ bindsym $mod+Shift+F11 exec --no-startup-id monswap dp
 bindsym $mod+Shift+F12 exec --no-startup-id monswap hdmi
 
 # lock
-bindsym $mod+Shift+q exec --no-startup-id loginctl lock-session
+bindsym $mod+$ctrl+q exec --no-startup-id loginctl lock-session
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -51,10 +52,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -63,7 +64,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v

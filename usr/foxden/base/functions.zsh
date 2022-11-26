@@ -47,3 +47,10 @@ den::is::mac() {
 den::is::linux() {
   [[ $OSTYPE =~ linux ]] && return 0 || return 1
 }
+
+den::platform::get() {
+  case "$OSTYPE" in
+    *darwin*) echo "macos" ;;
+    *linux*) echo "linux" ;;
+  esac
+}

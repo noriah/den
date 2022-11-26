@@ -1,0 +1,11 @@
+packages:
+  - beataroni-bin: aur/beataroni-bin
+  - carla
+  - cheese
+  - dnstop: aur/dnstop
+  - maim
+  - mda.lv2
+  - ntfs-3g
+  - obs-studio
+  - tor
+  - xclip

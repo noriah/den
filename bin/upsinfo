@@ -1,0 +1,32 @@
+#!/usr/bin/zsh
+
+# Get wattage from UPS unit (APC UPS)
+
+STATUS_CMD=(apcaccess -u)
+
+case "$1" in
+  load)
+    $STATUS_CMD | awk '
+      /LOADPCT/{ p=$3 } /NOMPOWER/{ n=$3 }
+      END { print n * (p/100) }'
+    ;;
+
+  loadpct) $STATUS_CMD -p LOADPCT ;;
+  battpct|batterypct) $STATUS_CMD -p BCHARGE ;;
+  batttime|batterytime) $STATUS_CMD -p TIMELEFT ;;
+  timeonbatt|timeonbattery) $STATUS_CMD -p TONBATT ;;
+  events) $STATUS_CMD -p NUMXFERS ;;
+
+  lastevent)
+    $STATUS_CMD | awk '
+      BEGIN { FS = " : " }
+      /LASTXFER/{ t=$2 }
+      END {
+        if (t=="No transfers since turnon")
+          print "none"
+        else
+          print t
+      }'
+    ;;
+esac
+
