@@ -36,4 +36,5 @@ include startup
 include colors
 include workspace
 include keys
+include apps
 #include games

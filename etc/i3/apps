@@ -1,0 +1,2 @@
+# Float the bluetooth management window
+for_window [class="Blueman-manager"] floating enable

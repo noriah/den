@@ -23,7 +23,7 @@
     "function.declaration": "#9ce750ff",
     "method": "#6babf5ff",
     "method.declaration": "#9ce750ff",
-    "macro": "#6bcef5ff",
+    "macro": "#6bd5f5ff",
     "macro.declaration": "#30fc6dff",
     "namespace": "#eeffffff",
     "type": "#ffcb6bff",
@@ -59,20 +59,12 @@
         "comment string",
         "comment punctuation.definition",
         "comment punctuation",
+        "comment storage.type",
         "comment text"
       ],
       "settings": {
         "foreground": "#727072ff",
         "fontStyle": "italic"
-      }
-    },
-    {
-      "name": "Comments - JSDoc Storage Type",
-      "scope": [
-        "comment storage.type"
-      ],
-      "settings": {
-        "foreground": "#727072ff"
       }
     },
     {
@@ -85,7 +77,7 @@
       }
     },
     {
-      "name": "String",
+      "name": "Single Quoted Strings",
       "scope": [
         "string"
       ],
@@ -94,7 +86,7 @@
       }
     },
     {
-      "name": "Strings Double Quoted",
+      "name": "Double Quoted Strings",
       "scope": [
         "string.quoted.double"
       ],
@@ -113,7 +105,7 @@
       }
     },
     {
-      "name": "Punctuation",
+      "name": "Punctuation Extra",
       "scope": [
         "punctuation.terminator",
         "punctuation.bracket.angle",
@@ -121,6 +113,17 @@
         "punctuation.section",
         "punctuation.separator.delimiter",
         "meta.definition.variable punctuation.bracket.square"
+      ],
+      "settings": {
+        "foreground": "#eeffffff"
+      }
+    },
+    {
+      "name": "Namespace",
+      "scope": [
+        "entity.name.type.namespace",
+        "support.other.namespace",
+        "meta.use support.class"
       ],
       "settings": {
         "foreground": "#eeffffff"
@@ -191,8 +194,6 @@
       "name": "Keyword",
       "scope": [
         "keyword",
-        "keyword.control",
-        "keyword.other",
         "keyword.other storage.type",
         "modifier",
         "support.type.object"
@@ -200,6 +201,16 @@
       "settings": {
         "foreground": "#ff5b56ff",
         "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Keyword - Import",
+      "scope": [
+        "keyword.other.import",
+        "meta.import storage.modifier"
+      ],
+      "settings": {
+        "foreground": "#e25390ff"
       }
     },
     {
@@ -239,17 +250,6 @@
       ],
       "settings": {
         "foreground": "#22e3ddff"
-      }
-    },
-    {
-      "name": "Support - Function Calls",
-      "scope": [
-        "support.function",
-        "support.function.builtin"
-      ],
-      "settings": {
-        "foreground": "#82aaffff",
-        "fontStyle": "italic"
       }
     },
     {
@@ -301,16 +301,6 @@
       }
     },
     {
-      "name": "Keyword - Import",
-      "scope": [
-        "keyword.other.import",
-        "meta.import storage.modifier"
-      ],
-      "settings": {
-        "foreground": "#e25390ff"
-      }
-    },
-    {
       "name": "Modules",
       "scope": [
         "support.module",
@@ -324,19 +314,11 @@
     {
       "name": "Type",
       "scope": [
-        "support.type",
-        "constant.other.key"
-      ],
-      "settings": {
-        "foreground": "#ffcb6bff"
-      }
-    },
-    {
-      "name": "Type",
-      "scope": [
+        "entity.other",
         "entity.name.type",
-        "entity.other.inherited-class",
-        "entity.other"
+        "support.type",
+        "constant.other.key",
+        "meta.method.return-type"
       ],
       "settings": {
         "foreground": "#ffcb6bff"
@@ -345,18 +327,18 @@
     {
       "name": "Class",
       "scope": [
-        "entity.name",
         "entity.name.type.class",
         "support.type",
         "support.class",
-        "meta.use"
+        "meta.use",
+        "meta.class.identifier storage.type"
       ],
       "settings": {
         "foreground": "#ffcb6bff"
       }
     },
     {
-      "name": "Class variable",
+      "name": "Class Variable",
       "scope": [
         "variable.object.property",
         "meta.field.declaration entity.name.function"
@@ -366,16 +348,17 @@
       }
     },
     {
-      "name": "Class method",
+      "name": "Class Method Declaration",
       "scope": [
-        "meta.definition.method entity.name.function"
+        "meta.definition.method entity.name.function",
+        "meta.method.identifier entity.name.function"
       ],
       "settings": {
         "foreground": "#f07178ff"
       }
     },
     {
-      "name": "Function Declaration",
+      "name": "Function/Method Declaration",
       "scope": [
         "entity.name.function",
         "meta.function entity.name.function"
@@ -385,16 +368,29 @@
       }
     },
     {
-      "name": "Function Call",
+      "name": "Function/Method Call",
       "scope": [
         "entity.name.function.call",
         "meta.function.call entity.name.function",
-        "source.python meta.function-call.python",
+        "meta.function-call entity.name.function",
         "meta.method-call entity.name.function",
-        "meta.function-call entity.name.function"
+        "meta.method-call meta.method",
+        "source.python meta.function-call.python",
+        "support.function.go"
       ],
       "settings": {
         "foreground": "#6babf5ff"
+      }
+    },
+    {
+      "name": "Builtin Function Calls",
+      "scope": [
+        "support.function",
+        "support.function.builtin"
+      ],
+      "settings": {
+        "foreground": "#82aaffff",
+        "fontStyle": "italic"
       }
     },
     {
@@ -412,7 +408,7 @@
         "meta.macro.rust entity.name.function.macro.rust"
       ],
       "settings": {
-        "foreground": "#6bcef5ff"
+        "foreground": "#6bd5f5ff"
       }
     },
     {
@@ -451,17 +447,6 @@
       "name": "YAML key",
       "scope": [
         "entity.name.tag.yaml"
-      ],
-      "settings": {
-        "foreground": "#f07178ff"
-      }
-    },
-    {
-      "name": "JSON key",
-      "scope": [
-        "meta.object-literal.key",
-        "meta.object-literal.key string",
-        "support.type.property-name.json"
       ],
       "settings": {
         "foreground": "#f07178ff"
@@ -618,6 +603,34 @@
       }
     },
     {
+      "name": "Markdown - Blockquote",
+      "scope": [
+        "markup.quote"
+      ],
+      "settings": {
+        "fontStyle": "italic",
+        "foreground": "#89ddffff"
+      }
+    },
+    {
+      "name": "Markdown - Fenced Language",
+      "scope": [
+        "markup.fenced_code.block"
+      ],
+      "settings": {
+        "foreground": "#eeffff90"
+      }
+    },
+    {
+      "name": "Markdown - Blockquote Punctuation",
+      "scope": [
+        "punctuation.definition.quote"
+      ],
+      "settings": {
+        "foreground": "#ff9cacff"
+      }
+    },
+    {
       "name": "INI property name",
       "scope": [
         "keyword.other.definition.ini"
@@ -636,67 +649,12 @@
       }
     },
     {
-      "name": "C# class",
-      "scope": [
-        "source.cs meta.class.identifier storage.type"
-      ],
-      "settings": {
-        "foreground": "#ffcb6bff"
-      }
-    },
-    {
-      "name": "C# class method",
-      "scope": [
-        "source.cs meta.method.identifier entity.name.function"
-      ],
-      "settings": {
-        "foreground": "#f07178ff"
-      }
-    },
-    {
-      "name": "C# function call",
-      "scope": [
-        "source.cs meta.method-call meta.method",
-        "source.cs entity.name.function"
-      ],
-      "settings": {
-        "foreground": "#82aaffff"
-      }
-    },
-    {
-      "name": "C# type",
-      "scope": [
-        "source.cs storage.type"
-      ],
-      "settings": {
-        "foreground": "#ffcb6bff"
-      }
-    },
-    {
-      "name": "C# return type",
-      "scope": [
-        "source.cs meta.method.return-type"
-      ],
-      "settings": {
-        "foreground": "#ffcb6bff"
-      }
-    },
-    {
       "name": "C# preprocessor",
       "scope": [
         "source.cs meta.preprocessor"
       ],
       "settings": {
         "foreground": "#4a4a4aff"
-      }
-    },
-    {
-      "name": "C# namespace",
-      "scope": [
-        "source.cs entity.name.type.namespace"
-      ],
-      "settings": {
-        "foreground": "#eeffffff"
       }
     },
     {
@@ -746,41 +704,14 @@
       }
     },
     {
-      "name": "Namespaces",
+      "name": "JSON key",
       "scope": [
-        "source.php support.other.namespace",
-        "source.php meta.use support.class"
+        "meta.object-literal.key",
+        "meta.object-literal.key string",
+        "support.type.property-name.json"
       ],
       "settings": {
-        "foreground": "#eeffffff"
-      }
-    },
-    {
-      "name": "Markdown - Blockquote",
-      "scope": [
-        "markup.quote"
-      ],
-      "settings": {
-        "fontStyle": "italic",
-        "foreground": "#89ddffff"
-      }
-    },
-    {
-      "name": "Markdown - Fenced Language",
-      "scope": [
-        "markup.fenced_code.block"
-      ],
-      "settings": {
-        "foreground": "#eeffff90"
-      }
-    },
-    {
-      "name": "Markdown - Blockquote Punctuation",
-      "scope": [
-        "punctuation.definition.quote"
-      ],
-      "settings": {
-        "foreground": "#ff9cacff"
+        "foreground": "#f07178ff"
       }
     },
     {
