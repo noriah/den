@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Open in Spotify
+GenericName=Music Player
+Icon=spotify-client
+Exec=qdbus org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri %U
+Terminal=false
+MimeType=x-scheme-handler/spotify;x-scheme-handler/https;x-scheme-handler/http;
+Categories=Audio;Music;Player;AudioVideo;
+StartupWMClass=spotify
