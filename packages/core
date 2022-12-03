@@ -79,3 +79,5 @@ packages:
   - vlc
   - wezterm
   - wget
+  - yay: aur/yay
+  - zscroll: aur/zscroll-git

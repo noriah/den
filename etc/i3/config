@@ -32,7 +32,7 @@ default_floating_border none
 # Do not follow mouse focus
 focus_follows_mouse no
 
-gaps inner 3
+gaps inner 4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

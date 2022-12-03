@@ -1,7 +1,8 @@
+assign [class="Blueman-manager"] output $disp1
 # Float the bluetooth management window
+for_window [class="Blueman-manager"] floating enable
 
 # random apps
-for_window [class="Blueman-manager"] floating enable
 for_window [class="Alacritty" title="catnip"] border none
 
 for_window [title="Spotify"] move to workspace $ws2
