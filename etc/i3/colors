@@ -1,3 +1,9 @@
 ## Colors
 
-client.focused #ff8abb #000000 #ffffff #abcdef #abcdef
+set $focusBorder #ff66b5
+set $unfocusBorder #5c2b44
+
+# <colorclass> <border> <background> <text> <indicator> <child_border>
+client.focused $focusBorder #000000 #ffffff #abcdef $focusBorder
+client.unfocused #unfocusBorder #000000 #ffffff #abcdef $unfocusBorder
+client.focused_inactive $unfocusBorder #000000 #ffffff #abcdef $unfocusBorder

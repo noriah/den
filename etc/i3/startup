@@ -21,12 +21,17 @@ exec_always --no-startup-id polybar
 # Launch Bar
 exec_always --no-startup-id albert
 
+# DSP
+exec --no-startup-id jamesdsp --tray
+
+# Bluetooth Manager
+exec --no-startup-id blueman-applet
+
 # Password Manager
 exec --no-startup-id 1password --silent
 
 # Polkit Agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
 
 # set backgrounds
 exec --no-startup-id nitrogen --restore
