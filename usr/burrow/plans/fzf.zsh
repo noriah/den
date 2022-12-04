@@ -20,11 +20,6 @@ if [[ -d ${libfzfDir} ]]; then
   [[ $- == *i* ]] && source "$libfzfDir/shell/completion.zsh" 2> /dev/null
   source "$libfzfDir/shell/key-bindings.zsh"
 
-  bindkey -r '^T'
-  bindkey -M emacs '^f' fzf-file-widget
-  bindkey -M vicmd '^f' fzf-file-widget
-  bindkey -M viins '^f' fzf-file-widget
-
   burrow::plugin::pass
 fi
 

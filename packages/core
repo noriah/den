@@ -37,6 +37,7 @@ packages:
   - htop
   - i3-gaps
   - i3lock-blur: aur/i3lock-blur
+  - jq
   - libfontconfig
   - libpcap
   - libsecret
