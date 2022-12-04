@@ -2,7 +2,7 @@
 
 # https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/info-airqualityindex
 
-. `dirname $0`/config/info-airqualityindex.sh
+. `dirname $0`/config/weather-aqi.sh
 
 API="https://api.waqi.info/feed"
 

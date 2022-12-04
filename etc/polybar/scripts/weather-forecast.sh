@@ -2,7 +2,7 @@
 
 # https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-simple
 
-. `dirname $0`/config/openweathermap.sh
+. `dirname $0`/config/weather-forecast.sh
 
 get_icon() {
   case $1 in
