@@ -8,28 +8,38 @@ API="https://api.waqi.info/feed"
 
 ICON="" # leaf
 
+echo_value() {
+  echo "%{F$1}$ICON%{F-} $2"
+}
+
 if [ -n "$CITY" ]; then
   aqi=$(curl -sf "$API/$CITY/?token=$TOKEN")
 else
-  echo "NO CITY"
+  echo_value ff0000 "NO CITY"
 fi
 
 if [ -n "$aqi" ]; then
   if [ "$(echo "$aqi" | jq -r '.status')" = "ok" ]; then
     aqi=$(echo "$aqi" | jq '.data.aqi')
 
-    if [ "$aqi" -lt 50 ]; then
-      echo "%{F#009966}$ICON%{F-} $aqi"
-    elif [ "$aqi" -lt 100 ]; then
-      echo "%{F#ffde33}$ICON%{F-} $aqi"
-    elif [ "$aqi" -lt 150 ]; then
-      echo "%{F#ff9933}$ICON%{F-} $aqi"
-    elif [ "$aqi" -lt 200 ]; then
-      echo "%{F#cc0033}$ICON%{F-} $aqi"
-    elif [ "$aqi" -lt 300 ]; then
-      echo "%{F#660099}$ICON%{F-} $aqi"
+    if [ "$aqi" -le 50 ]; then
+      # good
+      echo_value 689f38 $aqi
+    elif [ "$aqi" -le 100 ]; then
+      # moderate
+      echo_value fbc02d $aqi
+    elif [ "$aqi" -le 150 ]; then
+      # unhealthy (for sensitive groups)
+      echo_value f57c00 $aqi
+    elif [ "$aqi" -le 200 ]; then
+      # unhealthy
+      echo_value c53929 $aqi
+    elif [ "$aqi" -le 300 ]; then
+      # very unhealthy
+      echo_value ad1457 $aqi
     else
-      echo "%{F#7e0023}$ICON%{F-} $aqi"
+      # hazardous
+      echo_value 880e50 $aqi
     fi
   else
     echo "$aqi" | jq -r '.data'
