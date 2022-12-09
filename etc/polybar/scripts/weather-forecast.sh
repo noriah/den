@@ -39,7 +39,7 @@ if [ -n "$CITY" ]; then
     CITY_PARAM="q=$CITY"
   fi
 
-  weather=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
+  weather=$(curl -sf "$API/weather?appid=$TOKEN&$CITY_PARAM&units=$UNITS")
 else
   echo "NO CITY"
 fi

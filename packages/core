@@ -28,6 +28,7 @@ packages:
   - dkms
   - docker
   - element-desktop
+  - expect
   - fail2ban
   - ffmpeg
   - git

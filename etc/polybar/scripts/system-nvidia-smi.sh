@@ -7,7 +7,7 @@ query_smi() {
 }
 
 case "$1" in
-  memory.used)
+  mempct)
     query_smi gpu memory.used,memory.total | awk -F, '{ printf "%2d\n",($1/$2)*100 }'
     ;;
   apps)
