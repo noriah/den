@@ -29,6 +29,8 @@ hide_edge_borders none
 default_border normal $borderWidth
 default_floating_border none
 
+title_align center
+
 # Do not follow mouse focus
 focus_follows_mouse no
 

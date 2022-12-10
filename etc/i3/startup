@@ -24,8 +24,14 @@ exec --no-startup-id polybar -r main-bottom
 # Left Top Bar
 exec --no-startup-id polybar -r left-top
 
+# Left Bottom Bar
+exec --no-startup-id polybar -r left-bottom
+
 # Right Top Bar
 exec --no-startup-id polybar -r right-top
+
+# Right Bottom Bar
+exec --no-startup-id polybar -r right-bottom
 
 # Launch Bar
 exec_always --no-startup-id albert

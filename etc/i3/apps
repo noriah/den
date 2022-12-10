@@ -2,18 +2,20 @@ assign [class="Blueman-manager"] output $disp1
 # Float the bluetooth management window
 for_window [class="Blueman-manager"] floating enable
 
+for_window [class="albert"] move position center
+
 # random apps
 for_window [class="Alacritty" title="catnip"] border none
 
+# Spotify only on left monitor
 for_window [title="Spotify"] move to workspace $ws2
-for_window [class="Spotify"] border pixel $borderWidth
+
+# chrome live caption
+for_window [title="Live Caption"] floating enable
 
 # chat apps
 assign [class="discord"] $ws3
-for_window [class="discord"] border pixel $borderWidth
 
 assign [class="Element"] $ws3
-for_window [class="Element"] border pixel $borderWidth
 
 assign [class="Signal"] $ws3
-for_window [class="Signal"] border pixel $borderWidth
