@@ -1,0 +1,4 @@
+# When Logitech BRIO Webcam connects swap to desktop
+ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="46d/85e/317", RUN+="/usr/local/bin/monswap dp"
+# When Logitech BRIO Webcam disconnects swap to thunderbolt dock
+ACTION=="remove", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{PRODUCT}=="46d/85e/317", RUN+="/usr/local/bin/monswap hdmi"

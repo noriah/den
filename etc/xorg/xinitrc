@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# dex --autostart --environment i3
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+xss-lock --transfer-sleep-lock -- i3lock.sh &
+
+# Composter
+DISPLAY=":0" picom -b --backend xrender &
+
+# DBus Stuffs
+dbus-update-activation-environment --all &
+
+# GNome Keyring
+gnome-keyring-daemon --start --components=secrets &
+
+# DSP
+jamesdsp --tray &
+
+# Bluetooth Manager
+blueman-applet &
+
+# Password Manager
+1password --silent &
+
+# Polkit Agent
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Launch Bar
+albert &
+
+# set backgrounds
+nitrogen --restore

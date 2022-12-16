@@ -1,0 +1,7 @@
+aur/libnvidia-container
+aur/libnvidia-container-tools
+aur/nvidia-container-runtime
+aur/nvidia-container-toolkit
+nvidia-dkms
+aur/nvidia-docker
+nvidia-settings

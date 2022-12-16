@@ -7,12 +7,6 @@ return {
       weight = 'Regular',
       harfbuzz_features = { 'zero', 'calt=1', 'clig=1', 'liga=1' },
       assume_emoji_presentation = false,
-    },
-    {
-      family = 'FiraCode Nerd Font',
-      weight = 'Regular',
-      harfbuzz_features = { 'zero', 'calt=1', 'clig=1', 'liga=1' },
-      assume_emoji_presentation = false,
     }
   },
 

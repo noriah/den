@@ -1,11 +1,33 @@
-packages:
-  - beataroni-bin: aur/beataroni-bin
-  - carla
-  - cheese
-  - dnstop: aur/dnstop
-  - maim
-  - mda.lv2
-  - ntfs-3g
-  - obs-studio
-  - tor
-  - xclip
+apcupsd
+aur/beataroni-bin
+blender
+carla
+cheese
+aur/dnstop
+gnome-system-monitor
+gnome-usage
+imagemagick
+ipcalc
+aur/jamesdsp
+maim
+mda.lv2
+mtr
+neofetch
+nmap
+ntfs-3g
+obs-studio
+aur/openrgb
+aur/opensnitch
+aur/protonup-qt
+python-build
+python-opencv
+rsync
+aur/scc
+smartmontools
+speedtest-cli
+sqlitebrowser
+steam
+tor
+units
+v4l2loopback-dkms
+aur/via-bin

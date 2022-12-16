@@ -8,9 +8,9 @@
 # Super=Mod4
 
 # set mod key
-set $mod Mod4
+set $super Mod4
 set $ctrl Control
-set $super Mod1
+set $alt Mod1
 
 set $disp1 DP-4
 set $disp2 DP-0
@@ -22,14 +22,12 @@ set $borderWidth 1
 font pango:Fira Code 8
 
 # align titles
-title_align left
+title_align center
 
 # hide borders
 hide_edge_borders none
 default_border normal $borderWidth
 default_floating_border none
-
-title_align center
 
 # Do not follow mouse focus
 focus_follows_mouse no
@@ -37,7 +35,7 @@ focus_follows_mouse no
 gaps inner 4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+floating_modifier $super
 
 include workspace
 include keys

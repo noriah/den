@@ -7,6 +7,8 @@ set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
+set $ws_comms "5"
+
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -14,14 +16,15 @@ set $ws9 "9"
 set $ws10 "10"
 
 
+
 # assign workspaces to monitors
 workspace $ws1 output $disp1
-workspace $ws4 output $disp1
+workspace $ws2 output $disp1
 
-workspace $ws2 output $disp2
-workspace $ws5 output $disp2
+workspace $ws3 output $disp2
+workspace $ws4 output $disp2
 
-workspace $ws3 output $disp3
+workspace $ws5 output $disp3
 workspace $ws6 output $disp3
 
 workspace_auto_back_and_forth yes

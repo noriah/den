@@ -36,7 +36,8 @@
   ],
   "editor.unicodeHighlight.nonBasicASCII": false,
   "files.associations": {
-    "**/i3/**": "i3"
+    "**/i3/**": "i3",
+    "**/udev/**.rules": "udev"
   },
   "files.exclude": {
     "**/.classpath": true,
@@ -66,7 +67,8 @@
         "color": "#ff501030",
         "column": 120
       }
-    ]
+    ],
+    "editor.semanticHighlighting.enabled": false
   },
   "[go]": {
     "editor.snippetSuggestions": "inline",
