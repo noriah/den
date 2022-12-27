@@ -829,7 +829,7 @@
     "editor.lineHighlightBackground": "#00000050",
     "editor.lineHighlightBorder": "#00000000",
     "editor.rangeHighlightBackground": "#ff8c000d",
-    "editor.selectionBackground": "#ff8c0098",
+    "editor.selectionBackground": "#ff8c006c",
     "editor.selectionHighlightBackground": "#ffcc0020",
     "editor.wordHighlightBackground": "#ff9cac30",
     "editor.wordHighlightStrongBackground": "#c3e88d30",

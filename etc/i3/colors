@@ -1,9 +1,14 @@
 ## Colors
 
-set $focusBorder #ff66b5
-set $unfocusBorder #5c2b44
+set $focusBorder #ff668f
+set $unfocusBorder #35000e
+# set $unfocusBorder #5c2b44
+set $focusBackground #222222
+set $unfocusBackground #222222
+set $textColor #ffffff
+set $indicator #abcdef
 
 # <colorclass> <border> <background> <text> <indicator> <child_border>
-client.focused $focusBorder #000000 #ffffff #abcdef $focusBorder
-client.unfocused $unfocusBorder #000000 #ffffff #abcdef $unfocusBorder
-client.focused_inactive $unfocusBorder #000000 #ffffff #abcdef $unfocusBorder
+client.focused $focusBorder $focusBackground $textColor $indicator $focusBorder
+client.unfocused $unfocusBorder $unfocusBackground $textColor $indicator $unfocusBorder
+client.focused_inactive $unfocusBorder $focusBackground $textColor $indicator $unfocusBorder
