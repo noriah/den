@@ -14,11 +14,7 @@ echo_value() {
 
 if [ -n "$CITY" ]; then
   aqi=$(curl -sf "$API/$CITY/?token=$TOKEN")
-else
-  echo_value ff0000 "NO CITY"
-fi
 
-if [ -n "$aqi" ]; then
   if [ "$(echo "$aqi" | jq -r '.status')" = "ok" ]; then
     aqi=$(echo "$aqi" | jq '.data.aqi')
 
@@ -41,7 +37,11 @@ if [ -n "$aqi" ]; then
       # hazardous
       echo_value 880e50 $aqi
     fi
+
   else
     echo "$aqi" | jq -r '.data'
   fi
+
+else
+  echo_value ff0000 "NO CITY"
 fi

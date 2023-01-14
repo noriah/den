@@ -6,25 +6,25 @@
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-xss-lock --transfer-sleep-lock -- i3lock.sh &
+exec xss-lock --transfer-sleep-lock -- i3lock.sh
 
 # Composter
-DISPLAY=":0" picom -b --backend xrender &
+exec DISPLAY=":0" picom -b --backend xrender
 
 # DBus Stuffs
-dbus-update-activation-environment --all --systemd
+exec dbus-update-activation-environment --all --systemd
 
 # DSP
-jamesdsp --tray &
+exec jamesdsp --tray
 
 # Bluetooth Manager
-blueman-applet &
+exec blueman-applet
 
 # Password Manager
-1password --silent &
+exec 1password --silent
 
 # Polkit Agent
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # set backgrounds
-nitrogen --restore
+exec nitrogen --restore

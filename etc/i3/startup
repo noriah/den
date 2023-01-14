@@ -1,14 +1,54 @@
 ## Startup
 
+#exec --no-startup-id dex --autostart --environment i3
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock.sh
+
+# DBus Stuffs
+exec --no-startup-id dbus-update-activation-environment --all --systemd
+
+# GNome Keyring
+exec --no-startup-id gnome-keyring-daemon --start --components=secrets
+
+# Composter
+exec_always --no-startup-id DISPLAY=":0" picom -b
+
 # Center Top Bar
 exec --no-startup-id polybar -r main-top
+
 # Center Bottom Bar
 exec --no-startup-id polybar -r main-bottom
+
 # Left Top Bar
 exec --no-startup-id polybar -r left-top
+
 # Left Bottom Bar
 exec --no-startup-id polybar -r left-bottom
+
 # Right Top Bar
 exec --no-startup-id polybar -r right-top
+
 # Right Bottom Bar
 exec --no-startup-id polybar -r right-bottom
+
+# Launch Bar
+#exec_always --no-startup-id albert
+
+exec --no-startup-id systemctl --user start ulauncher.service
+
+# DSP
+exec --no-startup-id jamesdsp --tray
+
+# Bluetooth Manager
+exec --no-startup-id blueman-applet
+
+# Password Manager
+exec --no-startup-id 1password --silent
+
+# Polkit Agent
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# set backgrounds
+exec --no-startup-id nitrogen --restore

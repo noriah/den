@@ -8,14 +8,14 @@
   "editor.dragAndDrop": false,
   "editor.detectIndentation": false,
   "editor.fontFamily": "Fira Code",
-  "editor.fontSize": 12,
+  "editor.fontSize": 11,
   "editor.fontLigatures": true,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.mouseWheelScrollSensitivity": 0,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.showFoldingControls": "mouseover",
-  "editor.snippetSuggestions": "top",
+  "editor.snippetSuggestions": "inline",
   "editor.renderWhitespace": "selection",
   "editor.suggestOnTriggerCharacters": false,
   "editor.suggestSelection": "first",
@@ -83,6 +83,12 @@
   },
   "[java]": {
     "editor.semanticHighlighting.enabled": true
+  },
+  "[markdown]": {
+    "editor.lineHeight": 1.5
+  },
+  "[python]": {
+    "editor.lineHeight": 0
   },
   "[rust]": {
     "editor.tabSize": 4,

@@ -4,6 +4,8 @@
 
 . `dirname $0`/config/weather-forecast.sh
 
+API="https://api.openweathermap.org/data/2.5"
+
 get_icon() {
   case $1 in
     # Icons for nerd font
@@ -30,7 +32,9 @@ get_icon() {
   echo "$icon "
 }
 
-API="https://api.openweathermap.org/data/2.5"
+echo_value() {
+  echo "$(get_icon "$1") $2$SYMBOL($3$SYMBOL)"
+}
 
 if [ -n "$CITY" ]; then
   if [ "$CITY" -eq "$CITY" ] 2>/dev/null; then
@@ -41,14 +45,12 @@ if [ -n "$CITY" ]; then
 
   weather=$(curl -sf "$API/weather?appid=$TOKEN&$CITY_PARAM&units=$UNITS")
   weather2=$(curl -sf "$API/weather?appid=$TOKEN&$CITY_PARAM&units=$UNITS2")
-else
-  echo "NO CITY"
-fi
 
-if [ -n "$weather" ]; then
   weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
   weather_temp2=$(echo "$weather2" | jq ".main.temp" | cut -d "." -f 1)
   weather_icon=$(echo "$weather" | jq -r ".weather[0].icon")
 
-  echo "$(get_icon "$weather_icon")" "$weather_temp$SYMBOL($weather_temp2$SYMBOL)"
+  echo_value $weather_icon $weather_temp $weather_temp2
+else
+  echo "NO CITY"
 fi

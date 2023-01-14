@@ -1,9 +1,10 @@
 ## Key Bindings
 
 # set key vars
+set $shift shift
 set $super Mod4
-set $ctrl Control
-set $mk2 Mod1
+set $ctrl control
+set $alt Mod1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $super+$ctrl
@@ -31,8 +32,8 @@ bindsym XF86AudioStop exec --no-startup-id playerctl -p spotify stop
 bindsym $ctrl+XF86AudioPlay exec --no-startup-id playerctl -p spotify shuffle toggle
 
 # Screenshots
-bindsym $mk2+Shift+s exec --no-startup-id maim -s -u | xclip -selection clipboard -t image/png
-bindsym $mk2+Shift+$ctrl+s exec --no-startup-id ksnip -r
+bindsym $alt+$shift+s exec --no-startup-id maim -s -u | xclip -selection clipboard -t image/png
+bindsym $alt+$shift+$ctrl+s exec --no-startup-id ksnip -r
 
 # start a terminal
 #bindsym $super+Return exec --no-startup-id i3-sensible-terminal
@@ -41,16 +42,16 @@ bindsym $mk2+Shift+$ctrl+s exec --no-startup-id ksnip -r
 bindsym $super+q kill
 
 # start dmenother multimedia u (a program launcher)
-bindsym $super+d exec --no-startup-id dmenu_run
+# bindsym $super+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $super+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $super+40 exec --no-startup-id i3-dmenu-desktop
+# bindcode $super+40 exec --no-startup-id i3-dmHenu-desktop
 
 # monitor swapping
-bindsym $super+Shift+F11 exec --no-startup-id monswap dp
-bindsym $super+Shift+F12 exec --no-startup-id monswap hdmi
+bindsym $super+$shift+F11 exec --no-startup-id monswap dp
+bindsym $super+$shift+F12 exec --no-startup-id monswap hdmi
 
 # lock
 bindsym $super+$ctrl+q exec --no-startup-id loginctl lock-session
@@ -62,10 +63,10 @@ bindsym $super+$up focus up
 bindsym $super+$right focus right
 
 # move focused window
-bindsym $super+Shift+$left move left
-bindsym $super+Shift+$down move down
-bindsym $super+Shift+$up move up
-bindsym $super+Shift+$right move right
+bindsym $super+$shift+$left move left
+bindsym $super+$shift+$down move down
+bindsym $super+$shift+$up move up
+bindsym $super+$shift+$right move right
 
 # split in horizontal orientation
 bindsym $super+g split h
@@ -82,7 +83,7 @@ bindsym $super+w layout tabbed
 bindsym $super+e layout toggle split
 
 # toggle tiling / floating
-bindsym $super+Shift+space floating toggle
+bindsym $super+$shift+space floating toggle
 
 # change focus between tiling / floating windows
 #bindsym $super+1 focus mode_toggle
@@ -110,31 +111,31 @@ bindsym $super+$ctrl+Left workspace prev_on_output
 bindsym $super+$ctrl+Right workspace next_on_output
 
 # move focused container to workspace
-bindsym $super+Shift+1 move container to workspace number $ws1
-bindsym $super+Shift+2 move container to workspace number $ws2
-bindsym $super+Shift+3 move container to workspace number $ws3
-bindsym $super+Shift+4 move container to workspace number $ws4
-bindsym $super+Shift+5 move container to workspace number $ws5
-bindsym $super+Shift+6 move container to workspace number $ws6
-bindsym $super+Shift+7 move container to workspace number $ws7
-bindsym $super+Shift+8 move container to workspace number $ws8
-bindsym $super+Shift+9 move container to workspace number $ws9
-bindsym $super+Shift+0 move container to workspace number $ws10
+bindsym $super+$shift+1 move container to workspace number $ws1
+bindsym $super+$shift+2 move container to workspace number $ws2
+bindsym $super+$shift+3 move container to workspace number $ws3
+bindsym $super+$shift+4 move container to workspace number $ws4
+bindsym $super+$shift+5 move container to workspace number $ws5
+bindsym $super+$shift+6 move container to workspace number $ws6
+bindsym $super+$shift+7 move container to workspace number $ws7
+bindsym $super+$shift+8 move container to workspace number $ws8
+bindsym $super+$shift+9 move container to workspace number $ws9
+bindsym $super+$shift+0 move container to workspace number $ws10
 
-bindsym $super+Shift+Left move container to workspace prev_on_output
-bindsym $super+Shift+Right move container to workspace next_on_output
+bindsym $super+$shift+Left move container to workspace prev_on_output
+bindsym $super+$shift+Right move container to workspace next_on_output
 
 # move workspace to output
-bindsym $super+$ctrl+Shift+1 move workspace to output $disp2
-bindsym $super+$ctrl+Shift+2 move workspace to output $disp1
-bindsym $super+$ctrl+Shift+3 move workspace to output $disp3
+bindsym $super+$ctrl+$shift+1 move workspace to output $disp2
+bindsym $super+$ctrl+$shift+2 move workspace to output $disp1
+bindsym $super+$ctrl+$shift+3 move workspace to output $disp3
 
 # reload the configuration file
-bindsym $super+Shift+c reload
+bindsym $super+$shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $super+Shift+r restart
+bindsym $super+$shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $super+$shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
