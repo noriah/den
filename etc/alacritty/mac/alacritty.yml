@@ -1,0 +1,33 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+
+window:
+  dynamic_padding: true
+  decorations: buttonless
+  opacity: 0.5647
+
+scrolling:
+  history: 0
+
+font:
+  normal:
+    family: "FiraCode Nerd Font"
+
+  size: 6.5
+  builtin_box_drawing: true
+
+colors:
+  primary:
+    # background: '#fd7e9f'
+    # background: "#272936"
+    background: "#212b30"
+    foreground: "#f7f7f7"
+
+  normal:
+    white: "#f7f7f7"
+
+  # Transparent cell backgrounds
+  #
+  # Whether or not `window.opacity` applies to all cell backgrounds or only to
+  # the default background. When set to `true` all cells will be transparent
+  # regardless of their background color.
+  transparent_background_colors: true
