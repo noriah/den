@@ -1,0 +1,7 @@
+#!/usr/bin/zsh
+
+UNITS_BIN=/usr/bin/units
+
+UNITS_HISTORY_FILE="$HISTORY/units"
+
+$UNITS_BIN --history "$UNITS_HISTORY_FILE" "$@"

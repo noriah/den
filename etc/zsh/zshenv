@@ -5,6 +5,8 @@ export HOME_TMP="$HOME/tmp"
 export HOME_USR="$HOME/usr"
 export HOME_VAR="$HOME/var"
 
+export HISTORY="$HOME_VAR/history"
+
 export DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 export CACHE_DIR="$HOME_VAR/cache"
@@ -49,10 +51,10 @@ paths=(
 )
 
 # Export our path paths in the PATH
-for p in "${paths[@]}"; do
-  p="${(P)p}/bin"
+for ((i=${#paths[@]}; i>0; i--)); do
+  p="${(P)paths[$i]}/bin"
   if [ -d "$p" ]; then
-    [[ "$PATH" =~ "$p" ]] || export PATH="$PATH:$p"
+    [[ "$PATH" =~ "$p" ]] || export PATH="$p:$PATH"
   fi
 done
 
