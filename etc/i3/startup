@@ -52,3 +52,5 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # set backgrounds
 exec_always --no-startup-id nitrogen --restore
+
+exec --no-startup-id /bin/sh -c "pkill -15 opensnitch-ui; opensnitch-ui"
