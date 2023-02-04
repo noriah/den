@@ -8,18 +8,18 @@ for_window [class="albert"] move position center
 for_window [class="Alacritty" title="catnip"] border none
 
 # Spotify only on left monitor
-for_window [title="Spotify"] move to output $disp2
-for_window [title="Spotify"] border pixel $borderWidth
+# for_window [title="Spotify"] move to output $disp2
+# for_window [title="Spotify"] border pixel $borderWidth
 
 # chrome live caption
 for_window [title="Live Caption"] floating enable
 
 # chat apps
-assign [class="discord"] $ws_comms
+# assign [class="discord"] $ws_comms
 for_window [class="discord"] border pixel $borderWidth
 
-assign [class="Element"] $ws_comms
+# assign [class="Element"] $ws_comms
 
-assign [class="Signal"] $ws_comms
+# assign [class="Signal"] $ws_comms
 
-assign [class="TelegramDesktop"] $ws_comms
+# assign [class="TelegramDesktop"] $ws_comms

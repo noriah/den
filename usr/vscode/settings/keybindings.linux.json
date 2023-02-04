@@ -436,18 +436,6 @@
   },
   // removedkey
   {
-    "key": "ctrl+/",
-    "command": "-editor.action.commentLine",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  // addedkey
-  {
-    "key": "meta+/",
-    "command": "editor.action.commentLine",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  // removedkey
-  {
     "key": "ctrl+shift+alt+down",
     "command": "-editor.action.copyLinesDownAction",
     "when": "editorTextFocus && !editorReadonly"
@@ -478,7 +466,7 @@
   },
   // addedkey
   {
-    "key": "shift+cmd+k",
+    "key": "ctrl+shift+k",
     "command": "editor.action.deleteLines",
     "when": "textInputFocus && !editorReadonly"
   },
@@ -2515,4 +2503,22 @@
     "command": "workbench.action.terminal.pasteSelection",
     "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
   },
+  // removedkey
+  {
+    "key": "enter",
+    "command": "-explorer.openAndPassFocus",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsFolder && !inputFocus"
+  },
+  // removedkey
+  {
+    "key": "ctrl+enter",
+    "command": "-explorer.openToSide",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  // addedkey
+  {
+    "key": "enter",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  }
 ]

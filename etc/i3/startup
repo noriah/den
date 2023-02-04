@@ -51,4 +51,4 @@ exec --no-startup-id 1password --silent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # set backgrounds
-exec --no-startup-id nitrogen --restore
+exec_always --no-startup-id nitrogen --restore

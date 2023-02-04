@@ -8,7 +8,7 @@
   "editor.dragAndDrop": false,
   "editor.detectIndentation": false,
   "editor.fontFamily": "Fira Code",
-  "editor.fontSize": 11,
+  "editor.fontSize": 11.5,
   "editor.fontLigatures": true,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
@@ -57,7 +57,7 @@
   "window.title": "${activeEditorFull}${separator}${rootName}",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -0.5,
   "workbench.colorTheme": "Noriah Dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
@@ -135,9 +135,36 @@
     "completeUnimported": true,
     "deepCompletion": true
   },
+  "julia.symbolCacheDownload": true,
+  "julia.enableTelemetry": false,
+  "markdownExtended.disabledPlugins": "kbd",
   "material-icon-theme.activeIconPack": "react_redux",
   "material-icon-theme.folders.theme": "specific",
   "material-icon-theme.folders.color": "#e57373",
+  "projectManager.git.baseFolders": [
+    "~/workspace"
+  ],
+  "projectManager.git.ignoredFolders": [
+    "node_modules",
+    "out",
+    "typings",
+    "test",
+    ".haxelib",
+    "vault",
+    "local"
+  ],
+  "projectManager.confirmSwitchOnActiveWindow": "always",
+  "projectManager.tags": [
+    "personal",
+    "public",
+    "alts"
+  ],
+  "projectManager.any.baseFolders": [
+    "~/workspace/local"
+  ],
+  "projectManager.any.maxDepthRecursion": 1,
+  "projectManager.groupList": true,
+  "projectManager.showParentFolderInfoOnDuplicates": true,
   "rust-analyzer.server.extraEnv": {
     "CARGO_HOME": "/home/nor/opt/cargo",
     "RUSTUP_HOME": "/home/nor/opt/rustup"
@@ -174,5 +201,8 @@
     "python",
     "javascript",
     "typescript"
+  ],
+  "terminal.integrated.commandsToSkipShell": [
+    "language-julia.interrupt"
   ]
 }
