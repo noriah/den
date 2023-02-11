@@ -4,10 +4,10 @@ contains helper functions and scripts used by the rest of [den](https://github.c
 
 ### [rc.zsh](rc.zsh) - environment loader
 ---
-- loads several scripts that configure the base enviornment
+- loads several scripts that configure the base environment
 - configures and runs compinit
 
-### [install.zsh](install.zsh) - enviornment installation script.
+### [install.zsh](install.zsh) - environment installation script.
 ---
 - creates `$HOME/opt/` directory
 - creates `$DEN/var/` directory

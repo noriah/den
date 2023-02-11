@@ -57,7 +57,7 @@ burrow COMMAND [ARGUMENTS]
 
   check NAME
 
-      check for if a plugin or library is loaded in the enviornment
+      check for if a plugin or library is loaded in the environment
 
     Arguments
       NAME      name of the plugin or library
