@@ -40,19 +40,20 @@ export DART_PUB_PATH="$HOME_OPT/pub-cache"
 export PUB_CACHE="$DART_PUB_PATH"
 
 # We need some paths. Let us have paths
+# reverse order so the bottom ends up at the front of $PATH
 paths=(
-  HOME
-  DEN
-  GO_PATH
+  DART_PUB_PATH
+  GEM_PATH
   NPM_PATH
   CARGO_HOME
-  GEM_PATH
-  DART_PUB_PATH
+  GO_PATH
+  DEN
+  HOME
 )
 
 # Export our path paths in the PATH
-for ((i=${#paths[@]}; i>0; i--)); do
-  p="${(P)paths[$i]}/bin"
+for p in "${paths[@]}"; do
+  p="${(P)p}/bin"
   if [ -d "$p" ]; then
     [[ "$PATH" =~ "$p" ]] || export PATH="$p:$PATH"
   fi

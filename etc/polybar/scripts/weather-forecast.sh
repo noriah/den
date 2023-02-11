@@ -44,13 +44,12 @@ if [ -n "$CITY" ]; then
   fi
 
   weather=$(curl -sf "$API/weather?appid=$TOKEN&$CITY_PARAM&units=$UNITS")
-  weather2=$(curl -sf "$API/weather?appid=$TOKEN&$CITY_PARAM&units=$UNITS2")
 
-  weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
-  weather_temp2=$(echo "$weather2" | jq ".main.temp" | cut -d "." -f 1)
+  weather_imp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
+  weather_met=$(printf %.0f $(echo "scale=3;($weather_imp-32)*(5/9)" | bc))
   weather_icon=$(echo "$weather" | jq -r ".weather[0].icon")
 
-  echo_value $weather_icon $weather_temp $weather_temp2
+  echo_value $weather_icon $weather_met $weather_imp
 else
   echo "NO CITY"
 fi

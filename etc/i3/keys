@@ -122,8 +122,8 @@ bindsym $super+$shift+8 move container to workspace number $ws8
 bindsym $super+$shift+9 move container to workspace number $ws9
 bindsym $super+$shift+0 move container to workspace number $ws10
 
-bindsym $super+$shift+Left move container to workspace prev_on_output
-bindsym $super+$shift+Right move container to workspace next_on_output
+# bindsym $super+$shift+Left move container to workspace prev_on_output
+# bindsym $super+$shift+Right move container to workspace next_on_output
 
 # move workspace to output
 bindsym $super+$ctrl+$shift+1 move workspace to output $disp2

@@ -358,18 +358,6 @@
   },
   // removedkey
   {
-    "key": "ctrl+d",
-    "command": "-editor.action.addSelectionToNextFindMatch",
-    "when": "editorFocus"
-  },
-  // addedkey
-  {
-    "key": "meta+d",
-    "command": "editor.action.addSelectionToNextFindMatch",
-    "when": "editorFocus"
-  },
-  // removedkey
-  {
     "key": "shift+alt+.",
     "command": "-editor.action.autoFix",
     "when": "editorTextFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)quickfix\\b/"

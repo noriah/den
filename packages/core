@@ -5,6 +5,7 @@ bat
 bison
 bluez
 aur/bluez-hciconfig
+bc
 bluez-tools
 bluez-utils
 clang

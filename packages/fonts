@@ -7,6 +7,8 @@ ttf-droid
 ttf-liberation
 noto-fonts-cjk # japanese
 otf-ipafont
+ttf-ibm-plex
+ttf-ibmplex-mono-nerd
 aur/noto-fonts-sc # simplified chinese
 aur/ttf-adobe-source-code-pro-fonts
 aur/ttf-mplus # japanese
