@@ -1,15 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/info-airqualityindex
 
-. `dirname $0`/config/weather-aqi.sh
+. `dirname $0`/config/weather-aqi.zsh
 
 API="https://api.waqi.info/feed"
 
 ICON="" # leaf
 
 echo_value() {
-  echo "%{F$1}$ICON%{F-} $2"
+  val=$(printf '%-2s' $2)
+  printf '%%{F%s}%%{T3}%s%%{T-}%%{F-} %3s\n' $1 $ICON "$val"
 }
 
 if [ -n "$CITY" ]; then

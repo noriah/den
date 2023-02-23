@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/system-nvidia-smi
 

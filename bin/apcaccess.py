@@ -12,17 +12,18 @@ SEP = ":"
 BUFFER_SIZE = 1024
 
 UNITS = (
-  "C",
-  "VA",
-  "Hz",
-  "Amps",
-  "Watts",
-  "Volts",
-  "Percent",
-  "Seconds",
-  "Minutes",
-  "Percent Load Capacity"
+    "C",
+    "VA",
+    "Hz",
+    "Amps",
+    "Watts",
+    "Volts",
+    "Percent",
+    "Seconds",
+    "Minutes",
+    "Percent Load Capacity"
 )
+
 
 def strip_apc_units(lines):
   for line in lines:
@@ -32,17 +33,40 @@ def strip_apc_units(lines):
     yield line
 
 
-def printData(values, data):
+def printData(values, data, writer):
   if 'all' in values:
     for v in data.keys():
-      print("%s %s" % (v, data[v]))
+      writer.write("%s %s" % (v, data[v]))
   else:
     for v in values:
-      print("%s %s" % (v, data[v]))
+      writer.write("%s %s" % (v, data[v]))
+
+
+class FileWriter:
+  def __init__(self, path="/tmp/apcaccess.out"):
+    self.path = path
+    self.lines = []
+
+  def write(self, data):
+    self.lines += [data]
+
+  def flush(self):
+    with open(self.path, 'w') as f:
+      for line in self.lines:
+        print(line, file=f)
+
+    self.lines.clear()
+
+
+class StdWriter:
+  def write(self, data):
+    print(data)
+
+  def flush(self):
+    pass
 
 
 class ApcAccess:
-
   def __init__(self, host="localhost", port=3551, timeout=30):
     """
     Connect to apcupsd port and get data.
@@ -80,6 +104,10 @@ class ApcAccess:
 class Runner:
   def __init__(self, args):
     self.args = args
+    if args.output == '-':
+      self.writer = StdWriter()
+    else:
+      self.writer = FileWriter(args.output)
 
   def run(self):
     a = ApcAccess(self.args.host, self.args.port)
@@ -91,12 +119,14 @@ class Runner:
 
       while self.follow:
         data = a.getData()
-        printData(self.args.values, data)
+        printData(self.args.values, data, self.writer)
+        self.writer.flush()
         time.sleep(f)
 
     else:
       data = a.getData()
-      printData(self.args.values, data)
+      printData(self.args.values, self.writer)
+      self.writer.flush()
 
     a.close()
 
@@ -106,8 +136,8 @@ class Runner:
 
 def main():
   parser = argparse.ArgumentParser(
-    prog = 'ApcAccess.py',
-    description = 'python apc access util')
+      prog='ApcAccess.py',
+      description='python apc access util')
 
   parser.add_argument('--host',
                       default='localhost',
@@ -115,19 +145,17 @@ def main():
   parser.add_argument('-p', '--port',
                       default=3551,
                       help='port to connect to')
+  parser.add_argument('-o', '--output',
+                      default='-', type=str,
+                      help='output path or stdout (-)')
   parser.add_argument('-f', '--follow',
                       default=-1,
                       type=float,
                       help='continue to pull and update')
-
   parser.add_argument('values', nargs='+')
 
-  args = parser.parse_args()
-
-  runner = Runner(args)
-
+  runner = Runner(parser.parse_args())
   signal.signal(signal.SIGINT, runner.sigint)
-
   runner.run()
 
 

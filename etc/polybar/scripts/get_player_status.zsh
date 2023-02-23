@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 BAR_NAME=${BAR_NAME:-main-top}
 

@@ -1,0 +1,11 @@
+[Unit]
+Description=APC UPS Data Print
+
+[Service]
+Type=simple
+StandardError=journal
+ExecStart=python3 dbin/apcaccess.py -f 0.5 -o /tmp/apcaccess.out all
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

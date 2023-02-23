@@ -50,6 +50,8 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "npm.fetchOnlinePackageInfo": false,
+  "notebook.lineNumbers": "on",
+  "editor.lineNumbers": "relative",
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "window.closeWhenEmpty": false,
@@ -57,7 +59,7 @@
   "window.title": "${activeEditorFull}${separator}${rootName}",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
-  "window.zoomLevel": -0.5,
+  "window.zoomLevel": -0.25,
   "workbench.colorTheme": "Noriah Dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
@@ -88,7 +90,8 @@
     "editor.lineHeight": 1.5
   },
   "[python]": {
-    "editor.lineHeight": 0
+    "editor.lineHeight": 0,
+    "editor.formatOnSave": false
   },
   "[rust]": {
     "editor.tabSize": 4,
@@ -204,5 +207,9 @@
   ],
   "terminal.integrated.commandsToSkipShell": [
     "language-julia.interrupt"
+  ],
+  "explorer.confirmDelete": false,
+  "python.formatting.autopep8Args": [
+    "--indent-size=2"
   ]
 }

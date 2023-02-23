@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/openweathermap-simple
 
-. `dirname $0`/config/weather-forecast.sh
+. `dirname $0`/config/weather-forecast.zsh
 
 API="https://api.openweathermap.org/data/2.5"
 
@@ -29,11 +29,14 @@ get_icon() {
     *) icon="";; # day-sunny
   esac
 
-  echo "$icon "
+  echo "%{T3}$icon%{T-}"
 }
 
 echo_value() {
-  echo "$(get_icon "$1") $2$SYMBOL($3$SYMBOL)"
+  valC=$(printf '%-4s\n' "$2$SYMBOL")
+  valF=$(printf '%-4s\n' "$3$SYMBOL")
+  printf '%s %5s(%5s)\n' $(get_icon "$1") "$valC" "$valF"
+  # echo "$(get_icon "$1") $2$SYMBOL($3$SYMBOL)"
 }
 
 if [ -n "$CITY" ]; then
