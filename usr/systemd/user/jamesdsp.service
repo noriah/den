@@ -1,0 +1,13 @@
+[Unit]
+Description=JamesDSP
+After=pipewire.service
+BindsTo=pipewire.service
+
+[Service]
+Type=simple
+StandardError=journal
+ExecStart=jamesdsp --tray
+Restart=on-failure
+
+[Install]
+WantedBy=pipewire.service
