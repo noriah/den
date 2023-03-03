@@ -33,12 +33,11 @@ get_icon() {
 }
 
 echo_value() {
-  # valC=$(printf '%-4s\n' "$2$SYMBOL")
-  # valF=$(printf '%-4s\n' "$3$SYMBOL")
   printf '%s  %-3s(%s)' $(get_icon "$1") "$2$SYMBOL" "$3$SYMBOL"
 }
 
 if [ -n "$CITY" ]; then
+  # if this is a string or a number
   if [ "$CITY" -eq "$CITY" ] 2>/dev/null; then
     CITY_PARAM="id=$CITY"
   else

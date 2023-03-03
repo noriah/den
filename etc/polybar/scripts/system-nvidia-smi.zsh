@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/system-nvidia-smi
-
 item="$1"
 shift
 format="$@"
@@ -20,11 +18,11 @@ case "$item" in
     printf "$format" $(nvidia-smi -q -d PIDS | awk '/Process ID/ { count++ } END { print count }')
     ;;
   all)
-    printf '%-4s / %-4s / %-7s / %-3s' \
-      $($0 utilization.gpu %s%%) \
-      $($0 mempct %s%%) \
-      $($0 memory.used %sMB) \
-      $($0 apps '#%s')
+    printf '%-3s%% / %-3s%% / %-5sMB / %-3s#' \
+      $($0 utilization.gpu %2s) \
+      $($0 mempct %2s) \
+      $($0 memory.used %3s) \
+      $($0 apps %2s)
       ;;
   *)
     printf "$format" $(query_smi gpu $item | awk '{ print $1 }')
