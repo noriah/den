@@ -33,10 +33,9 @@ get_icon() {
 }
 
 echo_value() {
-  valC=$(printf '%-4s\n' "$2$SYMBOL")
-  valF=$(printf '%-4s\n' "$3$SYMBOL")
-  printf '%s %5s(%5s)\n' $(get_icon "$1") "$valC" "$valF"
-  # echo "$(get_icon "$1") $2$SYMBOL($3$SYMBOL)"
+  # valC=$(printf '%-4s\n' "$2$SYMBOL")
+  # valF=$(printf '%-4s\n' "$3$SYMBOL")
+  printf '%s  %-3s(%s)' $(get_icon "$1") "$2$SYMBOL" "$3$SYMBOL"
 }
 
 if [ -n "$CITY" ]; then
@@ -56,3 +55,4 @@ if [ -n "$CITY" ]; then
 else
   echo "NO CITY"
 fi
+

@@ -9,15 +9,14 @@ API="https://api.waqi.info/feed"
 ICON="" # leaf
 
 echo_value() {
-  val=$(printf '%-2s' $2)
-  printf '%%{F%s}%%{T3}%s%%{T-}%%{F-} %3s\n' $1 $ICON "$val"
+  printf '%%{F%s}%%{T3}%s%%{T-}%%{F-} %-3s' $1 $ICON "$2"
 }
 
 if [ -n "$CITY" ]; then
   aqi=$(curl -sf "$API/$CITY/?token=$TOKEN")
 
   if [ "$(echo "$aqi" | jq -r '.status')" = "ok" ]; then
-    aqi=$(echo "$aqi" | jq '.data.aqi')
+    aqi=$(echo "$aqi" | jq -r '.data.aqi')
 
     if [ "$aqi" -le 50 ]; then
       # good
