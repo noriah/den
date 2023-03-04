@@ -8,9 +8,16 @@ BAR_NAME=${BAR_NAME:-main-top}
 FORMAT="{{ title }} - {{ artist }}"
 
 print_metadata() {
-  playerctl metadata \
-    --player "$PLAYER" \
-    --format "$FORMAT"
+  case "$PLAYER" in
+    spotify|vlc)
+      playerctl metadata \
+        --player "$PLAYER" \
+        --format "$FORMAT"
+      ;;
+    *)
+      echo "-\_/-\_/-\_/-\_/-\_/-"
+      ;;
+  esac
 }
 
 update_bar_icon() {

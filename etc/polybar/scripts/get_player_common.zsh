@@ -5,7 +5,9 @@ getPlayerRaw() {
 }
 
 getPlayer() {
-  case "$(getPlayerRaw)" in
+  local _player="$(getPlayerRaw)"
+
+  case "$_player" in
     spotify)
       echo spotify
       ;;
@@ -15,7 +17,9 @@ getPlayer() {
       ;;
 
     *)
-      echo ${@:-spotify}
+      echo ${@:-$_player}
       ;;
   esac
+
+  unset _player
 }
