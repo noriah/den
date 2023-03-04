@@ -13,7 +13,7 @@ exec --no-startup-id dbus-update-activation-environment --all --systemd
 exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 
 # Composter
-exec_always --no-startup-id DISPLAY=":0" picom -b
+exec --no-startup-id DISPLAY=":0" picom -b
 
 # Center Top Bar
 exec --no-startup-id polybar -r main-top

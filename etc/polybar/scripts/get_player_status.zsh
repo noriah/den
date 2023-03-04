@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
-BAR_NAME=${BAR_NAME:-main-top}
+. `dirname $0`/get_player_common.zsh
 
-PLAYER=${PLAYER:-spotify}
-PLAYER_NAME=${PLAYER_NAME:-$(perl -wp -e '$_ = ucfirst' < <(echo $PLAYER))}
+PLAYER="$(getPlayer $PLAYER)"
+BAR_NAME=${BAR_NAME:-main-top}
 
 FORMAT="{{ title }} - {{ artist }}"
 
@@ -15,7 +15,7 @@ print_metadata() {
 
 update_bar_icon() {
   local _bar_pid=$(pgrep -a "polybar" | grep "$BAR_NAME" | cut -d" " -f1)
-  polybar-msg -p "$_bar_pid" hook ${PLAYER}-controls $1 1>/dev/null 2>&1
+  polybar-msg -p "$_bar_pid" hook player-controls $1 1>/dev/null 2>&1
 }
 
 STATUS=$(playerctl status --player "$PLAYER" 2>/dev/null)
@@ -28,8 +28,8 @@ if [ "$1" = "--status" ]; then
   echo "$STATUS"
 else
   case "$STATUS" in
-    "No players found") echo "$PLAYER_NAME is not running";;
-    Stopped) echo "No music playing" ;;
+    "No players found") echo "No player is running";;
+    Stopped) echo "Nothing is playing" ;;
     Paused)
       update_bar_icon 1
       print_metadata

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. "`dirname $0`/etc/polybar/scripts/get_player_common.zsh"
+
+playerctl -p "$(getPlayer $PLAYER)" $@

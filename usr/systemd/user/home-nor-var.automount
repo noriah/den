@@ -1,0 +1,8 @@
+[Unit]
+Description=Automount home var overlay
+
+[Automount]
+Where=/home/nor/var
+
+[Install]
+WantedBy=default.target

@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-BAR_NAME=${BAR_NAME:-main-top}
+. `dirname $0`/get_player_common.zsh
 
-PLAYER=${PLAYER:-spotify}
+PLAYER="$(getPlayer $PLAYER)"
 
 FORMAT="{{ position }} {{ mpris:length }}"
 

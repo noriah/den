@@ -236,22 +236,10 @@
     "key": "meta+e",
     "command": "actions.findWithSelection"
   },
-  // removedkey
-  {
-    "key": "ctrl+right",
-    "command": "-cursorWordEndRight",
-    "when": "textInputFocus"
-  },
   // addedkey
   {
     "key": "alt+right",
     "command": "cursorWordEndRight",
-    "when": "textInputFocus"
-  },
-  // removedkey
-  {
-    "key": "ctrl+shift+right",
-    "command": "-cursorWordEndRightSelect",
     "when": "textInputFocus"
   },
   // addedkey
@@ -260,22 +248,10 @@
     "command": "cursorWordEndRightSelect",
     "when": "textInputFocus"
   },
-  // removedkey
-  {
-    "key": "ctrl+left",
-    "command": "-cursorWordLeft",
-    "when": "textInputFocus"
-  },
   // addedkey
   {
     "key": "alt+left",
     "command": "cursorWordLeft",
-    "when": "textInputFocus"
-  },
-  // removedkey
-  {
-    "key": "ctrl+shift+left",
-    "command": "-cursorWordLeftSelect",
     "when": "textInputFocus"
   },
   // addedkey
@@ -629,12 +605,6 @@
   },
   // addedkey
   {
-    "key": "ctrl+shift+right",
-    "command": "editor.action.smartSelect.expand",
-    "when": "editorTextFocus"
-  },
-  // addedkey
-  {
     "key": "ctrl+shift+meta+right",
     "command": "editor.action.smartSelect.expand",
     "when": "editorTextFocus"
@@ -643,12 +613,6 @@
   {
     "key": "shift+alt+left",
     "command": "-editor.action.smartSelect.shrink",
-    "when": "editorTextFocus"
-  },
-  // addedkey
-  {
-    "key": "ctrl+shift+left",
-    "command": "editor.action.smartSelect.shrink",
     "when": "editorTextFocus"
   },
   // addedkey

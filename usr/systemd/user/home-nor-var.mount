@@ -1,0 +1,13 @@
+[Unit]
+Description=home var directory overlay
+After=default.target
+Wants=default.garget
+
+[Mount]
+What=fuse-overlayfs
+Where=/home/nor/var
+Type=fuse.fuse-overlayfs
+Options=lowerdir=/home/nor/opt/den/usr/overlay,upperdir=/var/home/nor,workdir=/var/scratch/overlay/nor/var,x-systemd.automount
+
+[Install]
+WantedBy=default.target

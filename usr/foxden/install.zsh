@@ -43,6 +43,9 @@ den::install::source 'zshenv'
 # source rc
 den::install::source 'zshrc'
 
+# load paths variables
+den::source 'etc/zsh/zshenv'
+
 echo "running install scripts from '$FOX_DEN_SETUP/plans'."
 
 for i in "$FOX_DEN_SETUP/plans/"*.zsh; do
