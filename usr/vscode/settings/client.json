@@ -203,6 +203,7 @@
     "json",
     "jsonc",
     "python",
+    "shellscript",
     "javascript",
     "typescript"
   ],

@@ -19,6 +19,7 @@ getPlayer() {
     *)
       echo ${@:-$_player}
       ;;
+
   esac
 
   unset _player
