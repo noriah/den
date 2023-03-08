@@ -96,12 +96,12 @@ bindsym $super+z focus child
 #bindsym $super+d focus child
 
 # switch to workspace
-bindsym $super+1 workspace number $ws1
-bindsym $super+2 workspace number $ws2
+bindsym $super+2 workspace number $ws1
+bindsym $super+1 workspace number $ws2
 bindsym $super+3 workspace number $ws3
-bindsym $super+4 workspace number $ws4
-bindsym $super+5 workspace number $ws5
-bindsym $super+6 workspace number $ws6
+bindsym $super+$ctrl+2 workspace number $ws4
+bindsym $super+$ctrl+1 workspace number $ws5
+bindsym $super+$ctrl+3 workspace number $ws6
 bindsym $super+7 workspace number $ws7
 bindsym $super+8 workspace number $ws8
 bindsym $super+9 workspace number $ws9
@@ -111,12 +111,12 @@ bindsym $super+$ctrl+Left workspace prev_on_output
 bindsym $super+$ctrl+Right workspace next_on_output
 
 # move focused container to workspace
-bindsym $super+$shift+1 move container to workspace number $ws1
-bindsym $super+$shift+2 move container to workspace number $ws2
+bindsym $super+$shift+2 move container to workspace number $ws1
+bindsym $super+$shift+1 move container to workspace number $ws2
 bindsym $super+$shift+3 move container to workspace number $ws3
-bindsym $super+$shift+4 move container to workspace number $ws4
-bindsym $super+$shift+5 move container to workspace number $ws5
-bindsym $super+$shift+6 move container to workspace number $ws6
+bindsym $super+$ctrl+$shift+2 move container to workspace number $ws4
+bindsym $super+$ctrl+$shift+1 move container to workspace number $ws5
+bindsym $super+$ctrl+$shift+3 move container to workspace number $ws6
 bindsym $super+$shift+7 move container to workspace number $ws7
 bindsym $super+$shift+8 move container to workspace number $ws8
 bindsym $super+$shift+9 move container to workspace number $ws9
@@ -126,9 +126,9 @@ bindsym $super+$shift+0 move container to workspace number $ws10
 # bindsym $super+$shift+Right move container to workspace next_on_output
 
 # move workspace to output
-bindsym $super+$ctrl+$shift+1 move workspace to output $disp2
-bindsym $super+$ctrl+$shift+2 move workspace to output $disp1
-bindsym $super+$ctrl+$shift+3 move workspace to output $disp3
+bindsym $super+$alt+$shift+1 move workspace to output $disp2
+bindsym $super+$alt+$shift+2 move workspace to output $disp1
+bindsym $super+$alt+$shift+3 move workspace to output $disp3
 
 # reload the configuration file
 bindsym $super+$shift+c reload
