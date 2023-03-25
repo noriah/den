@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-awk '{ print $1 "/" $2 "/" $3 }' < /proc/loadavg
+awk '{ printf("%s/%s/%s / %s / %s", $1, $2, $3, $4, $5) }' < /proc/loadavg

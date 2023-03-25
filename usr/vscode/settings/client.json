@@ -12,7 +12,6 @@
   "editor.fontWeight": "500",
   "editor.fontLigatures": true,
   "editor.formatOnPaste": false,
-  "editor.formatOnSave": true,
   "editor.mouseWheelScrollSensitivity": 0,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.showFoldingControls": "mouseover",
@@ -37,6 +36,7 @@
     }
   ],
   "editor.unicodeHighlight.nonBasicASCII": false,
+  "explorer.confirmDelete": false,
   "files.associations": {
     "**/i3/**": "i3",
     "**/udev/**.rules": "udev"
@@ -54,6 +54,9 @@
   "notebook.lineNumbers": "on",
   "editor.lineNumbers": "on",
   "telemetry.telemetryLevel": "off",
+  "terminal.integrated.commandsToSkipShell": [
+    "language-julia.interrupt"
+  ],
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "window.closeWhenEmpty": false,
   "window.openFilesInNewWindow": "off",
@@ -169,6 +172,9 @@
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.groupList": true,
   "projectManager.showParentFolderInfoOnDuplicates": true,
+  "python.formatting.autopep8Args": [
+    "--indent-size=2"
+  ],
   "rust-analyzer.server.extraEnv": {
     "CARGO_HOME": "/home/nor/opt/cargo",
     "RUSTUP_HOME": "/home/nor/opt/rustup"
@@ -206,12 +212,5 @@
     "shellscript",
     "javascript",
     "typescript"
-  ],
-  "terminal.integrated.commandsToSkipShell": [
-    "language-julia.interrupt"
-  ],
-  "explorer.confirmDelete": false,
-  "python.formatting.autopep8Args": [
-    "--indent-size=2"
   ]
 }

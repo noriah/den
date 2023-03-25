@@ -1,0 +1,13 @@
+[Unit]
+Description=Polybar main top bar
+After=graphical-session.target
+BindsTo=graphical-session.target
+
+[Service]
+Type=simple
+StandardError=journal
+ExecStart=polybar -r main-top
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

@@ -31,7 +31,8 @@
     "struct": "#f07a7aff",
     "typeParameter": "#e799ffff",
     "class": "#e799ffff",
-    "class.defaultLibrary": "#dc6bffff"
+    "class.defaultLibrary": "#dc6bffff",
+    "enum": "#96f9e1ff"
   },
   "tokenColors": [
     {
@@ -322,6 +323,15 @@
       ],
       "settings": {
         "foreground": "#ffcb6bff"
+      }
+    },
+    {
+      "name": "Enum",
+      "scope": [
+        "entity.name.type.enum"
+      ],
+      "settings": {
+        "foreground": "#96f9e1ff"
       }
     },
     {

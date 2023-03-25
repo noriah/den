@@ -6,14 +6,16 @@ printLine() {
   printf '%%{T4}%%{F#%s}%s%%{F-}%%{T7}' "$1" "$2"
 }
 
-case "$(getPlayer $PLAYER)" in
+getPlayer $PLAYER
+
+case "$PLAYER" in
   spotify)
-    printLine 1db954 "阮 "
+    printLine 1db954 "阮 " # spotify
     ;;
   vlc)
-    printLine ff9800 "嗢 "
+    printLine ff9800 "嗢 " # vlc
     ;;
   *)
-    printLine 3399ff " "
+    printLine 3399ff " " # music note
     ;;
 esac

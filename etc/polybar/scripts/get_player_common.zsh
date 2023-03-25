@@ -1,19 +1,15 @@
 #!/usr/bin/env zsh
 
-getPlayerRaw() {
-  echo "$(playerctl metadata --format="{{ playerName }}" 2>&1)"
-}
-
 getPlayer() {
-  local _player="$(getPlayerRaw)"
+  local _player="$(playerctl metadata --format="{{ playerName }}" 2>&1)"
 
   case "$_player" in
     spotify)
-      echo spotify
+      PLAYER=spotify
       ;;
 
     vlc)
-      echo vlc
+      PLAYER=vlc
       ;;
 
     *)
@@ -23,4 +19,6 @@ getPlayer() {
   esac
 
   unset _player
+
+  export PLAYER
 }

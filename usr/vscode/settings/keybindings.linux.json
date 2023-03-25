@@ -162,7 +162,7 @@
     "args": {
       "to": "down",
       "by": "line",
-      "value": 10
+      "value": 5
     },
     "when": "editorTextFocus"
   },
@@ -185,7 +185,7 @@
     "args": {
       "to": "up",
       "by": "line",
-      "value": 10
+      "value": 5
     },
     "when": "editorTextFocus"
   },

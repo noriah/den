@@ -1,0 +1,72 @@
+diff --git a/zscroll b/zscroll
+index a9bddb4..fab26a1 100755
+--- a/zscroll
++++ b/zscroll
+@@ -149,6 +149,28 @@ parser.add_argument(
+          """,
+ )
+ 
++parser.add_argument(
++    '-xb',
++    '--update-before-text',
++    type=str_to_bool,
++    default=False,
++    help="""
++         specifies that the beforing padding text value is a commands that should be run
++         each update of the scroll output.
++         """,
++)
++
++parser.add_argument(
++    '-xa',
++    '--update-after-text',
++    type=str_to_bool,
++    default=False,
++    help="""
++         specifies that the after padding text value is a commands that should be run
++         each update of the scroll output.
++         """,
++)
++
+ parser.add_argument(
+     '-U',
+     '--update-interval',
+@@ -347,7 +369,7 @@ def build_display_text(text, needs_scrolling, pad_with_space):
+         if pad_with_space:
+             text = ' ' + text
+         text = make_visual_len(args.length, text)
+-    return args.before_text + text + args.after_text
++    return text
+ 
+ 
+ def print_text(text):
+@@ -358,6 +380,15 @@ def print_text(text):
+     """
+     # flush is necessary for lemonbar/panels (but not in terminal)
+     global last_text_len
++    before_text = args.before_text
++    after_text = args.after_text
++    if args.update_before_text:
++      if before_text:
++        before_text = shell_output(before_text, args.eval_in_shell)
++    if args.update_after_text:
++      if after_text:
++        after_text = shell_output(after_text, args.eval_in_shell)
++    text = before_text + text + after_text
+     text_len = visual_len(text)
+     if args.newline:
+         print(text, flush=True)
+@@ -425,7 +456,12 @@ def zscroll(lines=0):
+             needs_scrolling,
+             (last_hidden_was_wide or next_hidden_is_wide),
+         )
+-        if args.scroll and needs_scrolling or should_restart_printing:
++        if (
++          args.scroll and needs_scrolling
++          or should_restart_printing
++          or args.update_before_text
++          or args.update_after_text
++        ):
+             print_text(display_text)
+             should_restart_printing = False
+         if args.scroll and needs_scrolling:

@@ -13,7 +13,7 @@
     "args": {
       "to": "up",
       "by": "line",
-      "value": 10
+      "value": 5
     }
   },
   {
@@ -22,7 +22,7 @@
     "args": {
       "to": "down",
       "by": "line",
-      "value": 10
+      "value": 5
     }
   },
 

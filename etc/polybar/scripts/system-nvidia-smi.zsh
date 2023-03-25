@@ -15,16 +15,16 @@ getIcon() {
 
   if ((pct<=25)); then
     color="#83cd64"
-    icon="󰡳"
+    icon="󰡳" # low gauge
   elif ((25<pct && pct<=50)); then
     color="#d9da6b"
-    icon="󰡵"
+    icon="󰡵" # lower mid gauge
   elif ((50<pct && pct<=75)); then
     color="#e4a471"
-    icon="󰊚"
+    icon="󰊚" # upper mid gauge
   else
     color="#ec7875"
-    icon="󰡴"
+    icon="󰡴" # high gauge
   fi
 
   printf '%%{F%s}%%{T3}%s%%{T-}%%{F-}' "$color" "$icon"

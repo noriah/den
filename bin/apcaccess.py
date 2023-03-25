@@ -125,7 +125,7 @@ class Runner:
 
     else:
       data = a.getData()
-      printData(self.args.values, self.writer)
+      printData(self.args.values, data, self.writer)
       self.writer.flush()
 
     a.close()

@@ -2,7 +2,7 @@
 
 . `dirname $0`/get_player_common.zsh
 
-PLAYER="$(getPlayer $PLAYER)"
+getPlayer $PLAYER
 
 FORMAT="{{ position }} {{ mpris:length }}"
 

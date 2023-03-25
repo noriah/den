@@ -1,7 +1,7 @@
 #!/bin/sh
 
 /home/nor/workspace/local/zscroll/zscroll --length 30 \
-  --delay 0.3 \
+  --delay 0.1 \
   --scroll-padding " <!> " \
   --match-command "`dirname $0`/get_player_status.zsh --status" \
   --match-text "Playing" "--scroll 1" \
