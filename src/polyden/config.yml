@@ -1,0 +1,4 @@
+weather:
+  aqi:
+    apiKey: key
+    city: A123456
