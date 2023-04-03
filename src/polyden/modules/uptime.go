@@ -32,7 +32,7 @@ func drawSystemUptime(_ polyden.Config) error {
 		}
 	}
 
-	t := time.Unix(p2[0], p2[1]*10000000)
+	t := time.Unix(p2[0], p2[1]*10000000).UTC()
 
 	diff := t.Sub(time.Unix(0, 0))
 

@@ -4,7 +4,7 @@ fonts:
 weather:
   aqi:
     apiKey: key
-    city: A123456
+    city: A123356
   forecast:
     apiKey: key
     city: '123456'

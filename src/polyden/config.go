@@ -11,11 +11,14 @@ import (
 type Config interface {
 	Load(filePath string) error
 	GetString(key string) string
+	GetStringDefault(key, def string) string
+	GetInt(key string) int
+	GetIntDefault(key string, def int) int
 }
 
 type config struct {
 	filePath string
-	data     map[string]interface{}
+	data     map[string]any
 }
 
 func NewConfig() *config {
@@ -33,22 +36,40 @@ func (c *config) Load(filePath string) error {
 }
 
 func (c *config) GetString(key string) string {
-	return c.getForKey(key).(string)
+	return c.getForKey(key, true).(string)
+}
+
+func (c *config) GetStringDefault(key, def string) string {
+	if val := c.getForKey(key, false); val != nil {
+		return val.(string)
+	}
+	return def
 }
 
 func (c *config) GetInt(key string) int {
-	return c.getForKey(key).(int)
+	return c.getForKey(key, true).(int)
 }
 
-func (c *config) getForKey(key string) interface{} {
+func (c *config) GetIntDefault(key string, def int) int {
+	if val := c.getForKey(key, false); val != nil {
+		return val.(int)
+	}
+	return def
+}
+
+func (c *config) getForKey(key string, fail bool) any {
 	parts := strings.Split(key, ".")
 
-	data := interface{}(c.data)
+	data := any(c.data)
 	ok := true
 
 	for _, k := range parts {
-		if data, ok = data.(map[string]interface{})[k]; !ok {
-			log.Fatalf("config: key not found '%s' (%s)", key, k)
+		if data, ok = data.(map[string]any)[k]; !ok {
+			if fail {
+				log.Fatalf("config: key not found '%s' (%s)", key, k)
+			}
+
+			return nil
 		}
 	}
 
