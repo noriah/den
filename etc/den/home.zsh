@@ -19,6 +19,8 @@ den::conf base.zsh
 # load the host-specific configuration
 den::conf host/${DEN_HOST}.zsh
 
+den::path::add "$HOME/rbin"
+
 # we have languages but handle them separate.
 # just add entries so other plugins know.
 # sharing is caring.
