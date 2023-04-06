@@ -1,0 +1,85 @@
+diff --git a/pipewire-control.bash b/pipewire-control.bash
+index 81b9f97..cfec01a 100755
+--- a/pipewire-control.bash
++++ b/pipewire-control.bash
+@@ -21,13 +21,22 @@ declare -A SINK_NICKNAMES
+ declare -a ICONS_VOLUME
+ declare -a SINK_BLACKLIST
+
++if ! pactl list sinks &> /dev/null; then
++  echo "no sinks"
++  exit 1
++fi
++
+ # Environment & global constants for the script
+ END_COLOR="%{F-}"  # For Polybar colors
+ LANGUAGE=en_US  # Some calls depend on English outputs of pactl
+
+ function getCurrSinkName() {
+-  if ! pactl info &> /dev/null; then return 1; fi
+-    curSinkName=$(pactl info | awk -F : '/Default Sink:/{print $2}')
++  if [ ! -z "$SINK_NAME" ]; then
++    curSinkName="$SINK_NAME"
++  else
++    if ! pactl info &> /dev/null; then return 1; fi
++      curSinkName=$(pactl info | awk -F : '/Default Sink:/{print $2}')
++  fi
+ }
+
+ # Saves the currently default sink into a variable named `curSink`. It will
+@@ -49,8 +58,14 @@ function getCurVol() {
+ # If a mapping for the sink name exists, that is used. Otherwise, the string
+ # "Sink #<index>" is used.
+ function getNickname() {
++    _sinkName=$(pactl list sinks | grep -A 10 "Sink #$1" | grep 'Name:' | awk -F ': ' '{ print $2; exit }')
+     unset SINK_NICKNAME
+-    SINK_NICKNAME=$(pactl list sinks | grep -A 10 'Sink #'"$1"'' | grep 'Description:' | awk -F : '{print $2; exit}')
++    if [ "${SINK_NICKNAMES[$_sinkName]+abc}" ]; then
++      SINK_NICKNAME="${SINK_NICKNAMES[$_sinkName]}"
++    else
++      SINK_NICKNAME=$(pactl list sinks | grep -A 10 "Sink #$1" | grep 'Description:' | awk -F : '{print $2; exit}')
++    fi
++    unset _sinkName
+ }
+
+ # Saves the status of the sink passed by parameter into a variable named
+@@ -202,7 +217,7 @@ function nextSink() {
+     if [ $NOTIFICATIONS = "yes" ]; then
+         getNickname "$newSink"
+
+-        if command -v dunstify &>/dev/null; then
++        if command -v dunstify &> /dev/null; then
+             notify="dunstify --replace 201839192"
+         else
+             notify="notify-send"
+@@ -232,7 +247,7 @@ function listen() {
+
+     # Listen for changes and immediately create new output for the bar.
+     # This is faster than having the script on an interval.
+-    LANG=$LANGUAGE pactl subscribe 2>/dev/null | {
++    LANG=$LANGUAGE pactl subscribe 2> /dev/null | {
+         while true; do
+             {
+                 # If this is the first time just continue and print the current
+@@ -247,7 +262,7 @@ function listen() {
+                         continue
+                     fi
+                 fi
+-            } &>/dev/null
++            } &> /dev/null
+             output
+         done
+     }
+@@ -411,8 +426,11 @@ while [[ "$1" = --* ]]; do
+         --sink-nickname)
+             SINK_NICKNAMES["${val//:*/}"]="${val//*:}"
+             ;;
++        --sink-name)
++            SINK_NAME="$val"
++            ;;
+         --format)
+-           FORMAT="$val"
++            FORMAT="$val"
+             ;;
+         *)
+             echo "Unrecognised option: $arg" >&2
