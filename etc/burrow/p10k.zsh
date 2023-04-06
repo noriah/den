@@ -56,7 +56,7 @@ rightPlugin() {
     local LC_ALL=${${(@M)$(locale -a):#*.(utf|UTF)(-|)8}[1]:-en_US.UTF-8}
   fi
 
-  typeset -g ZLE_RPROMPT_INDENT=0
+  # typeset -g ZLE_RPROMPT_INDENT=0
 
   typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
 
@@ -110,41 +110,44 @@ rightPlugin() {
   typeset -ga POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS
 
   # ---- Left Elements ----
-  # ---- Line 1
+  # ---- Line 1 ----
   left status command_execution_time
+
   left newline
 
-  # ---- Line 2
+  # ---- Line 2 ----
   left newline
 
-  # ---- Line 3
+  # ---- Line 3 ----
   left time
   left os_icon
   left dir dir_writable
   left vcs
+
   left newline
 
-  # ---- Line 4
+  # ---- Line 4 ----
   left context
   left prompt_char
 
 
   # ---- Right Elements ----
-  # ---- Line 1
+  # ---- Line 1 ----
   right newline
 
-  # ---- Line 2
+  # ---- Line 2 ----
   right newline
 
-  # ---- Line 3
+  # ---- Line 3 ----
   right background_jobs
-
   # right load
+
   right newline
+
+  # ---- Line 4 ----
 
   rightPlugin battery
 
-  # ---- Line 4
   rightPlugin direnv
   rightPlugin terraform
 
@@ -240,22 +243,22 @@ rightPlugin() {
   typeset -g POWERLEVEL9K_DIR_DEN_VISUAL_IDENTIFIER_COLOR=196
 
   if burrow check 'workspace'; then
-    local pro_dir="$WORKSPACE_DIR/$WORKSPACE_PRO_KEY"
+    local public_dir="$WORKSPACE_DIR/$WORKSPACE_PUBLIC_KEY"
     local local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
     local notes_dir="$WORKSPACE_DIR/$WORKSPACE_NOTES_KEY"
-    local vault_dir="$WORKSPACE_DIR/vault"
+    local vault_dir="$WORKSPACE_DIR/$WORKSPACE_VAULT_KEY"
 
     POWERLEVEL9K_DIR_CLASSES+=(
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
-      "$pro_dir|$pro_dir/*" WORKSPACE_PRO '%B\uE780'
+      "$public_dir|$public_dir/*" WORKSPACE_PUBLIC '%B\uE780'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
       "$notes_dir|$notes_dir/*" WORKSPACE_NOTES '%B\uFD2C'
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
     )
 
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VISUAL_IDENTIFIER_COLOR=202
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_VISUAL_IDENTIFIER_COLOR=210
-    # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PRO_FOREGROUND=209
+    typeset -g POWERLEVEL9K_DIR_WORKSPACE_PUBLIC_VISUAL_IDENTIFIER_COLOR=210
+    # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PUBLIC_FOREGROUND=209
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_NOTES_VISUAL_IDENTIFIER_COLOR=120
