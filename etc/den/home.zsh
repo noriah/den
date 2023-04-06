@@ -35,6 +35,8 @@ burrow plugin neofetch
 # workspace directories
 burrow plugin workspace
 
+burrow plugin tmpdirs
+
 # multiple history
 burrow plugin histspace
 

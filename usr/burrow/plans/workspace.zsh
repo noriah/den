@@ -13,6 +13,7 @@ local _wkspTmpDir="/tmp/noriah-workspace-tmp"
 
 if [ ! -d "$_wkspTmpDir" ]; then
   mkdir -p "$_wkspTmpDir"
+  chmod 700 "$_wkspTmpDir"
 fi
 
 if [ ! -e "$WORKSPACE_DIR/tmp" ]; then
