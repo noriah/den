@@ -14,7 +14,7 @@ print_metadata() {
         --format "$FORMAT"
       ;;
     *)
-      echo "-\_/-\_/-\_/-\_/-\_/-"
+      echo "-\_/-\_/-$PLAYER-\_/-\_/-"
       ;;
   esac
 }

@@ -1,6 +1,8 @@
 # ersa is an AMD Desktop running Linux
 den::conf linux.zsh
 
+burrow plugin vim_mode
+
 # GCP SDK
 # GCP_SDK=""
 # burrow plugin gcloud

@@ -7,12 +7,20 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+pluginCheck() {
+  if [[ "${1:0:1}" == "!" ]]; then
+    burrow::check ${1:1} && return 1 || return 0
+  else
+    burrow::check $1 && return 0 || return 1
+  fi
+}
+
 left() {
   POWERLEVEL9K_LEFT_PROMPT_ELEMENTS+=("$@")
 }
 
 leftPlugin() {
-  if burrow check "$1"; then
+  if pluginCheck "$1"; then
     (( ${+2} )) && shift
     left "$@"
   fi
@@ -23,7 +31,7 @@ right() {
 }
 
 rightPlugin() {
-  if burrow check "$1"; then
+  if pluginCheck "$1"; then
     (( ${+2} )) && shift
     right "$@"
   fi
@@ -31,6 +39,10 @@ rightPlugin() {
 
 () {
   emulate -L zsh
+
+  unset -m 'POWERLEVEL9K_(LEFT|RIGHT)_PROMPT_ELEMENTS'
+
+  unset -fm p10k-on-pre-prompt p10k-on-post-prompt
 
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
@@ -48,10 +60,39 @@ rightPlugin() {
 
   typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
 
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE_COUNT=2
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE_COUNT=0
 
-  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=same-dir
+  p10k-on-pre-prompt() {
+    p10k display \
+      '(3|4)/(left|right)/*'=show \
+      '3/left/time'=hide
+  }
+
+  p10k-on-post-prompt() {
+    p10k display \
+      '(3|4)/(left|right)/*'=hide \
+      '3/left/time'=show \
+      '4/left/(status|prompt_char)'=show
+
+    if [[ "$PWD" != "$OLD_PWD" ]] {
+      p10k display '3/left/dir'=show
+    }
+
+    OLD_PWD=$PWD
+  }
+
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
+
+  # print-exit-code() {
+  #   local -i code=$?
+  #   if (( code )); then
+  #     print -- ${(%):-"❌ %F{196}exit code $code%f"}
+  #   fi
+  # }
+
+  # autoload -Uz add-zsh-hook
+  # add-zsh-hook precmd print-exit-code
 
   typeset -g POWERLEVEL9K_INSTANT_PROMPT_COMMAND_LINES=0
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
@@ -70,27 +111,40 @@ rightPlugin() {
 
   # ---- Left Elements ----
   # ---- Line 1
+  left status command_execution_time
+  left newline
+
+  # ---- Line 2
+  left newline
+
+  # ---- Line 3
+  left time
   left os_icon
   left dir dir_writable
   left vcs
-  left blank newline
-  # ---- Line 2
-  left status
+  left newline
+
+  # ---- Line 4
+  left context
+  left prompt_char
 
 
   # ---- Right Elements ----
   # ---- Line 1
-  right command_execution_time
+  right newline
+
+  # ---- Line 2
+  right newline
+
+  # ---- Line 3
   right background_jobs
 
-  right context
   # right load
-  # right time
   right newline
 
   rightPlugin battery
 
-  # ---- Line 2
+  # ---- Line 4
   rightPlugin direnv
   rightPlugin terraform
 
@@ -130,7 +184,7 @@ rightPlugin() {
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B3'
   typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
-  #typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
+  typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
   #typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL
 
   # ---- os_icon ----

@@ -168,6 +168,18 @@
   },
   // addedkey
   {
+    "key": "ctrl+shift+down",
+    "command": "cursorMove",
+    "args": {
+      "to": "down",
+      "by": "line",
+      "value": 5,
+      "select": true
+    },
+    "when": "editorTextFocus"
+  },
+  // addedkey
+  {
     "key": "ctrl+pagedown",
     "command": "scrollLineDown",
     "when": "textInputFocus"
@@ -186,6 +198,18 @@
       "to": "up",
       "by": "line",
       "value": 5
+    },
+    "when": "editorTextFocus"
+  },
+  // addedkey
+  {
+    "key": "ctrl+shift+up",
+    "command": "cursorMove",
+    "args": {
+      "to": "up",
+      "by": "line",
+      "value": 5,
+      "select": true
     },
     "when": "editorTextFocus"
   },

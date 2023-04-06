@@ -10,6 +10,9 @@
     "number": "#f78c6cff",
     "variable": "#eeffffff",
     "variable.declaration": "#ff9615ff",
+    "property": "#eeffffff",
+    "property.static": "#ff9277ff",
+    "property.declaration": "#ff9615ff",
     "selfKeyword": "#ff8581ff",
     "keyword": {
       "foreground": "#ff5b56ff",
@@ -32,7 +35,7 @@
     "typeParameter": "#e799ffff",
     "class": "#e799ffff",
     "class.defaultLibrary": "#dc6bffff",
-    "enum": "#96f9e1ff"
+    "enum": "#74ffdcff"
   },
   "tokenColors": [
     {
@@ -80,7 +83,7 @@
     {
       "name": "Single Quoted Strings",
       "scope": [
-        "string"
+        "string.quoted.single"
       ],
       "settings": {
         "foreground": "#c3e88dff"
