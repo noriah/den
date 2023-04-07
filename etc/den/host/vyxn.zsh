@@ -13,4 +13,4 @@ SSH_HOST_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.s
 burrow plugin ssh
 
 # Set our prompt icon color
-export POWERLEVEL9K_OS_ICON_FOREGROUND=201
+den::host::set::color 201
