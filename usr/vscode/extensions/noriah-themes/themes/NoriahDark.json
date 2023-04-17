@@ -83,7 +83,8 @@
     {
       "name": "Single Quoted Strings",
       "scope": [
-        "string.quoted.single"
+        "string.quoted.single",
+        "string.quoted.rune"
       ],
       "settings": {
         "foreground": "#c3e88dff"
