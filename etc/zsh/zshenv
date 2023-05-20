@@ -40,9 +40,12 @@ export GEM_PATH="$HOME_OPT/gem/ruby/2.6.0"
 export DART_PUB_PATH="$HOME_OPT/pub-cache"
 export PUB_CACHE="$DART_PUB_PATH"
 
+export HOME_LOCAL="$HOME/.local"
+
 # We need some paths. Let us have paths
 # reverse order so the bottom ends up at the front of $PATH
 paths=(
+  HOME_LOCAL
   DART_PUB_PATH
   GEM_PATH
   NPM_PATH

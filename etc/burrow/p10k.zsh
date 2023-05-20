@@ -259,6 +259,12 @@ rightPlugin() {
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
     )
 
+    if [ ! -z "$WORKSPACE_DIR_CLASSES_EXTRA" ]; then
+      POWERLEVEL9K_DIR_CLASSES+=(
+        $WORKSPACE_DIR_CLASSES_EXTRA
+      )
+    fi
+
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VISUAL_IDENTIFIER_COLOR=202
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_PUBLIC_VISUAL_IDENTIFIER_COLOR=210
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PUBLIC_FOREGROUND=209
@@ -346,7 +352,7 @@ rightPlugin() {
 
   # ---- [time] ----
   typeset -g POWERLEVEL9K_TIME_FOREGROUND=159
-  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
+  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%Y/%m/%d %H:%M:%S}'
   typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
 
 

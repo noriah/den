@@ -60,7 +60,7 @@
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "window.closeWhenEmpty": false,
   "window.openFilesInNewWindow": "off",
-  "window.title": "${activeEditorFull}${separator}${rootName}",
+  "window.title": "${activeEditorShort}${separator}${rootName}",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
   "window.zoomLevel": 0,

@@ -15,5 +15,6 @@ burrow plugin ssh
 
 burrow plugin tmux
 
+burrow plugin portal
 
 # export POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=164
