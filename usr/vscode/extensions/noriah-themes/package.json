@@ -1,19 +1,19 @@
 {
-    "name": "noriah-themes",
-    "displayName": "noriah-themes",
-    "description": "noriah's themes",
-    "version": "1.0.0",
-    "publisher": "noriah",
-    "engines": {
-        "vscode": "*"
-    },
-    "contributes": {
-        "themes": [
-            {
-                "label": "Noriah Dark",
-                "uiTheme": "vs-dark",
-                "path": "./themes/NoriahDark.json"
-            }
-        ]
-    }
+  "name": "theme-vixn",
+  "displayName": "VixN Theme",
+  "description": "VixN VSCode Theme",
+  "version": "1.0.0",
+  "publisher": "noriah",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "vixn dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/vixn-dark.json"
+      }
+    ]
+  }
 }
