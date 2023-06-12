@@ -95,8 +95,21 @@
   },
   "[python]": {
     "editor.lineHeight": 0,
-    "editor.formatOnSave": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.formatOnType": true,
+    "editor.wordBasedSuggestions": false,
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
   },
+  "jupyter.notebookFileRoot": "${workspaceRoot}",
+  "python.linting.pylintArgs": [
+    "--indent-string=\"  \""
+  ],
+  // "python.formatting.provider": "yapf",
+  "python.formatting.autopep8Args": [
+    "--indent-size=2",
+    "--ignore E121"
+  ],
   "[rust]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
@@ -172,9 +185,6 @@
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.groupList": true,
   "projectManager.showParentFolderInfoOnDuplicates": true,
-  "python.formatting.autopep8Args": [
-    "--indent-size=2"
-  ],
   "rust-analyzer.server.extraEnv": {
     "CARGO_HOME": "/home/nor/opt/cargo",
     "RUSTUP_HOME": "/home/nor/opt/rustup"
@@ -212,5 +222,9 @@
     "shellscript",
     "javascript",
     "typescript"
-  ]
+  ],
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.callArgumentNames": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.experiments.enabled": false
 }

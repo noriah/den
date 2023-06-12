@@ -863,6 +863,7 @@
     "editorIndentGuide.activeBackground": "#ff69446e",
     "editorIndentGuide.background": "#42424270",
     "editorInfo.foreground": "#82aaff70",
+    "editorInlayHint.foreground": "#837a7fff",
     "editorLineNumber.activeForeground": "#848484ff",
     "editorLineNumber.foreground": "#424242ff",
     "editorLink.activeForeground": "#eeffffff",

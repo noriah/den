@@ -10,12 +10,12 @@ getPlayer $PLAYER
 
 case "$PLAYER" in
   spotify)
-    printLine 1db954 "阮 " # spotify
+    printLine 1db954 "󰓇 " # spotify
     ;;
   vlc)
-    printLine ff9800 "嗢 " # vlc
+    printLine ff9800 "󰕼 " # vlc
     ;;
   *)
-    printLine 3399ff " " # music note
+    printLine 3399ff "󰎈 " # music note
     ;;
 esac

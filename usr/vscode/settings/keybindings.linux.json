@@ -2225,10 +2225,10 @@
     "command": "-workbench.action.quickOpen"
   },
   // removedkey
-  {
-    "key": "ctrl+p",
-    "command": "-workbench.action.quickOpen"
-  },
+  // {
+  //   "key": "ctrl+p",
+  //   "command": "-workbench.action.quickOpen"
+  // },
   // addedkey
   {
     "key": "meta+p",

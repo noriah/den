@@ -5,7 +5,8 @@ for_window [class="Blueman-manager"] floating enable
 for_window [class="albert"] move position center
 
 # random apps
-for_window [class="Alacritty" title="catnip"] border none
+for_window [class="Visualizer" title="Visualizer"] floating enable
+for_window [class="Visualizer" title="Visualizer"] border none
 
 # Spotify only on left monitor
 # for_window [title="Spotify"] move to output $disp2

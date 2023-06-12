@@ -1,0 +1,49 @@
+
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+
+window:
+  title: Visualizer
+  dynamic_title: false
+  class:
+    instance: Visualizer
+    general: Visualizer
+
+  resize_increments: true
+  dynamic_padding: true
+  decorations: none
+  opacity: 0.5647
+
+#  dimensions:
+#    columns: 1920
+#    lines: 320
+
+#  position:
+#    x: 3120
+#    y: 870
+
+scrolling:
+  history: 0
+
+font:
+  normal:
+    family: "Fira Code"
+
+  size: 0.5
+  builtin_box_drawing: true
+
+colors:
+  primary:
+    # background: '#fd7e9f'
+    # background: "#272936"
+    background: "#212b30"
+    foreground: "#f7f7f7"
+
+  normal:
+    white: "#f7f7f7"
+
+  # Transparent cell backgrounds
+  #
+  # Whether or not `window.opacity` applies to all cell backgrounds or only to
+  # the default background. When set to `true` all cells will be transparent
+  # regardless of their background color.
+  transparent_background_colors: true
