@@ -64,7 +64,7 @@
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
   "window.zoomLevel": 0,
-  "workbench.colorTheme": "Noriah Dark",
+  "workbench.colorTheme": "vixn dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "newUntitledFile",
