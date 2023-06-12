@@ -10,6 +10,8 @@
     "number": "#f78c6cff",
     "variable": "#eeffffff",
     "variable.declaration": "#ff9615ff",
+    "parameter": "#eeffffff",
+    "parameter.declaration": "#ff9615ff",
     "property": "#eeffffff",
     "property.static": "#ff9277ff",
     "property.declaration": "#ff9615ff",
@@ -29,8 +31,8 @@
     "macro": "#6bd5f5ff",
     "macro.declaration": "#30fc6dff",
     "namespace": "#eeffffff",
-    "type": "#ffcb6bff",
-    "type.defaultLibrary": "#ffcb6bff",
+    "type": "#fdc867ff",
+    "type.defaultLibrary": "#e799ffff",
     "struct": "#f07a7aff",
     "typeParameter": "#e799ffff",
     "class": "#e799ffff",
@@ -84,7 +86,8 @@
       "name": "Single Quoted Strings",
       "scope": [
         "string.quoted.single",
-        "string.quoted.rune"
+        "string.quoted.rune",
+        "string.quoted.docstring"
       ],
       "settings": {
         "foreground": "#c3e88dff"
@@ -295,6 +298,15 @@
       }
     },
     {
+      "name": "Package",
+      "scope": [
+        "storage.modifier.package"
+      ],
+      "settings": {
+        "foreground": "#ffb688ff"
+      }
+    },
+    {
       "name": "Imports",
       "scope": [
         "storage.modifier.import",
@@ -317,6 +329,15 @@
       }
     },
     {
+      "name": "Annotations",
+      "scope": [
+        "storage.type.annotation"
+      ],
+      "settings": {
+        "foreground": "#c3ff9cff"
+      }
+    },
+    {
       "name": "Type",
       "scope": [
         "entity.other",
@@ -326,7 +347,7 @@
         "meta.method.return-type"
       ],
       "settings": {
-        "foreground": "#ffcb6bff"
+        "foreground": "#fdc867ff"
       }
     },
     {
@@ -335,7 +356,7 @@
         "entity.name.type.enum"
       ],
       "settings": {
-        "foreground": "#96f9e1ff"
+        "foreground": "#74ffdcff"
       }
     },
     {
@@ -348,7 +369,7 @@
         "meta.class.identifier storage.type"
       ],
       "settings": {
-        "foreground": "#ffcb6bff"
+        "foreground": "#e799ffff"
       }
     },
     {
@@ -368,7 +389,7 @@
         "meta.method.identifier entity.name.function"
       ],
       "settings": {
-        "foreground": "#f07178ff"
+        "foreground": "#9ce750ff"
       }
     },
     {
@@ -481,7 +502,7 @@
         "entity.other.attribute-name.class"
       ],
       "settings": {
-        "foreground": "#ffcb6bff"
+        "foreground": "#fdc867ff"
       }
     },
     {
@@ -499,7 +520,7 @@
         "source.css entity.name.tag"
       ],
       "settings": {
-        "foreground": "#ffcb6bff"
+        "foreground": "#fdc867ff"
       }
     },
     {
