@@ -240,7 +240,7 @@ rightPlugin() {
   typeset -g POWERLEVEL9K_DIR_CLASSES=(
     '/etc|/etc/*' ETC '\uF013'
     '~' HOME '\uF015'
-    "$DEN|$DEN/*" DEN '%B\uF737'
+    "$DEN|$DEN/*" DEN '%B\U000F0238'
   )
 
   typeset -g POWERLEVEL9K_DIR_DEN_VISUAL_IDENTIFIER_COLOR=196
