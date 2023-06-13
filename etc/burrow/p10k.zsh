@@ -84,16 +84,6 @@ rightPlugin() {
 
   typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
 
-  # print-exit-code() {
-  #   local -i code=$?
-  #   if (( code )); then
-  #     print -- ${(%):-"❌ %F{196}exit code $code%f"}
-  #   fi
-  # }
-
-  # autoload -Uz add-zsh-hook
-  # add-zsh-hook precmd print-exit-code
-
   typeset -g POWERLEVEL9K_INSTANT_PROMPT_COMMAND_LINES=0
   typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
 
@@ -254,9 +244,9 @@ rightPlugin() {
     POWERLEVEL9K_DIR_CLASSES+=(
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$public_dir|$public_dir/*" WORKSPACE_PUBLIC '%B\uE780'
-      "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\uF7C9'
-      "$notes_dir|$notes_dir/*" WORKSPACE_NOTES '%B\uFD2C'
-      "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\uFC71'
+      "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\U000f02ca'
+      "$notes_dir|$notes_dir/*" WORKSPACE_NOTES '%B\U000f082e'
+      "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\U000f0773'
     )
 
     if [ ! -z "$WORKSPACE_DIR_CLASSES_EXTRA" ]; then
@@ -378,14 +368,14 @@ rightPlugin() {
     typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=1
     typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=2
     typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=3
-    typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+    typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\U000f008e\U000f007a\U000f007b\U000f007c\U000f007d\U000f007e\U000f007f\U000f0080\U000f0081\U000f0082\U000f0079'
     typeset -g POWERLEVEL9K_BATTERY_VERBOSE=true
   fi
 
 
   # ---- [go_version] ----
   if burrow check 'golang'; then
-    typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\ufcd1'
+    typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\U000f07d3'
     typeset -g POWERLEVEL9K_GO_VERSION_VISUAL_IDENTIFIER_COLOR=87
     typeset -g POWERLEVEL9K_GO_VERSION_FOREGROUND=11
   fi
@@ -393,7 +383,7 @@ rightPlugin() {
 
   # ---- [rust_version] ----
   if burrow check 'rust'; then
-    typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\uf827'
+    typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\U000f0328'
     typeset -g POWERLEVEL9K_RUST_VERSION_VISUAL_IDENTIFIER_COLOR=166
     typeset -g POWERLEVEL9K_RUST_VERSION_FOREGROUND=11
   fi
@@ -402,7 +392,7 @@ rightPlugin() {
   # ---- [node_version] ----
   if burrow check 'node'; then
     typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=true
-    # typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\u'
+    typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_EXPANSION=$'\U000f0399'
     typeset -g POWERLEVEL9K_NODE_VERSION_VISUAL_IDENTIFIER_COLOR=10
     typeset -g POWERLEVEL9K_NODE_VERSION_FOREGROUND=11
   fi

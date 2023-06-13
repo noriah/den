@@ -1,22 +1,35 @@
 [
+  // remote
+  "ms-vscode-remote.vscode-remote-extensionpack",
+  // ide tools
+  "alefragnani.project-manager",
   "BazelBuild.vscode-bazel",
+  "ms-vscode.cmake-tools",
+  "ms-vscode.makefile-tools",
+  "platformio.platformio-ide",
+  "twxs.cmake",
+  // quality of life
+  "AntiAntiSepticeye.vscode-color-picker",
+  "naumovs.color-highlight",
+  // languages / syntax
+  "bmarkovic.haproxy",
+  "codeout.vscode-junos",
+  "dcasella.i3",
+  "golang.go",
+  "hashicorp.terraform",
+  "ms-python.isort",
+  "ms-python.python",
+  "ms-python.vscode-pylance",
   "ms-vscode.cpptools",
   "ms-vscode.cpptools-extension-pack",
-  "ms-vscode-remote.vscode-remote-extensionpack",
-  "ms-vscode.makefile-tools",
-  "ms-vscode.cmake-tools",
-  "twxs.cmake",
-  "golang.go",
-  "dcasella.i3",
-  "PKief.material-icon-theme",
-  "rust-lang.rust-analyzer",
-  "hashicorp.terraform",
-  "platformio.platformio-ide",
   "puppet.puppet-vscode",
-  "zxh404.vscode-proto3",
   "redhat.vscode-yaml",
+  "rust-lang.rust-analyzer",
   "XadillaX.viml",
-  "naumovs.color-highlight",
-  "AntiAntiSepticeye.vscode-color-picker",
-  "codeout.vscode-junos"
+  "yzhang.markdown-all-in-one",
+  "zxh404.vscode-proto3",
+  // themes
+  "noriah.theme-vixn",
+  "PKief.material-icon-theme",
+  "vscode-icons-team.vscode-icons"
 ]
