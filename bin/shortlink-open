@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# trim args
+url="$(echo $@ | xargs)"
+
+# open page
+xdg-open "http://$url"

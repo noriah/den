@@ -113,7 +113,7 @@
   "jupyter.notebookFileRoot": "${workspaceRoot}",
   "python.formatting.provider": "yapf",
   "python.formatting.autopep8Args": [
-    "--indent-size=2",
+    "--indent-size=2"
   ],
   "[rust]": {
     "editor.tabSize": 4,
