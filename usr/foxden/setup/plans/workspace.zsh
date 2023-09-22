@@ -1,0 +1,1 @@
+den::install::ensureDir 'workspace'

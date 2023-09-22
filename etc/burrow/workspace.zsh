@@ -3,3 +3,12 @@
 # WORKSPACE_NOTES_KEY=notes
 # WORKSPACE_LOCAL_KEY=local
 # WORKSPACE_VAULT_KEY=vault
+
+
+scs_dir="$HOME/workspace/split-cube"
+
+typeset -g WORKSPACE_DIR_CLASSES_EXTRA=(
+  "$scs_dir|$scs_dir/*" WORKSPACE_SCS '%B\U000f141c'
+)
+
+typeset -g POWERLEVEL9K_DIR_WORKSPACE_SCS_VISUAL_IDENTIFIER_COLOR=157

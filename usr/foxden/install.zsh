@@ -29,6 +29,8 @@ den::install::link 'etc'
 # link usr
 den::install::link 'usr'
 
+HOME_VAR="$HOME/var"
+
 # make var dir and subdirs
 mkdir "$HOME_VAR"
 mkdir "$HOME_VAR/cache"
