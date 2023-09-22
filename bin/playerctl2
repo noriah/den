@@ -1,7 +1,8 @@
 #!/bin/bash
 
-. "$HOME_ETC/polybar/scripts/get_player_common.zsh"
+# . "$HOME_ETC/polybar/scripts/get_player_common.zsh"
 
-getPlayer $PLAYER
+# getPlayer $PLAYER
 
+PLAYER=spotify
 playerctl -p "$PLAYER" $@

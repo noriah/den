@@ -8,14 +8,14 @@ import readline
 import rlcompleter
 
 historyPath = os.path.expanduser(
-    os.getenv("PYTHON_HISTORY",
-              os.path.join(os.getenv("HISTORY", "~/var/history"), "python")))
+  os.getenv("HISTORY", "~/var/history")) + "/python"
+    # os.getenv("PYTHON_HISTORY",
+    #           os.path.join(os.getenv("HISTORY", "~/var/history"), "python")))
 
 
 def save_history(historyPath=historyPath):
   import readline
   readline.write_history_file(historyPath)
-
 
 if os.path.exists(historyPath):
   readline.read_history_file(historyPath)

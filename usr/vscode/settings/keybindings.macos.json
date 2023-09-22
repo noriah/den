@@ -7,6 +7,31 @@
   },
 
   // Cursor Movements
+  // addedkey
+  {
+    "key": "ctrl+alt+left",
+    "command": "cursorWordPartLeft",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "shift+ctrl+alt+left",
+    "command": "cursorWordPartLeftSelect",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "ctrl+alt+right",
+    "command": "cursorWordPartRight",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "shift+ctrl+alt+right",
+    "command": "cursorWordPartRightSelect",
+    "when": "editorFocus"
+  },
+  // addedkey
   {
     "key": "ctrl+up",
     "command": "cursorMove",
@@ -14,8 +39,10 @@
       "to": "up",
       "by": "line",
       "value": 5
-    }
+    },
+    "when": "editorTextFocus"
   },
+  // addedkey
   {
     "key": "ctrl+down",
     "command": "cursorMove",
@@ -23,7 +50,32 @@
       "to": "down",
       "by": "line",
       "value": 5
-    }
+    },
+    "when": "editorTextFocus"
+  },
+  // addedkey
+  {
+    "key": "ctrl+shift+up",
+    "command": "cursorMove",
+    "args": {
+      "to": "up",
+      "by": "line",
+      "value": 5,
+      "select": true
+    },
+    "when": "editorTextFocus"
+  },
+  // addedkey
+  {
+    "key": "ctrl+shift+down",
+    "command": "cursorMove",
+    "args": {
+      "to": "down",
+      "by": "line",
+      "value": 5,
+      "select": true
+    },
+    "when": "editorTextFocus"
   },
 
   // Removals

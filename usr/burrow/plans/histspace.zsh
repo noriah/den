@@ -1,26 +1,17 @@
-den::env::default 'HISTSPACE_DIR' "${HISTORY}/histspace"
-
-histspace::load() {
-  [ -d "$HISTSPACE_DIR" ] || mkdir -p "$HISTSPACE_DIR"
-
-  local _spaceId="$1"
-  local _histspaceFile="${HISTSPACE_DIR}/${_spaceId}"
-
-  history -p
-
-  if [ -f "$_histspaceFile" ]; then
-    fc -R "$_histspaceFile"
-    printf "\nloaded shell history for '%s'\n" "$_spaceId"
-  else
-    printf "\nstarted new shell history for '%s'\n" "$_spaceId"
-  fi
-
-  export HISTFILE="$_histspaceFile"
-
-  unset _spaceId
-  unset _histspaceFile
+histspace () {
+  HISTSPACE_NAME="$@" zsh
 }
 
-histspace() {
-  histspace::load "$@"
-}
+burrow::plugin::fail
+
+if burrow::check 'history' && [[ -v HISTSPACE_NAME ]]; then
+
+  typeset -g HISTSPACE_SESSION_NAME="$HISTSPACE_NAME"
+
+  # tell others that we are in a histspace session
+  burrow::plugin::pass
+
+  history::load_space 'hist' "$HISTSPACE_NAME"
+
+  printf "\n"
+fi

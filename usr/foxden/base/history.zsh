@@ -1,9 +1,13 @@
 # History
-HISTORY="$HOME_VAR/history"
+HISTORY_ROOT="${HOME_VAR}/history"
 
-HISTFILE="$HISTORY/zsh"
-HISTSIZE=60000
-SAVEHIST=30000
+export HISTORY="$HISTORY_ROOT/default"
+
+[[ -d "$HISTORY" ]] || mkdir -p "$HISTORY"
+
+export HISTFILE="$HISTORY/zsh"
+export HISTSIZE=60000
+export SAVEHIST=60000
 
 setopt append_history
 setopt extended_history

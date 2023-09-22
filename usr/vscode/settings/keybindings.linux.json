@@ -1,5 +1,29 @@
 // Override key bindings by placing them into your key bindings file.
 [
+  // addedkey
+  {
+    "key": "ctrl+alt+left",
+    "command": "cursorWordPartLeft",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "shift+ctrl+alt+left",
+    "command": "cursorWordPartLeftSelect",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "ctrl+alt+right",
+    "command": "cursorWordPartRight",
+    "when": "editorFocus"
+  },
+  // addedkey
+  {
+    "key": "shift+ctrl+alt+right",
+    "command": "cursorWordPartRightSelect",
+    "when": "editorFocus"
+  },
   // removedkeys
   {
     "key": "ctrl+end",
@@ -675,11 +699,11 @@
     "when": "textInputFocus && !editorReadonly"
   },
   // removedkey
-  {
-    "key": "ctrl+shift+space",
-    "command": "-editor.action.triggerParameterHints",
-    "when": "editorHasSignatureHelpProvider && editorTextFocus"
-  },
+  // {
+  //   "key": "ctrl+shift+space",
+  //   "command": "-editor.action.triggerParameterHints",
+  //   "when": "editorHasSignatureHelpProvider && editorTextFocus"
+  // },
   // addedkey
   {
     "key": "shift+meta+space",

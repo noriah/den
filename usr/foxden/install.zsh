@@ -34,6 +34,12 @@ mkdir "$HOME_VAR"
 mkdir "$HOME_VAR/cache"
 mkdir "$HOME_VAR/history"
 
+if den::is::linux; then
+  mkdir -p "$HOME/.local"
+  den::install::checkBackupHome '.local/share'
+  ln -s "$HOME_VAR" "$HOME/.local/share"
+fi
+
 den::install::checkBackupHome '.cache'
 ln -s "$HOME_VAR/cache" "$HOME/.cache"
 

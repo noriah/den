@@ -8,7 +8,12 @@
   "editor.dragAndDrop": false,
   "editor.detectIndentation": false,
   "editor.fontFamily": "Fira Code",
-  "editor.fontSize": 11,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.highlightActiveIndentation": "always",
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.fontSize": 12,
   "editor.fontWeight": "500",
   "editor.fontLigatures": true,
   "editor.formatOnPaste": false,
@@ -91,7 +96,8 @@
     "editor.semanticHighlighting.enabled": true
   },
   "[markdown]": {
-    "editor.lineHeight": 1.5
+    "editor.lineHeight": 1.5,
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "[python]": {
     "editor.lineHeight": 0,
@@ -101,14 +107,13 @@
     "editor.formatOnSave": false,
     "editor.tabSize": 2
   },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.experiments.enabled": false,
   "jupyter.notebookFileRoot": "${workspaceRoot}",
-  "python.linting.pylintArgs": [
-    "--indent-string=\"  \""
-  ],
-  // "python.formatting.provider": "yapf",
+  "python.formatting.provider": "yapf",
   "python.formatting.autopep8Args": [
     "--indent-size=2",
-    "--ignore E121"
   ],
   "[rust]": {
     "editor.tabSize": 4,
@@ -223,8 +228,6 @@
     "javascript",
     "typescript"
   ],
-  "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.callArgumentNames": true,
-  "python.analysis.inlayHints.variableTypes": true,
-  "python.experiments.enabled": false
+  "jupyter.askForKernelRestart": false
 }

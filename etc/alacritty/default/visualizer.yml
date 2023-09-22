@@ -11,15 +11,21 @@ window:
   resize_increments: true
   dynamic_padding: true
   decorations: none
-  opacity: 0.5647
+  opacity: 1.0
+  # opacity: 0.5647
 
-#  dimensions:
-#    columns: 1920
-#    lines: 320
+  dimensions:
+    columns: 298
+    lines: 19
+
+  # dimensions:
+  #   columns: 126
+  #   lines: 336
+
 
 #  position:
-#    x: 3120
-#    y: 870
+    # x: 3120
+    # y: 870
 
 scrolling:
   history: 0
@@ -28,7 +34,7 @@ font:
   normal:
     family: "Fira Code"
 
-  size: 0.5
+  size: 4.5
   builtin_box_drawing: true
 
 colors:
@@ -47,3 +53,6 @@ colors:
   # the default background. When set to `true` all cells will be transparent
   # regardless of their background color.
   transparent_background_colors: true
+
+# shell:
+#   program: /home/nor/opt/den/bin/alacritty-catnip.sh

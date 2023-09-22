@@ -4,7 +4,7 @@
 
 # Den Env Setup
 
-set $disp1 DP-4
+set $disp1 DP-2
 set $disp2 DP-0
 set $disp3 HDMI-0
 

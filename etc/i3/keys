@@ -56,6 +56,9 @@ bindsym $super+$shift+F12 exec --no-startup-id monswap hdmi
 # lock
 bindsym $super+$ctrl+q exec --no-startup-id loginctl lock-session
 
+# terminal
+bindsym $super+$shift+$ctrl+t exec --no-startup-id alacritty
+
 # change focus
 bindsym $super+$left focus left
 bindsym $super+$down focus down
