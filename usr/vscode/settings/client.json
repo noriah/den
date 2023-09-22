@@ -229,5 +229,7 @@
     "typescript"
   ],
   "python.analysis.inlayHints.callArgumentNames": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.experiments.enabled": false,
   "jupyter.askForKernelRestart": false
 }
