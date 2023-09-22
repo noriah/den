@@ -14,6 +14,7 @@ den::source "$baseSubPath/host.zsh"
 den::source "$baseSubPath/keys.zsh"
 den::source "$baseSubPath/misc.zsh"
 den::source "$baseSubPath/terminal.zsh"
+den::source "$baseSubPath/user.zsh"
 
 unset baseSubPath
 
