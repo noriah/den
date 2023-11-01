@@ -28,6 +28,7 @@ burrow plugin golang
 burrow plugin rust
 burrow plugin node
 burrow plugin python
+burrow plugin julia
 
 burrow plugin neofetch
 # burrow plugin taskwarrior

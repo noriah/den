@@ -231,5 +231,6 @@
   "python.analysis.inlayHints.callArgumentNames": true,
   "python.analysis.inlayHints.variableTypes": true,
   "python.experiments.enabled": false,
-  "jupyter.askForKernelRestart": false
+  "jupyter.askForKernelRestart": false,
+  "auto-build.defaultEnv.name": "BIGTREE_OCTOPUS_PRO_V1_F429_USB"
 }

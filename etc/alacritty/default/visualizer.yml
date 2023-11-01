@@ -10,7 +10,7 @@ window:
 
   resize_increments: true
   dynamic_padding: true
-  decorations: none
+  decorations: full
   opacity: 1.0
   # opacity: 0.5647
 
