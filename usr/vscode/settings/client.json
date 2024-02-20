@@ -1,6 +1,4 @@
 {
-  // Core Settings
-  "breadcrumbs.enabled": true,
   "editor.acceptSuggestionOnEnter": "off",
   "editor.accessibilitySupport": "off",
   "editor.autoIndent": "full",
@@ -68,7 +66,6 @@
   "window.title": "${activeEditorShort}${separator}${rootName}",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
-  "window.zoomLevel": 0,
   "workbench.colorTheme": "vixn dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
@@ -89,7 +86,7 @@
     "editor.formatOnSave": true,
     "editor.suggest.showSnippets": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     }
   },
   "[java]": {
@@ -103,7 +100,7 @@
     "editor.lineHeight": 0,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.formatOnType": true,
-    "editor.wordBasedSuggestions": false,
+    "editor.wordBasedSuggestions": "off",
     "editor.formatOnSave": false,
     "editor.tabSize": 2
   },
@@ -118,7 +115,13 @@
   "[rust]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
-    "editor.semanticHighlighting.enabled": true
+    "editor.semanticHighlighting.enabled": true,
+    "editor.rulers": [
+      {
+        "color": "#ff501030",
+        "column": 120
+      }
+    ]
   },
   // Extensions Settings
   "autoSnippet.snippets": [
@@ -190,17 +193,18 @@
   "projectManager.any.maxDepthRecursion": 1,
   "projectManager.groupList": true,
   "projectManager.showParentFolderInfoOnDuplicates": true,
+  "rust-analyzer.cargo.buildScripts.enable": true,
   "rust-analyzer.server.extraEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
+    "CARGO_HOME": "/Users/noriah/opt/cargo",
+    "RUSTUP_HOME": "/Users/noriah/opt/rustup"
   },
   "rust-analyzer.runnableEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
+    "CARGO_HOME": "/Users/noriah/opt/cargo",
+    "RUSTUP_HOME": "/Users/noriah/opt/rustup"
   },
   "rust-analyzer.cargo.extraEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
+    "CARGO_HOME": "/Users/noriah/opt/cargo",
+    "RUSTUP_HOME": "/Users/noriah/opt/rustup"
   },
   "todo-tree.general.statusBar": "total",
   "todo-tree.filtering.ignoreGitSubmodules": true,
@@ -232,5 +236,11 @@
   "python.analysis.inlayHints.variableTypes": true,
   "python.experiments.enabled": false,
   "jupyter.askForKernelRestart": false,
-  "auto-build.defaultEnv.name": "BIGTREE_OCTOPUS_PRO_V1_F429_USB"
+  "auto-build.defaultEnv.name": "BIGTREE_OCTOPUS_PRO_V1_F429_USB",
+  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+  "rust-analyzer.restartServerOnConfigChange": true,
+  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "editor.minimap.autohide": true,
 }
