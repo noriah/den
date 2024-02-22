@@ -1,4 +1,10 @@
 local _homeTmpDir="/tmp/noriah-home-tmp"
+local _runUserDir="/run/user/$(id -u)"
+
+
+if [ -d "$_runUserDir" ]; then
+  _homeTmpDir="$_runUserDir"
+fi
 
 if [ ! -d "$_homeTmpDir" ]; then
   mkdir -p "$_homeTmpDir"
