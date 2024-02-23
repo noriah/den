@@ -1,4 +1,4 @@
-export WORKSPACE_DIR="/space/nor"
+# export WORKSPACE_DIR="/space/nor"
 # WORKSPACE_PUBLIC_KEY=public
 # WORKSPACE_NOTES_KEY=notes
 # WORKSPACE_LOCAL_KEY=local

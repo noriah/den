@@ -1,4 +1,6 @@
 # ersa is an AMD Desktop running Linux
+export WORKSPACE_DIR="/space/nor"
+
 den::conf linux.zsh
 
 den::host::set::color 204
