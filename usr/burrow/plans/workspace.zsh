@@ -9,15 +9,15 @@ alias localsp='cd $WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY'
 alias notessp='cd $WORKSPACE_DIR/$WORKSPACE_NOTES_KEY'
 alias vaultsp='cd $WORKSPACE_DIR/$WORKSPACE_VAULT_KEY'
 
-local _wkspTmpDir="/tmp/noriah-workspace-tmp"
-
-if [ ! -d "$_wkspTmpDir" ]; then
-  mkdir -p "$_wkspTmpDir"
-  chmod 700 "$_wkspTmpDir"
-fi
-
 if [ ! -e "$WORKSPACE_DIR/tmp" ]; then
-  ln -s $_wkspTmpDir "$WORKSPACE_DIR/tmp"
-fi
+  local _wkspTmpDir="/tmp/$DEN_USER-workspace-tmp"
 
-unset _wkspTmpDir
+  if [ ! -d "$_wkspTmpDir" ]; then
+    mkdir -p "$_wkspTmpDir"
+    chmod 700 "$_wkspTmpDir"
+  fi
+
+  ln -s $_wkspTmpDir "$WORKSPACE_DIR/tmp"
+
+  unset _wkspTmpDir
+fi
