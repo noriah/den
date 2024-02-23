@@ -2,6 +2,7 @@
 den::conf linux.zsh
 
 den::host::set::color 75
+den::user::set::color 198
 
 # burrow plugin vim_mode
 
