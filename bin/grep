@@ -1,0 +1,6 @@
+#!/bin/sh
+
+BIN="/bin/grep"
+ARGS="$@"
+
+"$BIN" --color=always $ARGS

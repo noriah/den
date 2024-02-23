@@ -8,7 +8,8 @@
 #
 ######################################
 
-export DEN_USER='noriah'
+# export DEN_USER='noriah'
+export DEN_USER="`whoami`"
 export DEN_HOST=$(hostname -f | cut -d. -f1)
 
 # load our den manager
