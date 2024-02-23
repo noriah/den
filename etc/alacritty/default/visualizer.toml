@@ -1,0 +1,35 @@
+[colors]
+transparent_background_colors = true
+
+[colors.normal]
+white = "#f7f7f7"
+
+[colors.primary]
+background = "#212b30"
+foreground = "#f7f7f7"
+
+[font]
+builtin_box_drawing = true
+size = 4.5
+
+[font.normal]
+family = "Fira Code"
+
+[scrolling]
+history = 0
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = false
+opacity = 1.0
+resize_increments = true
+title = "Visualizer"
+
+[window.class]
+general = "Visualizer"
+instance = "Visualizer"
+
+[window.dimensions]
+columns = 298
+lines = 19

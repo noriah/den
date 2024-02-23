@@ -8,7 +8,7 @@ FORMAT="{{ title }} - {{ artist }}"
 
 print_metadata() {
   case "$PLAYER" in
-    spotify|vlc)
+    spotify*|vlc)
       playerctl metadata \
         --player "$PLAYER" \
         --format "$FORMAT"

@@ -19,6 +19,7 @@
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.showFoldingControls": "mouseover",
   "editor.snippetSuggestions": "inline",
+  "editor.roundedSelection": true,
   "editor.renderWhitespace": "selection",
   "editor.suggestOnTriggerCharacters": false,
   "editor.suggestSelection": "first",
@@ -114,6 +115,12 @@
   ],
   "[rust]": {
     "editor.tabSize": 4,
+    "editor.rulers": [
+      {
+        "color": "#ff501030",
+        "column": 100
+      }
+    ],
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
     "editor.semanticHighlighting.enabled": true,
     "editor.rulers": [
@@ -210,28 +217,68 @@
   "todo-tree.filtering.ignoreGitSubmodules": true,
   "todo-tree.tree.grouped": true,
   "todo-tree.tree.showCountsInTree": true,
-  "todo-tree.tree.showScanModeButton": false,
+  "todo-tree.general.tags": [
+    "BUG",
+    "FIXME",
+    "HACK",
+    "TODO",
+    "WARN",
+  ],
+  "todo-tree.general.revealBehaviour": "end of todo",
+  // todotree
+  "todo-tree.highlights.highlightDelay": 0,
   "todo-tree.highlights.customHighlight": {
+
     "BUG": {
-      "icon": "bug"
+      "icon": "bug",
+      "iconColour": "#dbd6d3",
+      "foreground": "#dbd6d3",
+      "rulerColour": "#dbd6d3"
     },
     "FIXME": {
-      "icon": "flame"
+      "icon": "tools",
+      "iconColour": "#72aee0",
+      "foreground": "#72aee0",
+      "rulerColour": "#72aee0"
+    },
+    "HACK": {
+      "icon": "flame",
+      "iconColour": "#e07972",
+      "foreground": "#e07972",
+      "rulerColour": "#e07972"
+
+    },
+    "TODO": {
+      "icon": "checkbox",
+      "iconColour": "#72e084",
+      "foreground": "#72e084",
+      "rulerColour": "#72e084"
+    },
+    "WARN": {
+      "icon": "alert",
+      "iconColour": "#e0df72",
+      "foreground": "#e0df72",
+      "rulerColour": "#e0df72"
     }
   },
   "todo-tree.highlights.defaultHighlight": {
-    "type": "text-and-comment"
+
+    "type": "capture-groups:1,2,3",
+    "gutterIcon": true,
+    "fontWeight": "600",
+    "background": "#ffffff1f"
   },
-  "todo.embedded.provider": "rg",
-  "vscode-color-picker.languages": [
-    "ini",
-    "json",
-    "jsonc",
-    "python",
-    "shellscript",
-    "javascript",
-    "typescript"
-  ],
+  "todo-tree.regex.regex": "\\s*/?(//\\s*($TAGS)(?:\\(.*?\\))?:?\\s.*)(?:\\n\\s*(//\\s{2,}.*))*",
+  "todo-tree.regex.subTagRegex": "^\\s*\\(([^):]+).*?\\)",
+  // "vscode-color-picker.languages": [
+  //   "ini",
+  //   "json",
+  //   "jsonc",
+  //   "python",
+  //   "shellscript",
+  //   "javascript",
+  //   "typescript"
+  // ],
   "python.analysis.inlayHints.callArgumentNames": true,
   "python.analysis.inlayHints.variableTypes": true,
   "python.experiments.enabled": false,
@@ -242,5 +289,5 @@
   "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
   "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
   "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "editor.minimap.autohide": true,
+  "editor.minimap.autohide": true
 }

@@ -2428,5 +2428,15 @@
     "key": "enter",
     "command": "renameFile",
     "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+alt+enter",
+    "command": "language-julia.executeCodeBlockOrSelection",
+    "when": "editorTextFocus && activeEditor != 'workbench.editor.notebook' && editorLangId in 'julia.supportedLanguageIds'"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "-language-julia.executeCodeBlockOrSelection",
+    "when": "editorTextFocus && activeEditor != 'workbench.editor.notebook' && editorLangId in 'julia.supportedLanguageIds'"
   }
 ]

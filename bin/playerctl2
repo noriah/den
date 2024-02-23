@@ -5,4 +5,4 @@
 # getPlayer $PLAYER
 
 PLAYER=spotify
-playerctl -p "$PLAYER" $@
+playerctl -p "$PLAYER" "$@"

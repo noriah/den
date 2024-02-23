@@ -1,0 +1,59 @@
+live_config_reload = true
+
+[colors.bright]
+black = "#617D8A"
+blue = "#42A5F5"
+cyan = "#26C6DA"
+green = "#9CCC65"
+magenta = "#B39DDB"
+red = "#FD4381"
+white = "#FFFFFF"
+yellow = "#FFB74D"
+
+[colors.normal]
+black = "#3B4D57"
+blue = "#2196F3"
+cyan = "#00BCD4"
+green = "#8BC34A"
+magenta = "#9575CD"
+red = "#D4386C"
+white = "#ECEFF1"
+yellow = "#FCA526"
+
+[colors.primary]
+background = "#262228"
+foreground = "#F7F7F7"
+
+[cursor]
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+
+[font]
+builtin_box_drawing = true
+size = 6.0
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Medium"
+
+[[hints.enabled]]
+command = "xdg-open"
+post_processing = true
+regex = "(https:|http:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Super"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+opacity = 0.9
+resize_increments = true
+
+[window.padding]
+x = 5
+y = 5

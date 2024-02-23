@@ -39,9 +39,6 @@ burrow plugin workspace
 
 burrow plugin tmpdirs
 
-# multiple history
-burrow plugin histspace
-
 # common dev things
 burrow plugin dev
 

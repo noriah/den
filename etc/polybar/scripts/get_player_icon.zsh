@@ -9,7 +9,7 @@ printLine() {
 getPlayer $PLAYER
 
 case "$PLAYER" in
-  spotify)
+  spotify*)
     printLine 1db954 "󰓇 " # spotify
     ;;
   vlc)
