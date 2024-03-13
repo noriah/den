@@ -12,5 +12,7 @@ burrow plugin battery
 SSH_HOST_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 burrow plugin ssh
 
+burrow plugin tor
+
 # Set our prompt icon color
 den::host::set::color 201

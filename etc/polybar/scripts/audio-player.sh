@@ -3,7 +3,7 @@
 PLAYER_WIDTH=${PLAYER_WIDTH:-30}
 SCROLL_DELAY=${SCROLL_DELAY:-0.1}
 
-/home/nor/workspace/local/zscroll/zscroll \
+/space/nor/local/zscroll/zscroll \
   --length $PLAYER_WIDTH \
   --delay $SCROLL_DELAY \
   --scroll-padding " <!> " \

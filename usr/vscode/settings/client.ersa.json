@@ -1,0 +1,290 @@
+{
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.accessibilitySupport": "off",
+  "editor.autoIndent": "full",
+  "editor.cursorBlinking": "phase",
+  "editor.dragAndDrop": false,
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "Fira Code",
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.highlightActiveIndentation": "always",
+  "editor.guides.indentation": true,
+  "editor.guides.highlightActiveBracketPair": true,
+  "editor.guides.bracketPairsHorizontal": "active",
+  "editor.fontSize": 12,
+  "editor.fontWeight": "500",
+  "editor.fontLigatures": true,
+  "editor.formatOnPaste": false,
+  "editor.mouseWheelScrollSensitivity": 0,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.showFoldingControls": "mouseover",
+  "editor.snippetSuggestions": "inline",
+  "editor.roundedSelection": true,
+  "editor.renderWhitespace": "selection",
+  "editor.suggestOnTriggerCharacters": false,
+  "editor.suggestSelection": "first",
+  "editor.tabCompletion": "on",
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "editor.quickSuggestionsDelay": 10,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": false,
+  "editor.renderControlCharacters": true,
+  "editor.rulers": [
+    {
+      "color": "#ff501030",
+      "column": 80
+    }
+  ],
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "explorer.confirmDelete": false,
+  "files.associations": {
+    "**/i3/**": "i3",
+    "**/udev/**.rules": "udev"
+  },
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "npm.fetchOnlinePackageInfo": false,
+  "notebook.lineNumbers": "on",
+  "editor.lineNumbers": "on",
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.commandsToSkipShell": [
+    "language-julia.interrupt"
+  ],
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+  "window.closeWhenEmpty": false,
+  "window.openFilesInNewWindow": "off",
+  "window.title": "${activeEditorShort}${separator}${rootName}",
+  "window.titleBarStyle": "custom",
+  "window.customMenuBarAltFocus": false,
+  "workbench.colorTheme": "vixn dark",
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.enableExperiments": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  "[cpp]": {
+    "editor.rulers": [
+      {
+        "color": "#ff501030",
+        "column": 120
+      }
+    ],
+    "editor.semanticHighlighting.enabled": false
+  },
+  "[go]": {
+    "editor.snippetSuggestions": "inline",
+    "editor.formatOnSave": true,
+    "editor.suggest.showSnippets": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[java]": {
+    "editor.semanticHighlighting.enabled": true
+  },
+  "[markdown]": {
+    "editor.lineHeight": 1.5,
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "[python]": {
+    "editor.lineHeight": 0,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.formatOnType": true,
+    "editor.wordBasedSuggestions": "off",
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
+  },
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.experiments.enabled": false,
+  "jupyter.notebookFileRoot": "${workspaceRoot}",
+  "python.formatting.provider": "yapf",
+  "python.formatting.autopep8Args": [
+    "--indent-size=2"
+  ],
+  "[rust]": {
+    "editor.tabSize": 4,
+    "editor.rulers": [
+      {
+        "color": "#ff501030",
+        "column": 100
+      }
+    ],
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.semanticHighlighting.enabled": true,
+    "editor.rulers": [
+      {
+        "color": "#ff501030",
+        "column": 120
+      }
+    ]
+  },
+  // Extensions Settings
+  "autoSnippet.snippets": [
+    {
+      "pattern": "**/*.h",
+      "snippet": "c++ header template"
+    }
+  ],
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 120 }",
+  "color-highlight.markerType": "dot-after",
+  "color-highlight.markRuler": false,
+  "go.autocompleteUnimportedPackages": true,
+  "go.useLanguageServer": true,
+  "go.useCodeSnippetsOnFunctionSuggest": true,
+  "go.testFlags": [
+    "-count=1"
+  ],
+  "go.toolsManagement.autoUpdate": true,
+  "go.editorContextMenuCommands": {
+    "toggleTestFile": true,
+    "addTags": true,
+    "removeTags": false,
+    "testAtCursor": true,
+    "testFile": false,
+    "testPackage": false,
+    "generateTestForFunction": true,
+    "generateTestForFile": false,
+    "generateTestForPackage": false,
+    "addImport": true,
+    "testCoverage": true,
+    "playground": true,
+    "debugTestAtCursor": true
+  },
+  "go.languageServerExperimentalFeatures": {
+    "diagnostics": true
+  },
+  "gopls": {
+    "usePlaceholders": true,
+    "completeUnimported": true,
+    "deepCompletion": true
+  },
+  "julia.symbolCacheDownload": true,
+  "julia.enableTelemetry": false,
+  "markdownExtended.disabledPlugins": "kbd",
+  "material-icon-theme.activeIconPack": "react_redux",
+  "material-icon-theme.folders.theme": "specific",
+  "material-icon-theme.folders.color": "#e57373",
+  "projectManager.git.baseFolders": [
+    "/space/nor"
+  ],
+  "projectManager.git.ignoredFolders": [
+    "node_modules",
+    "out",
+    "typings",
+    "test",
+    ".haxelib",
+    "vault",
+    "local"
+  ],
+  "projectManager.confirmSwitchOnActiveWindow": "always",
+  "projectManager.tags": [
+    "personal",
+    "public",
+    "alts"
+  ],
+  "projectManager.any.baseFolders": [
+    "/space/nor/local"
+  ],
+  "projectManager.any.maxDepthRecursion": 1,
+  "projectManager.groupList": true,
+  "projectManager.showParentFolderInfoOnDuplicates": true,
+  "rust-analyzer.cargo.buildScripts.enable": true,
+  "rust-analyzer.server.extraEnv": {
+    "CARGO_HOME": "/home/nor/opt/cargo",
+    "RUSTUP_HOME": "/home/nor/opt/rustup"
+  },
+  "rust-analyzer.runnableEnv": {
+    "CARGO_HOME": "/home/nor/opt/cargo",
+    "RUSTUP_HOME": "/home/nor/opt/rustup"
+  },
+  "rust-analyzer.cargo.extraEnv": {
+    "CARGO_HOME": "/home/nor/opt/cargo",
+    "RUSTUP_HOME": "/home/nor/opt/rustup"
+  },
+  "todo-tree.general.statusBar": "total",
+  "todo-tree.filtering.ignoreGitSubmodules": true,
+  "todo-tree.tree.grouped": true,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "FIXME",
+    "HACK",
+    "TODO",
+    "WARN",
+  ],
+  "todo-tree.general.revealBehaviour": "end of todo",
+  // todotree
+  "todo-tree.highlights.highlightDelay": 0,
+  "todo-tree.highlights.customHighlight": {
+    "BUG": {
+      "icon": "bug",
+      "iconColour": "#dbd6d3",
+      "foreground": "#dbd6d3",
+      "rulerColour": "#dbd6d3"
+    },
+    "FIXME": {
+      "icon": "tools",
+      "iconColour": "#72aee0",
+      "foreground": "#72aee0",
+      "rulerColour": "#72aee0"
+    },
+    "HACK": {
+      "icon": "flame",
+      "iconColour": "#e07972",
+      "foreground": "#e07972",
+      "rulerColour": "#e07972"
+    },
+    "TODO": {
+      "icon": "checkbox",
+      "iconColour": "#72e084",
+      "foreground": "#72e084",
+      "rulerColour": "#72e084"
+    },
+    "WARN": {
+      "icon": "alert",
+      "iconColour": "#e0df72",
+      "foreground": "#e0df72",
+      "rulerColour": "#e0df72"
+    }
+  },
+  "todo-tree.highlights.defaultHighlight": {
+    "type": "capture-groups:1,2,3",
+    "gutterIcon": true,
+    "fontWeight": "600",
+    "background": "#ffffff1f"
+  },
+  "todo-tree.regex.regex": "^[ \\t]*\\/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
+  "todo-tree.regex.subTagRegex": "^\\s*\\(([^):]+).*?\\)",
+  // "vscode-color-picker.languages": [
+  //   "ini",
+  //   "json",
+  //   "jsonc",
+  //   "python",
+  //   "shellscript",
+  //   "javascript",
+  //   "typescript"
+  // ],
+  "python.analysis.inlayHints.callArgumentNames": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.experiments.enabled": false,
+  "jupyter.askForKernelRestart": false,
+  "auto-build.defaultEnv.name": "BIGTREE_OCTOPUS_PRO_V1_F429_USB",
+  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+  "rust-analyzer.restartServerOnConfigChange": true,
+  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "editor.minimap.autohide": false
+}
