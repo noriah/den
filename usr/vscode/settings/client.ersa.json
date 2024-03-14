@@ -221,42 +221,54 @@
     "BUG",
     "FIXME",
     "HACK",
+    "INFO",
     "TODO",
-    "WARN",
+    "WARN"
   ],
   "todo-tree.general.revealBehaviour": "end of todo",
-  // todotree
   "todo-tree.highlights.highlightDelay": 0,
   "todo-tree.highlights.customHighlight": {
     "BUG": {
       "icon": "bug",
       "iconColour": "#dbd6d3",
       "foreground": "#dbd6d3",
-      "rulerColour": "#dbd6d3"
+      "rulerColour": "#dbd6d3",
+      "fontStyle": "italic"
     },
     "FIXME": {
       "icon": "tools",
       "iconColour": "#72aee0",
       "foreground": "#72aee0",
-      "rulerColour": "#72aee0"
+      "rulerColour": "#72aee0",
+      "fontStyle": "italic"
     },
     "HACK": {
       "icon": "flame",
       "iconColour": "#e07972",
       "foreground": "#e07972",
-      "rulerColour": "#e07972"
+      "rulerColour": "#e07972",
+      "fontStyle": "italic"
+    },
+    "INFO": {
+      "icon": "search",
+      "iconColour": "#8d72e0",
+      "foreground": "#8d72e0",
+      "rulerColour": "#8d72e0",
+      "fontStyle": "italic"
     },
     "TODO": {
       "icon": "checkbox",
       "iconColour": "#72e084",
       "foreground": "#72e084",
-      "rulerColour": "#72e084"
+      "rulerColour": "#72e084",
+      "fontStyle": "italic"
     },
     "WARN": {
       "icon": "alert",
       "iconColour": "#e0df72",
       "foreground": "#e0df72",
-      "rulerColour": "#e0df72"
+      "rulerColour": "#e0df72",
+      "fontStyle": "italic"
     }
   },
   "todo-tree.highlights.defaultHighlight": {
@@ -265,7 +277,7 @@
     "fontWeight": "600",
     "background": "#ffffff1f"
   },
-  "todo-tree.regex.regex": "^[ \\t]*\\/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
+  "todo-tree.regex.regex": "^[ \\t]*/?(//[^\\n]*($TAGS)(?:\\(.*?\\))?[^\\n]*)(?:\\n[ \\t]*(/?//[ \\t]{2,}[^\\n]*))*",
   "todo-tree.regex.subTagRegex": "^\\s*\\(([^):]+).*?\\)",
   // "vscode-color-picker.languages": [
   //   "ini",
