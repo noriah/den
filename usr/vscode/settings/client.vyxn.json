@@ -280,7 +280,7 @@
     "fontWeight": "600",
     "background": "#ffffff1f"
   },
-  "todo-tree.regex.regex": "^[ \\t]*\\/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
+  "todo-tree.regex.regex": "^[ \\t]*/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
   "todo-tree.regex.subTagRegex": "^\\s*\\(([^):]+).*?\\)",
   // "vscode-color-picker.languages": [
   //   "ini",

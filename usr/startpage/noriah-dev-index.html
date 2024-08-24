@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<head>
+  <title>noriah vix | protean engineer</title>
+  <meta name="description" content="noriah vix page">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- oooo you found the "secret" links -->
+  <link rel="me" href="https://hachyderm.io/@nor"/>
+  <link rel="me" href="https://tech.lgbt/@nor"/>
+  <link rel="me" href="https://kind.social/@nor"/>
+  <link rel="me" href="https://github.com/noriah"/>
+  <link rel="me" href="https://linkedin.com/in/noriah"/>
+  <link rel="me" href="https://steamcommunity.com/id/noriahbot"/>
+  <style>
+
+    /* theming */
+
+    :root {
+      --color-basic-white: #ffffff;
+      --color-basic-black: #000000;
+
+      --color-link-blue1: #0000ee;
+
+      --color-pastel-pink: #ffdde8;
+      --color-pastel-blue: #c4edff;
+      --color-pastel-green: #b2ffbb;
+      --color-pastel-yellow: #fff9a8;
+
+      --color-border-gray1: #bababa;
+
+      --color-background-light: #ffffff;
+      --color-background-dark: #2d2d2d;
+    }
+    
+    html {
+      --base-text-color: var(--color-basic-black);
+      --root-text-color: var(--color-basic-black);
+      --root-link-color: var(--color-link-blue1);
+      --root-border-color: var(--color-border-gray1);
+      --root-background-color: var(--color-background-light);
+      --history-item-border-color: var(--color-border-gray1);
+      --root-font-size: 20px;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+      html {
+        --base-text-color: var(--color-basic-white);
+        --root-text-color: var(--color-pastel-pink);
+        --root-link-color: var(--color-pastel-blue);
+        --root-border-color: var(--color-pastel-green);
+        --history-item-border-color: var(--color-pastel-yellow);
+        --root-background-color: var(--color-background-dark);
+      }
+    }
+    
+    /* scaling / positioning */
+    
+    :root {
+      --regex-match-text-margin: 0.1em;
+    }
+
+
+    /* basic rules */
+
+    * {
+      margin: 0;
+    }
+    
+    a,
+    a:visited {
+      color: var(--root-link-color);
+    }
+
+    html, body {
+      font-family: system-ui, monospace, arial;
+      font-size: var(--root-font-size);
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--root-background-color);
+      color: var(--root-text-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .main {
+      flex: 1 0 auto;
+      align-content: center;
+    }
+    
+    .footer {
+      flex-shrink: 0;
+      padding-bottom: 0.5em;
+    }
+
+    .copyright {
+      color: var(--base-text-color);
+      font-size: 0.85em;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      padding: 0.25em;
+      margin-bottom: 0.5em;
+    }
+
+    .container:not(:last-child) {
+      border-bottom: 2px dotted var(--root-border-color);
+    }
+
+    .container > * {
+      padding: 0.25em;
+    }
+
+    /* specific */
+
+    .name {
+      color: var(--base-text-color);
+    }
+
+    .labels {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* .summary {} */
+
+    .links div .target:not(:last-child)::after  {
+      content: ' | ';
+    }
+
+    .history > .item:not(:last-child)::after {
+      display: block;
+      content: '';
+      width: 30%;
+      height: 1px;
+      margin: 0 auto;
+      padding: 0.25em;
+      border-bottom: 2px dashed var(--history-item-border-color);
+    }
+
+    .history .item > div:not(:last-child) {
+      margin-bottom: 0.25em;
+    }
+
+    .history .item .places::after {
+      content: ' :: ';
+    }
+
+    .history .item .places > span:not(:first-child)::before {
+      content: ' / ';
+    }
+
+    .history .item .dates span:first-child::after {
+      content: ' - ';
+    }
+
+    .label {
+      margin-right: 5px;
+    }
+
+    .nospanlines {
+      font-size: 0;
+    }
+
+    .nospanlines *,
+    .nospanlines::before,
+    .nospanlines::after {
+      font-size: var(--root-font-size);
+    }
+
+    /* regex representation styles */
+
+    .regex {
+      display: table;
+      padding: 0.25em;
+    }
+
+    pre.regex {
+      white-space: normal;
+    }
+
+    /*pre.regex .tag.lhs::before {
+      content: 'let '
+     }*/
+
+    pre.regex .tag.lhs::after {
+      content: ' := '
+    }
+
+    .regex .expression {
+      margin: 0;
+      line-break: loose;
+    }
+
+    .regex.match .expression::before {
+      content: '/';
+    }
+
+    .regex.match .expression::after {
+      content: '/';
+    }
+
+    .regex.match .expression .text {
+      margin-left: var(--regex-match-text-margin);
+      font-weight: 600;
+    }
+
+    .regex.match .expression .text:not(:last-child)::after {
+      margin-left: var(--regex-match-text-margin);
+      content: '|';
+    }
+
+    .regex.match .expression .text:last-child {
+      margin-right: var(--regex-match-text-margin);
+    }
+
+    .regex .flags {
+      margin-left: 1px;
+      opacity: 0.5;
+      vertical-align: middle;
+    }
+
+    .meta,
+    .regex .tag,
+    .regex .flags,
+    .regex .expression .text::before,
+    .regex .expression .text::after {
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main">
+    <div class="content">
+        
+      <div class="container name">
+        <div><h3>noriah vix</h3></div>
+      </div>
+
+      <div class="container labels">
+
+        <pre class="regex match attribute">
+          <span class="tag lhs">attr</span>
+          <span class="expression nospanlines">
+            <span class="text"><a href="https://wikipedia.org/wiki/Human">human</a></span>
+            <span class="text"><a href="https://wikipedia.org/wiki/Queer">queer</a></span>
+            <span class="text"><a href="https://wikipedia.org/wiki/Witch">witch</a></span>
+          </span>
+          <span class="flags">i</span>
+        </pre>
+
+        <pre class="regex match skill">
+          <span class="tag lhs">skill</span>
+          <span class="expression nospanlines">
+            <span class="text"><a href="https://wikipedia.org/wiki/Proteus">protean</a></span>
+            <span class="text"><a href="https://wikipedia.org/wiki/Analytical_skill">analytical</a></span>
+            <span class="text"><a href="https://wikipedia.org/wiki/Autodidacticism">autodidact</a></span>
+          </span>
+          <span class="flags">i</span>
+        </pre>
+
+        <pre class="regex match craft">
+          <span class="tag lhs">craft</span>
+          <span class="expression nospanlines">
+            <span class="text"><a href="https://wikipedia.org/wiki/Engineer">engineer</a></span>
+            <span class="text"><a href="https://wikipedia.org/wiki/Philosophy">philosopher</a></span>
+          </span>
+          <span class="flags">i</span>
+        </pre>
+
+      </div> 
+
+      <div class="container summary">
+        <div><span><i>acquiring knowledge, in perpetuity</i></span></div>
+      </div>
+     
+      <div class="container links">
+        <div><a href="mailto:hi@noriah.dev">hi@noriah.dev</a></div>
+        <div>
+          <div class="nospanlines">
+            <span class="target"><a href="https://github.com/noriah">GitHub</a></span>
+            <span class="target"><a href="https://hachyderm.io/@nor">Mastodon</a></span>
+            <span class="target"><a href="https://linkedin.com/in/noriah">LinkedIn</a></span>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="container history">
+
+        <div class="item">
+          <div class="nospanlines">
+            <span class="places"><a href="https://about.google">Google</a></span>
+            <span class="dates">
+              <span class="from">feb 2021</span>
+              <span class="to">present</span>
+            </span>
+          </div>
+          <div><span class="title"><i>protean engineering witch</i></span></div>
+        </div>
+
+        <div class="item">
+          <div>
+            <div class="nospanlines">
+              <span class="places">
+                <span><a href="https://supplyframe.com">Supplyframe</a></span>
+                <span><a href="https://hackaday.com">Hackaday</a></span>
+              </span>
+              <span class="dates">
+                <span class="from">jul 2018</span>
+                <span class="to">feb 2021</span>
+              </span>
+            </div>
+          </div>
+          <div><span class="title"><i>SRE / operations lead</i></span></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+   
+  <div class="footer">
+    <div class="copyright">
+      <span>&copy; 2024</span>
+      <span>noriah vix</span>
+    </div>
+  </div>
+
+</body>
+</html>
