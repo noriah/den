@@ -2,25 +2,29 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 window:
-  title: Visualizer
+  title: Catnip Visualizer
   dynamic_title: false
   class:
-    instance: Visualizer
-    general: Visualizer
+    instance: Catnip Visualizer
+    general: Catnip Visualizer
 
   resize_increments: true
   dynamic_padding: true
-  decorations: full
-  opacity: 1.0
+  decorations: none
+  opacity: 0.0
   # opacity: 0.5647
 
   dimensions:
-    columns: 298
-    lines: 19
+    columns: 2496
+    lines: 60
 
   # dimensions:
   #   columns: 126
   #   lines: 336
+
+  position:
+    x: 1472
+    y: 1674
 
 
 #  position:
@@ -34,7 +38,7 @@ font:
   normal:
     family: "Fira Code"
 
-  size: 4.5
+  size: 0.5
   builtin_box_drawing: true
 
 colors:
@@ -54,5 +58,5 @@ colors:
   # regardless of their background color.
   transparent_background_colors: true
 
-# shell:
-#   program: /home/nor/opt/den/bin/alacritty-catnip.sh
+shell:
+  program: /home/vix/opt/den/bin/alacritty-catnip.sh

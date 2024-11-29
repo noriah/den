@@ -16,22 +16,22 @@ exec --no-startup-id gnome-keyring-daemon --start --components=secrets
 exec --no-startup-id DISPLAY=":0" picom -b
 
 # Center Top Bar
-exec --no-startup-id polybar -r main-top
+#exec --no-startup-id polybar -r main-top
 
 # Center Bottom Bar
-exec --no-startup-id polybar -r main-bottom
+#exec --no-startup-id polybar -r main-bottom
 
 # Left Top Bar
-exec --no-startup-id polybar -r left-top
+#exec --no-startup-id polybar -r left-top
 
 # Left Bottom Bar
-exec --no-startup-id polybar -r left-bottom
+#exec --no-startup-id polybar -r left-bottom
 
 # Right Top Bar
-exec --no-startup-id polybar -r right-top
+#exec --no-startup-id polybar -r right-top
 
 # Right Bottom Bar
-exec --no-startup-id polybar -r right-bottom
+#exec --no-startup-id polybar -r right-bottom
 
 # Launch Bar
 #exec_always --no-startup-id albert
@@ -51,6 +51,6 @@ exec --no-startup-id 1password --silent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # set backgrounds
-exec_always --no-startup-id nitrogen --restore
+#exec_always --no-startup-id nitrogen --restore
 
-exec --no-startup-id /bin/sh -c "pkill -15 opensnitch-ui; opensnitch-ui"
+#exec --no-startup-id /bin/sh -c "pkill -15 opensnitch-ui; opensnitch-ui"

@@ -289,5 +289,10 @@
   "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
   "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
   "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "editor.minimap.autohide": true
+  "editor.minimap.autohide": true,
+  "spellright.language": [],
+  "spellright.documentTypes": [
+    "latex",
+    "plaintext"
+  ]
 }
