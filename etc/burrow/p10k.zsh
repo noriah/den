@@ -72,7 +72,7 @@ rightPlugin() {
   p10k-on-post-prompt() {
     p10k display \
       '(3|4)/(left|right)/*'=hide \
-      '3/left/time'=show \
+      '3/left/(os_icon|time)'=show \
       '4/left/(status|prompt_char)'=show
 
     if [[ "$PWD" != "$OLD_PWD" ]] {
@@ -109,8 +109,8 @@ rightPlugin() {
   left newline
 
   # ---- Line 3 ----
-  left time
   left os_icon
+  left time
   left dir dir_writable
   left vcs
 
