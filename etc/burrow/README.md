@@ -1,3 +1,4 @@
 # burrow plugin configurations
 
-contains extra configuration scripts for plugins loaded through [burrow](/usr/burrow/).
+contains extra configuration scripts for plugins loaded through
+[burrow](/share/burrow/).

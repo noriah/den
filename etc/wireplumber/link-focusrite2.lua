@@ -1,4 +1,4 @@
-#!/usr/bin/wpexec
+#!/usr/bin/env wpexec
 
 -- https://gist.github.com/THS-on/a8fe22891c1008454a948e86d25315f5
 

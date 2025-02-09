@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 den::install::checkExists() {
   if [ -e "$2/$1" ]; then
@@ -39,10 +39,10 @@ den::install::link() {
 
   local _target="$DEN/$1"
 
-  if [[ $1 =~ (etc|usr)/(.+) ]]; then
+  if [[ $1 =~ (etc|share)/(.+) ]]; then
     case "${match[1]}" in
       etc) _target="$HOME_ETC/${match[2]}" ;;
-      usr) _target="$HOME_USR/${match[2]}" ;;
+      share) _target="$HOME_SHARE/${match[2]}" ;;
     esac
   fi
 

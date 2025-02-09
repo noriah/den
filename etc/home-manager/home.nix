@@ -15,7 +15,7 @@ let
 
   denDir = "${homeOptDir}/den";
   denEtcDir = "${denDir}/etc";
-  denUsrDir = "${denDir}/usr";
+  denShareDir = "${denDir}/share";
 
   editorBin = "${pkgs.vim}/bin/vim";
 
@@ -301,13 +301,13 @@ in
   xdg.dataFile = {
     applications = {
       target = "applications";
-      source = "${denDir}/usr/share/applications";
+      source = "${denShareDir}/applications";
       recursive = true;
     };
 
     fonts = {
       target = "fonts";
-      source = "${denDir}/usr/share/fonts";
+      source = "${denShareDir}/fonts";
       recursive = true;
     };
   };

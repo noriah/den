@@ -1,4 +1,4 @@
-#!/usr/bin/wpexec
+#!/usr/bin/env wpexec
 
 link_om = ObjectManager {
   Interest {

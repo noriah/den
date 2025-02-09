@@ -18,6 +18,6 @@ loaded by zsh for all shells
 loaded by zsh interactive/login shells
 
 - creates the zsh cache directory if it does not exist
-- sources [fox den](/usr/foxden/) - the environment loader
+- sources [fox den](/share/foxden/) - the environment loader
 - sources `$HOME/.zaliases` if it exists
 - sources the [home configuration](/etc/den/home.zsh)

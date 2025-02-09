@@ -13,7 +13,7 @@ export DEN_USER="`whoami`"
 export DEN_HOST=$(hostname -f | cut -d. -f1)
 
 # load our den manager
-den::source usr/burrow/rc.zsh
+den::source share/burrow/rc.zsh
 
 den::conf base.zsh
 

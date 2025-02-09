@@ -68,8 +68,8 @@ burrow::plugin() {
       burrowName="${burrowFile%.zsh}"
 
       # hack: support local plans
-      if [ -f "$DEN/usr/burrow/plans/$burrowName.zsh" ]; then
-        burrowDir="$DEN/usr/burrow/plans"
+      if [ -f "$DEN/share/burrow/plans/$burrowName.zsh" ]; then
+        burrowDir="$DEN/share/burrow/plans"
         burrowFile="$burrowName.zsh"
         burrowLight=0
       fi

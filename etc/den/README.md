@@ -8,7 +8,7 @@ contains scripts to configure the environment.
 ### home.zsh
 ---
 
-- sources [burrow](/usr/burrow/)
+- sources [burrow](/share/burrow/)
 - loads the [host](host/) configuration script
 - installs several plugins
   - language placeholders

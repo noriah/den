@@ -1,13 +1,15 @@
 # Common Stuff
-export HOME_ETC="$HOME/etc"
+
+export DEN="$(dirname "$(dirname "${0:h:A}")")"
+
+export HOME_ETC="$DEN/etc"
 export HOME_OPT="$HOME/opt"
 export HOME_TMP="$HOME/tmp"
-export HOME_USR="$HOME/usr"
+export HOME_SHARE="$DEN/share"
 export HOME_VAR="$HOME/var"
 
 export HISTORY="$HOME_VAR/history"
 
-export DEN="$(dirname "$(dirname "${0:h:A}")")"
 
 export CACHE_DIR="$HOME_VAR/cache"
 export ZSH_CACHE_DIR="$CACHE_DIR/zsh"

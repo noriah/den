@@ -1,6 +1,6 @@
-. "$DEN/usr/foxden/base/functions.zsh"
+. "$DEN/share/foxden/base/functions.zsh"
 
-baseSubPath="usr/foxden/base"
+baseSubPath="share/foxden/base"
 
 den::env::default 'PAGER' 'less'
 den::env::default 'LESS' '-R'

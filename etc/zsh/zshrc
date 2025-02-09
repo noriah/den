@@ -3,7 +3,7 @@
 [ ! -d "$ZSH_CACHE_DIR" ] && mkdir "$ZSH_CACHE_DIR"
 
 # load den
-. "$DEN/usr/foxden/rc.zsh"
+. "$DEN/share/foxden/rc.zsh"
 
 # load our home
 den::conf home.zsh

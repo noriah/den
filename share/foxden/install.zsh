@@ -12,10 +12,10 @@ INSTALL_OK="$DEN/.ok"
 . "$FOX_DEN/base/functions.zsh"
 . "$FOX_DEN_SETUP/fn.zsh"
 
-den::source usr/burrow/rc.zsh
+den::source share/burrow/rc.zsh
 
 den::install::checkExists 'etc' "$HOME"
-den::install::checkExists 'usr' "$HOME"
+den::install::checkExists 'share' "$HOME"
 den::install::checkExists 'var' "$HOME"
 
 echo "clean environment. can continue."
@@ -26,8 +26,8 @@ echo "making dir '$HOME/opt' (if it does not already exist)."
 # link etc
 den::install::link 'etc'
 
-# link usr
-den::install::link 'usr'
+# link share
+den::install::link 'share'
 
 HOME_VAR="$HOME/var"
 
