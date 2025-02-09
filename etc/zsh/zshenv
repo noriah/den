@@ -12,6 +12,7 @@ export DEN="$(dirname "$(dirname "${0:h:A}")")"
 export CACHE_DIR="$HOME_VAR/cache"
 export ZSH_CACHE_DIR="$CACHE_DIR/zsh"
 
+export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$CACHE_DIR"
 export XDG_DATA_HOME="$HOME_VAR"
 export XDG_STATE_HOME="$HOME_VAR/state"

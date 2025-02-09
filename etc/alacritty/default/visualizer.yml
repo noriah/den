@@ -16,6 +16,7 @@ window:
 
   dimensions:
     columns: 2496
+    # lines: 32
     lines: 60
 
   # dimensions:
@@ -24,7 +25,8 @@ window:
 
   position:
     x: 1472
-    y: 1674
+    # y: 1674
+    y: 1795
 
 
 #  position:

@@ -17,8 +17,9 @@ if [[ -d ${libfzfDir} ]]; then
       --no-update-rc --key-bindings --completion
   fi
 
-  [[ $- == *i* ]] && source "$libfzfDir/shell/completion.zsh" 2> /dev/null
-  source "$libfzfDir/shell/key-bindings.zsh"
+  # [[ $- == *i* ]] && source "$libfzfDir/shell/completion.zsh" 2> /dev/null
+  # source "$libfzfDir/shell/key-bindings.zsh"
+  source <(fzf --zsh)
 
   burrow::plugin::pass
 fi

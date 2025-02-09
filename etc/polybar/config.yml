@@ -3,9 +3,9 @@ fonts:
 
 weather:
   aqi:
-    apiKey: key
-    city: A123356
+    apiKey: b4cf7995e54b4b8714588d316e204979d266e6cf
+    city: Portland
   forecast:
-    apiKey: key
-    city: '123456'
+    apiKey: 98878a7b1348d3570bd23c3dac03e976
+    city: '5746545'
     units: both

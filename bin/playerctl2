@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # . "$HOME_ETC/polybar/scripts/get_player_common.zsh"
 

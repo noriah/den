@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 WINDOW_NAME="Catnip Visualizer"
 

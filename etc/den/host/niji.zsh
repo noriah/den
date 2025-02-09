@@ -20,3 +20,4 @@ burrow plugin tmux
 
 burrow plugin tor
 
+burrow plugin home-manager

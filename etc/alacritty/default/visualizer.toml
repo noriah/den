@@ -35,8 +35,8 @@ instance = "Catnip Visualizer"
 
 [window.dimensions]
 columns = 2496
-lines = 60
+lines = 32
 
 [window.position]
 x = 1472
-y = 1674
+y = 1795

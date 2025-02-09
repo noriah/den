@@ -1,1 +1,1 @@
-alias git commit='git commit -S'
+# alias git commit='git commit -S'
