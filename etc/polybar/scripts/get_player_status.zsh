@@ -9,7 +9,7 @@ FORMAT="{{ title }} - {{ artist }}"
 print_metadata() {
   case "$PLAYER" in
     spotify*|vlc)
-      playerctl metadata \
+      playerctl2 metadata \
         --player "$PLAYER" \
         --format "$FORMAT"
       ;;
@@ -29,7 +29,7 @@ update_bar_icon() {
 
 getPlayer $PLAYER
 
-STATUS=$(playerctl status --player "$PLAYER" 2>/dev/null)
+STATUS=$(playerctl2 status --player "$PLAYER" 2>/dev/null)
 
 if [ $? -ne 0 ]; then
   STATUS="No players found"

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PLAYER_WIDTH=${PLAYER_WIDTH:-30}
-SCROLL_DELAY=${SCROLL_DELAY:-0.1}
+SCROLL_DELAY=${SCROLL_DELAY:-0.25}
 
 $HOME/rbin/zscroll \
   --length $PLAYER_WIDTH \

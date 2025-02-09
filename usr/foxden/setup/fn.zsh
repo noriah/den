@@ -68,6 +68,11 @@ den::is::linux() {
   [[ $OSTYPE =~ linux ]] && return 0 || return 1
 }
 
+den::is::nixos() {
+  den::is::linux || return 1
+  grep -q 'NAME=NixOS' /etc/os-release && return 0 || return 1
+}
+
 den::platform::get() {
   case "$OSTYPE" in
     *darwin*) echo "macos" ;;

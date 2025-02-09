@@ -20,23 +20,20 @@ let
   editorBin = "${pkgs.vim}/bin/vim";
 
   # to get jamesdsp 2.4
-  pkgs_6ec9e25 =
-    import
-      (pkgs.fetchFromGitHub {
-        owner = "NixOS";
-        repo = "nixpkgs";
-        rev = "6ec9e2520787f319a6efd29cb67ed3e51237af7e";
-        sha256 = "6dYqPSYhADkK37uiKW4GnwA/FtfYeb70fUuxSwONnoI=";
-      })
-      {
-        inherit (pkgs) system;
-      };
+  pkgs_6ec9e25 = import (pkgs.fetchFromGitHub {
+    owner = "NixOS";
+    repo = "nixpkgs";
+    rev = "6ec9e2520787f319a6efd29cb67ed3e51237af7e";
+    sha256 = "6dYqPSYhADkK37uiKW4GnwA/FtfYeb70fUuxSwONnoI=";
+  }) { inherit (pkgs) system; };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = user;
   home.homeDirectory = homeDir;
+
+  news.display = "silent";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -69,14 +66,16 @@ in
 
     (pkgs.writeShellScriptBin "playerctl2" ''
       PLAYER=spotify
-      playerctl -p "$PLAYER" "$@"
+      ${playerctl}/bin/playerctl -p "$PLAYER" "$@"
     '')
 
     # generic util
     file
     zip
-    _1password-cli
-    _1password-gui
+
+    # installed globally
+    # _1password-cli
+    # _1password-gui
 
     # net util
     subnetcalc
@@ -90,8 +89,8 @@ in
     neofetch
 
     # env/theme util
-    #ulauncher
-    polybar
+    # ulauncher
+    # polybar
 
     # terminals
     alacritty
@@ -114,8 +113,6 @@ in
 
     pavucontrol
 
-    playerctl
-
     pkgs_6ec9e25.jamesdsp
 
     qpwgraph
@@ -128,6 +125,10 @@ in
 
     # web
     google-chrome
+    librewolf
+
+    # info
+    obsidian
 
     # security
     nmap
@@ -304,22 +305,6 @@ in
       recursive = true;
     };
 
-    alacritty-visualizer_desktop = {
-      target = "applications/alacritty-visualizer.desktop";
-      text = ''
-        [Desktop Entry]
-        Type=Application
-        TryExec=alacritty
-        Exec=alacritty --config-file ${config.xdg.configHome}/alacritty/visualizer.toml
-        Icon=Alacritty
-        Terminal=false
-        Categories=System;TerminalEmulator;
-        Name=Visualizer
-        GenericName=Terminal
-        Comment=Alacritty Visualizer Profile
-      '';
-    };
-
     fonts = {
       target = "fonts";
       source = "${denDir}/usr/share/fonts";
@@ -343,14 +328,31 @@ in
     publicShare = "${homeDir}/public";
   };
 
+  xdg.desktopEntries = {
+    alacritty-visualizer = {
+      type = "Application";
+      settings.TryExec = "alacritty";
+      exec = "alacritty --config-file ${config.xdg.configHome}/alacritty/visualizer.toml";
+      icon = "Alacritty";
+      terminal = false;
+      categories = [
+        "System"
+        "TerminalEmulator"
+      ];
+      name = "Visualizer";
+      genericName = "Terminal";
+      comment = "Alacritty Visualizer Profile";
+    };
+  };
+
   services.syncthing.enable = true;
 
   dconf.settings = with lib.hm.gvariant; {
 
     "org/gnome/desktop/interface" = {
-      accent-color = "orange";
+      accent-color = "pink";
       color-scheme = "prefer-dark";
-      gtk-theme = "Adwaita-Dark";
+      gtk-theme = "Adwaita-dark";
     };
 
     "org/gnome/desktop/peripherals/mouse" = {
@@ -405,10 +407,88 @@ in
       toggle-overview = [ "<Super>c" ];
     };
 
+    "org/gnome/shell" = {
+      disabled-extensions = [
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "window-list@gnome-shell-extensions.gcampax.github.com"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "status-icons@gnome-shell-extensions.gcampax.github.com"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
+      ];
+      enabled-extensions = [
+        "dash-to-panel@jderose9.github.com"
+        "appindicatorsupport@rgcjonas.gmail.com"
+      ];
+      remember-mount-password = false;
+    };
+
+    "org/gnome/shell/extensions/appindicator" = {
+      tray-pos = "center";
+    };
+
+    "org/gnome/shell/extensions/dash-to-panel" = {
+      animate-appicon-hover = true;
+      animate-appicon-hover-animation-type = "SIMPLE";
+      appicon-margin = 4;
+      appicon-padding = 4;
+      appicon-style = "SYMBOLIC";
+      dot-color-dominant = false;
+      dot-color-override = false;
+      dot-color-unfocused-different = false;
+      dot-position = "BOTTOM";
+      dot-style-focused = "METRO";
+      dot-style-unfocused = "DASHES";
+      focus-highlight-dominant = false;
+      hotkeys-overlay-combo = "TEMPORARILY";
+      intellihide = false;
+      isolate-monitors = false;
+      isolate-workspaces = false;
+      leftbox-padding = -1;
+      multi-monitors = false;
+      panel-anchors = ''
+        {"0":"MIDDLE"}
+      '';
+      panel-element-positions = ''
+        {"0":[{"element":"dateMenu","visible":true,"position":"stackedTL"},{"element":"systemMenu","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
+      '';
+      panel-element-positions-monitors-sync = false;
+      panel-lengths = ''
+        {"0":49}
+      '';
+      panel-positions = ''
+        {"0":"TOP"}
+      '';
+      panel-sizes = ''
+        {"0":24}
+      '';
+      primary-monitor = 0;
+      scroll-icon-action = "CYCLE_WINDOWS";
+      scroll-panel-action = "NOTHING";
+      show-favorites = false;
+      show-running-apps = true;
+      show-showdesktop-hover = false;
+      status-icon-padding = -1;
+      trans-panel-opacity = 0.0;
+      trans-use-custom-opacity = true;
+      trans-use-dynamic-opacity = false;
+      tray-padding = -1;
+      window-preview-title-position = "TOP";
+    };
   };
 
-  gtk.gtk4.extraConfig = {
-    gtk-application-prefer-dark-theme = 1;
+  gtk = {
+    enable = true;
+    theme.name = "Adwaita-dark";
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
   };
 
   # Let Home Manager install and manage itself.

@@ -6,7 +6,7 @@ getPlayer $PLAYER
 
 FORMAT="{{ position }} {{ mpris:length }}"
 
-METADATA_CMD=(playerctl metadata --player "$PLAYER" --format "$FORMAT")
+METADATA_CMD=(playerctl2 metadata --player "$PLAYER" --format "$FORMAT")
 
 print_timecode() {
   $METADATA_CMD | TZ=UTC0 awk '
@@ -23,7 +23,7 @@ print_timecode() {
   '
 }
 
-STATUS=$(playerctl status --player "$PLAYER" 2>/dev/null)
+STATUS=$(playerctl2 status --player "$PLAYER" 2>/dev/null)
 
 if [ $? -ne 0 ]; then
   STATUS="No players found"
