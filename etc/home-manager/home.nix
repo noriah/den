@@ -72,6 +72,7 @@ in
     # generic util
     file
     zip
+    wmctrl
 
     # installed globally
     # _1password-cli
@@ -91,6 +92,9 @@ in
     # env/theme util
     # ulauncher
     # polybar
+
+    # hardware util
+    ddcutil
 
     # terminals
     alacritty
@@ -117,6 +121,7 @@ in
 
     qpwgraph
     spotify
+    cheese
     pulseaudio
 
     # communication
@@ -401,31 +406,18 @@ in
       screensaver = [ "<Control><Super>q" ];
     };
 
-    "org/gnome/shell/keybindings" = {
-      shift-overview-down = [ "" ];
-      shift-overview-up = [ "" ];
-      toggle-overview = [ "<Super>c" ];
-    };
-
     "org/gnome/shell" = {
-      disabled-extensions = [
-        "apps-menu@gnome-shell-extensions.gcampax.github.com"
-        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-        "window-list@gnome-shell-extensions.gcampax.github.com"
-        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "status-icons@gnome-shell-extensions.gcampax.github.com"
-        "system-monitor@gnome-shell-extensions.gcampax.github.com"
-      ];
-      enabled-extensions = [
-        "dash-to-panel@jderose9.github.com"
-        "appindicatorsupport@rgcjonas.gmail.com"
-      ];
+      disabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "status-icons@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" ];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "dash-to-panel@jderose9.github.com" "mediacontrols@cliffniff.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
       remember-mount-password = false;
     };
 
+    "org/gnome/shell/app-switcher" = {
+      current-workspace-only = false;
+    };
+
     "org/gnome/shell/extensions/appindicator" = {
-      tray-pos = "center";
+      tray-pos = "right";
     };
 
     "org/gnome/shell/extensions/dash-to-panel" = {
@@ -438,24 +430,30 @@ in
       dot-color-override = false;
       dot-color-unfocused-different = false;
       dot-position = "BOTTOM";
+      dot-size = 1;
       dot-style-focused = "METRO";
       dot-style-unfocused = "DASHES";
+      focus-highlight = true;
       focus-highlight-dominant = false;
+      focus-highlight-opacity = 25;
+      group-apps = true;
       hotkeys-overlay-combo = "TEMPORARILY";
       intellihide = false;
       isolate-monitors = false;
       isolate-workspaces = false;
+      leave-timeout = 50;
       leftbox-padding = -1;
+      leftbox-size = 0;
       multi-monitors = false;
       panel-anchors = ''
         {"0":"MIDDLE"}
       '';
       panel-element-positions = ''
-        {"0":[{"element":"dateMenu","visible":true,"position":"stackedTL"},{"element":"systemMenu","visible":true,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centerMonitor"},{"element":"showAppsButton","visible":true,"position":"centered"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
+        {"0":[{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}\n
       '';
       panel-element-positions-monitors-sync = false;
       panel-lengths = ''
-        {"0":49}
+        {"0":91}
       '';
       panel-positions = ''
         {"0":"TOP"}
@@ -463,18 +461,57 @@ in
       panel-sizes = ''
         {"0":24}
       '';
+      preview-custom-opacity = 50;
+      preview-use-custom-opacity = true;
       primary-monitor = 0;
       scroll-icon-action = "CYCLE_WINDOWS";
       scroll-panel-action = "NOTHING";
       show-favorites = false;
       show-running-apps = true;
       show-showdesktop-hover = false;
+      show-window-previews-timeout = 300;
       status-icon-padding = -1;
       trans-panel-opacity = 0.0;
       trans-use-custom-opacity = true;
       trans-use-dynamic-opacity = false;
-      tray-padding = -1;
+      tray-padding = 6;
+      window-preview-animation-time = 200;
+      window-preview-hide-immediate-click = false;
       window-preview-title-position = "TOP";
+      window-preview-use-custom-icon-size = false;
+    };
+
+    "org/gnome/shell/extensions/mediacontrols" = {
+      colored-player-icon = true;
+      elements-order = [
+        "ICON"
+        "LABEL"
+        "CONTROLS"
+      ];
+      extension-index = mkUint32 0;
+      extension-position = "Center";
+      fixed-label-width = true;
+      label-width = mkUint32 200;
+      labels-order = [
+        " 🎵 "
+        "TITLE"
+        "-"
+        "ARTIST"
+      ];
+      scroll-labels = true;
+      show-control-icons-seek-backward = true;
+      show-control-icons-seek-forward = true;
+      show-player-icon = true;
+    };
+
+    "org/gnome/shell/extensions/workspace-indicator" = {
+      embed-previews = false;
+    };
+
+    "org/gnome/shell/keybindings" = {
+      shift-overview-down = [ "" ];
+      shift-overview-up = [ "" ];
+      toggle-overview = [ "<Super>c" ];
     };
   };
 
@@ -630,6 +667,36 @@ in
     };
   };
 
+  systemd.user.services.polybar-left-top = {
+    Unit = {
+      Description = "Polybar left top";
+      After = "graphical-session.target";
+      BindsTo = "graphical-session.target";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "simple";
+      Restart = "on-failure";
+      ExecStart = ''${pkgs.polybar}/bin/polybar -r left-top'';
+      StandardError = "journal";
+    };
+  };
+
+  systemd.user.services.polybar-left-bottom = {
+    Unit = {
+      Description = "Polybar left bottom";
+      After = "graphical-session.target";
+      BindsTo = "graphical-session.target";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "simple";
+      Restart = "on-failure";
+      ExecStart = ''${pkgs.polybar}/bin/polybar -r left-bottom'';
+      StandardError = "journal";
+    };
+  };
+
   systemd.user.services.polybar-right-top = {
     Unit = {
       Description = "Polybar right top";
@@ -645,9 +712,9 @@ in
     };
   };
 
-  systemd.user.services.polybar-left-top = {
+  systemd.user.services.polybar-right-bottom = {
     Unit = {
-      Description = "Polybar left top";
+      Description = "Polybar right bottom";
       After = "graphical-session.target";
       BindsTo = "graphical-session.target";
     };
@@ -655,7 +722,7 @@ in
     Service = {
       Type = "simple";
       Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r left-top'';
+      ExecStart = ''${pkgs.polybar}/bin/polybar -r right-bottom'';
       StandardError = "journal";
     };
   };
