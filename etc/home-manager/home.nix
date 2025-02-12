@@ -91,7 +91,7 @@ in
 
     # env/theme util
     # ulauncher
-    # polybar
+    polybar
 
     # hardware util
     ddcutil

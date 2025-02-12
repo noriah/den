@@ -15,38 +15,56 @@ MONITOR_RIGHT=7SGX623
 
 SLEEP_MULTIPLIER=0.01
 
-detectDisplays() {
-  eval $(ddcutil detect --sleep-multiplier $SLEEP_MULTIPLIER --dsa | awk -v RS= -F'\n' '
-    BEGIN { print "typeset -g -A displays=(" }
+DISPLAY_DATA_FILE="/tmp/vix_monitor_ids"
+
+typeset -A display_alias=(
+  [center]=$MONITOR_CENTER
+  [left]=$MONITOR_LEFT
+  [right]=$MONITOR_RIGHT
+)
+
+typeset -A input_alias=(
+  [dp]=$INPUT_DISPLAYPORT1
+  [dp2]=$INPUT_DISPLAYPORT2
+  [hdmi]=$INPUT_HDMI
+  [hdmi2]=$INPUT_HDMI2
+)
+
+swapinput() {
+  if [ ! -f $DISPLAY_DATA_FILE ]; then
+    echo $(ddcutil detect --sleep-multiplier $SLEEP_MULTIPLIER --dsa | awk -v RS= -F'\n' '
+    BEGIN { print "typeset -A displays=(" }
     match($2, / +I2C bus:  \/dev\/i2c-([0-9]+)/, b) \
       match($8, / +Serial number: +(\w+)/, s) \
       { print "  [" s[1] "]=" b[1] }
-    END { print ")" }')
-}
+    END { print ")" }') > $DISPLAY_DATA_FILE
 
-swapinput() {
-  local _dsp=$displays[$1]
-  local _inp=$2
+  fi
+
+  eval $(cat $DISPLAY_DATA_FILE)
+
+  local _id=$display_alias[$1]
+  local _dsp=$displays[$_id]
+  local _inp=$input_alias[$2]
+
+  local _bar_hook_idx
+  case "$2" in
+    dp|dp2)
+      _bar_hook_idx=1
+      ;;
+    hdmi|hdmi2)
+      _bar_hook_idx=2
+      ;;
+  esac
 
   ddcutil --sleep-multiplier $SLEEP_MULTIPLIER --dsa \
-    --bus $_dsp setvcp $INPUT_ADDR $_inp
+    --bus $_dsp setvcp $INPUT_ADDR $_inp && update_bar_icon $1 $_bar_hook_idx
 }
 
-detectDisplays
+update_bar_icon() {
+  for i in $(pgrep -a "polybar" | cut -d" " -f1); do
+    polybar-msg -p "$i" hook $1-monitor-control $2 1>/dev/null 2>&1
+  done
+}
 
-case "$1" in
-  leftdp)
-    swapinput $MONITOR_LEFT $INPUT_DISPLAYPORT1
-    ;;
-  lefthdmi)
-    swapinput $MONITOR_LEFT $INPUT_HDMI
-    ;;
-  dp)
-    swapinput $MONITOR_CENTER $INPUT_DISPLAYPORT1
-    swapinput $MONITOR_LEFT $INPUT_DISPLAYPORT1
-    ;;
-  hdmi)
-    swapinput $MONITOR_CENTER $INPUT_HDMI2
-    swapinput $MONITOR_LEFT $INPUT_HDMI
-    ;;
-esac
+swapinput $1 $2

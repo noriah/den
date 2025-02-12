@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+DATA_FILE_CENTER="/tmp/vix_monitors_previous_state_center"
+DATA_FILE_LEFT="/tmp/vix_monitors_previous_state_left"
+
+input_toggle_center_dp=hdmi2
+input_toggle_center_hdmi2=dp
+input_toggle_center_file=$DATA_FILE_CENTER
+
+input_toggle_left_dp=hdmi
+input_toggle_left_hdmi=dp
+input_toggle_left_file=$DATA_FILE_LEFT
+
+local _mon=$1
+shift
+
+local _input_name="input_toggle_${_mon}"
+local _input_file="${_input_name}_file"
+
+local _mon_file=${(P)_input_file}
+
+local _current=dp
+
+if [ -f $_mon_file ]; then
+  _current=$(cat $_mon_file)
+fi
+
+
+local _input_target="${_input_name}_${_current}"
+local _mon_target=${(P)_input_target}
+
+$HOME/opt/den/bin/monswap $_mon $_mon_target
+
+echo -n $_mon_target > $_mon_file
