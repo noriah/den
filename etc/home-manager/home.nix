@@ -105,9 +105,17 @@ in
     go
     python3
     rust-analyzer
+    julia
 
     # dev tools
     pkg-config
+    # gcc
+    libgcc
+    # libgccjit
+    gfortran
+    # binutils
+    # blas
+    # openblas
 
     # nixfmt
     nixfmt-rfc-style
@@ -256,6 +264,8 @@ in
   home.sessionVariables = {
     EDITOR = editorBin;
     NIXPKGS_ALLOW_UNFREE = "1";
+
+    # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
 
     # rust stuff
     RUSTUP_HOME = "${homeOptDir}/rustup";
@@ -407,8 +417,21 @@ in
     };
 
     "org/gnome/shell" = {
-      disabled-extensions = [ "apps-menu@gnome-shell-extensions.gcampax.github.com" "auto-move-windows@gnome-shell-extensions.gcampax.github.com" "window-list@gnome-shell-extensions.gcampax.github.com" "windowsNavigator@gnome-shell-extensions.gcampax.github.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "status-icons@gnome-shell-extensions.gcampax.github.com" "system-monitor@gnome-shell-extensions.gcampax.github.com" ];
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "dash-to-panel@jderose9.github.com" "mediacontrols@cliffniff.github.com" "workspace-indicator@gnome-shell-extensions.gcampax.github.com" ];
+      disabled-extensions = [
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
+        "window-list@gnome-shell-extensions.gcampax.github.com"
+        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "status-icons@gnome-shell-extensions.gcampax.github.com"
+        "system-monitor@gnome-shell-extensions.gcampax.github.com"
+        "dash-to-panel@jderose9.github.com"
+      ];
+      enabled-extensions = [
+        "appindicatorsupport@rgcjonas.gmail.com"
+        "mediacontrols@cliffniff.github.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+      ];
       remember-mount-password = false;
     };
 
@@ -420,66 +443,66 @@ in
       tray-pos = "right";
     };
 
-    "org/gnome/shell/extensions/dash-to-panel" = {
-      animate-appicon-hover = true;
-      animate-appicon-hover-animation-type = "SIMPLE";
-      appicon-margin = 4;
-      appicon-padding = 4;
-      appicon-style = "SYMBOLIC";
-      dot-color-dominant = false;
-      dot-color-override = false;
-      dot-color-unfocused-different = false;
-      dot-position = "BOTTOM";
-      dot-size = 1;
-      dot-style-focused = "METRO";
-      dot-style-unfocused = "DASHES";
-      focus-highlight = true;
-      focus-highlight-dominant = false;
-      focus-highlight-opacity = 25;
-      group-apps = true;
-      hotkeys-overlay-combo = "TEMPORARILY";
-      intellihide = false;
-      isolate-monitors = false;
-      isolate-workspaces = false;
-      leave-timeout = 50;
-      leftbox-padding = -1;
-      leftbox-size = 0;
-      multi-monitors = false;
-      panel-anchors = ''
-        {"0":"MIDDLE"}
-      '';
-      panel-element-positions = ''
-        {"0":[{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}\n
-      '';
-      panel-element-positions-monitors-sync = false;
-      panel-lengths = ''
-        {"0":91}
-      '';
-      panel-positions = ''
-        {"0":"TOP"}
-      '';
-      panel-sizes = ''
-        {"0":24}
-      '';
-      preview-custom-opacity = 50;
-      preview-use-custom-opacity = true;
-      primary-monitor = 0;
-      scroll-icon-action = "CYCLE_WINDOWS";
-      scroll-panel-action = "NOTHING";
-      show-favorites = false;
-      show-running-apps = true;
-      show-showdesktop-hover = false;
-      show-window-previews-timeout = 300;
-      status-icon-padding = -1;
-      trans-panel-opacity = 0.0;
-      trans-use-custom-opacity = true;
-      trans-use-dynamic-opacity = false;
-      tray-padding = 6;
-      window-preview-animation-time = 200;
-      window-preview-hide-immediate-click = false;
-      window-preview-title-position = "TOP";
-      window-preview-use-custom-icon-size = false;
-    };
+    # "org/gnome/shell/extensions/dash-to-panel" = {
+    #   animate-appicon-hover = true;
+    #   animate-appicon-hover-animation-type = "SIMPLE";
+    #   appicon-margin = 4;
+    #   appicon-padding = 4;
+    #   appicon-style = "SYMBOLIC";
+    #   dot-color-dominant = false;
+    #   dot-color-override = false;
+    #   dot-color-unfocused-different = false;
+    #   dot-position = "BOTTOM";
+    #   dot-size = 1;
+    #   dot-style-focused = "METRO";
+    #   dot-style-unfocused = "DASHES";
+    #   focus-highlight = true;
+    #   focus-highlight-dominant = false;
+    #   focus-highlight-opacity = 25;
+    #   group-apps = true;
+    #   hotkeys-overlay-combo = "TEMPORARILY";
+    #   intellihide = false;
+    #   isolate-monitors = false;
+    #   isolate-workspaces = false;
+    #   leave-timeout = 50;
+    #   leftbox-padding = -1;
+    #   leftbox-size = 0;
+    #   multi-monitors = false;
+    #   panel-anchors = ''
+    #     {"0":"MIDDLE"}
+    #   '';
+    #   panel-element-positions = ''
+    #     {"0":[{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}\n
+    #   '';
+    #   panel-element-positions-monitors-sync = false;
+    #   panel-lengths = ''
+    #     {"0":91}
+    #   '';
+    #   panel-positions = ''
+    #     {"0":"TOP"}
+    #   '';
+    #   panel-sizes = ''
+    #     {"0":24}
+    #   '';
+    #   preview-custom-opacity = 50;
+    #   preview-use-custom-opacity = true;
+    #   primary-monitor = 0;
+    #   scroll-icon-action = "CYCLE_WINDOWS";
+    #   scroll-panel-action = "NOTHING";
+    #   show-favorites = false;
+    #   show-running-apps = true;
+    #   show-showdesktop-hover = false;
+    #   show-window-previews-timeout = 300;
+    #   status-icon-padding = -1;
+    #   trans-panel-opacity = 0.0;
+    #   trans-use-custom-opacity = true;
+    #   trans-use-dynamic-opacity = false;
+    #   tray-padding = 6;
+    #   window-preview-animation-time = 200;
+    #   window-preview-hide-immediate-click = false;
+    #   window-preview-title-position = "TOP";
+    #   window-preview-use-custom-icon-size = false;
+    # };
 
     "org/gnome/shell/extensions/mediacontrols" = {
       colored-player-icon = true;
@@ -637,20 +660,20 @@ in
   #  };
   #};
 
-  systemd.user.services.polybar-main-top = {
-    Unit = {
-      Description = "Polybar main top";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r main-top'';
-      StandardError = "journal";
-    };
-  };
+  # systemd.user.services.polybar-main-top = {
+  #   Unit = {
+  #     Description = "Polybar main top";
+  #     After = "graphical-session.target";
+  #     BindsTo = "graphical-session.target";
+  #   };
+  #   Install.WantedBy = [ "graphical-session.target" ];
+  #   Service = {
+  #     Type = "simple";
+  #     Restart = "on-failure";
+  #     ExecStart = ''${pkgs.polybar}/bin/polybar -r main-top'';
+  #     StandardError = "journal";
+  #   };
+  # };
 
   systemd.user.services.polybar-main-bottom = {
     Unit = {
