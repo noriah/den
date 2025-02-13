@@ -9,6 +9,8 @@ let
   user = "vix";
   homeDir = builtins.getEnv "HOME";
 
+  hostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
+
   homeOptDir = "${homeDir}/opt";
   homeVarDir = "${homeDir}/var";
   homeConfDir = "${homeDir}/.config";
@@ -26,6 +28,8 @@ let
     rev = "6ec9e2520787f319a6efd29cb67ed3e51237af7e";
     sha256 = "6dYqPSYhADkK37uiKW4GnwA/FtfYeb70fUuxSwONnoI=";
   }) { inherit (pkgs) system; };
+
+  den_packages = pkgs.callPackage ./packages { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -181,7 +185,13 @@ in
 
       vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
     })
+
+    den_packages.openrgb
+    den_packages.openrgb-plugin-effects
+    den_packages.openrgb-plugin-visual-map
   ];
+
+  # nixpkgs.overlays = (pkgs.callPackage ./nixos/openrgb.nix { }).nixpkgs.overlays;
 
   home.file = {
     profile = {
@@ -309,6 +319,30 @@ in
           <dir prefix="cwd">NIX_PROFILE/share/fonts</dir>
         </fontconfig>
       '';
+      force = true;
+    };
+
+    polybar = {
+      target = "polybar";
+      source = "${denEtcDir}/polybar/";
+      recursive = true;
+      onChange = "${pkgs.systemd}/bin/systemctl --user restart polybar.slice";
+    };
+
+    polybar-host = {
+      target = "polybar/host.ini";
+      source = "${denEtcDir}/polybar/hosts/${hostName}.ini";
+    };
+
+    openrgb-plugin-effects = {
+      target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";
+      source = "${den_packages.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
+      force = true;
+    };
+
+    openrgb-plugin-visual-map = {
+      target = "OpenRGB/plugins/libOpenRGBVisualMapPlugin.so";
+      source = "${den_packages.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
       force = true;
     };
   };
@@ -648,6 +682,13 @@ in
 
   systemd.user.startServices = "sd-switch";
 
+  systemd.user.targets.polybar = {
+    Unit = {
+      Description = "Polybar Target";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   #systemd.user.services.ulauncher-local = {
   #  Unit.Description = "Ulauncher service";
   #  Install.WantedBy = [ "default.target" ];
@@ -678,75 +719,80 @@ in
   systemd.user.services.polybar-main-bottom = {
     Unit = {
       Description = "Polybar main bottom";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
+      After = "polybar.target";
+      BindsTo = "polybar.target";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "polybar.target" ];
     Service = {
       Type = "simple";
       Restart = "on-failure";
       ExecStart = ''${pkgs.polybar}/bin/polybar -r main-bottom'';
       StandardError = "journal";
+      Slice = "polybar.slice";
     };
   };
 
   systemd.user.services.polybar-left-top = {
     Unit = {
       Description = "Polybar left top";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
+      After = "polybar.target";
+      BindsTo = "polybar.target";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "polybar.target" ];
     Service = {
       Type = "simple";
       Restart = "on-failure";
       ExecStart = ''${pkgs.polybar}/bin/polybar -r left-top'';
       StandardError = "journal";
+      Slice = "polybar.slice";
     };
   };
 
   systemd.user.services.polybar-left-bottom = {
     Unit = {
       Description = "Polybar left bottom";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
+      After = "polybar.target";
+      BindsTo = "polybar.target";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "polybar.target" ];
     Service = {
       Type = "simple";
       Restart = "on-failure";
       ExecStart = ''${pkgs.polybar}/bin/polybar -r left-bottom'';
       StandardError = "journal";
+      Slice = "polybar.slice";
     };
   };
 
   systemd.user.services.polybar-right-top = {
     Unit = {
       Description = "Polybar right top";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
+      After = "polybar.target";
+      BindsTo = "polybar.target";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "polybar.target" ];
     Service = {
       Type = "simple";
       Restart = "on-failure";
       ExecStart = ''${pkgs.polybar}/bin/polybar -r right-top'';
       StandardError = "journal";
+      Slice = "polybar.slice";
     };
   };
 
   systemd.user.services.polybar-right-bottom = {
     Unit = {
       Description = "Polybar right bottom";
-      After = "graphical-session.target";
-      BindsTo = "graphical-session.target";
+      After = "polybar.target";
+      BindsTo = "polybar.target";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "polybar.target" ];
     Service = {
       Type = "simple";
       Restart = "on-failure";
       ExecStart = ''${pkgs.polybar}/bin/polybar -r right-bottom'';
       StandardError = "journal";
+      Slice = "polybar.slice";
     };
   };
 

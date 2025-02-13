@@ -4,7 +4,7 @@ if den::is::nixos; then
 
   den::install::ensureDir '.config'
   den::install::checkBackupHome '.config/home-manager'
-  den::install::link '.config/home-manager' 'etc/home-manager'
+  den::install::link '.config/home-manager' 'etc/nix'
 
   nix-shell '<home-manager>' -A install
 else
