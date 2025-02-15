@@ -40,6 +40,6 @@ lines = 32
 
 [window.position]
 # x = 1472
-# x = 1440
-x = 4000
+x = 1440
+# x = 4000
 y = 1795
