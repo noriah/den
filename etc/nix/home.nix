@@ -6,19 +6,6 @@
 }:
 
 let
-  user = "vix";
-  homeDir = builtins.getEnv "HOME";
-
-  hostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
-
-  homeOptDir = "${homeDir}/opt";
-  homeVarDir = "${homeDir}/var";
-  homeConfDir = "${homeDir}/.config";
-
-  denDir = "${homeOptDir}/den";
-  denEtcDir = "${denDir}/etc";
-  denShareDir = "${denDir}/share";
-
   editorBin = "${pkgs.vim}/bin/vim";
 
   # to get jamesdsp 2.4
@@ -29,13 +16,13 @@ let
     sha256 = "6dYqPSYhADkK37uiKW4GnwA/FtfYeb70fUuxSwONnoI=";
   }) { inherit (pkgs) system; };
 
-  den_packages = pkgs.callPackage ./packages { };
+  den = pkgs.callPackage ./den.nix { };
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = user;
-  home.homeDirectory = homeDir;
+  home.username = den.user;
+  home.homeDirectory = den.homeDir;
 
   news.display = "silent";
 
@@ -47,6 +34,10 @@ in
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
+
+  imports = [
+    ./apps/polybar.nix
+  ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -95,7 +86,6 @@ in
 
     # env/theme util
     # ulauncher
-    polybar
 
     # hardware util
     ddcutil
@@ -186,9 +176,9 @@ in
       vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
     })
 
-    den_packages.openrgb
-    den_packages.openrgb-plugin-effects
-    den_packages.openrgb-plugin-visual-map
+    den.pkgs.openrgb
+    den.pkgs.openrgb-plugin-effects
+    den.pkgs.openrgb-plugin-visual-map
   ];
 
   # nixpkgs.overlays = (pkgs.callPackage ./nixos/openrgb.nix { }).nixpkgs.overlays;
@@ -206,15 +196,15 @@ in
 
     zshrc = {
       target = ".zshrc";
-      text = ". ${denEtcDir}/zsh/zshrc";
+      text = ". ${den.etcDir}/zsh/zshrc";
       force = true;
     };
 
     zshenv = {
       target = ".zshenv";
       text = ''
-        . ${homeDir}/.profile
-        . ${denEtcDir}/zsh/zshenv
+        . ${den.homeDir}/.profile
+        . ${den.etcDir}/zsh/zshenv
       '';
       force = true;
     };
@@ -235,7 +225,7 @@ in
 
     tmux-config = {
       target = ".tmux.conf";
-      source = "${denEtcDir}/tmux/tmux.conf";
+      source = "${den.etcDir}/tmux/tmux.conf";
       force = true;
     };
 
@@ -245,7 +235,7 @@ in
         ClientOnly 1
         ControlPort 9051
         CookieAuthentication 1
-        CookieAuthFile ${homeDir}/.tor/cookie-auth
+        CookieAuthFile ${den.homeDir}/.tor/cookie-auth
         ExcludeExitNodes {ru},{cn},{uk},{gb},{us}
         #ExitNodes {nl},{de},{ca},{au}
         #ExitNodes {us}
@@ -257,7 +247,7 @@ in
 
     vimrc = {
       target = ".vimrc";
-      source = "${denEtcDir}/vim/rc.vim";
+      source = "${den.etcDir}/vim/rc.vim";
       force = true;
     };
   };
@@ -266,9 +256,9 @@ in
     # node paths
     "./node_modules/.bin"
     "${config.programs.go.goPath}/bin"
-    "${homeDir}/bin"
-    "${homeDir}/rbin"
-    "${homeDir}/opt/den/bin"
+    "${den.homeDir}/bin"
+    "${den.homeDir}/rbin"
+    "${den.homeDir}/opt/den/bin"
   ];
 
   home.sessionVariables = {
@@ -278,25 +268,25 @@ in
     # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
 
     # rust stuff
-    RUSTUP_HOME = "${homeOptDir}/rustup";
-    CARGO_HOME = "${homeOptDir}/cargo";
+    RUSTUP_HOME = "${den.homeOptDir}/rustup";
+    CARGO_HOME = "${den.homeOptDir}/cargo";
 
     # julia stuff
     # JULIA_HISTORY = "$HISTORY/julia_repl_history.jl";
-    JULIA_DEPOT_PATH = "${homeOptDir}/julia";
+    JULIA_DEPOT_PATH = "${den.homeOptDir}/julia";
 
     # node stuff
-    NPM_PATH = "${homeOptDir}/npm";
-    NPM_CONFIG_CACHE = "${homeOptDir}/npm/cache";
+    NPM_PATH = "${den.homeOptDir}/npm";
+    NPM_CONFIG_CACHE = "${den.homeOptDir}/npm/cache";
   };
 
   # prefer XDG directories
   home.preferXdgDirectories = true;
 
-  xdg.configHome = "${homeDir}/.config";
-  xdg.dataHome = homeVarDir;
-  xdg.cacheHome = "${homeVarDir}/cache";
-  xdg.stateHome = "${homeVarDir}/state";
+  xdg.configHome = "${den.homeDir}/.config";
+  xdg.dataHome = den.homeVarDir;
+  xdg.cacheHome = "${den.homeVarDir}/cache";
+  xdg.stateHome = "${den.homeVarDir}/state";
 
   xdg.configFile = {
     "user-dirs.conf".text = "enabled=False\n";
@@ -304,7 +294,7 @@ in
 
     alacritty_config = {
       target = "alacritty";
-      source = "${denEtcDir}/alacritty/default";
+      source = "${den.etcDir}/alacritty/default";
       force = true;
     };
 
@@ -322,27 +312,15 @@ in
       force = true;
     };
 
-    polybar = {
-      target = "polybar";
-      source = "${denEtcDir}/polybar/";
-      recursive = true;
-      onChange = "${pkgs.systemd}/bin/systemctl --user restart polybar.slice";
-    };
-
-    polybar-host = {
-      target = "polybar/host.ini";
-      source = "${denEtcDir}/polybar/hosts/${hostName}.ini";
-    };
-
     openrgb-plugin-effects = {
       target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";
-      source = "${den_packages.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
+      source = "${den.pkgs.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
       force = true;
     };
 
     openrgb-plugin-visual-map = {
       target = "OpenRGB/plugins/libOpenRGBVisualMapPlugin.so";
-      source = "${den_packages.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
+      source = "${den.pkgs.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
       force = true;
     };
   };
@@ -350,13 +328,13 @@ in
   xdg.dataFile = {
     applications = {
       target = "applications";
-      source = "${denShareDir}/applications";
+      source = "${den.shareDir}/applications";
       recursive = true;
     };
 
     fonts = {
       target = "fonts";
-      source = "${denShareDir}/fonts";
+      source = "${den.shareDir}/fonts";
       recursive = true;
     };
   };
@@ -365,16 +343,16 @@ in
     enable = true;
     createDirectories = false;
 
-    desktop = "${homeDir}/desktop";
-    download = "${homeDir}/downloads";
-    documents = "${homeDir}/documents";
-    pictures = "${homeDir}/pictures";
-    music = "${homeDir}/music";
-    videos = "${homeDir}/videos";
+    desktop = "${den.homeDir}/desktop";
+    download = "${den.homeDir}/downloads";
+    documents = "${den.homeDir}/documents";
+    pictures = "${den.homeDir}/pictures";
+    music = "${den.homeDir}/music";
+    videos = "${den.homeDir}/videos";
 
-    templates = "${homeDir}/templates";
+    templates = "${den.homeDir}/templates";
 
-    publicShare = "${homeDir}/public";
+    publicShare = "${den.homeDir}/public";
   };
 
   xdg.desktopEntries = {
@@ -506,7 +484,7 @@ in
     #     {"0":"MIDDLE"}
     #   '';
     #   panel-element-positions = ''
-    #     {"0":[{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"showAppsButton","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"centerMonitor"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}\n
+    #     {}
     #   '';
     #   panel-element-positions-monitors-sync = false;
     #   panel-lengths = ''
@@ -682,13 +660,6 @@ in
 
   systemd.user.startServices = "sd-switch";
 
-  systemd.user.targets.polybar = {
-    Unit = {
-      Description = "Polybar Target";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
-
   #systemd.user.services.ulauncher-local = {
   #  Unit.Description = "Ulauncher service";
   #  Install.WantedBy = [ "default.target" ];
@@ -700,101 +671,6 @@ in
   #    ExecStart = ''${pkgs.ulauncher}/bin/ulauncher'';
   #  };
   #};
-
-  # systemd.user.services.polybar-main-top = {
-  #   Unit = {
-  #     Description = "Polybar main top";
-  #     After = "graphical-session.target";
-  #     BindsTo = "graphical-session.target";
-  #   };
-  #   Install.WantedBy = [ "graphical-session.target" ];
-  #   Service = {
-  #     Type = "simple";
-  #     Restart = "on-failure";
-  #     ExecStart = ''${pkgs.polybar}/bin/polybar -r main-top'';
-  #     StandardError = "journal";
-  #   };
-  # };
-
-  systemd.user.services.polybar-main-bottom = {
-    Unit = {
-      Description = "Polybar main bottom";
-      After = "polybar.target";
-      BindsTo = "polybar.target";
-    };
-    Install.WantedBy = [ "polybar.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r main-bottom'';
-      StandardError = "journal";
-      Slice = "polybar.slice";
-    };
-  };
-
-  systemd.user.services.polybar-left-top = {
-    Unit = {
-      Description = "Polybar left top";
-      After = "polybar.target";
-      BindsTo = "polybar.target";
-    };
-    Install.WantedBy = [ "polybar.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r left-top'';
-      StandardError = "journal";
-      Slice = "polybar.slice";
-    };
-  };
-
-  systemd.user.services.polybar-left-bottom = {
-    Unit = {
-      Description = "Polybar left bottom";
-      After = "polybar.target";
-      BindsTo = "polybar.target";
-    };
-    Install.WantedBy = [ "polybar.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r left-bottom'';
-      StandardError = "journal";
-      Slice = "polybar.slice";
-    };
-  };
-
-  systemd.user.services.polybar-right-top = {
-    Unit = {
-      Description = "Polybar right top";
-      After = "polybar.target";
-      BindsTo = "polybar.target";
-    };
-    Install.WantedBy = [ "polybar.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r right-top'';
-      StandardError = "journal";
-      Slice = "polybar.slice";
-    };
-  };
-
-  systemd.user.services.polybar-right-bottom = {
-    Unit = {
-      Description = "Polybar right bottom";
-      After = "polybar.target";
-      BindsTo = "polybar.target";
-    };
-    Install.WantedBy = [ "polybar.target" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs.polybar}/bin/polybar -r right-bottom'';
-      StandardError = "journal";
-      Slice = "polybar.slice";
-    };
-  };
 
   systemd.user.services.jamesdsp = {
     Unit = {
