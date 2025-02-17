@@ -74,6 +74,7 @@ in
     # _1password-gui
 
     # net util
+    whois
     subnetcalc
     dnsutils
 

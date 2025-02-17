@@ -8,16 +8,16 @@
   "extensions.ignoreRecommendations": true,
   "files.insertFinalNewline": true,
   "rust-analyzer.server.extraEnv": {
-    "CARGO_HOME": "$HOME/opt/cargo",
-    "RUSTUP_HOME": "$HOME/opt/rustup"
+    "CARGO_HOME": "/home/vix/opt/cargo",
+    "RUSTUP_HOME": "/home/vix/opt/rustup"
   },
   "rust-analyzer.runnableEnv": {
-    "CARGO_HOME": "$HOME/opt/cargo",
-    "RUSTUP_HOME": "$HOME/opt/rustup"
+    "CARGO_HOME": "/home/vix/opt/cargo",
+    "RUSTUP_HOME": "/home/vix/opt/rustup"
   },
   "rust-analyzer.cargo.extraEnv": {
-    "CARGO_HOME": "$HOME/opt/cargo",
-    "RUSTUP_HOME": "$HOME/opt/rustup"
+    "CARGO_HOME": "/home/vix/opt/cargo",
+    "RUSTUP_HOME": "/home/vix/opt/rustup"
   },
 
   "files.trimTrailingWhitespace": true,
