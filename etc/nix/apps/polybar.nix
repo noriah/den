@@ -1,13 +1,29 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 let
   den = pkgs.callPackage ../den.nix { };
 in
 {
-  home.packages = [ pkgs.polybar ];
+  home.packages = [
+    pkgs.polybar
+
+    # polyden
+    (pkgs.buildGoModule rec {
+      name = "polyden";
+      version = "git";
+
+      src =
+        pkgs.fetchFromGitHub {
+          owner = "noriah";
+          repo = "den";
+          rev = "f81db82e0acc584b7ece344493231f8a908dc2d7";
+          sha256 = "Vbj5l1ofN6vZt9sGzXQMdEnSkZsUAZtGds90mGSMljM=";
+        }
+        + "/src/polyden";
+
+      vendorHash = "sha256-QduatMLXBdpmwNuTNcGDNS6oe8kmL/wNOJrKXBhzj6A=";
+
+    })
+  ];
 
   xdg.configFile = {
 
@@ -29,7 +45,7 @@ in
     Unit = {
       Description = "Polybar Target";
     };
-    # Install.WantedBy = [ "graphical-session.target" ];
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 
   # systemd.user.services.polybar-main-top = {

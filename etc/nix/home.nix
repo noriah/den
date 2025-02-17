@@ -6,16 +6,6 @@
 }:
 
 let
-  editorBin = "${pkgs.vim}/bin/vim";
-
-  # to get jamesdsp 2.4
-  pkgs_6ec9e25 = import (pkgs.fetchFromGitHub {
-    owner = "NixOS";
-    repo = "nixpkgs";
-    rev = "6ec9e2520787f319a6efd29cb67ed3e51237af7e";
-    sha256 = "6dYqPSYhADkK37uiKW4GnwA/FtfYeb70fUuxSwONnoI=";
-  }) { inherit (pkgs) system; };
-
   den = pkgs.callPackage ./den.nix { };
 in
 {
@@ -36,7 +26,14 @@ in
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
   imports = [
+    ./apps/alacritty.nix
+    ./apps/git.nix
+    ./apps/gnome.nix
+    ./apps/openrgb.nix
     ./apps/polybar.nix
+    ./audio.nix
+    ./fonts.nix
+    ./xdg.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -58,11 +55,6 @@ in
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-
-    (pkgs.writeShellScriptBin "playerctl2" ''
-      PLAYER=spotify
-      ${playerctl}/bin/playerctl -p "$PLAYER" "$@"
-    '')
 
     # generic util
     file
@@ -92,7 +84,6 @@ in
     ddcutil
 
     # terminals
-    alacritty
     kitty
 
     # coding
@@ -101,31 +92,13 @@ in
     python3
     rust-analyzer
     julia
-
-    # dev tools
-    pkg-config
-    # gcc
-    libgcc
-    # libgccjit
-    gfortran
-    # binutils
-    # blas
-    # openblas
-
     # nixfmt
     nixfmt-rfc-style
 
-    # audio
-    alsa-scarlett-gui
+    # dev util
+    gnumake
 
-    pavucontrol
-
-    pkgs_6ec9e25.jamesdsp
-
-    qpwgraph
-    spotify
     cheese
-    pulseaudio
 
     # communication
     signal-desktop
@@ -142,47 +115,23 @@ in
     nmap
     tor
 
-    # polyden
-    (buildGoModule rec {
-      name = "polyden";
-      version = "git";
+    catnip
+    # (buildGoModule rec {
+    #   name = "catnip";
+    #   version = "git";
 
-      src =
-        fetchFromGitHub {
-          owner = "noriah";
-          repo = "den";
-          rev = "f81db82e0acc584b7ece344493231f8a908dc2d7";
-          sha256 = "Vbj5l1ofN6vZt9sGzXQMdEnSkZsUAZtGds90mGSMljM=";
-        }
-        + "/src/polyden";
+    #   src = fetchFromGitHub {
+    #     owner = "noriah";
+    #     repo = "catnip";
+    #     rev = "9c9f6e035030a590947e72d0c58fe2182f2fee2f";
+    #     sha256 = "9gneteQIzbMNjg/08uq+pCbs2a32He2gL+hovxcJFzE=";
+    #   };
 
-      vendorHash = "sha256-QduatMLXBdpmwNuTNcGDNS6oe8kmL/wNOJrKXBhzj6A=";
+    #   CGO_ENABLED = 0;
 
-    })
-
-    # catnip
-    (buildGoModule rec {
-      name = "catnip";
-      version = "git";
-
-      src = fetchFromGitHub {
-        owner = "noriah";
-        repo = "catnip";
-        rev = "9c9f6e035030a590947e72d0c58fe2182f2fee2f";
-        sha256 = "9gneteQIzbMNjg/08uq+pCbs2a32He2gL+hovxcJFzE=";
-      };
-
-      CGO_ENABLED = 0;
-
-      vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
-    })
-
-    den.pkgs.openrgb
-    den.pkgs.openrgb-plugin-effects
-    den.pkgs.openrgb-plugin-visual-map
+    #   vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
+    # })
   ];
-
-  # nixpkgs.overlays = (pkgs.callPackage ./nixos/openrgb.nix { }).nixpkgs.overlays;
 
   home.file = {
     profile = {
@@ -218,9 +167,7 @@ in
 
     selected-editor = {
       target = ".selected_editor";
-      text = ''
-        SELECTED_EDITOR="${editorBin}"
-      '';
+      text = "SELECTED_EDITOR=\"${den.editorBin}\"\n";
       force = true;
     };
 
@@ -256,14 +203,16 @@ in
   home.sessionPath = [
     # node paths
     "./node_modules/.bin"
+
     "${config.programs.go.goPath}/bin"
+
     "${den.homeDir}/bin"
     "${den.homeDir}/rbin"
     "${den.homeDir}/opt/den/bin"
   ];
 
   home.sessionVariables = {
-    EDITOR = editorBin;
+    EDITOR = den.editorBin;
     NIXPKGS_ALLOW_UNFREE = "1";
 
     # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
@@ -281,347 +230,17 @@ in
     NPM_CONFIG_CACHE = "${den.homeOptDir}/npm/cache";
   };
 
-  # prefer XDG directories
-  home.preferXdgDirectories = true;
-
-  xdg.configHome = "${den.homeDir}/.config";
-  xdg.dataHome = den.homeVarDir;
-  xdg.cacheHome = "${den.homeVarDir}/cache";
-  xdg.stateHome = "${den.homeVarDir}/state";
-
-  xdg.configFile = {
-    "user-dirs.conf".text = "enabled=False\n";
-    "user-dirs.conf".force = true;
-
-    alacritty_config = {
-      target = "alacritty";
-      source = "${den.etcDir}/alacritty/default";
-      force = true;
-    };
-
-    nix-fonts = {
-      target = "fontconfig/conf.d/100-nix.conf";
-      text = ''
-        <?xml version="1.0"?>
-        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-        <fontconfig>
-          <!-- NIX_PROFILE is the path to your Nix profile. See Nix Reference Manual for details. -->
-          <dir prefix="cwd">NIX_PROFILE/lib/X11/fonts</dir>
-          <dir prefix="cwd">NIX_PROFILE/share/fonts</dir>
-        </fontconfig>
-      '';
-      force = true;
-    };
-
-    openrgb-plugin-effects = {
-      target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";
-      source = "${den.pkgs.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
-      force = true;
-    };
-
-    openrgb-plugin-visual-map = {
-      target = "OpenRGB/plugins/libOpenRGBVisualMapPlugin.so";
-      source = "${den.pkgs.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
-      force = true;
-    };
-  };
-
-  xdg.dataFile = {
-    applications = {
-      target = "applications";
-      source = "${den.shareDir}/applications";
-      recursive = true;
-    };
-
-    fonts = {
-      target = "fonts";
-      source = "${den.shareDir}/fonts";
-      recursive = true;
-    };
-  };
-
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = false;
-
-    desktop = "${den.homeDir}/desktop";
-    download = "${den.homeDir}/downloads";
-    documents = "${den.homeDir}/documents";
-    pictures = "${den.homeDir}/pictures";
-    music = "${den.homeDir}/music";
-    videos = "${den.homeDir}/videos";
-
-    templates = "${den.homeDir}/templates";
-
-    publicShare = "${den.homeDir}/public";
-  };
-
-  xdg.desktopEntries = {
-    alacritty-visualizer = {
-      type = "Application";
-      settings.TryExec = "alacritty";
-      exec = "alacritty --config-file ${config.xdg.configHome}/alacritty/visualizer.toml";
-      icon = "Alacritty";
-      terminal = false;
-      categories = [
-        "System"
-        "TerminalEmulator"
-      ];
-      name = "Visualizer";
-      genericName = "Terminal";
-      comment = "Alacritty Visualizer Profile";
-    };
-  };
-
   services.syncthing.enable = true;
-
-  dconf.settings = with lib.hm.gvariant; {
-
-    "org/gnome/desktop/interface" = {
-      accent-color = "pink";
-      color-scheme = "prefer-dark";
-      gtk-theme = "Adwaita-dark";
-    };
-
-    "org/gnome/desktop/peripherals/mouse" = {
-      accel-profile = "flat";
-    };
-
-    "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 0;
-    };
-
-    "org/gnome/desktop/wm/keybindings" = {
-      activate-window-menu = [ "<Alt>space" ];
-      close = [ "<Super>q" ];
-      maximize = [ ];
-      move-to-monitor-down = [ ];
-      move-to-monitor-left = [ ];
-      move-to-monitor-right = [ ];
-      move-to-monitor-up = [ ];
-      move-to-workspace-left = [ "<Super><Shift>Page_Up" ];
-      move-to-workspace-right = [ "<Super><Shift>Page_Down" ];
-      switch-input-source = [ ];
-      switch-input-source-backward = [ ];
-      switch-to-workspace-left = [ "<Super>Page_Up" ];
-      switch-to-workspace-right = [ "<Super>Page_Down" ];
-      unmaximize = [ ];
-    };
-
-    "org/gnome/desktop/wm/preferences" = {
-      mouse-button-modifier = "<Control><Super>";
-      resize-with-right-button = true;
-    };
-
-    "org/gnome/mutter" = {
-      dynamic-workspaces = true;
-      overlay-key = "''";
-      workspaces-only-on-primary = true;
-    };
-
-    "org/gnome/mutter/keybindings" = {
-      switch-monitor = [ "XF86Display" ];
-      toggle-tiled-left = [ ];
-      toggle-tiled-right = [ ];
-    };
-
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      screensaver = [ "<Control><Super>q" ];
-    };
-
-    "org/gnome/shell" = {
-      disabled-extensions = [
-        "apps-menu@gnome-shell-extensions.gcampax.github.com"
-        "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
-        "window-list@gnome-shell-extensions.gcampax.github.com"
-        "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "status-icons@gnome-shell-extensions.gcampax.github.com"
-        "system-monitor@gnome-shell-extensions.gcampax.github.com"
-        "dash-to-panel@jderose9.github.com"
-      ];
-      enabled-extensions = [
-        "appindicatorsupport@rgcjonas.gmail.com"
-        "mediacontrols@cliffniff.github.com"
-        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-      ];
-      remember-mount-password = false;
-    };
-
-    "org/gnome/shell/app-switcher" = {
-      current-workspace-only = false;
-    };
-
-    "org/gnome/shell/extensions/appindicator" = {
-      tray-pos = "right";
-    };
-
-    # "org/gnome/shell/extensions/dash-to-panel" = {
-    #   animate-appicon-hover = true;
-    #   animate-appicon-hover-animation-type = "SIMPLE";
-    #   appicon-margin = 4;
-    #   appicon-padding = 4;
-    #   appicon-style = "SYMBOLIC";
-    #   dot-color-dominant = false;
-    #   dot-color-override = false;
-    #   dot-color-unfocused-different = false;
-    #   dot-position = "BOTTOM";
-    #   dot-size = 1;
-    #   dot-style-focused = "METRO";
-    #   dot-style-unfocused = "DASHES";
-    #   focus-highlight = true;
-    #   focus-highlight-dominant = false;
-    #   focus-highlight-opacity = 25;
-    #   group-apps = true;
-    #   hotkeys-overlay-combo = "TEMPORARILY";
-    #   intellihide = false;
-    #   isolate-monitors = false;
-    #   isolate-workspaces = false;
-    #   leave-timeout = 50;
-    #   leftbox-padding = -1;
-    #   leftbox-size = 0;
-    #   multi-monitors = false;
-    #   panel-anchors = ''
-    #     {"0":"MIDDLE"}
-    #   '';
-    #   panel-element-positions = ''
-    #     {}
-    #   '';
-    #   panel-element-positions-monitors-sync = false;
-    #   panel-lengths = ''
-    #     {"0":91}
-    #   '';
-    #   panel-positions = ''
-    #     {"0":"TOP"}
-    #   '';
-    #   panel-sizes = ''
-    #     {"0":24}
-    #   '';
-    #   preview-custom-opacity = 50;
-    #   preview-use-custom-opacity = true;
-    #   primary-monitor = 0;
-    #   scroll-icon-action = "CYCLE_WINDOWS";
-    #   scroll-panel-action = "NOTHING";
-    #   show-favorites = false;
-    #   show-running-apps = true;
-    #   show-showdesktop-hover = false;
-    #   show-window-previews-timeout = 300;
-    #   status-icon-padding = -1;
-    #   trans-panel-opacity = 0.0;
-    #   trans-use-custom-opacity = true;
-    #   trans-use-dynamic-opacity = false;
-    #   tray-padding = 6;
-    #   window-preview-animation-time = 200;
-    #   window-preview-hide-immediate-click = false;
-    #   window-preview-title-position = "TOP";
-    #   window-preview-use-custom-icon-size = false;
-    # };
-
-    "org/gnome/shell/extensions/mediacontrols" = {
-      colored-player-icon = true;
-      elements-order = [
-        "ICON"
-        "LABEL"
-        "CONTROLS"
-      ];
-      extension-index = mkUint32 0;
-      extension-position = "Center";
-      fixed-label-width = true;
-      label-width = mkUint32 200;
-      labels-order = [
-        " 🎵 "
-        "TITLE"
-        "-"
-        "ARTIST"
-      ];
-      scroll-labels = true;
-      show-control-icons-seek-backward = true;
-      show-control-icons-seek-forward = true;
-      show-player-icon = true;
-    };
-
-    "org/gnome/shell/extensions/workspace-indicator" = {
-      embed-previews = false;
-    };
-
-    "org/gnome/shell/keybindings" = {
-      shift-overview-down = [ "" ];
-      shift-overview-up = [ "" ];
-      toggle-overview = [ "<Super>c" ];
-    };
-  };
-
-  gtk = {
-    enable = true;
-    theme.name = "Adwaita-dark";
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "noriah";
-    userEmail = "vix@noriah.dev";
-    signing.key = "C6ACD7663C0FE39B";
-
-    ignores = [
-      ".DS_Store"
-      "*.sublime-project"
-      "*.sublime-workspace"
-      "*.code-workspace"
-    ];
-
-    extraConfig = {
-      core.editor = editorBin;
-
-      user.useConfigOnly = true;
-      init.defaultBranch = "main";
-
-      "filter \"lfs\"" = {
-        clean = "git-lfs clean -- %f";
-        smudge = "git-lfs smudge -- %f";
-        process = "git-lfs filter-process";
-        required = true;
-      };
-    };
-
-    includes = [
-      {
-        condition = "gitdir:~/opt/den/.git";
-        path = "~/workspace/public/.gitconfig";
-      }
-      {
-        condition = "gitdir:~/workspace/public/";
-        path = "~/workspace/public/.gitconfig";
-      }
-      {
-        condition = "gitdir:~/workspace/notes/";
-        path = "~/workspace/public/.gitconfig";
-      }
-      {
-        condition = "gitdir:~/workspace/phase/";
-        path = "~/workspace/phase/.gitconfig";
-      }
-    ];
-  };
 
   programs.go = {
     enable = true;
     goPath = "opt/go";
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  programs.gpg.enable = true;
 
   services.gpg-agent = {
     enable = true;
@@ -673,18 +292,4 @@ in
   #  };
   #};
 
-  systemd.user.services.jamesdsp = {
-    Unit = {
-      Description = "JamesDSP Audio Processor";
-      After = "pipewire.service";
-      BindsTo = "pipewire.service";
-    };
-    Install.WantedBy = [ "pipewire.service" ];
-    Service = {
-      Type = "simple";
-      Restart = "on-failure";
-      ExecStart = ''${pkgs_6ec9e25.jamesdsp}/bin/jamesdsp --tray'';
-      StandardError = "journal";
-    };
-  };
 }
