@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  den = pkgs.callPackage ./den.nix { };
+  den = pkgs.callPackage ../den.nix { };
 in
 {
   home.packages = with pkgs; [
@@ -10,9 +10,7 @@ in
       ${pkgs.playerctl}/bin/playerctl -p "$PLAYER" "$@"
     '')
 
-
     den.pkgs_6ec9e25.jamesdsp
-
 
     alsa-scarlett-gui
     pavucontrol

@@ -26,14 +26,20 @@ in
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
   imports = [
+
+    # apps
+
     ./apps/alacritty.nix
     ./apps/git.nix
     ./apps/gnome.nix
     ./apps/openrgb.nix
     ./apps/polybar.nix
-    ./audio.nix
-    ./fonts.nix
-    ./xdg.nix
+
+    # modules
+
+    ./modules/audio.nix
+    ./modules/fonts.nix
+    ./modules/xdg.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -114,6 +120,8 @@ in
     # security
     nmap
     tor
+
+    vlc
 
     catnip
     # (buildGoModule rec {

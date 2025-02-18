@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  den = pkgs.callPackage ./den.nix { };
+  den = pkgs.callPackage ../den.nix { };
 in
 {
   xdg.configFile.nix-fonts = {
