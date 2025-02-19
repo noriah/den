@@ -17,6 +17,12 @@ let
   hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
 in
 {
+  imports = [
+    ./apps
+    ./hosts
+    ./modules
+  ];
+
   options.den = {
     enable = mkOption {
       type = types.bool;
@@ -86,6 +92,14 @@ in
 
     home.username = cfg.user;
     home.homeDirectory = cfg.homeDir;
+
+    news.display = "silent";
+
+    home.packages = with pkgs; [
+      file
+      curl
+      wget
+    ];
 
     home.sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";

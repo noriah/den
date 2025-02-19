@@ -1,26 +1,9 @@
+{ ... }:
 {
-  lib,
-  pkgs,
-  ...
-}:
+  imports = [ ./den.nix ];
 
-{
-  imports = [
-    ./den.nix
-    ./apps
-    ./hosts
-    ./modules
-  ];
-
+  den.enable = true;
   den.user = "vix";
-
-  news.display = "silent";
-
-  home.packages = with pkgs; [
-    file
-    curl
-    wget
-  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
