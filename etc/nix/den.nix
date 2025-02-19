@@ -78,6 +78,7 @@ in
     den.modules = {
       development.enable = true;
       shell.enable = true;
+      xdg.enable = true;
     };
 
     # enable our host configuration
