@@ -4,9 +4,6 @@
   ...
 }:
 
-let
-  hostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
-in
 {
   imports = [
     ./den.nix
