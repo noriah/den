@@ -1,7 +1,7 @@
 {
   "editor.accessibilitySupport": "off",
   "editor.detectIndentation": false,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnType": false,
   "editor.formatOnSaveMode": "modifications",
   "editor.tabSize": 2,
