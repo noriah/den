@@ -12,13 +12,23 @@ in
     ../apps/gnome.nix
     ../apps/openrgb.nix
     ../apps/polybar.nix
-
-    # modules
-
-    ../modules/fonts.nix
-    ../modules/media.nix
-    ../modules/xdg.nix
   ];
+
+  den = {
+    apps = {
+      alacritty.enable = true;
+      git.enable = true;
+      gnome.enable = true;
+      openrgb.enable = true;
+      polybar.enable = true;
+      tor.enable = true;
+    };
+    modules = {
+      fonts.enable = true;
+      xdg.enable = true;
+      media.enable = true;
+    };
+  };
 
   home.packages = with pkgs; [
     zip

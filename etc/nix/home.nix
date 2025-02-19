@@ -1,7 +1,7 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   ...
 }:
 
@@ -10,33 +10,23 @@ let
   hostModules = {
     "niji" = [ (import ./hosts/niji.nix) ];
   };
-
-  den = pkgs.callPackage ./den.nix { };
 in
 {
-  home.username = den.user;
-  home.homeDirectory = den.homeDir;
+  imports = [
+    ./den.nix
+    ./apps
+    ./modules
+  ] ++ (hostModules.${hostName} or [ ]);
+
+  den.user = "vix";
 
   news.display = "silent";
 
-  imports = [
-    ./modules/shell.nix
-    ./modules/development.nix
-  ] ++ (hostModules.${hostName} or [ ]);
-
-  home.packages = [ pkgs.file ];
-
-  home.sessionPath = [
-    "${config.programs.go.goPath}/bin"
-
-    "${den.homeDir}/bin"
-    "${den.homeDir}/rbin"
-    "${den.homeDir}/opt/den/bin"
+  home.packages = with pkgs; [
+    file
+    curl
+    wget
   ];
-
-  home.sessionVariables = {
-    NIXPKGS_ALLOW_UNFREE = "1";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

@@ -1,44 +1,55 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
 let
-  den = pkgs.callPackage ../den.nix { };
+  cfg = config.den.modules.xdg;
 in
 {
 
-  # prefer XDG directories
-  home.preferXdgDirectories = true;
-
-  xdg.configHome = "${den.homeDir}/.config";
-  xdg.dataHome = den.homeVarDir;
-  xdg.cacheHome = "${den.homeVarDir}/cache";
-  xdg.stateHome = "${den.homeVarDir}/state";
-
-  xdg.configFile = {
-    "user-dirs.conf".text = "enabled=False\n";
-    "user-dirs.conf".force = true;
+  options.den.modules.xdg = {
+    enable = mkEnableOption "XDG module";
   };
 
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = false;
+  config = mkIf cfg.enable {
+    # prefer XDG directories
+    home.preferXdgDirectories = true;
 
-    desktop = "${den.homeDir}/desktop";
-    download = "${den.homeDir}/downloads";
-    documents = "${den.homeDir}/documents";
-    pictures = "${den.homeDir}/pictures";
-    music = "${den.homeDir}/music";
-    videos = "${den.homeDir}/videos";
+    xdg.configHome = "${config.den.homeDir}/.config";
+    xdg.dataHome = config.den.homeVarDir;
+    xdg.cacheHome = "${config.den.homeVarDir}/cache";
+    xdg.stateHome = "${config.den.homeVarDir}/state";
 
-    templates = "${den.homeDir}/templates";
+    xdg.configFile = {
+      "user-dirs.conf".text = "enabled=False\n";
+      "user-dirs.conf".force = true;
+    };
 
-    publicShare = "${den.homeDir}/public";
-  };
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = false;
 
-  xdg.dataFile = {
-    applications = {
-      target = "applications";
-      source = "${den.shareDir}/applications";
-      recursive = true;
+      desktop = "${config.den.homeDir}/desktop";
+      download = "${config.den.homeDir}/downloads";
+      documents = "${config.den.homeDir}/documents";
+      pictures = "${config.den.homeDir}/pictures";
+      music = "${config.den.homeDir}/music";
+      videos = "${config.den.homeDir}/videos";
+
+      templates = "${config.den.homeDir}/templates";
+
+      publicShare = "${config.den.homeDir}/public";
+    };
+
+    xdg.dataFile = {
+      applications = {
+        target = "applications";
+        source = "${config.den.shareDir}/applications";
+        recursive = true;
+      };
     };
   };
-
 }

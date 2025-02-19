@@ -1,31 +1,41 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
+with lib;
 let
-  den = pkgs.callPackage ../den.nix { };
+  den_pkgs = pkgs.callPackage ../packages { };
+
+  cfg = config.den.apps.openrgb;
 in
 {
-  home.packages = [
-    den.pkgs.openrgb
-    den.pkgs.openrgb-plugin-effects
-    den.pkgs.openrgb-plugin-visual-map
-  ];
+  options.den.apps.openrgb = {
+    enable = mkEnableOption "openrgb control";
+  };
 
-  # nixpkgs.overlays = (pkgs.callPackage ../../nixos/openrgb.nix { }).nixpkgs.overlays;
+  config = mkIf cfg.enable {
+    home.packages = [
+      den_pkgs.openrgb
+      den_pkgs.openrgb-plugin-effects
+      den_pkgs.openrgb-plugin-visual-map
+    ];
 
-  xdg.configFile = {
-    openrgb-plugin-effects = {
-      target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";
-      source = "${den.pkgs.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
-      force = true;
-    };
+    # nixpkgs.overlays = (pkgs.callPackage ../../nixos/openrgb.nix { }).nixpkgs.overlays;
 
-    openrgb-plugin-visual-map = {
-      target = "OpenRGB/plugins/libOpenRGBVisualMapPlugin.so";
-      source = "${den.pkgs.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
-      force = true;
+    xdg.configFile = {
+      openrgb-plugin-effects = {
+        target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";
+        source = "${den_pkgs.openrgb-plugin-effects}/lib/openrgb/plugins/libOpenRGBEffectsPlugin.so";
+        force = true;
+      };
+
+      openrgb-plugin-visual-map = {
+        target = "OpenRGB/plugins/libOpenRGBVisualMapPlugin.so";
+        source = "${den_pkgs.openrgb-plugin-visual-map}/lib/openrgb/plugins/libOpenRGBVisualMapPlugin.so";
+        force = true;
+      };
     };
   };
 }
