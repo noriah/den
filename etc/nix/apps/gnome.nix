@@ -3,7 +3,9 @@ let
   den = pkgs.callPackage ../den.nix { };
 in
 {
-  home.packages = [ ];
+  home.packages = with pkgs; [
+    cheese
+  ];
 
   gtk = {
     enable = true;
