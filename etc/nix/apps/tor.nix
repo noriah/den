@@ -11,13 +11,13 @@ in
 {
   options.den.apps.tor = {
     enable = mkEnableOption "tor";
+
+    package = mkPackageOption pkgs "tor" { };
   };
 
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; [
-      tor
-    ];
+    home.packages = [ cfg.package ];
 
     home.file.torrc = {
       target = ".torrc";

@@ -11,11 +11,13 @@ in
 {
   options.den.apps.alacritty = {
     enable = mkEnableOption "alacritty terminal";
+
+    package = mkPackageOption pkgs "alacritty" { };
   };
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.alacritty ];
+    home.packages = [ cfg.package ];
 
     xdg.configFile.alacritty_config = {
       target = "alacritty";

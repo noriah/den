@@ -51,6 +51,8 @@ in
 
       kitty
 
+      vscode
+
       # communication
       signal-desktop
       telegram-desktop

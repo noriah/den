@@ -16,18 +16,12 @@ in
   config = mkIf cfg.enable {
 
     home.packages = with pkgs; [
-
-      # coding
-      vscode
-      go
       python3
       rust-analyzer
       julia
       # nixfmt
       nixfmt-rfc-style
-
       gcc
-
       gnumake
     ];
 
