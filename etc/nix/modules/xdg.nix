@@ -32,6 +32,11 @@ in
 
     home.preferXdgDirectories = true;
 
+    home.sessionVariables = {
+      XDG_CONFIG_HOME = "${config.xdg.configHome}";
+      XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
+    };
+
     xdg.configFile."user-dirs.conf" = {
       text = "enabled=False\n";
       force = true;

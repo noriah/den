@@ -14,10 +14,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    den.apps = {
+      julia.enable = true;
+      rust.enable = true;
+    };
 
     home.packages = with pkgs; [
       python3
-      rust-analyzer
       julia
       # nixfmt
       nixfmt-rfc-style
@@ -29,14 +32,6 @@ in
       EDITOR = "${config.den.editorBin}";
 
       # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
-
-      # rust stuff
-      RUSTUP_HOME = "${config.den.homeOptDir}/rustup";
-      CARGO_HOME = "${config.den.homeOptDir}/cargo";
-
-      # julia stuff
-      # JULIA_HISTORY = "$HISTORY/julia_repl_history.jl";
-      JULIA_DEPOT_PATH = "${config.den.homeOptDir}/julia";
 
       # node stuff
       NPM_PATH = "${config.den.homeOptDir}/npm";
@@ -71,17 +66,11 @@ in
 
       languages = {
         language-server.gopls.command = "${pkgs.gopls}/bin/gopls";
-        language-server.rustls.command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
         language = [
           {
             name = "nix";
             auto-format = true;
             formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-          }
-          {
-            name = "rust";
-            auto-format = false;
-            language-servers = [ "rustls" ];
           }
           {
             name = "go";

@@ -25,6 +25,7 @@ in
       };
 
       modules = {
+        development.enable = true;
         fonts.enable = true;
         media.enable = true;
         xdg.enable = true;
