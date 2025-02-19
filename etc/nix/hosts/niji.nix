@@ -3,18 +3,8 @@ let
   den = pkgs.callPackage ../den.nix { };
 in
 {
-  imports = [
-
-    # apps
-
-    ../apps/alacritty.nix
-    ../apps/git.nix
-    ../apps/gnome.nix
-    ../apps/openrgb.nix
-    ../apps/polybar.nix
-  ];
-
   den = {
+
     apps = {
       alacritty.enable = true;
       git.enable = true;
@@ -23,6 +13,7 @@ in
       polybar.enable = true;
       tor.enable = true;
     };
+
     modules = {
       fonts.enable = true;
       xdg.enable = true;
