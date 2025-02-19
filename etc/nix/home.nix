@@ -6,16 +6,14 @@
 
 let
   hostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
-  hostModules = {
-    "niji" = [ (import ./hosts/niji.nix) ];
-  };
 in
 {
   imports = [
     ./den.nix
     ./apps
+    ./hosts
     ./modules
-  ] ++ (hostModules.${hostName} or [ ]);
+  ];
 
   den.user = "vix";
 

@@ -21,16 +21,6 @@ in
     ];
 
     home.file = {
-      profile = {
-        target = ".profile";
-        text = ''
-          export XDG_CONFIG_HOME="${config.xdg.configHome}";
-          export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
-          source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-        '';
-        force = true;
-      };
-
       zshrc = {
         target = ".zshrc";
         text = ". ${config.den.etcDir}/zsh/zshrc";

@@ -1,68 +1,79 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
 let
-  den = pkgs.callPackage ../den.nix { };
+  cfg = config.den.hosts.niji;
 in
 {
-  den = {
-
-    apps = {
-      alacritty.enable = true;
-      git.enable = true;
-      gnome.enable = true;
-      openrgb.enable = true;
-      polybar.enable = true;
-      tor.enable = true;
-    };
-
-    modules = {
-      fonts.enable = true;
-      xdg.enable = true;
-      media.enable = true;
-    };
+  options.den.hosts.niji = {
+    enable = mkEnableOption "niji host";
   };
 
-  home.packages = with pkgs; [
-    zip
-    wmctrl
+  config = mkIf cfg.enable {
+    den = {
+      apps = {
+        alacritty.enable = true;
+        git.enable = true;
+        gnome.enable = true;
+        openrgb.enable = true;
+        polybar.enable = true;
+        tor.enable = true;
+      };
 
-    # installed globally
-    # _1password-cli
-    # _1password-gui
+      modules = {
+        fonts.enable = true;
+        media.enable = true;
+        xdg.enable = true;
+      };
+    };
 
-    # net util
-    rdap
-    whois
-    subnetcalc
-    dnsutils
-    nmap
+    home.packages = with pkgs; [
+      zip
+      wmctrl
 
-    # hardware util
-    ddcutil
+      # installed globally
+      # _1password-cli
+      # _1password-gui
 
-    kitty
+      # net util
+      rdap
+      whois
+      subnetcalc
+      dnsutils
+      nmap
 
-    # communication
-    signal-desktop
-    telegram-desktop
+      # hardware util
+      ddcutil
 
-    # web
-    google-chrome
-    librewolf
+      kitty
 
-    # info
-    obsidian
+      # communication
+      signal-desktop
+      telegram-desktop
 
-    cheese
-  ];
+      # web
+      google-chrome
+      librewolf
 
-  services.syncthing.enable = true;
+      # info
+      obsidian
 
-  programs.gpg.enable = true;
+      cheese
+    ];
 
-  services.gpg-agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    services.syncthing.enable = true;
+
+    programs.gpg.enable = true;
+
+    services.gpg-agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
+    };
+
+    systemd.user.startServices = "sd-switch";
   };
-
-  systemd.user.startServices = "sd-switch";
 }

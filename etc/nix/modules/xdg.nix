@@ -12,20 +12,29 @@ in
 
   options.den.modules.xdg = {
     enable = mkEnableOption "XDG module";
+
+    configHome = mkOption {
+      type = types.path;
+      default = "${config.den.homeDir}/.config";
+    };
+
+    dataHome = mkOption {
+      type = types.path;
+      default = "${config.den.homeDir}/var";
+    };
   };
 
   config = mkIf cfg.enable {
-    # prefer XDG directories
+    xdg.configHome = cfg.configHome;
+    xdg.dataHome = cfg.dataHome;
+    xdg.cacheHome = "${cfg.dataHome}/cache";
+    xdg.stateHome = "${cfg.dataHome}/state";
+
     home.preferXdgDirectories = true;
 
-    xdg.configHome = "${config.den.homeDir}/.config";
-    xdg.dataHome = config.den.homeVarDir;
-    xdg.cacheHome = "${config.den.homeVarDir}/cache";
-    xdg.stateHome = "${config.den.homeVarDir}/state";
-
-    xdg.configFile = {
-      "user-dirs.conf".text = "enabled=False\n";
-      "user-dirs.conf".force = true;
+    xdg.configFile."user-dirs.conf" = {
+      text = "enabled=False\n";
+      force = true;
     };
 
     xdg.userDirs = {
@@ -44,12 +53,9 @@ in
       publicShare = "${config.den.homeDir}/public";
     };
 
-    xdg.dataFile = {
-      applications = {
-        target = "applications";
-        source = "${config.den.shareDir}/applications";
-        recursive = true;
-      };
+    xdg.dataFile.applications = {
+      source = "${config.den.shareDir}/applications";
+      recursive = true;
     };
   };
 }
