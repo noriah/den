@@ -35,9 +35,9 @@ in
 
     # modules
 
-    ./modules/audio.nix
     ./modules/development.nix
     ./modules/fonts.nix
+    ./modules/media.nix
     ./modules/shell.nix
     ./modules/xdg.nix
   ];
@@ -57,23 +57,12 @@ in
     whois
     subnetcalc
     dnsutils
-
-
-    # random util
-    neofetch
-
-    # env/theme util
-    # ulauncher
+    nmap
 
     # hardware util
     ddcutil
 
     kitty
-
-    # dev util
-    gnumake
-
-
 
     # communication
     signal-desktop
@@ -85,49 +74,7 @@ in
 
     # info
     obsidian
-
-    # security
-    nmap
-    tor
-
-    vlc
-
-
-    catnip
-    # (buildGoModule rec {
-    #   name = "catnip";
-    #   version = "git";
-
-    #   src = fetchFromGitHub {
-    #     owner = "noriah";
-    #     repo = "catnip";
-    #     rev = "9c9f6e035030a590947e72d0c58fe2182f2fee2f";
-    #     sha256 = "9gneteQIzbMNjg/08uq+pCbs2a32He2gL+hovxcJFzE=";
-    #   };
-
-    #   CGO_ENABLED = 0;
-
-    #   vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
-    # })
   ];
-
-  home.file = {
-    torrc = {
-      target = ".torrc";
-      text = ''
-        ClientOnly 1
-        ControlPort 9051
-        CookieAuthentication 1
-        CookieAuthFile ${den.homeDir}/.tor/cookie-auth
-        ExcludeExitNodes {ru},{cn},{uk},{gb},{us}
-        #ExitNodes {nl},{de},{ca},{au}
-        #ExitNodes {us}
-        StrictNodes 1
-        SocksPort localhost:9050
-      '';
-      force = true;
-    };
-  };
 
   home.sessionPath = [
     "${config.programs.go.goPath}/bin"

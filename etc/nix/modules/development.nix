@@ -16,6 +16,7 @@ in
 
     gcc
 
+    gnumake
   ];
 
   home.sessionVariables = {

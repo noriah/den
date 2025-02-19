@@ -7,6 +7,7 @@ in
   home.packages = with pkgs; [
     bat
     jq
+    neofetch
   ];
 
   home.file = {
