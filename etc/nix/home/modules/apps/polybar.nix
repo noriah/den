@@ -28,8 +28,8 @@ in
           pkgs.fetchFromGitHub {
             owner = "noriah";
             repo = "den";
-            rev = "f81db82e0acc584b7ece344493231f8a908dc2d7";
-            sha256 = "Vbj5l1ofN6vZt9sGzXQMdEnSkZsUAZtGds90mGSMljM=";
+            rev = "c17e9f1fcb2fe2786fc2b1863f17d69facc7d1f9";
+            sha256 = "o22KMEGpcd8MkqC0CD/s8rgPehR3+n9onjV3GFxh/7E=";
           }
           + "/src/polyden";
 

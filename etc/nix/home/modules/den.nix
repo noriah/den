@@ -102,6 +102,10 @@ in
 
     home.sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";
+      HOME_ETC = cfg.dir.etc;
+      HOME_OPT = cfg.dir.opt;
+      HOME_SHARE = cfg.dir.share;
+      HOME_VAR = cfg.dir.var;
     };
 
     home.sessionPath = [
