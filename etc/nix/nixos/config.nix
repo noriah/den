@@ -112,7 +112,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  users.mutableUsers = false;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.vix = {
     isNormalUser = true;

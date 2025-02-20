@@ -28,7 +28,7 @@ type config struct {
 
 func defaultConfig() config {
 	return config{
-		configPath: "$HOME/etc/polybar/config.yml",
+		configPath: "$HOME_ETC/polybar/config.yml",
 	}
 }
 
