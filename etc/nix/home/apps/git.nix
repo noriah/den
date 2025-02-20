@@ -42,7 +42,7 @@ in
 
       includes = [
         {
-          condition = "gitdir:~/opt/den/.git";
+          condition = "gitdir:${config.den.dir.self}/.git";
           path = "~/workspace/public/.gitconfig";
         }
         {

@@ -19,7 +19,7 @@ family = "Fira Code"
 history = 0
 
 [terminal.shell]
-program = "/home/vix/opt/den/bin/catnip-alacritty.sh"
+program = "/home/vix/den/bin/catnip-alacritty.sh"
 
 [window]
 decorations = "none"

@@ -14,11 +14,9 @@ let
   # domain = osCOnfig.networking.domain;
   # fqdn = osCOnfig.networking.fqdn;
 
-  denDir = "${homeDir}/opt/den";
+  hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
 
   cfg = config.den;
-
-  hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
 in
 {
   imports = [
@@ -47,7 +45,7 @@ in
     dir = {
       self = mkOption {
         type = types.path;
-        default = "${cfg.dir.opt}/den";
+        default = "${cfg.dir.home}/den";
       };
 
       home = mkOption {

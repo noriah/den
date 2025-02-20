@@ -29,6 +29,6 @@ fi
 local _input_target="${_input_name}_${_current}"
 local _mon_target=${(P)_input_target}
 
-$HOME/opt/den/bin/monswap $_mon $_mon_target
+$HOME/den/bin/monswap $_mon $_mon_target
 
 echo -n $_mon_target > $_mon_file

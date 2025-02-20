@@ -61,4 +61,4 @@ colors:
   transparent_background_colors: true
 
 shell:
-  program: /home/vix/opt/den/bin/alacritty-catnip.sh
+  program: /home/vix/den/bin/alacritty-catnip.sh
