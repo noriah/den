@@ -2,22 +2,13 @@
 
 export DEN="$(dirname "$(dirname "${0:h:A}")")"
 
-export HOME_ETC="$DEN/etc"
-export HOME_OPT="$HOME/opt"
-export HOME_TMP="$HOME/tmp"
-export HOME_SHARE="$DEN/share"
-export HOME_VAR="$HOME/var"
+export HOME_TMP="${HOME_TMP:-"$HOME/tmp"}"
 
 export HISTORY="$HOME_VAR/history"
 
-
-export CACHE_DIR="$HOME_VAR/cache"
+export CACHE_DIR="${XDG_CACHE_HOME:-"$HOME_VAR/cache"}"
 export ZSH_CACHE_DIR="$CACHE_DIR/zsh"
 
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$CACHE_DIR"
-export XDG_DATA_HOME="$HOME_VAR"
-export XDG_STATE_HOME="$HOME_VAR/state"
 
 ###
 # Paths
@@ -25,16 +16,7 @@ export XDG_STATE_HOME="$HOME_VAR/state"
 # Need to be set in environment because scripts don't load rc.
 # Scripts may run commands using these paths.
 
-# Go
-export GO_PATH="$HOME_OPT/go"
-export GOPATH="$GO_PATH"
-
 # Node
-export NPM_PATH="$HOME_OPT/npm"
-export NPM_CONFIG_CACHE="$NPM_PATH/cache"
-
-# Rust
-export CARGO_HOME="$HOME_OPT/cargo"
 
 # Ruby
 export GEM_PATH="$HOME_OPT/gem/ruby/2.6.0"
@@ -53,7 +35,6 @@ paths=(
   GEM_PATH
   NPM_PATH
   CARGO_HOME
-  GO_PATH
   DEN
   HOME
 )

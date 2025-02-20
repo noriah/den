@@ -15,20 +15,27 @@ in
 
   config = mkIf cfg.enable {
     den = {
+      dir.self = "${config.den.dir.home}/den";
+      dir.opt = "${config.den.dir.home}/.opt";
+
       apps = {
         alacritty.enable = true;
         gnome.enable = true;
         openrgb.enable = true;
         polybar.enable = true;
         tor.enable = true;
+
+        go.goPath = ".opt/go";
       };
 
-      modules = {
+      packs = {
         comfy.enable = true;
         development.enable = true;
         fonts.enable = true;
         media.enable = true;
+
         xdg.enable = true;
+        xdg.userDirRoot = "${config.den.dir.home}/stuff";
       };
     };
 

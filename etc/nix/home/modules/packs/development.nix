@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.den.modules.development;
+  cfg = config.den.packs.development;
 in
 {
-  options.den.modules.development.enable = mkEnableOption "development module";
+  options.den.packs.development.enable = mkEnableOption "development module";
 
   config = mkIf cfg.enable {
     den.apps = {
@@ -20,7 +20,7 @@ in
       rust.enable = true;
     };
 
-    den.modules.shell.aliases = {
+    den.shell.aliases = {
       base16 = "xxd -c 0 -ps";
     };
 

@@ -13,9 +13,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [
-      pkgs.rust-analyzer
-    ];
+    home.packages = [ pkgs.rust-analyzer ];
 
     home.sessionVariables = {
       RUSTUP_HOME = "${config.den.dir.opt}/rustup";

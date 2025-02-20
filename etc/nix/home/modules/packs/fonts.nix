@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.den.modules.fonts;
+  cfg = config.den.packs.fonts;
 in
 {
-  options.den.modules.fonts.enable = mkEnableOption "fonts module";
+  options.den.packs.fonts.enable = mkEnableOption "fonts module";
 
   config = mkIf cfg.enable {
 

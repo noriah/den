@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  den_pkgs = pkgs.callPackage ../packages { };
+  den_pkgs = pkgs.callPackage ../../../packages { };
 
   cfg = config.den.apps.openrgb;
 in

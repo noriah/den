@@ -6,12 +6,12 @@
 }:
 with lib;
 let
-  den_pkgs = pkgs.callPackage ../packages { };
+  den_pkgs = pkgs.callPackage ../../../packages { };
 
-  cfg = config.den.modules.media;
+  cfg = config.den.packs.media;
 in
 {
-  options.den.modules.media.enable = mkEnableOption "media module";
+  options.den.packs.media.enable = mkEnableOption "media module";
 
   config = mkIf cfg.enable {
 

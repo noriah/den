@@ -14,7 +14,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    den.modules = {
+    den.packs = {
       comfy.enable = true;
     };
 

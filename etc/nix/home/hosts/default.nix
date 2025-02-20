@@ -4,5 +4,6 @@
     ./unknown.nix
 
     ./niji.nix
+    ./vyxn.nix
   ];
 }

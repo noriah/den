@@ -1,6 +1,9 @@
 { ... }:
 {
-  imports = [ ./den.nix ];
+  imports = [
+    ./hosts
+    ./modules
+  ];
 
   den.enable = true;
   den.user = "vix";

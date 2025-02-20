@@ -1,12 +1,11 @@
 { ... }:
 {
   imports = [
-    ./comfy.nix
-    ./development.nix
-    ./fonts.nix
-    ./media.nix
+    ./den.nix
     ./shell.nix
-    ./x11.nix
-    ./xdg.nix
+    ./workspace.nix
+
+    ./apps
+    ./packs
   ];
 }

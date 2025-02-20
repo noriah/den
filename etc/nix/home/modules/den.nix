@@ -19,12 +19,6 @@ let
   cfg = config.den;
 in
 {
-  imports = [
-    ./apps
-    ./hosts
-    ./modules
-  ];
-
   options.den = {
     enable = mkOption {
       type = types.bool;
@@ -45,7 +39,7 @@ in
     dir = {
       self = mkOption {
         type = types.path;
-        default = "${cfg.dir.home}/den";
+        default = "${cfg.dir.opt}/den";
       };
 
       home = mkOption {
@@ -84,13 +78,11 @@ in
 
   config = mkIf cfg.enable {
 
-    # enable some modules by default
-    den.modules = {
-      shell = {
-        enable = true;
-        aliases = {
-          hm = "home-manager";
-        };
+    # enable some packs by default
+    den.shell = {
+      enable = true;
+      aliases = {
+        hm = "home-manager";
       };
     };
 
@@ -114,7 +106,6 @@ in
 
     home.sessionPath = [
       "${cfg.dir.self}/bin"
-      "${cfg.dir.home}/bin"
       "${cfg.dir.home}/rbin"
     ];
 
