@@ -11,9 +11,7 @@ let
   cfg = config.den.apps.openrgb;
 in
 {
-  options.den.apps.openrgb = {
-    enable = mkEnableOption "openrgb control";
-  };
+  options.den.apps.openrgb.enable = mkEnableOption "openrgb control";
 
   config = mkIf cfg.enable {
     home.packages = [

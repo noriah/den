@@ -11,9 +11,7 @@ let
   cfg = config.den.modules.media;
 in
 {
-  options.den.modules.media = {
-    enable = mkEnableOption "media module";
-  };
+  options.den.modules.media.enable = mkEnableOption "media module";
 
   config = mkIf cfg.enable {
 

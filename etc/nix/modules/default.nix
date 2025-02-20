@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./comfy.nix
     ./development.nix
     ./fonts.nix
     ./media.nix

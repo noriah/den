@@ -1,4 +1,5 @@
 {
+  # osConfig,
   config,
   lib,
   pkgs,
@@ -9,6 +10,9 @@ let
   user = "vix";
   homeDir = builtins.getEnv "HOME";
   realHostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
+  # realHostName = osConfig.networking.hostName;
+  # domain = osCOnfig.networking.domain;
+  # fqdn = osCOnfig.networking.fqdn;
 
   denDir = "${homeDir}/opt/den";
 
@@ -35,39 +39,41 @@ in
       type = types.str;
     };
 
-    homeDir = mkOption {
-      type = types.path;
-      default = homeDir;
-    };
-
     hostName = mkOption {
       type = types.str;
       default = hostName;
     };
 
-    dir = mkOption {
-      type = types.path;
-      default = "${cfg.homeDir}/opt/den";
-    };
+    dir = {
+      self = mkOption {
+        type = types.path;
+        default = "${cfg.dir.opt}/den";
+      };
 
-    etcDir = mkOption {
-      type = types.path;
-      default = "${cfg.dir}/etc";
-    };
+      home = mkOption {
+        type = types.path;
+        default = homeDir;
+      };
 
-    shareDir = mkOption {
-      type = types.path;
-      default = "${cfg.dir}/share";
-    };
+      etc = mkOption {
+        type = types.path;
+        default = "${cfg.dir.self}/etc";
+      };
 
-    homeOptDir = mkOption {
-      type = types.path;
-      default = "${cfg.homeDir}/opt";
-    };
+      share = mkOption {
+        type = types.path;
+        default = "${cfg.dir.self}/share";
+      };
 
-    homeVarDir = mkOption {
-      type = types.path;
-      default = "${cfg.homeDir}/var";
+      opt = mkOption {
+        type = types.path;
+        default = "${cfg.dir.home}/opt";
+      };
+
+      var = mkOption {
+        type = types.path;
+        default = "${cfg.dir.home}/var";
+      };
     };
 
     editor = mkPackageOption pkgs "vim" { };
@@ -82,14 +88,19 @@ in
 
     # enable some modules by default
     den.modules = {
-      shell.enable = true;
+      shell = {
+        enable = true;
+        aliases = {
+          hm = "home-manager";
+        };
+      };
     };
 
     # enable our host configuration
     den.hosts.${cfg.hostName}.enable = true;
 
     home.username = cfg.user;
-    home.homeDirectory = cfg.homeDir;
+    home.homeDirectory = cfg.dir.home;
 
     news.display = "silent";
 
@@ -104,26 +115,28 @@ in
     };
 
     home.sessionPath = [
-      "${cfg.dir}/bin"
-      "${cfg.homeDir}/bin"
-      "${cfg.homeDir}/rbin"
+      "${cfg.dir.self}/bin"
+      "${cfg.dir.home}/bin"
+      "${cfg.dir.home}/rbin"
     ];
 
     home.file.den_user = {
       target = ".den/user";
-      text = ''
-        ${cfg.user}
-      '';
+      text = cfg.user;
       force = true;
     };
 
     home.file.den_hostname = {
       target = ".den/hostname";
-      text = ''
-        ${cfg.hostName}
-      '';
+      text = cfg.hostName;
       force = true;
     };
+
+    # home.file.den_domain = mkIf (domain != null) {
+    #   target = ".den/domain";
+    #   text = domain;
+    #   force = true;
+    # };
 
     home.file.profile = {
       target = ".profile";

@@ -20,8 +20,8 @@ in
     home.packages = [ cfg.package ];
 
     home.sessionVariables = {
-      # JULIA_HISTORY = "$HISTORY/julia_repl_history.jl";
-      JULIA_DEPOT_PATH = "${config.den.homeOptDir}/julia";
+      JULIA_HISTORY = "$HISTORY/julia_repl_history.jl";
+      JULIA_DEPOT_PATH = "${config.den.dir.opt}/julia";
     };
 
   };

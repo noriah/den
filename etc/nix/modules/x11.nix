@@ -9,13 +9,11 @@ let
   cfg = config.den.modules.x11;
 in
 {
-  options.den.modules.x11 = {
-    enable = mkEnableOption "x11 module";
-  };
+  options.den.modules.x11.enable = mkEnableOption "x11 module";
 
   config = mkIf cfg.enable {
     home.file.".Xresources" = {
-      source = "${config.den.etcDir}/xorg/Xresources";
+      source = "${config.den.dir.etc}/xorg/Xresources";
     };
   };
 }

@@ -9,9 +9,7 @@ let
   cfg = config.den.modules.fonts;
 in
 {
-  options.den.modules.fonts = {
-    enable = mkEnableOption "fonts module";
-  };
+  options.den.modules.fonts.enable = mkEnableOption "fonts module";
 
   config = mkIf cfg.enable {
 
@@ -31,7 +29,7 @@ in
 
     xdg.dataFile.fonts = {
       target = "fonts";
-      source = "${config.den.shareDir}/fonts";
+      source = "${config.den.dir.share}/fonts";
       recursive = true;
     };
   };

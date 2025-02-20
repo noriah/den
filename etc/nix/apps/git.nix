@@ -9,9 +9,7 @@ let
   cfg = config.den.apps.git;
 in
 {
-  options.den.apps.git = {
-    enable = mkEnableOption "git vcs";
-  };
+  options.den.apps.git.enable = mkEnableOption "git vcs";
 
   config = mkIf cfg.enable {
 

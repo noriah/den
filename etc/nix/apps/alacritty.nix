@@ -6,22 +6,21 @@
 }:
 with lib;
 let
+  subPath = "alacritty/default";
+  visualizerConfig = "${config.den.dir.etc}/${subPath}/visualizer.toml";
+
   cfg = config.den.apps.alacritty;
 in
 {
-  options.den.apps.alacritty = {
-    enable = mkEnableOption "alacritty terminal";
-
-    package = mkPackageOption pkgs "alacritty" { };
-  };
+  options.den.apps.alacritty.enable = mkEnableOption "alacritty terminal";
 
   config = mkIf cfg.enable {
 
-    home.packages = [ cfg.package ];
+    home.packages = [ pkgs.alacritty ];
 
     xdg.configFile.alacritty_config = {
       target = "alacritty";
-      source = "${config.den.etcDir}/alacritty/default";
+      source = "${config.den.dir.etc}/${subPath}";
       force = true;
     };
 
@@ -29,7 +28,7 @@ in
       alacritty-visualizer = {
         type = "Application";
         settings.TryExec = "alacritty";
-        exec = "alacritty --config-file ${config.xdg.configHome}/alacritty/visualizer.toml";
+        exec = "alacritty --config-file ${visualizerConfig}";
         icon = "Alacritty";
         terminal = false;
         categories = [

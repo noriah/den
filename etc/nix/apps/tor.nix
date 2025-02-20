@@ -25,7 +25,7 @@ in
         ClientOnly 1
         ControlPort 9051
         CookieAuthentication 1
-        CookieAuthFile ${config.den.homeDir}/.tor/cookie-auth
+        CookieAuthFile ${config.den.dir.home}/.tor/cookie-auth
         ExcludeExitNodes {ru},{cn},{uk},{gb},{us}
         #ExitNodes {nl},{de},{ca},{au}
         #ExitNodes {us}

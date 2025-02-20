@@ -14,7 +14,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    den.apps.git.enable = true;
+    den.modules = {
+      comfy.enable = true;
+    };
+
+    den.apps = {
+      git.enable = true;
+    };
 
     # unknown hosts may be uncontrolled hosts
     # disable check for compatibility

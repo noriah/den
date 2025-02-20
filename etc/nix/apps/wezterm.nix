@@ -20,7 +20,7 @@ in
     home.packages = [ cfg.package ];
 
     xdg.configFile.wezterm = {
-      source = "${config.den.etcDir}/wezterm";
+      source = "${config.den.dir.etc}/wezterm";
       force = true;
     };
 

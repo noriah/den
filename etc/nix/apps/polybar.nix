@@ -42,14 +42,14 @@ in
 
       polybar = {
         target = "polybar";
-        source = "${config.den.etcDir}/polybar/";
+        source = "${config.den.dir.etc}/polybar/";
         recursive = true;
         # onChange = "${pkgs.systemd}/bin/systemctl --user restart polybar.target";
       };
 
       polybar-host = {
         target = "polybar/host.ini";
-        source = "${config.den.etcDir}/polybar/hosts/${config.den.hostName}.ini";
+        source = "${config.den.dir.etc}/polybar/hosts/${config.den.hostName}.ini";
       };
 
     };

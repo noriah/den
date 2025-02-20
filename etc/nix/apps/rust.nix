@@ -9,9 +9,7 @@ let
   cfg = config.den.apps.rust;
 in
 {
-  options.den.apps.rust = {
-    enable = mkEnableOption "rust language";
-  };
+  options.den.apps.rust.enable = mkEnableOption "rust language";
 
   config = mkIf cfg.enable {
 
@@ -20,9 +18,8 @@ in
     ];
 
     home.sessionVariables = {
-      RUSTUP_HOME = "${config.den.homeOptDir}/rustup";
-      CARGO_HOME = "${config.den.homeOptDir}/cargo";
-
+      RUSTUP_HOME = "${config.den.dir.opt}/rustup";
+      CARGO_HOME = "${config.den.dir.opt}/cargo";
     };
 
     programs.helix.languages = mkIf config.programs.helix.enable {

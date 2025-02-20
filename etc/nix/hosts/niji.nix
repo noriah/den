@@ -17,7 +17,6 @@ in
     den = {
       apps = {
         alacritty.enable = true;
-        git.enable = true;
         gnome.enable = true;
         openrgb.enable = true;
         polybar.enable = true;
@@ -25,6 +24,7 @@ in
       };
 
       modules = {
+        comfy.enable = true;
         development.enable = true;
         fonts.enable = true;
         media.enable = true;

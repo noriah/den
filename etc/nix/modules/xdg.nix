@@ -15,12 +15,12 @@ in
 
     configHome = mkOption {
       type = types.path;
-      default = "${config.den.homeDir}/.config";
+      default = "${config.den.dir.home}/.config";
     };
 
     dataHome = mkOption {
       type = types.path;
-      default = "${config.den.homeDir}/var";
+      default = "${config.den.dir.home}/var";
     };
   };
 
@@ -46,20 +46,20 @@ in
       enable = true;
       createDirectories = false;
 
-      desktop = "${config.den.homeDir}/desktop";
-      download = "${config.den.homeDir}/downloads";
-      documents = "${config.den.homeDir}/documents";
-      pictures = "${config.den.homeDir}/pictures";
-      music = "${config.den.homeDir}/music";
-      videos = "${config.den.homeDir}/videos";
+      desktop = "${config.den.dir.home}/desktop";
+      download = "${config.den.dir.home}/downloads";
+      documents = "${config.den.dir.home}/documents";
+      pictures = "${config.den.dir.home}/pictures";
+      music = "${config.den.dir.home}/music";
+      videos = "${config.den.dir.home}/videos";
 
-      templates = "${config.den.homeDir}/templates";
+      templates = "${config.den.dir.home}/templates";
 
-      publicShare = "${config.den.homeDir}/public";
+      publicShare = "${config.den.dir.home}/public";
     };
 
     xdg.dataFile.applications = {
-      source = "${config.den.shareDir}/applications";
+      source = "${config.den.dir.share}/applications";
       recursive = true;
     };
   };
