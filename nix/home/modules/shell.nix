@@ -36,8 +36,8 @@ in
     };
   };
 
-  config =
-    mkIf cfg.enable {
+  config = mkMerge [
+    (mkIf cfg.enable {
 
       den.apps = {
         tmux.enable = true;
@@ -106,8 +106,9 @@ in
       systemd.user.tmpfiles.rules = [
         "L+ ${config.den.dir.home}/tmp - - - - /run/user/1000"
       ];
-    }
-    // mkIf (!isNull cfg.editorBin) {
+    })
+
+    (mkIf (cfg.enable && (!isNull cfg.editorBin)) {
       home.sessionVariables.EDITOR = cfg.editorBin;
 
       home.file.".selected_editor" = {
@@ -116,5 +117,6 @@ in
         '';
         force = true;
       };
-    };
+    })
+  ];
 }

@@ -27,7 +27,7 @@ in
       ];
 
       extraConfig = {
-        core.editor = config.den.editorBin;
+        core.editor = config.den.shell.editorBin;
 
         user.useConfigOnly = true;
         init.defaultBranch = "main";

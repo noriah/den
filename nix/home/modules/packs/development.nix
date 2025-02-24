@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    den.apps =
+    den.apps = mkMerge [
       {
 
         helix.enable = true;
@@ -31,9 +31,10 @@ in
         rust.enable = true;
 
       }
-      // mkIf cfg.gui {
+      (mkIf cfg.gui {
         vscode.enable = true;
-      };
+      })
+    ];
 
     den.shell.aliases = {
       base16 = "xxd -c 0 -ps";
