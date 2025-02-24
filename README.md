@@ -5,7 +5,7 @@ a perpetual work in progress.
 
 - [bin/](bin/) - shell scripts (and possibly binaries)
 - [etc/](etc/) - this is where configuration files are
-- [etc/nix/](etc/nix/) - home-manager configuration
+- [nix/](nix/) - home-manager configuration
 - [share/](share/) - contains things for the environment
 
 ## components
