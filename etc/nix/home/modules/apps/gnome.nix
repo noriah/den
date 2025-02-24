@@ -94,11 +94,11 @@ in
           "status-icons@gnome-shell-extensions.gcampax.github.com"
           "system-monitor@gnome-shell-extensions.gcampax.github.com"
           "dash-to-panel@jderose9.github.com"
+          "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+          "mediacontrols@cliffniff.github.com"
         ];
         enabled-extensions = [
           "appindicatorsupport@rgcjonas.gmail.com"
-          "mediacontrols@cliffniff.github.com"
-          "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
         ];
         remember-mount-password = false;
       };

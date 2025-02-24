@@ -9,16 +9,30 @@ let
   cfg = config.den.packs.development;
 in
 {
-  options.den.packs.development.enable = mkEnableOption "development module";
+  options.den.packs.development = {
+    enable = mkEnableOption "development module";
+
+    gui = mkOption {
+      type = types.bool;
+      default = config.den.gui.enable;
+    };
+  };
 
   config = mkIf cfg.enable {
-    den.apps = {
-      helix.enable = true;
-      git.enable = true;
-      go.enable = true;
-      julia.enable = true;
-      rust.enable = true;
-    };
+    den.apps =
+      {
+
+        helix.enable = true;
+        git.enable = true;
+
+        go.enable = true;
+        julia.enable = true;
+        rust.enable = true;
+
+      }
+      // mkIf cfg.gui {
+        vscode.enable = true;
+      };
 
     den.shell.aliases = {
       base16 = "xxd -c 0 -ps";

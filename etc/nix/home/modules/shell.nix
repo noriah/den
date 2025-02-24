@@ -32,12 +32,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      bat
-      jq
-      neofetch
-      tmux
-    ];
+
+    den.apps.tmux.enable = true;
 
     den.shell.envVariables = {
       HOME_ETC = config.den.dir.etc;
@@ -45,6 +41,12 @@ in
       HOME_SHARE = config.den.dir.share;
       HOME_VAR = config.den.dir.var;
     };
+
+    home.packages = with pkgs; [
+      bat
+      jq
+      neofetch
+    ];
 
     home.shellAliases = {
       hm = "home-manager";
@@ -94,12 +96,13 @@ in
         '';
         force = true;
       };
-
-      tmux-config = {
-        target = ".tmux.conf";
-        source = "${config.den.dir.etc}/tmux/tmux.conf";
-        force = true;
-      };
     };
+
+    # TODO: replace user ID with system user ID when we can access osConfig
+    # userId = config.users.users.${config.den.user}.uid
+    # /run/user/${userId}
+    systemd.user.tmpfiles.rules = [
+      "L ${config.den.dir.home}/tmp - - - - /run/user/1000"
+    ];
   };
 }

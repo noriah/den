@@ -6,6 +6,8 @@
 }:
 with lib;
 let
+  den_pkgs = pkgs.callPackage ../../packages { };
+
   cfg = config.den.hosts.niji;
 in
 {
@@ -17,6 +19,8 @@ in
     den = {
       dir.self = "${config.den.dir.home}/den";
       dir.opt = "${config.den.dir.home}/.opt";
+
+      gui.enable = true;
 
       apps = {
         alacritty.enable = true;
@@ -31,6 +35,7 @@ in
       packs = {
         comfy.enable = true;
         development.enable = true;
+
         fonts.enable = true;
         media.enable = true;
 
@@ -59,8 +64,6 @@ in
 
       kitty
 
-      vscode
-
       # communication
       signal-desktop
       telegram-desktop
@@ -73,6 +76,8 @@ in
       obsidian
 
       cheese
+
+      den_pkgs.r2modman
     ];
 
     services.syncthing.enable = true;

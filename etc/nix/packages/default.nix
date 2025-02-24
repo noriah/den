@@ -5,6 +5,8 @@
   openrgb-plugin-effects = pkgs.callPackage ./openrgb-plugin-effects.nix { };
   openrgb-plugin-visual-map = pkgs.callPackage ./openrgb-plugin-visual-map.nix { };
 
+  r2modman = pkgs.callPackage ./r2modman { };
+
   # to get jamesdsp 2.4
   pkgs_6ec9e25 = import (pkgs.fetchFromGitHub {
     owner = "NixOS";

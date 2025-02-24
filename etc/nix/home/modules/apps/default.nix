@@ -11,9 +11,13 @@
     ./julia.nix
     ./neofetch.nix
     ./openrgb.nix
+    ./picom.nix
     ./polybar.nix
     ./rust.nix
+    ./syncthing.nix
+    ./tmux.nix
     ./tor.nix
+    ./vscode.nix
     ./wezterm.nix
   ];
 }
