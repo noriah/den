@@ -29,80 +29,92 @@ in
       type = types.attrsOf types.str;
       default = { };
     };
+
+    editorBin = mkOption {
+      type = types.path;
+      default = null;
+    };
   };
 
-  config = mkIf cfg.enable {
+  config =
+    mkIf cfg.enable {
 
-    den.apps.tmux.enable = true;
-
-    den.shell.envVariables = {
-      HOME_ETC = config.den.dir.etc;
-      HOME_OPT = config.den.dir.opt;
-      HOME_SHARE = config.den.dir.share;
-      HOME_VAR = config.den.dir.var;
-    };
-
-    home.packages = with pkgs; [
-      bat
-      jq
-      neofetch
-    ];
-
-    home.shellAliases = {
-      hm = "home-manager";
-    };
-
-    # programs.zsh.enable = true;
-
-    home.file = {
-      zshrc = {
-        target = ".zshrc";
-        text = ". ${config.den.dir.etc}/zsh/zshrc\n";
-        force = true;
+      den.apps = {
+        tmux.enable = true;
+        vim.enable = true;
       };
 
-      zshenv = {
-        target = ".zshenv";
+      den.shell.envVariables = {
+        HOME_ETC = config.den.dir.etc;
+        HOME_OPT = config.den.dir.opt;
+        HOME_SHARE = config.den.dir.share;
+        HOME_VAR = config.den.dir.var;
+      };
+
+      home.packages = with pkgs; [
+        bat
+        jq
+        neofetch
+      ];
+
+      home.shellAliases = {
+        hm = "home-manager";
+      };
+
+      # programs.zsh.enable = true;
+
+      home.file = {
+        zshrc = {
+          target = ".zshrc";
+          text = ". ${config.den.dir.etc}/zsh/zshrc\n";
+          force = true;
+        };
+
+        zshenv = {
+          target = ".zshenv";
+          text = ''
+            . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+
+            if [[ -z "$__DEN_SHELL_ENV_VARS_SOURCED" ]]; then
+              export __DEN_SHELL_ENV_VARS_SOURCED=1
+            ${envVarsStr}
+            fi
+
+            . ${config.den.dir.home}/.profile
+            . ${config.den.dir.etc}/zsh/zshenv
+          '';
+          force = true;
+        };
+
+        zaliases = mkIf (aliasesStr != "\n") {
+          target = ".zaliases";
+          text = aliasesStr;
+          force = true;
+        };
+
+        hushlogin = {
+          target = ".hushlogin";
+          text = "\n";
+          force = true;
+        };
+
+      };
+
+      # TODO: replace user ID with system user ID when we can access osConfig
+      # userId = config.users.users.${config.den.user}.uid
+      # /run/user/${userId}
+      systemd.user.tmpfiles.rules = [
+        "L+ ${config.den.dir.home}/tmp - - - - /run/user/1000"
+      ];
+    }
+    // mkIf (!isNull cfg.editorBin) {
+      home.sessionVariables.EDITOR = cfg.editorBin;
+
+      home.file.".selected_editor" = {
         text = ''
-          . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
-
-          if [[ -z "$__DEN_SHELL_ENV_VARS_SOURCED" ]]; then
-            export __DEN_SHELL_ENV_VARS_SOURCED=1
-          ${envVarsStr}
-          fi
-
-          . ${config.den.dir.home}/.profile
-          . ${config.den.dir.etc}/zsh/zshenv
+          SELECTED_EDITOR="${cfg.editorBin}"
         '';
         force = true;
       };
-
-      zaliases = mkIf (aliasesStr != "\n") {
-        target = ".zaliases";
-        text = aliasesStr;
-        force = true;
-      };
-
-      hushlogin = {
-        target = ".hushlogin";
-        text = "\n";
-        force = true;
-      };
-
-      selected-editor = {
-        target = ".selected_editor";
-        text = ''
-          SELECTED_EDITOR="${config.den.editorBin}"
-        '';
-        force = true;
-      };
     };
-
-    # TODO: replace user ID with system user ID when we can access osConfig
-    # userId = config.users.users.${config.den.user}.uid
-    # /run/user/${userId}
-    systemd.user.tmpfiles.rules = [
-      "L ${config.den.dir.home}/tmp - - - - /run/user/1000"
-    ];
-  };
 }

@@ -30,6 +30,9 @@ in
         tor.enable = true;
 
         go.goPath = ".opt/go";
+
+        vscode.enable = true;
+        vscode.server = true;
       };
 
       packs = {

@@ -67,13 +67,6 @@ in
         default = "${cfg.dir.home}/var";
       };
     };
-
-    editor = mkPackageOption pkgs "vim" { };
-
-    editorBin = mkOption {
-      type = types.path;
-      default = "${cfg.editor}/bin/vim";
-    };
   };
 
   config = mkIf cfg.enable {

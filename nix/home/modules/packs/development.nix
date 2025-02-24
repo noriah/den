@@ -24,6 +24,7 @@ in
 
         helix.enable = true;
         git.enable = true;
+        vim.enable = true;
 
         go.enable = true;
         julia.enable = true;
@@ -49,8 +50,6 @@ in
     ];
 
     home.sessionVariables = {
-      EDITOR = "${config.den.editorBin}";
-
       # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
 
       # node stuff
@@ -63,10 +62,5 @@ in
       "./node_modules/.bin"
     ];
 
-    home.file.vimrc = {
-      target = ".vimrc";
-      source = "${config.den.dir.etc}/vim/rc.vim";
-      force = true;
-    };
   };
 }

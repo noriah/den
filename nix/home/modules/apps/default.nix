@@ -17,6 +17,7 @@
     ./syncthing.nix
     ./tmux.nix
     ./tor.nix
+    ./vim.nix
     ./vscode.nix
     ./wezterm.nix
   ];
