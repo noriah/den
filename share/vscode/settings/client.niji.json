@@ -54,6 +54,7 @@
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
+  "files.simpleDialog.enable": true,
   "npm.fetchOnlinePackageInfo": false,
   "notebook.lineNumbers": "on",
   "editor.lineNumbers": "on",
@@ -67,7 +68,6 @@
   "window.title": "${activeEditorShort}${separator}${rootName}",
   "window.titleBarStyle": "custom",
   "window.customMenuBarAltFocus": false,
-  "workbench.colorTheme": "vixn dark",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "newUntitledFile",
@@ -299,5 +299,7 @@
   "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
   "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
   "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "editor.minimap.autohide": false
+  "editor.minimap.autohide": false,
+  "workbench.colorTheme": "vixn dark",
+  "chat.commandCenter.enabled": false
 }

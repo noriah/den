@@ -8,12 +8,10 @@ with lib;
 let
   den_pkgs = pkgs.callPackage ../../packages { };
 
-  cfg = config.den.hosts.niji;
+  cfg = config.den.hosts.plix;
 in
 {
-  options.den.hosts.niji = {
-    enable = mkEnableOption "niji host";
-  };
+  options.den.hosts.plix.enable = mkEnableOption "plix host";
 
   config = mkIf cfg.enable {
     den = {
@@ -24,15 +22,9 @@ in
 
       apps = {
         alacritty.enable = true;
-        gnome.enable = true;
-        openrgb.enable = true;
-        polybar.enable = true;
         tor.enable = true;
 
         go.goPath = ".opt/go";
-
-        vscode.enable = true;
-        vscode.server = true;
       };
 
       packs = {
@@ -40,10 +32,7 @@ in
         development.enable = true;
 
         fonts.enable = true;
-        fonts.installDenFonts = true;
-
         media.enable = true;
-        media.focusrite = true;
 
         xdg.enable = true;
         xdg.userDirRoot = "${config.den.dir.home}/stuff";
@@ -52,11 +41,6 @@ in
 
     home.packages = with pkgs; [
       zip
-      wmctrl
-
-      # installed globally
-      # _1password-cli
-      # _1password-gui
 
       # net util
       rdap
@@ -65,25 +49,16 @@ in
       dnsutils
       nmap
 
-      # hardware util
-      ddcutil
-
-      kitty
-
       # communication
       signal-desktop
       telegram-desktop
 
       # web
-      google-chrome
+      # google-chrome
       librewolf
 
       # info
       obsidian
-
-      cheese
-
-      den_pkgs.r2modman
     ];
 
     services.syncthing.enable = true;

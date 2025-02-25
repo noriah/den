@@ -9,7 +9,18 @@ let
   cfg = config.den.packs.fonts;
 in
 {
-  options.den.packs.fonts.enable = mkEnableOption "fonts module";
+  options.den.packs.fonts = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.den.gui.enable;
+      description = "enable fonts module";
+    };
+
+    installDenFonts = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
 
   config = mkIf cfg.enable {
 
@@ -27,7 +38,13 @@ in
       force = true;
     };
 
-    xdg.dataFile.fonts = {
+    home.packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      fira-code
+      twitter-color-emoji
+    ];
+
+    xdg.dataFile.fonts = mkIf cfg.installDenFonts {
       target = "fonts";
       source = "${config.den.dir.share}/fonts";
       recursive = true;

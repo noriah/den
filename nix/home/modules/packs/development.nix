@@ -33,6 +33,7 @@ in
       }
       (mkIf cfg.gui {
         vscode.enable = true;
+        vscode.client = true;
       })
     ];
 
