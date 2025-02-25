@@ -40,8 +40,8 @@ in
     (mkIf cfg.enable {
 
       den.apps = {
-        tmux.enable = true;
-        vim.enable = true;
+        tmux.enable = mkDefault true;
+        vim.enable = mkDefault true;
       };
 
       den.shell.envVariables = {
@@ -56,10 +56,6 @@ in
         jq
         neofetch
       ];
-
-      home.shellAliases = {
-        hm = "home-manager";
-      };
 
       # programs.zsh.enable = true;
 

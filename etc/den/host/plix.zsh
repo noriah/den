@@ -1,4 +1,4 @@
-# niji is an AMD Desktop running Linux
+# plix is a Framework AMD Laptop13 running NixOS
 export WORKSPACE_DIR="$HOME/workspace"
 
 den::conf linux.zsh

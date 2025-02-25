@@ -72,15 +72,11 @@ in
   config = mkIf cfg.enable {
 
     # enable some packs by default
-    den.shell = {
-      enable = true;
-      aliases = {
-        hm = "home-manager";
-      };
-    };
+    den.shell.enable = mkDefault true;
+    den.shell.aliases.hm = mkDefault "home-manager";
 
     # enable our host configuration
-    den.hosts.${cfg.hostName}.enable = true;
+    den.hosts.${cfg.hostName}.enable = mkDefault true;
 
     home.username = cfg.user;
     home.homeDirectory = cfg.dir.home;

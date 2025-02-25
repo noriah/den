@@ -24,6 +24,8 @@ in
         alacritty.enable = true;
         tor.enable = true;
 
+        vscode.enable = false;
+
         go.goPath = ".opt/go";
       };
 

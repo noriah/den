@@ -22,18 +22,18 @@ in
     den.apps = mkMerge [
       {
 
-        helix.enable = true;
-        git.enable = true;
-        vim.enable = true;
+        helix.enable = mkDefault true;
+        git.enable = mkDefault true;
+        vim.enable = mkDefault true;
 
-        go.enable = true;
-        julia.enable = true;
-        rust.enable = true;
+        go.enable = mkDefault true;
+        julia.enable = mkDefault true;
+        rust.enable = mkDefault true;
 
       }
       (mkIf cfg.gui {
-        vscode.enable = true;
-        vscode.client = true;
+        vscode.enable = mkDefault true;
+        vscode.client = mkDefault true;
       })
     ];
 
