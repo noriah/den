@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  denOpenrgb = pkgs.callPackage ../packages/openrgb.nix { };
+  denOpenrgb = pkgs.callPackage ../../packages/openrgb.nix { };
   no-rgb = pkgs.writeScriptBin "no-rgb" ''
     #!/bin/sh
     NUM_DEVICES=$(${denOpenrgb}/bin/openrgb --client 127.0.0.1:6742 --list-devices | grep -E '^[0-9]+: ' | wc -l)
