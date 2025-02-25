@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -12,10 +8,11 @@
   ];
 
   # Bootloader.
+  boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "plix"; # Define your hostname.
+  networking.hostName = "poppy"; # Define your hostname.
   networking.domain = "mobile.noriah.dev";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -48,7 +45,35 @@
   services.xserver.enable = true;
 
   # Enable the Budgie Desktop environment.
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    greeters.gtk.enable = false;
+    greeters.slick.enable = false;
+    greeters.mini = {
+      enable = true;
+      user = "vix";
+      extraConfig = ''
+        [greeter]
+        show-password-label = false
+        show-input-cursor = false
+        password-alignment = center
+        invalid-password-text = ???
+        show-sys-info = true
+
+        [greeter-hotkeys]
+        mod-key = meta
+        shutdown-key = s
+        restart-key = r
+        hubernate-key = h
+        suspend-key = e
+
+        [greeter-theme]
+        background-image = ""
+        background-color = "#272822"
+        window-color = "#FF6F66"
+      '';
+    };
+  };
   services.xserver.desktopManager.budgie.enable = true;
 
   # Configure keymap in X11

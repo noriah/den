@@ -8,10 +8,10 @@ with lib;
 let
   den_pkgs = pkgs.callPackage ../../packages { };
 
-  cfg = config.den.hosts.plix;
+  cfg = config.den.hosts.poppy;
 in
 {
-  options.den.hosts.plix.enable = mkEnableOption "plix host";
+  options.den.hosts.poppy.enable = mkEnableOption "poppy host";
 
   config = mkIf cfg.enable {
     den = {
@@ -41,8 +41,12 @@ in
       };
     };
 
+    services.gnome-keyring.enable = true;
+
     home.packages = with pkgs; [
       zip
+
+      gcr
 
       # net util
       rdap
@@ -58,6 +62,8 @@ in
       # web
       # google-chrome
       librewolf
+
+      seahorse
 
       # info
       obsidian

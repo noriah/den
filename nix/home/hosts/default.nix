@@ -5,7 +5,7 @@
 
     ./ersa.nix
     ./niji.nix
-    ./plix.nix
+    ./poppy.nix
     ./vyxn.nix
   ];
 }

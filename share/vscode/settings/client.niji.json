@@ -301,5 +301,6 @@
   "rust-analyzer.inlayHints.bindingModeHints.enable": true,
   "editor.minimap.autohide": false,
   "workbench.colorTheme": "vixn dark",
-  "chat.commandCenter.enabled": false
+  "chat.commandCenter.enabled": false,
+  "window.zoomLevel": -1
 }
