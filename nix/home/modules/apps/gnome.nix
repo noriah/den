@@ -9,7 +9,7 @@ let
   cfg = config.den.apps.gnome;
 in
 {
-  options.den.apps.gnome.enable = mkEnableOption "git vcs";
+  options.den.apps.gnome.enable = mkEnableOption "gnome desktop env";
 
   config = mkIf cfg.enable {
 

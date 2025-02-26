@@ -2,6 +2,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./budgie.nix
     ./git.nix
     ./gnome.nix
     ./go.nix

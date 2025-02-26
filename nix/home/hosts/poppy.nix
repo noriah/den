@@ -26,6 +26,8 @@ in
 
         vscode.enable = false;
 
+	budgie.enable = true;
+
         go.goPath = ".opt/go";
       };
 
