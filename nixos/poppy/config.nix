@@ -41,6 +41,9 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # disable CUPS
+  services.printing.enable = false;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -75,6 +78,11 @@
     };
   };
   services.xserver.desktopManager.budgie.enable = true;
+
+  #programs.hyprland = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #};
 
   # Configure keymap in X11
   services.xserver.xkb = {

@@ -1,5 +1,5 @@
 # plix is a Framework AMD Laptop13 running NixOS
-export WORKSPACE_DIR="$HOME/workspace"
+export WORKSPACE_DIR="$HOME/space"
 
 den::conf linux.zsh
 

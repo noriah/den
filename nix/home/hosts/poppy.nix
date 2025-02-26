@@ -26,7 +26,7 @@ in
 
         vscode.enable = false;
 
-	budgie.enable = true;
+        budgie.enable = true;
 
         go.goPath = ".opt/go";
       };
@@ -41,6 +41,12 @@ in
         xdg.enable = true;
         xdg.userDirRoot = "${config.den.dir.home}/stuff";
       };
+
+      workspace = {
+        enable = true;
+        dirPath = "${config.den.dir.home}/space";
+      };
+
     };
 
     services.gnome-keyring.enable = true;
