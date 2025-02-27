@@ -37,18 +37,32 @@ in
         move-to-monitor-left = [ ];
         move-to-monitor-right = [ ];
         move-to-monitor-up = [ ];
-        move-to-workspace-left = [ "<Super><Shift>Page_Up" ];
-        move-to-workspace-right = [ "<Super><Shift>Page_Down" ];
+        move-to-workspace-1 = [ ];
+        move-to-workspace-last = [ ];
+        move-to-workspace-left = [ "<Super><Shift>Home" ];
+        move-to-workspace-right = [ "<Super><Shift>End" ];
         switch-input-source = [ ];
         switch-input-source-backward = [ ];
-        switch-to-workspace-left = [ "<Super>Page_Up" ];
-        switch-to-workspace-right = [ "<Super>Page_Down" ];
+        switch-to-workspace-1 = [ ];
+        switch-to-workspace-first = [ ];
+        switch-to-workspace-last = [ ];
+        switch-to-workspace-left = [ "<Super>Home" ];
+        switch-to-workspace-right = [ "<Super>End" ];
         unmaximize = [ ];
       };
 
       "org/gnome/desktop/wm/preferences" = {
         mouse-button-modifier = "<Control><Super>";
         resize-with-right-button = true;
+      };
+
+      "org/gnome/mutter/wayland/keybindings" = {
+        restore-shortcuts = [ ];
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        help = [ ];
+        screensaver = [ "<Primary><Super>q" ];
       };
     };
   };

@@ -35,6 +35,11 @@ in
         vscode.server = true;
       };
 
+      notes = {
+        enable = true;
+        path = "${config.den.dir.home}/notes";
+      };
+
       packs = {
         comfy.enable = true;
         development.enable = true;
@@ -47,6 +52,11 @@ in
 
         xdg.enable = true;
         xdg.userDirRoot = "${config.den.dir.home}/stuff";
+      };
+
+      workspace = {
+        enable = true;
+        path = "${config.den.dir.home}/space";
       };
     };
 

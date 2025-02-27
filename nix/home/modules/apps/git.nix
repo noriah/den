@@ -43,19 +43,19 @@ in
       includes = [
         {
           condition = "gitdir:${config.den.dir.self}/.git";
-          path = "${config.den.workspace.dirPath}/public/.gitconfig";
+          path = "${config.den.workspace.path}/public/.gitconfig";
         }
         {
-          condition = "gitdir:${config.den.workspace.dirPath}/public/";
-          path = "${config.den.workspace.dirPath}/public/.gitconfig";
+          condition = "gitdir:${config.den.workspace.path}/public/";
+          path = "${config.den.workspace.path}/public/.gitconfig";
         }
         {
-          condition = "gitdir:${config.den.workspace.dirPath}/notes/";
-          path = "${config.den.workspace.dirPath}/public/.gitconfig";
+          condition = "gitdir:${config.den.notes.path}/";
+          path = "${config.den.workspace.path}/public/.gitconfig";
         }
         {
-          condition = "gitdir:${config.den.workspace.dirPath}/phase/";
-          path = "${config.den.workspace.dirPath}/phase/.gitconfig";
+          condition = "gitdir:${config.den.workspace.path}/phase/";
+          path = "${config.den.workspace.path}/phase/.gitconfig";
         }
       ];
     };

@@ -12,7 +12,7 @@ in
   options.den.workspace = {
     enable = mkEnableOption "workspaces";
 
-    dirPath = mkOption {
+    path = mkOption {
       type = types.path;
       default = "${config.den.dir.home}/workspace";
     };
@@ -20,7 +20,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.user.tmpfiles.rules = [
-      "d ${cfg.dirPath} 0755 ${config.den.user} ${config.den.user}"
+      "d ${cfg.path} 0755 ${config.den.user} ${config.den.user}"
     ];
 
   };

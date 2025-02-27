@@ -238,14 +238,14 @@ rightPlugin() {
   if burrow check 'workspace'; then
     local public_dir="$WORKSPACE_DIR/$WORKSPACE_PUBLIC_KEY"
     local local_dir="$WORKSPACE_DIR/$WORKSPACE_LOCAL_KEY"
-    local notes_dir="$WORKSPACE_DIR/$WORKSPACE_NOTES_KEY"
+    local notes_dir="$DEN_NOTES_DIR"
     local vault_dir="$WORKSPACE_DIR/$WORKSPACE_VAULT_KEY"
 
     POWERLEVEL9K_DIR_CLASSES+=(
       "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$public_dir|$public_dir/*" WORKSPACE_PUBLIC '%B\uE780'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\U000f02ca'
-      "$notes_dir|$notes_dir/*" WORKSPACE_NOTES '%B\U000f082e'
+      "$notes_dir|$notes_dir/*" DEN_NOTES '%B\U000f082e'
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\U000f0773'
     )
 
@@ -260,7 +260,7 @@ rightPlugin() {
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_PUBLIC_FOREGROUND=209
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_VISUAL_IDENTIFIER_COLOR=5
     # typeset -g POWERLEVEL9K_DIR_WORKSPACE_LOCAL_FOREGROUND=254
-    typeset -g POWERLEVEL9K_DIR_WORKSPACE_NOTES_VISUAL_IDENTIFIER_COLOR=120
+    typeset -g POWERLEVEL9K_DIR_DEN_NOTES_VISUAL_IDENTIFIER_COLOR=120
     typeset -g POWERLEVEL9K_DIR_WORKSPACE_VAULT_VISUAL_IDENTIFIER_COLOR=1
   fi
 

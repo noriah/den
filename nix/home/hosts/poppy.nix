@@ -24,11 +24,16 @@ in
         alacritty.enable = true;
         tor.enable = true;
 
-        vscode.enable = false;
+        #vscode.enable = false;
 
         budgie.enable = true;
 
         go.goPath = ".opt/go";
+      };
+
+      notes = {
+        enable = true;
+        path = "${config.den.dir.home}/notes";
       };
 
       packs = {
@@ -44,7 +49,7 @@ in
 
       workspace = {
         enable = true;
-        dirPath = "${config.den.dir.home}/space";
+        path = "${config.den.dir.home}/space";
       };
 
     };

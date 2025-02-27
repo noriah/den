@@ -11,6 +11,7 @@
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "poppy"; # Define your hostname.
   networking.domain = "mobile.noriah.dev";

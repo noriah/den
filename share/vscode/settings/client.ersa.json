@@ -115,12 +115,6 @@
   ],
   "[rust]": {
     "editor.tabSize": 4,
-    "editor.rulers": [
-      {
-        "color": "#ff501030",
-        "column": 100
-      }
-    ],
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
     "editor.semanticHighlighting.enabled": true,
     "editor.rulers": [
@@ -201,18 +195,6 @@
   "projectManager.groupList": true,
   "projectManager.showParentFolderInfoOnDuplicates": true,
   "rust-analyzer.cargo.buildScripts.enable": true,
-  "rust-analyzer.server.extraEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
-  },
-  "rust-analyzer.runnableEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
-  },
-  "rust-analyzer.cargo.extraEnv": {
-    "CARGO_HOME": "/home/nor/opt/cargo",
-    "RUSTUP_HOME": "/home/nor/opt/rustup"
-  },
   "todo-tree.general.statusBar": "total",
   "todo-tree.filtering.ignoreGitSubmodules": true,
   "todo-tree.tree.grouped": true,
@@ -290,8 +272,6 @@
   //   "typescript"
   // ],
   "python.analysis.inlayHints.callArgumentNames": true,
-  "python.analysis.inlayHints.variableTypes": true,
-  "python.experiments.enabled": false,
   "jupyter.askForKernelRestart": false,
   "auto-build.defaultEnv.name": "BIGTREE_OCTOPUS_PRO_V1_F429_USB",
   "rust-analyzer.completion.fullFunctionSignatures.enable": true,
