@@ -29,8 +29,6 @@ in
         polybar.enable = true;
         tor.enable = true;
 
-        go.goPath = ".opt/go";
-
         vscode.enable = true;
         vscode.server = true;
       };
@@ -70,6 +68,11 @@ in
 
       # net util
       rdap
+      socat
+
+      # den_pkgs.rtpmidi
+      # clonehero
+
       whois
       subnetcalc
       dnsutils
@@ -94,6 +97,8 @@ in
       cheese
 
       den_pkgs.r2modman
+
+      den_pkgs.rtpmidi
     ];
 
     services.syncthing.enable = true;

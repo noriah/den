@@ -7,6 +7,8 @@
 
   r2modman = pkgs.callPackage ./r2modman { };
 
+  rtpmidi = pkgs.callPackage ./rtpmidi.nix { };
+
   # to get jamesdsp 2.4
   pkgs_6ec9e25 = import (pkgs.fetchFromGitHub {
     owner = "NixOS";

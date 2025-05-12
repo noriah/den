@@ -1,8 +1,6 @@
-diff --git a/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts b/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts
-index 81cba283..5bbaf032 100644
 --- a/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts
 +++ b/src/r2mm/launching/runners/linux/SteamGameRunner_Linux.ts
-@@ -64,15 +64,8 @@ export default class SteamGameRunner_Linux extends GameRunnerProvider {
+@@ -64,15 +64,8 @@
      async start(game: Game, args: string): Promise<void | R2Error> {
 
          const settings = await ManagerSettings.getSingleton(game);

@@ -1,5 +1,5 @@
 # niji is an AMD Desktop running Linux
-export WORKSPACE_DIR="$HOME/workspace"
+export WORKSPACE_DIR="$HOME/space"
 
 den::conf linux.zsh
 

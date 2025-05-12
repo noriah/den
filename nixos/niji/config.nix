@@ -100,7 +100,7 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    # alsa.support32Bit = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
 
@@ -148,6 +148,8 @@
 
   # enable zsh
   programs.zsh.enable = true;
+
+  programs.mosh.enable = true;
 
   # steam must be enabled by system for things like firewall and udev rules.
   programs.steam.enable = true;
@@ -207,6 +209,19 @@
       X11Forwarding = true;
     };
   };
+
+  services.avahi = {
+    enable = true;
+    publish = {
+      enable = true;
+      userServices = true;
+      # workstation = true;
+    };
+  };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb",ATTR{idVendor}=="1050",ATTR{idProduct}=="0030",MODE="0666",GROUP="wheel"
+  '';
 
   services.flatpak.enable = true;
 

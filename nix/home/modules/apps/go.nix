@@ -16,7 +16,7 @@ in
 
     goPath = mkOption {
       type = types.str;
-      default = "opt/go";
+      default = "${config.den.dir.opt}/go";
     };
   };
 

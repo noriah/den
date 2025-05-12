@@ -200,67 +200,101 @@
   "todo-tree.tree.grouped": true,
   "todo-tree.tree.showCountsInTree": true,
   "todo-tree.general.tags": [
-    "BUG",
     "FIXME",
+    "FIXIT",
+    "FIX",
+    "BUG",
+    "TICKET",
     "HACK",
     "INFO",
+    "NOTE",
     "TODO",
-    "WARN"
+    "DOIT",
+    "LATER",
+    "WARNING",
+    "WARN",
   ],
   "todo-tree.general.revealBehaviour": "end of todo",
-  "todo-tree.highlights.highlightDelay": 0,
+  "todo-tree.general.tagGroups": {
+    "FIX": [
+      "FIXME",
+      "FIXIT",
+      "FIX",
+    ],
+    "BUG": [
+      "BUG",
+      "TICKET",
+    ],
+    "HACK": [
+      "HACK",
+    ],
+    "INFO": [
+      "INFO",
+      "NOTE",
+    ],
+    "TODO": [
+      "TODO",
+      "DOIT",
+      "LATER",
+    ],
+    "WARN": [
+      "WARN",
+      "WARNING",
+    ]
+  },
+  // todotree
+  "todo-tree.general.debug": false,
+  "todo-tree.general.periodicRefreshInterval": 0,
+  "todo-tree.general.automaticGitRefreshInterval": 0,
+  "todo-tree.highlights.highlightDelay": 5,
+  "todo-tree.tree.buttons.viewStyle": true,
   "todo-tree.highlights.customHighlight": {
+    "FIX": {
+      "icon": "tools",
+      "iconColour": "#72aee0",
+      "foreground": "#72aee0",
+      "rulerColour": "#72aee0",
+    },
     "BUG": {
       "icon": "bug",
       "iconColour": "#dbd6d3",
       "foreground": "#dbd6d3",
       "rulerColour": "#dbd6d3",
-      "fontStyle": "italic"
-    },
-    "FIXME": {
-      "icon": "tools",
-      "iconColour": "#72aee0",
-      "foreground": "#72aee0",
-      "rulerColour": "#72aee0",
-      "fontStyle": "italic"
     },
     "HACK": {
       "icon": "flame",
       "iconColour": "#e07972",
       "foreground": "#e07972",
       "rulerColour": "#e07972",
-      "fontStyle": "italic"
     },
     "INFO": {
       "icon": "search",
       "iconColour": "#8d72e0",
       "foreground": "#8d72e0",
       "rulerColour": "#8d72e0",
-      "fontStyle": "italic"
     },
     "TODO": {
       "icon": "checkbox",
       "iconColour": "#72e084",
       "foreground": "#72e084",
       "rulerColour": "#72e084",
-      "fontStyle": "italic"
     },
     "WARN": {
       "icon": "alert",
       "iconColour": "#e0df72",
       "foreground": "#e0df72",
       "rulerColour": "#e0df72",
-      "fontStyle": "italic"
-    }
+    },
   },
   "todo-tree.highlights.defaultHighlight": {
-    "type": "capture-groups:1,2,3",
+    "type": "tag-and-subTag",
+    // "type": "capture-groups:1,2,3",
     "gutterIcon": true,
     "fontWeight": "600",
-    "background": "#ffffff1f"
+    "background": "#ffffff1f",
+    "fontStyle": "italic"
   },
-  "todo-tree.regex.regex": "^[ \\t]*/?(//[^\\n]*($TAGS)(?:\\(.*?\\))?[^\\n]*)(?:\\n[ \\t]*(/?//[ \\t]{2,}[^\\n]*))*",
-  //"todo-tree.regex.regex": "^[ \\t]*/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
+  // "todo-tree.regex.regex": "^[ \\t]*/?(//\\s*($TAGS)(?:\\(.*?\\))?:?[^\\n]*)(?:\\n\\s*(//\\s{2,}.*))*",
   "todo-tree.regex.subTagRegex": "^\\s*\\(([^):]+).*?\\)",
   // "vscode-color-picker.languages": [
   //   "ini",
@@ -282,5 +316,5 @@
   "editor.minimap.autohide": false,
   "workbench.colorTheme": "vixn dark",
   "chat.commandCenter.enabled": false,
-  "window.zoomLevel": -1
+  "window.zoomLevel": 0
 }

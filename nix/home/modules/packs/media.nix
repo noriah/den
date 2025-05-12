@@ -39,23 +39,24 @@ in
 
         spotify
         vlc
+        audacity
 
-        catnip
-        # (buildGoModule rec {
-        #   name = "catnip";
-        #   version = "git";
+        # catnip
+        (buildGoModule rec {
+          name = "catnip";
+          version = "1.8.6";
 
-        #   src = fetchFromGitHub {
-        #     owner = "noriah";
-        #     repo = "catnip";
-        #     rev = "9c9f6e035030a590947e72d0c58fe2182f2fee2f";
-        #     sha256 = "9gneteQIzbMNjg/08uq+pCbs2a32He2gL+hovxcJFzE=";
-        #   };
+          src = fetchFromGitHub {
+            owner = "noriah";
+            repo = "catnip";
+            rev = "v${version}";
+            sha256 = "sha256-oWin5PT/VZe9IAO3csMoHEn0GfdtBhntq5Db/2rFd0g=";
+          };
 
-        #   CGO_ENABLED = 0;
+          CGO_ENABLED = 0;
 
-        #   vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
-        # })
+          vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
+        })
       ]
       ++ (
         if cfg.focusrite then

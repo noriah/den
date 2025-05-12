@@ -59,7 +59,7 @@ in
 
       opt = mkOption {
         type = types.path;
-        default = "${cfg.dir.home}/opt";
+        default = "${cfg.dir.home}/.opt";
       };
 
       var = mkOption {

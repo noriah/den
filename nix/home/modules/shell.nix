@@ -62,7 +62,10 @@ in
       home.file = {
         zshrc = {
           target = ".zshrc";
-          text = ". ${config.den.dir.etc}/zsh/zshrc\n";
+          text = ''
+          . ${config.den.dir.etc}/zsh/zshrc
+          unsetopt sharehistory
+          '';
           force = true;
         };
 
