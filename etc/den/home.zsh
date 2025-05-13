@@ -10,7 +10,8 @@
 
 # export DEN_USER='noriah'
 export DEN_USER="`whoami`"
-export DEN_HOST=$(hostname -f | cut -d. -f1)
+# export DEN_HOST=$(hostname -f | cut -d. -f1)
+export DEN_HOST=$(cat ~/.den/hostname)
 
 # load our den manager
 den::source share/burrow/rc.zsh

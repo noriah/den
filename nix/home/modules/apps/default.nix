@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./_1password.nix
     ./alacritty.nix
     ./budgie.nix
     ./git.nix

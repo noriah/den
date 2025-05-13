@@ -21,6 +21,7 @@ in
       gui.enable = true;
 
       apps = {
+        _1password.enable = true;
         alacritty.enable = true;
         tor.enable = true;
 
@@ -61,6 +62,8 @@ in
 
       gcr
 
+      mosh
+
       # net util
       rdap
       whois
@@ -76,10 +79,16 @@ in
       # google-chrome
       librewolf
 
+      beneath-a-steel-sky
+
       seahorse
 
       # info
       obsidian
+
+      virt-viewer
+
+      incus
     ];
 
     services.syncthing.enable = true;
