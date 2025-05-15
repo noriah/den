@@ -2,19 +2,24 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware.nix
     /etc/nixos/wireguard
   ];
 
-  # Bootloader.
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "poppy"; # Define your hostname.
   networking.domain = "mobile.noriah.dev";
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -41,9 +46,6 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-
-  # disable CUPS
-  services.printing.enable = false;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -80,11 +82,6 @@
   };
   services.xserver.desktopManager.budgie.enable = true;
 
-  #programs.hyprland = {
-  #  enable = true;
-  #  xwayland.enable = true;
-  #};
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -98,8 +95,8 @@
 
   services.fwupd.enable = true;
 
-  # Enable CUPS to print documents.
-  #services.printing.enable = true;
+  # uses CUPS to print documents.
+  services.printing.enable = false;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -161,16 +158,19 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     curl
     git
-    vim
     wget
   ];
 
-  #services.flatpak.enable = true;
+  # explicitly disable flatpak
+  services.flatpak.enable = false;
 
-  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    22000 # allow syncthing
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # This value determines the NixOS release from which the default

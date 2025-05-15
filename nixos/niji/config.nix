@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { pkgs, lib, ... }:
 
 {
@@ -12,34 +8,28 @@
     # ./persist.nix
   ];
 
-  networking = {
-    hostName = "niji"; # Define your hostname.
-    domain = "home.noriah.dev";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-    networkmanager.enable = true; # Enable networking
-  };
+  boot.loader.timeout = 3;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  networking.hostName = "niji"; # Define your hostname.
+  networking.domain = "home.noriah.dev";
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  services.resolved = {
-    enable = false;
-    domains = [
-      # "~.sub.example.com"
-      "~."
-    ];
-  };
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
-  };
+  # Enable networking
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -79,17 +69,17 @@
 
   programs.hyprland.enable = true;
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    fira-code
-    twitter-color-emoji
-  ];
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    fira-code
+    twitter-color-emoji
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
@@ -109,6 +99,14 @@
     #media-session.enable = true;
   };
 
+  services.resolved = {
+    enable = false;
+    domains = [
+      # "~.sub.example.com"
+      "~."
+    ];
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -123,19 +121,17 @@
       "i2c"
       "wheel"
     ];
-    linger = true;
-    # packages = with pkgs; [];
+    packages = with pkgs; [ ];
+    shell = pkgs.zsh;
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGL53RzbJFXsmbaFsQofeUzM3jOE8jekkISLFzP9+L0 v@n.d_op"
     ];
 
-    shell = pkgs.zsh;
+    linger = true;
   };
 
-  users.groups.vix = {
-    gid = 1000;
-  };
+  users.groups.vix.gid = 1000;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
@@ -149,6 +145,7 @@
   # enable zsh
   programs.zsh.enable = true;
 
+  # enable mobile shell. this isn't used much right now.
   programs.mosh.enable = true;
 
   # steam must be enabled by system for things like firewall and udev rules.
@@ -169,6 +166,7 @@
     vim
     curl
     git
+    wget
     tmux
     ripgrep
     fd
@@ -191,9 +189,7 @@
     hybrid-sleep.enable = false;
   };
 
-  services.logind = {
-    powerKey = "ignore";
-  };
+  services.logind.powerKey = "ignore";
 
   # List services that you want to enable:
 
@@ -219,18 +215,20 @@
     };
   };
 
+  # allow user access to YubiHSM2
   services.udev.extraRules = ''
     SUBSYSTEM=="usb",ATTR{idVendor}=="1050",ATTR{idProduct}=="0030",MODE="0666",GROUP="wheel"
   '';
 
+  # explicitly disable flatpak
   services.flatpak.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 22000 ];
+  networking.firewall.allowedTCPPorts = [
+    22000 # allow syncthing
+  ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

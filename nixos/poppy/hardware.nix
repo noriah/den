@@ -6,9 +6,6 @@
   ...
 }:
 
-let
-in
-# den_pkgs = pkgs.callPackage ../../packages { };
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -50,7 +47,9 @@ in
     fsType = "ext4";
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/d2f38abe-5393-4fe5-85f5-7542fe1773e3"; }
+  ];
 
   services.udev.extraHwdb = ''
     evdev:atkbd:*

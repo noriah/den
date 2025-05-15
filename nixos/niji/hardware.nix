@@ -15,66 +15,55 @@ in
     /etc/nixos/wireguard
   ];
 
-  boot = {
-    loader.efi.canTouchEfiVariables = true;
-    loader.systemd-boot.enable = true;
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "vfat"
+    "nls_cp437"
+    "nls_iso8859-1"
+    "xhci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
-    kernelPackages = pkgs.linuxPackages_zen;
-    kernelModules = [ "kvm-amd" ];
-    kernelParams = [
-      "video=DP-1:2560x1440@165"
-      "video=DP-2:2560x1440@60"
-      "video=DP-3:2560x1440@60"
-    ];
-    extraModulePackages = [ ];
+  boot.kernelParams = [
+    "video=DP-1:2560x1440@165"
+    "video=DP-2:2560x1440@60"
+    "video=DP-3:2560x1440@60"
+  ];
 
-    #kernelPatches = [{
-    #  name = "NCT6775 driver";
-    #  patch = null;
-    #  extraStructureConfig = with lib.kernel; {
-    #    I2C_NCT6775 = lib.mkForce yes;
-    #  };
-    #}];
+  #boot.kernelPatches = [{
+  #  name = "NCT6775 driver";
+  #  patch = null;
+  #  extraStructureConfig = with lib.kernel; {
+  #    I2C_NCT6775 = lib.mkForce yes;
+  #  };
+  #}];
 
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "vfat"
-        "nls_cp437"
-        "nls_iso8859-1"
-        "xhci_pci"
-        "ahci"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-      ];
-      kernelModules = [ "dm-snapshot" ];
+  # Disabled to use yubikey at boot
+  boot.initrd.systemd.enable = false;
 
-      # Disabled to use yubikey at boot
-      systemd.enable = false;
+  boot.initrd.luks.yubikeySupport = true;
+  #boot.initrd.luks.cryptoModules = [ "aes" "xts" "sha512" ];
+  boot.initrd.luks.devices.${luksRootName} = {
+    device = "/dev/disk/by-uuid/a1684881-69a0-4893-8f11-2dbf34d7765e";
+    #preLVM = true;
 
-      luks = {
-        #cryptoModules = [ "aes" "xts" "sha512" ];
-        yubikeySupport = true;
+    yubikey = {
+      slot = 2;
+      twoFactor = false;
+      gracePeriod = 5;
+      keyLength = 64;
+      saltLength = 16;
 
-        devices.${luksRootName} = {
-          device = "/dev/disk/by-uuid/a1684881-69a0-4893-8f11-2dbf34d7765e";
-          #preLVM = true;
-
-          yubikey = {
-            slot = 2;
-            twoFactor = false;
-            gracePeriod = 5;
-            keyLength = 64;
-            saltLength = 16;
-
-            storage = {
-              device = "/dev/disk/by-uuid/CE5F-2E8A";
-              fsType = "vfat";
-              path = "/crypt-storage/default";
-            };
-          };
-        };
+      storage = {
+        device = "/dev/disk/by-uuid/CE5F-2E8A";
+        fsType = "vfat";
+        path = "/crypt-storage/default";
       };
     };
   };
