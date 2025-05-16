@@ -18,27 +18,24 @@ in
 
     home.packages = [ pkgs.alacritty ];
 
-    xdg.configFile.alacritty_config = {
-      target = "alacritty";
+    xdg.configFile.alacritty = {
       source = "${config.den.dir.etc}/${subPath}";
       force = true;
     };
 
-    xdg.desktopEntries = {
-      alacritty-visualizer = {
-        type = "Application";
-        settings.TryExec = "alacritty";
-        exec = "alacritty --config-file ${visualizerConfig}";
-        icon = "Alacritty";
-        terminal = false;
-        categories = [
-          "System"
-          "TerminalEmulator"
-        ];
-        name = "Visualizer";
-        genericName = "Terminal";
-        comment = "Alacritty Visualizer Profile";
-      };
+    xdg.desktopEntries.alacritty-visualizer = {
+      type = "Application";
+      settings.TryExec = "alacritty";
+      exec = "alacritty --config-file ${visualizerConfig}";
+      icon = "Alacritty";
+      terminal = false;
+      categories = [
+        "System"
+        "TerminalEmulator"
+      ];
+      name = "Visualizer";
+      genericName = "Terminal";
+      comment = "Alacritty Visualizer Profile";
     };
   };
 }

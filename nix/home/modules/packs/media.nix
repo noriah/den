@@ -22,6 +22,10 @@ in
 
   config = mkIf cfg.enable {
 
+    den.unfree = [
+      "spotify"
+    ];
+
     home.packages =
       with pkgs;
       [

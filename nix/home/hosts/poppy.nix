@@ -29,7 +29,6 @@ in
 
         budgie.enable = true;
 
-        go.goPath = ".opt/go";
       };
 
       notes = {
@@ -56,6 +55,10 @@ in
     };
 
     services.gnome-keyring.enable = true;
+
+    den.unfree = [
+      "obsidian"
+    ];
 
     home.packages = with pkgs; [
       zip

@@ -7,14 +7,14 @@
 }:
 with lib;
 let
-  user = "vix";
-  homeDir = builtins.getEnv "HOME";
-  realHostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
+  # user = "vix";
+  # homeDir = builtins.getEnv "HOME";
+  # realHostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
   # realHostName = osConfig.networking.hostName;
   # domain = osCOnfig.networking.domain;
   # fqdn = osCOnfig.networking.fqdn;
 
-  hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
+  # hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
 
   cfg = config.den;
 in
@@ -36,6 +36,10 @@ in
       default = hostName;
     };
 
+    store = mkOption {
+      type = types.path;
+    };
+
     dir = {
       self = mkOption {
         type = types.path;
@@ -44,17 +48,16 @@ in
 
       home = mkOption {
         type = types.path;
-        default = homeDir;
       };
 
       etc = mkOption {
         type = types.path;
-        default = "${cfg.dir.self}/etc";
+        default = "${cfg.store}/etc";
       };
 
       share = mkOption {
         type = types.path;
-        default = "${cfg.dir.self}/share";
+        default = "${cfg.store}/share";
       };
 
       opt = mkOption {

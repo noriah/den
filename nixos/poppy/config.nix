@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    /etc/nixos/wireguard
+    # /etc/nixos/wireguard
   ];
 
   nix.settings.experimental-features = [

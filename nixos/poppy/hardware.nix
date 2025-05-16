@@ -7,10 +7,9 @@
 }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    <nixos-hardware/framework/13-inch/7040-amd>
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  hardware.framework.enableKmod = true;
 
   boot.initrd.availableKernelModules = [
     "nvme"

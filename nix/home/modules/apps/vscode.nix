@@ -32,6 +32,8 @@ in
 
   config = mkMerge [
     (mkIf (cfg.enable && cfg.client) {
+      den.unfree = [ "vscode" ];
+
       home.packages = [ cfg.clientPackage ];
 
       systemd.user.tmpfiles.rules = [
