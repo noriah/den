@@ -8,9 +8,6 @@
     ./shell.nix
     ./workspace.nix
 
-    ./unfree.nix
-
-    ./apps
     ./packs
   ];
 }

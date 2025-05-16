@@ -11,8 +11,8 @@ a perpetual work in progress.
 ## items of interest
 
 - [nix flake](flake.nix)
-
 - [legacy install script](share/foxden/install.zsh)
+
 
 - [etc/zsh/](etc/zsh/) - zsh entry points
 - [etc/den/](etc/den/) - environment base configurations

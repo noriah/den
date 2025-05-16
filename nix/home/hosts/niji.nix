@@ -55,6 +55,8 @@ in
         xdg.userDirRoot = "${homeDir}/stuff";
       };
 
+      shell.enable = true;
+
       workspace = {
         enable = true;
         path = "${homeDir}/space";

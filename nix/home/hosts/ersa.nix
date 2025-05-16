@@ -25,7 +25,6 @@ in
       apps = {
         alacritty.enable = true;
         i3.enable = true;
-        openrgb.enable = true;
         picom.enable = true;
         polybar.enable = true;
         tor.enable = true;
@@ -39,6 +38,8 @@ in
 
         xdg.enable = true;
       };
+
+      shell.enable = true;
     };
 
     home.packages = with pkgs; [ ];

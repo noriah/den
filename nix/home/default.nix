@@ -1,6 +1,7 @@
-{ outputs, ... }:
+{ outputs,... }:
 {
   imports = [
+    ./apps
     ./hosts
     ./modules
   ];

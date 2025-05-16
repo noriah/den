@@ -83,6 +83,30 @@
           ];
         };
 
+        "nor@ersa" = lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            {
+              den.enable = true;
+              den.hostName = "ersa";
+            }
+            ./nix/home
+          ];
+        };
+
+        "noriah@vyxn" = lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            {
+              den.enable = true;
+              den.hostName = "vyxn";
+            }
+            ./nix/home
+          ];
+        };
+
       };
 
     };

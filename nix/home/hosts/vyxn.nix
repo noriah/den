@@ -29,6 +29,8 @@ in
         comfy.enable = true;
         development.enable = true;
       };
+
+      workspace.enable = false;
     };
 
     home.packages = with pkgs; [

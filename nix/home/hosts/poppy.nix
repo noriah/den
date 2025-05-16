@@ -55,6 +55,8 @@ in
         path = "${homeDir}/space";
       };
 
+      shell.enable = true;
+
     };
 
     services.gnome-keyring.enable = true;

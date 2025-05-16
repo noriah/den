@@ -70,12 +70,17 @@ in
         default = "${cfg.dir.home}/var";
       };
     };
+
+    unfree = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
+      description = "A list of unfree packages that are allowed to be installed";
+    };
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfree;
 
-    # enable some packs by default
-    den.shell.enable = mkDefault true;
     den.shell.aliases.hm = mkDefault "home-manager";
 
     # enable our host configuration
