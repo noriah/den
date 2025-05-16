@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  fontsSource = "${config.den.dir.share}/fonts";
+  fontsSource = "${config.den.dir.self}/share/fonts";
   fontsTarget = "${config.den.dir.var}/fonts";
 
   cfg = config.den.packs.fonts;
