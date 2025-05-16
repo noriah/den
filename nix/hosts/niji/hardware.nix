@@ -10,10 +10,7 @@ let
   luksRootName = "luks_nixos";
 in
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    /etc/nixos/wireguard
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules = [
     "nvme"

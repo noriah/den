@@ -1,13 +1,18 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  packages,
+  ...
+}:
 
 let
-  denOpenrgb = pkgs.callPackage ../../nix/packages/openrgb.nix { };
+  denOpenrgb = pkgs.openrgb;
   no-rgb = pkgs.writeScriptBin "no-rgb" ''
     #!/bin/sh
-    NUM_DEVICES=$(${denOpenrgb}/bin/openrgb --client 127.0.0.1:6742 --list-devices | grep -E '^[0-9]+: ' | wc -l)
+    NUM_DEVICES=$(${pkgs.openrgb}/bin/openrgb --client 127.0.0.1:6742 --list-devices | grep -E '^[0-9]+: ' | wc -l)
 
     for i in $(seq 0 $(($NUM_DEVICES - 1))); do
-      ${denOpenrgb}/bin/openrgb --client 127.0.0.1:6742 --device $i --mode static --color 000000
+      ${pkgs.openrgb}/bin/openrgb --client 127.0.0.1:6742 --device $i --mode static --color 000000
     done
   '';
 
@@ -52,7 +57,6 @@ in
 
   services.hardware.openrgb = {
     enable = true;
-    package = denOpenrgb;
     motherboard = "amd";
     server.port = 6742;
   };

@@ -6,8 +6,6 @@
 }:
 with lib;
 let
-  den_pkgs = pkgs.callPackage ../../../packages { };
-
   cfg = config.den.packs.media;
 in
 {
@@ -37,7 +35,7 @@ in
 
         # for pactl
         pulseaudio
-        den_pkgs.pkgs_6ec9e25.jamesdsp
+        pkgs.pkgs_6ec9e25.jamesdsp
         pavucontrol
         qpwgraph
 
@@ -81,7 +79,7 @@ in
       Service = {
         Type = "simple";
         Restart = "on-failure";
-        ExecStart = ''${den_pkgs.pkgs_6ec9e25.jamesdsp}/bin/jamesdsp --tray'';
+        ExecStart = ''${pkgs.pkgs_6ec9e25.jamesdsp}/bin/jamesdsp --tray'';
         StandardError = "journal";
       };
     };

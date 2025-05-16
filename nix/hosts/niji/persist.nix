@@ -1,6 +1,5 @@
 { ... }:
 let
-  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
   etc = "/nix/persist/etc";
 in
 {

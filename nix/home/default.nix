@@ -1,12 +1,18 @@
-{ ... }:
+{ outputs, ... }:
 {
   imports = [
     ./hosts
     ./modules
   ];
 
-  den.enable = true;
-  den.user = "vix";
+  nixpkgs.overlays = [
+    outputs.overlays.new-packages
+    outputs.overlays.modified-packages
+    outputs.overlays.unstable-packages
+  ];
+
+  # root of den repo
+  den.store = ../../.;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

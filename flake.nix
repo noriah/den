@@ -26,7 +26,7 @@
     let
       inherit (self) outputs;
 
-      repoRoot = ../.;
+      repoRoot = ./.; # current dir
 
       lib = nixpkgs.lib // home-manager.lib;
 
@@ -42,32 +42,49 @@
     in
     {
 
-      packages = forEachSystem (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      overlays = import ./nix/overlays { inherit inputs; };
+
+      packages = forEachSystem (system: import ./nix/pkgs nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
+        niji = lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./nix/hosts/niji ];
+        };
+
         poppy = lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
-          modules = [
-            ../nixos/poppy/config.nix
-            nixos-hardware.nixosModules.framework-13-7040-amd
-          ];
+          modules = [ ./nix/hosts/poppy ];
         };
       };
 
       homeConfigurations = {
+        "vix@niji" = lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            {
+              den.enable = true;
+              den.hostName = "niji";
+            }
+            ./nix/home
+          ];
+        };
+
         "vix@poppy" = lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             {
+              den.enable = true;
               den.hostName = "poppy";
-              den.dir.home = "/home/vix";
-              den.store = repoRoot;
             }
-            ./home/home.nix
+            ./nix/home
           ];
         };
+
       };
 
     };

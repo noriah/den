@@ -2,11 +2,12 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 
 {
-  imports = [ <home-manager/nixos> ];
+  imports = [ inputs.home-manager + "/nixos"  ];
 
   config = {
     home-manager.users.vix =

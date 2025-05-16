@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  outputs,
+  ...
+}:
 
 {
   imports = [
@@ -6,6 +11,14 @@
     ./gdm-monitors.nix
     ./openrgb.nix
     # ./persist.nix
+
+    # ./wireguard
+  ];
+
+  nixpkgs.overlays = [
+    outputs.overlays.new-packages
+    outputs.overlays.modified-packages
+    outputs.overlays.unstable-packages
   ];
 
   nix.settings.experimental-features = [

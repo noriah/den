@@ -6,8 +6,6 @@
 }:
 with lib;
 let
-  den_pkgs = pkgs.callPackage ../../packages { };
-
   cfg = config.den.hosts.niji;
 in
 {
@@ -17,6 +15,9 @@ in
 
   config = mkIf cfg.enable {
     den = {
+      user = "vix";
+      dir.home = "/home/vix";
+
       dir.self = "${config.den.dir.home}/den";
       dir.opt = "${config.den.dir.home}/.opt";
 
@@ -70,7 +71,7 @@ in
       rdap
       socat
 
-      # den_pkgs.rtpmidi
+      # rtpmidi
       # clonehero
 
       whois
@@ -96,9 +97,14 @@ in
 
       cheese
 
-      den_pkgs.r2modman
+      r2modman
 
-      den_pkgs.rtpmidi
+      rtpmidi
+    ];
+
+    den.unfree = [
+      "google-chrome"
+      "obsidian"
     ];
 
     services.syncthing.enable = true;

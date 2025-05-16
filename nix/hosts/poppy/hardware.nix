@@ -2,12 +2,16 @@
   config,
   lib,
   pkgs,
+  inputs,
   modulesPath,
   ...
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+  ];
 
   hardware.framework.enableKmod = true;
 

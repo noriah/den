@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     owner = "davidmoreno";
     repo = "rtpmidid";
     rev = "v${version}";
-    hash = "sha256-hiW0IKDAJnJjQrH6nQfr0QEAdVZvfEkpDR8yoF2JpAA=";
+    hash = "sha256-HByJrJOgfZUvyOcvW8Q+0OFotuNchCMH15nCF0md0Eo=";
   };
 
   nativeBuildInputs = with pkgs; [
