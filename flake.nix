@@ -26,8 +26,6 @@
     let
       inherit (self) outputs;
 
-      repoRoot = ./.; # current dir
-
       lib = nixpkgs.lib // home-manager.lib;
 
       systems = [

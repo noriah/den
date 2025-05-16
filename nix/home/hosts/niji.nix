@@ -6,6 +6,8 @@
 }:
 with lib;
 let
+  homeDir = "/home/vix";
+
   cfg = config.den.hosts.niji;
 in
 {
@@ -16,10 +18,10 @@ in
   config = mkIf cfg.enable {
     den = {
       user = "vix";
-      dir.home = "/home/vix";
 
-      dir.self = "${config.den.dir.home}/den";
-      dir.opt = "${config.den.dir.home}/.opt";
+      dir.home = homeDir;
+      dir.self = "${homeDir}/den";
+      dir.opt = "${homeDir}/.opt";
 
       gui.enable = true;
 
@@ -36,7 +38,7 @@ in
 
       notes = {
         enable = true;
-        path = "${config.den.dir.home}/notes";
+        path = "${homeDir}/notes";
       };
 
       packs = {
@@ -50,12 +52,12 @@ in
         media.focusrite = true;
 
         xdg.enable = true;
-        xdg.userDirRoot = "${config.den.dir.home}/stuff";
+        xdg.userDirRoot = "${homeDir}/stuff";
       };
 
       workspace = {
         enable = true;
-        path = "${config.den.dir.home}/space";
+        path = "${homeDir}/space";
       };
     };
 

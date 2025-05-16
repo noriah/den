@@ -59,10 +59,6 @@ in
 
     services.gnome-keyring.enable = true;
 
-    den.unfree = [
-      "obsidian"
-    ];
-
     home.packages = with pkgs; [
       zip
 
@@ -95,6 +91,10 @@ in
       virt-viewer
 
       incus
+    ];
+
+    den.unfree = [
+      "obsidian"
     ];
 
     services.syncthing.enable = true;

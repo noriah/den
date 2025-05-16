@@ -6,6 +6,7 @@
 }:
 with lib;
 let
+  homeDir = "/Users/noriah";
   cfg = config.den.hosts.vyxn;
 in
 {
@@ -15,6 +16,10 @@ in
 
   config = mkIf cfg.enable {
     den = {
+      user = "noriah";
+
+      dir.home = homeDir;
+
       apps = {
         alacritty.enable = true;
         tor.enable = true;

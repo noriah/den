@@ -6,6 +6,7 @@
 }:
 with lib;
 let
+  homeDir = "/home/vix";
   cfg = config.den.hosts.ersa;
 in
 {
@@ -15,6 +16,9 @@ in
 
   config = mkIf cfg.enable {
     den = {
+      user = "nor";
+
+      dir.home = homeDir;
 
       gui.enable = true;
 
@@ -37,7 +41,7 @@ in
       };
     };
 
-    home.packages = with pkgs; [];
+    home.packages = with pkgs; [ ];
 
     services.syncthing.enable = true;
 
