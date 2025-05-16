@@ -6,6 +6,9 @@
 }:
 with lib;
 let
+  fontsSource = "${config.den.dir.share}/fonts";
+  fontsTarget = "${config.den.dir.var}/fonts";
+
   cfg = config.den.packs.fonts;
 in
 {
@@ -33,6 +36,7 @@ in
           <!-- NIX_PROFILE is the path to your Nix profile. See Nix Reference Manual for details. -->
           <dir prefix="cwd">NIX_PROFILE/lib/X11/fonts</dir>
           <dir prefix="cwd">NIX_PROFILE/share/fonts</dir>
+          <dir prefix="cwd">${fontsSource}</dir>
         </fontconfig>
       '';
       force = true;
@@ -44,10 +48,14 @@ in
       twitter-color-emoji
     ];
 
-    xdg.dataFile.fonts = mkIf cfg.installDenFonts {
-      target = "fonts";
-      source = "${config.den.dir.share}/fonts";
-      recursive = true;
-    };
+    systemd.user.tmpfiles.rules = [
+      "L+ ${fontsTarget} - - - - ${fontsSource}"
+    ];
+
+    # xdg.dataFile.fonts = mkIf cfg.installDenFonts {
+    #   target = "fonts";
+    #   source = "${config.den.dir.share}/fonts";
+    #   recursive = true;
+    # };
   };
 }
