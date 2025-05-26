@@ -34,12 +34,8 @@ in
       };
 
     systemd.user.services.albert = {
-      Unit = {
-        Description = "Albert Desk Bar";
-        After = "dbus.service";
-        BindsTo = "dbus.service";
-      };
-      Install.WantedBy = [ "dbus.service" ];
+      Unit.Description = "Albert Desk Bar";
+      Install.WantedBy = [ "graphical-session.target" ];
       Service = {
         Type = "simple";
         Restart = "on-failure";

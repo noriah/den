@@ -37,12 +37,8 @@ in
       };
 
     systemd.user.services."1password" = {
-      Unit = {
-        Description = "1Pass password manager";
-        After = "dbus.service";
-        BindsTo = "dbus.service";
-      };
-      Install.WantedBy = [ "dbus.service" ];
+      Unit.Description = "1Pass password manager";
+      Install.WantedBy = [ "graphical-session.target" ];
       Service = {
         Type = "simple";
         Restart = "on-failure";
