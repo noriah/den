@@ -34,6 +34,8 @@ in
 
         budgie.enable = true;
 
+        syncthing.enable = true;
+
       };
 
       notes = {
@@ -101,14 +103,8 @@ in
       "obsidian"
     ];
 
-    services.syncthing.enable = true;
-
     programs.gpg.enable = true;
-
-    services.gpg-agent = {
-      enable = true;
-      pinentry.package = pkgs.pinentry-gnome3;
-    };
+    services.gpg-agent.enable = true;
 
     systemd.user.startServices = "sd-switch";
   };

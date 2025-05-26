@@ -13,6 +13,8 @@ in
 
   config = mkIf cfg.enable {
 
+    services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+
     dconf.settings = with lib.hm.gvariant; {
 
       #"org/gnome/desktop/interface" = {

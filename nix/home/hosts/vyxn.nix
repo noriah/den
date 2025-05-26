@@ -29,8 +29,6 @@ in
         comfy.enable = true;
         development.enable = true;
       };
-
-      workspace.enable = false;
     };
 
     home.packages = with pkgs; [
@@ -53,13 +51,7 @@ in
       vscode
     ];
 
-    # services.syncthing.enable = true;
-
     # programs.gpg.enable = true;
-
-    # services.gpg-agent = {
-    #   enable = true;
-    #   pinentryPackage = pkgs.pinentry-gnome3;
-    # };
+    # services.gpg-agent.enable = true;
   };
 }

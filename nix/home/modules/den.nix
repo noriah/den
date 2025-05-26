@@ -7,15 +7,6 @@
 }:
 with lib;
 let
-  # user = "vix";
-  # homeDir = builtins.getEnv "HOME";
-  # realHostName = lib.removeSuffix "\n" (builtins.readFile /etc/hostname);
-  # realHostName = osConfig.networking.hostName;
-  # domain = osCOnfig.networking.domain;
-  # fqdn = osCOnfig.networking.fqdn;
-
-  # hostName = if builtins.hasAttr "${realHostName}" cfg.hosts then realHostName else "unknown";
-
   cfg = config.den;
 in
 {
@@ -28,7 +19,7 @@ in
     };
 
     user = mkOption {
-      type = types.str;
+      type = types.nonEmptyStr;
     };
 
     hostName = mkOption {
@@ -81,15 +72,17 @@ in
   config = mkIf cfg.enable {
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfree;
 
-    den.shell.aliases.hm = mkDefault "home-manager";
+    news.display = "silent";
+
+    den.shell.aliases.hm = mkDefault "home-manager --flake ${cfg.dir.self}";
+    den.shell.aliases.nosrb = mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}";
+
 
     # enable our host configuration
     den.hosts.${cfg.hostName}.enable = mkDefault true;
 
     home.username = cfg.user;
     home.homeDirectory = cfg.dir.home;
-
-    news.display = "silent";
 
     home.packages = with pkgs; [
       file
@@ -100,8 +93,8 @@ in
     home.sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";
       HOME_ETC = cfg.dir.etc;
-      HOME_OPT = cfg.dir.opt;
       HOME_SHARE = cfg.dir.share;
+      HOME_OPT = cfg.dir.opt;
       HOME_VAR = cfg.dir.var;
     };
 
@@ -131,7 +124,7 @@ in
     home.file.profile = {
       target = ".profile";
       text = ''
-        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+        . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
       '';
       force = true;
     };

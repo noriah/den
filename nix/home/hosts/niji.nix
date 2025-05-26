@@ -35,6 +35,8 @@ in
         spotify.enable = true;
         tor.enable = true;
 
+        syncthing.enable = true;
+
         vscode.enable = true;
         vscode.server = true;
       };
@@ -60,10 +62,8 @@ in
 
       shell.enable = true;
 
-      workspace = {
-        enable = true;
-        path = "${homeDir}/space";
-      };
+      workspace.enable = true;
+      workspace.path = "${homeDir}/space";
     };
 
     home.packages = with pkgs; [
@@ -114,14 +114,8 @@ in
       "obsidian"
     ];
 
-    services.syncthing.enable = true;
-
     programs.gpg.enable = true;
-
-    services.gpg-agent = {
-      enable = true;
-      pinentry.package = pkgs.pinentry-gnome3;
-    };
+    services.gpg-agent.enable = true;
 
     systemd.user.startServices = "sd-switch";
   };

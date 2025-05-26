@@ -61,20 +61,22 @@ in
       force = true;
     };
 
+    # TODO(impermanence): include XDG user dirs in impermanence data
+
     xdg.userDirs = {
       enable = true;
       createDirectories = false;
 
-      desktop = "${cfg.userDirRoot}/desktop";
-      download = "${cfg.userDirRoot}/downloads";
-      documents = "${cfg.userDirRoot}/documents";
-      pictures = "${cfg.userDirRoot}/pictures";
-      music = "${cfg.userDirRoot}/music";
-      videos = "${cfg.userDirRoot}/videos";
+      desktop = "${cfg.userDirRoot}/desk";
+      download = "${cfg.userDirRoot}/dls";
+      documents = "${cfg.userDirRoot}/docs";
+      pictures = "${cfg.userDirRoot}/pics";
+      music = "${cfg.userDirRoot}/audio";
+      videos = "${cfg.userDirRoot}/vids";
 
-      templates = "${cfg.userDirRoot}/templates";
+      templates = "${cfg.userDirRoot}/tmpls";
 
-      publicShare = "${cfg.userDirRoot}/public";
+      publicShare = "${cfg.userDirRoot}/pub";
     };
 
     xdg.dataFile.applications = {

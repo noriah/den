@@ -19,8 +19,9 @@ in
 
   };
 
+  # TODO(impermanence): include notes in user impermanence data
+
   config = mkIf cfg.enable {
     home.sessionVariables.DEN_NOTES_DIR = cfg.path;
-    den.shell.envVariables.DEN_NOTES_DIR = cfg.path;
   };
 }

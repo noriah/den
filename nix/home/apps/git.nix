@@ -49,10 +49,10 @@ in
           condition = "gitdir:${config.den.workspace.path}/public/";
           path = "${config.den.workspace.path}/public/.gitconfig";
         }
-        {
+        (mkIf config.den.notes.enable {
           condition = "gitdir:${config.den.notes.path}/";
           path = "${config.den.workspace.path}/public/.gitconfig";
-        }
+        })
         {
           condition = "gitdir:${config.den.workspace.path}/phase/";
           path = "${config.den.workspace.path}/phase/.gitconfig";
