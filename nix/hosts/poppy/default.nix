@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, outputs, ... }:
 
 {
   imports = [
@@ -100,7 +100,7 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nerd-fonts.fira-code
     fira-code
   ];
 
@@ -110,7 +110,6 @@
   services.printing.enable = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
