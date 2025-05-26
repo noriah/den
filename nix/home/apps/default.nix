@@ -3,6 +3,7 @@
   imports = [
     ./_1password.nix
     ./alacritty.nix
+    ./albert.nix
     ./budgie.nix
     ./git.nix
     ./gnome.nix
@@ -16,9 +17,11 @@
     ./picom.nix
     ./polybar.nix
     ./rust.nix
+    ./spotify.nix
     ./syncthing.nix
     ./tmux.nix
     ./tor.nix
+    ./ulauncher.nix
     ./vim.nix
     ./vscode.nix
     ./wezterm.nix

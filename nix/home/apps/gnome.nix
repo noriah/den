@@ -6,6 +6,8 @@
 }:
 with lib;
 let
+  _1pass-enabled = config.den.apps._1password.enable;
+
   cfg = config.den.apps.gnome;
 in
 {
@@ -19,6 +21,14 @@ in
 
     gtk = {
       enable = true;
+
+      cursorTheme.package = pkgs.vanilla-dmz;
+      cursorTheme.name = "Adwaita";
+      cursorTheme.size = 24;
+
+      iconTheme.package = pkgs.adwaita-icon-theme;
+      iconTheme.name = "Adwaita";
+
       theme.name = "Adwaita-dark";
 
       gtk3.extraConfig = {
@@ -70,7 +80,7 @@ in
 
       "org/gnome/mutter" = {
         dynamic-workspaces = true;
-        overlay-key = "''";
+        overlay-key = "<>";
         workspaces-only-on-primary = true;
       };
 

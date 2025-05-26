@@ -26,10 +26,13 @@ in
       gui.enable = true;
 
       apps = {
+        _1password.enable = true;
         alacritty.enable = true;
+        albert.enable = true;
         gnome.enable = true;
         openrgb.enable = true;
-        polybar.enable = true;
+        # polybar.enable = true;
+        spotify.enable = true;
         tor.enable = true;
 
         vscode.enable = true;
@@ -117,7 +120,7 @@ in
 
     services.gpg-agent = {
       enable = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentry.package = pkgs.pinentry-gnome3;
     };
 
     systemd.user.startServices = "sd-switch";

@@ -62,9 +62,9 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  #hardware.graphics.enable32Bit = true;
-  #hardware.graphics.enable = true;
-  #hardware.graphics.extraPackages = [ pkgs.mesa.drivers pkgs.amdvlk ];
+  # hardware.graphics.enable32Bit = true;
+  # hardware.graphics.enable = true;
+  # hardware.graphics.extraPackages = [ pkgs.amdvlk ];
 
   services.xserver = {
     # Enable the X11 windowing system.
@@ -73,14 +73,14 @@
     displayManager.gdm = {
       enable = true;
       #debug = true;
-      wayland = false;
+      wayland = true;
       autoSuspend = false;
     };
     # Enable the GNOME Desktop Environment.
     desktopManager.gnome.enable = true;
   };
 
-  programs.hyprland.enable = true;
+  # programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -89,7 +89,8 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    #(nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nerd-fonts.fira-code
     fira-code
     twitter-color-emoji
   ];
@@ -98,7 +99,8 @@
   services.printing.enable = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  # hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -227,6 +229,10 @@
       # workstation = true;
     };
   };
+
+  services.udev.packages = with pkgs; [
+    android-udev-rules
+  ];
 
   # allow user access to YubiHSM2
   services.udev.extraRules = ''

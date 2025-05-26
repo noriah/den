@@ -20,10 +20,6 @@ in
 
   config = mkIf cfg.enable {
 
-    den.unfree = [
-      "spotify"
-    ];
-
     home.packages =
       with pkgs;
       [
@@ -39,7 +35,6 @@ in
         pavucontrol
         qpwgraph
 
-        spotify
         vlc
         audacity
 
@@ -55,7 +50,7 @@ in
             sha256 = "sha256-oWin5PT/VZe9IAO3csMoHEn0GfdtBhntq5Db/2rFd0g=";
           };
 
-          CGO_ENABLED = 0;
+          env.CGO_ENABLED = 0;
 
           vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
         })

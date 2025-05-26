@@ -27,6 +27,7 @@ in
         i3.enable = true;
         picom.enable = true;
         polybar.enable = true;
+        spotify.enable = true;
         tor.enable = true;
       };
 

@@ -26,6 +26,8 @@ in
       apps = {
         _1password.enable = true;
         alacritty.enable = true;
+
+        spotify.enable = true;
         tor.enable = true;
 
         #vscode.enable = false;

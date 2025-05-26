@@ -6,6 +6,12 @@
     # ./wireguard
   ];
 
+  nixpkgs.overlays = [
+    outputs.overlays.new-packages
+    outputs.overlays.modified-packages
+    outputs.overlays.unstable-packages
+  ];
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
