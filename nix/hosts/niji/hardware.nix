@@ -103,6 +103,10 @@ in
     { device = "/dev/disk/by-uuid/1553f220-7e15-4fbb-a21c-65520f047b7c"; }
   ];
 
+  # hardware.graphics.enable32Bit = true;
+  # hardware.graphics.enable = true;
+  # hardware.graphics.extraPackages = [ pkgs.amdvlk ];
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

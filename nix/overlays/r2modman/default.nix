@@ -116,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ebkr/r2modmanPlus";
     license = lib.licenses.mit;
     mainProgram = "r2modman";
-    maintainers = with lib.maintainers; [];
+    maintainers = with lib.maintainers; [ ];
     inherit (electron.meta) platforms;
   };
 })

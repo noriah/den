@@ -67,6 +67,7 @@
             {
               den.enable = true;
               den.hostName = "niji";
+              home.stateVersion = "24.11";
             }
             ./nix/home
           ];
@@ -79,6 +80,7 @@
             {
               den.enable = true;
               den.hostName = "poppy";
+              home.stateVersion = "24.11";
             }
             ./nix/home
           ];
@@ -91,6 +93,7 @@
             {
               den.enable = true;
               den.hostName = "ersa";
+              home.stateVersion = "24.11";
             }
             ./nix/home
           ];
@@ -103,6 +106,7 @@
             {
               den.enable = true;
               den.hostName = "vyxn";
+              home.stateVersion = "25.05";
             }
             ./nix/home
           ];
