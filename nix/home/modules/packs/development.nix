@@ -10,7 +10,7 @@ let
 in
 {
   options.den.packs.development = {
-    enable = mkEnableOption "development module";
+    enable = mkEnableOption "development pack";
 
     gui = mkOption {
       type = types.bool;

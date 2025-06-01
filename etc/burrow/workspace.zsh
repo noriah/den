@@ -4,6 +4,7 @@
 # WORKSPACE_LOCAL_KEY=local
 # WORKSPACE_VAULT_KEY=vault
 
+# TODO(transition): move this into workspace nix home module
 
 scs_dir="${WORKSPACE_DIR}/split-cube"
 

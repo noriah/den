@@ -14,6 +14,7 @@ in
   options.den.apps.albert.enable = mkEnableOption "albert";
 
   config = mkIf cfg.enable {
+
     home.packages = [ pkgs.albert ];
     den.unfree = [ "albert" ];
 
@@ -43,5 +44,6 @@ in
         StandardError = "journal";
       };
     };
+
   };
 }

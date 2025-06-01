@@ -10,32 +10,19 @@ let
 in
 {
   options.den.apps.polybar = {
+
     enable = mkEnableOption "polybar";
 
     package = mkPackageOption pkgs "polybar" { };
+
   };
 
   config = mkIf cfg.enable {
+
     home.packages = [
       cfg.package
 
-      # polyden
-      (pkgs.buildGoModule rec {
-        name = "polyden";
-        version = "git";
-
-        src =
-          pkgs.fetchFromGitHub {
-            owner = "noriah";
-            repo = "den";
-            rev = "c17e9f1fcb2fe2786fc2b1863f17d69facc7d1f9";
-            sha256 = "o22KMEGpcd8MkqC0CD/s8rgPehR3+n9onjV3GFxh/7E=";
-          }
-          + "/src/polyden";
-
-        vendorHash = "sha256-QduatMLXBdpmwNuTNcGDNS6oe8kmL/wNOJrKXBhzj6A=";
-
-      })
+      pkgs.polyden
     ];
 
     xdg.configFile = {
@@ -144,5 +131,6 @@ in
         StandardError = "journal";
       };
     };
+
   };
 }

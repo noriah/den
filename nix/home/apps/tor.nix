@@ -10,9 +10,11 @@ let
 in
 {
   options.den.apps.tor = {
+
     enable = mkEnableOption "tor";
 
     package = mkPackageOption pkgs "tor" { };
+
   };
 
   config = mkIf cfg.enable {

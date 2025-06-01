@@ -67,5 +67,6 @@ in
         screensaver = [ "<Primary><Super>q" ];
       };
     };
+
   };
 }

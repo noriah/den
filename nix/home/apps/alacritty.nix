@@ -17,6 +17,7 @@ in
   options.den.apps.alacritty.enable = mkEnableOption "alacritty terminal";
 
   config = mkIf cfg.enable {
+
     home.packages = [ pkgs.alacritty ];
     xdg.configFile.alacritty = mkIf xdgEnabled {
       source = "${config.den.dir.etc}/${subPath}";
@@ -37,5 +38,6 @@ in
       genericName = "Terminal";
       comment = "Alacritty Visualizer Profile";
     };
+
   };
 }

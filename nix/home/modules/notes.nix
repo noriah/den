@@ -10,6 +10,7 @@ let
 in
 {
   options.den.notes = {
+
     enable = mkEnableOption "notes setup";
 
     path = mkOption {
@@ -23,14 +24,14 @@ in
 
   # TODO(impermanence): include notes in user impermanence data
 
-  config = mkMerge [
-    (mkIf cfg.enable {
-      home.sessionVariables.DEN_NOTES_DIR = cfg.path;
-    })
+  config = mkIf cfg.enable (mkMerge [
 
-    (mkIf (cfg.enable && cfg.obsidian.enable) {
+    { home.sessionVariables.DEN_NOTES_DIR = cfg.path; }
+
+    (mkIf cfg.obsidian.enable {
       home.packages = [ pkgs.obsidian ];
       den.unfree = [ "obsidian" ];
     })
-  ];
+
+  ]);
 }

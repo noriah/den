@@ -14,6 +14,7 @@ let
 in
 {
   options.den.apps.vscode = {
+
     enable = mkEnableOption "vscode";
 
     client = mkOption {
@@ -30,8 +31,9 @@ in
 
   };
 
-  config = mkMerge [
-    (mkIf (cfg.enable && cfg.client) {
+  config = mkIf cfg.enable (mkMerge [
+
+    (mkIf cfg.client {
       den.unfree = [ "vscode" ];
 
       home.packages = [ cfg.clientPackage ];
@@ -43,10 +45,11 @@ in
       ];
     })
 
-    (mkIf (cfg.enable && cfg.server) {
+    (mkIf cfg.server {
       systemd.user.tmpfiles.rules = [
         "L+ ${serverConfPath}/settings.json - - - - ${srcPath}/settings/server.json"
       ];
     })
-  ];
+
+  ]);
 }

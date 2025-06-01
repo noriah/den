@@ -8,6 +8,9 @@
 #
 ######################################
 
+
+# TODO(transition): move DEN_USER/DEN_HOST variables into den home module
+
 # export DEN_USER='noriah'
 export DEN_USER="`whoami`"
 # export DEN_HOST=$(hostname -f | cut -d. -f1)

@@ -6,6 +6,8 @@
 }:
 with lib;
 let
+  rcVarsStr = config.lib.zsh.exportAll cfg.rcVariables;
+
   aliasesStr =
     concatStringsSep "\n" (
       mapAttrsToList (k: v: "alias -- ${lib.escapeShellArg k}=${lib.escapeShellArg v}") cfg.aliases
@@ -16,7 +18,13 @@ let
 in
 {
   options.den.shell = {
+
     enable = mkEnableOption "shell module";
+
+    rcVariables = mkOption {
+      type = types.attrs;
+      default = { };
+    };
 
     aliases = mkOption {
       type = types.attrsOf types.str;
@@ -27,11 +35,12 @@ in
       type = types.path;
       default = null;
     };
+
   };
 
-  config = mkMerge [
-    (mkIf cfg.enable {
+  config = mkIf cfg.enable (mkMerge [
 
+    {
       den.apps = {
         tmux.enable = mkDefault true;
         vim.enable = mkDefault true;
@@ -48,6 +57,11 @@ in
         zshrc = {
           target = ".zshrc";
           text = ''
+            if [[ -z "$__DEN_SHELL_RC_VARS_SOURCED" ]]; then
+            export __DEN_SHELL_RC_VARS_SOURCED=1
+            ${rcVarsStr}
+            fi
+
             . "${config.den.dir.etc}/zsh/zshrc"
             unsetopt sharehistory
           '';
@@ -83,9 +97,9 @@ in
       systemd.user.tmpfiles.rules = [
         "L+ ${config.den.dir.home}/tmp - - - - /run/user/1000"
       ];
-    })
+    }
 
-    (mkIf (cfg.enable && (!isNull cfg.editorBin)) {
+    (mkIf (!isNull cfg.editorBin) {
       home.sessionVariables.EDITOR = cfg.editorBin;
 
       home.file.".selected_editor" = {
@@ -95,5 +109,6 @@ in
         force = true;
       };
     })
-  ];
+
+  ]);
 }

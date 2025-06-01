@@ -217,5 +217,6 @@ in
         toggle-overview = [ "<Super>c" ];
       };
     };
+
   };
 }

@@ -11,7 +11,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Home manager
-    #home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -60,7 +59,9 @@
       };
 
       homeConfigurations = {
+
         "vix@niji" = lib.homeManagerConfiguration {
+          # TODO(user-data): move niji home to separate physical drive
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
@@ -113,6 +114,5 @@
         };
 
       };
-
     };
 }

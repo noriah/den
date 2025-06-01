@@ -21,6 +21,7 @@ in
   };
 
   config = mkIf cfg.enable {
+
     home.packages = [ pkgs.spotify ];
 
     den.unfree = [ "spotify" ];
@@ -47,5 +48,6 @@ in
         StartupWMClass = "spotify";
       };
     };
+
   };
 }

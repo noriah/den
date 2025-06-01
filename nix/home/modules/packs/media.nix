@@ -10,7 +10,7 @@ let
 in
 {
   options.den.packs.media = {
-    enable = mkEnableOption "media module";
+    enable = mkEnableOption "media pack";
 
     focusrite = mkOption {
       type = types.bool;
@@ -19,6 +19,8 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    den.apps.jamesdsp.enable = true;
 
     home.packages =
       with pkgs;
@@ -31,7 +33,6 @@ in
 
         # for pactl
         pulseaudio
-        pkgs.pkgs_6ec9e25.jamesdsp
         pavucontrol
         qpwgraph
 
@@ -63,21 +64,6 @@ in
         else
           [ ]
       );
-
-    systemd.user.services.jamesdsp = {
-      Unit = {
-        Description = "JamesDSP Audio Processor";
-        After = "pipewire.service";
-        BindsTo = "pipewire.service";
-      };
-      Install.WantedBy = [ "pipewire.service" ];
-      Service = {
-        Type = "simple";
-        Restart = "on-failure";
-        ExecStart = ''${pkgs.pkgs_6ec9e25.jamesdsp}/bin/jamesdsp --tray'';
-        StandardError = "journal";
-      };
-    };
 
   };
 }

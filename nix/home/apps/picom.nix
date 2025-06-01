@@ -47,19 +47,13 @@ in
           focus = true;
           full-shadow = false;
         };
-        dock = {
-          shadow = false;
-          clip-shadow-above = true;
-        };
-        dnd = {
-          shadow = false;
-        };
-        popup_menu = {
-          opacity = 1.0;
-        };
-        dropdown_menu = {
-          opacity = 1.0;
-        };
+
+        dock.shadow = false;
+        dock.clip-shadow-above = true;
+
+        dnd.shadow = false;
+        popup_menu.opacity = 1.0;
+        dropdown_menu.opacity = 1.0;
       };
 
       settings = {

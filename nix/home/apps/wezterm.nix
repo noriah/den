@@ -10,9 +10,11 @@ let
 in
 {
   options.den.apps.wezterm = {
+
     enable = mkEnableOption "wezterm terminal";
 
     package = mkPackageOption pkgs "wezterm" { };
+
   };
 
   config = mkIf cfg.enable {

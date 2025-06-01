@@ -12,6 +12,7 @@ in
   options.den.apps.openrgb.enable = mkEnableOption "openrgb control";
 
   config = mkIf cfg.enable {
+
     home.packages = [
       pkgs.openrgb
       pkgs.openrgb-plugin-effects
@@ -31,5 +32,6 @@ in
         force = true;
       };
     };
+
   };
 }

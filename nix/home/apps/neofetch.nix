@@ -10,9 +10,11 @@ let
 in
 {
   options.den.apps.neofetch = {
+
     enable = mkEnableOption "neofetch";
 
     package = mkPackageOption pkgs "neofetch" { };
+
   };
 
   config = mkIf cfg.enable {
@@ -24,5 +26,6 @@ in
       source = "${config.den.dir.etc}/neofetch/config.conf";
       force = true;
     };
+
   };
 }

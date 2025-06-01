@@ -6,6 +6,8 @@
 }:
 with lib;
 let
+  notesEnabled = config.den.notes.enable;
+
   cfg = config.den.apps.git;
 in
 {
@@ -49,7 +51,7 @@ in
           condition = "gitdir:${config.den.workspace.path}/public/";
           path = "${config.den.workspace.path}/public/.gitconfig";
         }
-        (mkIf config.den.notes.enable {
+        (mkIf notesEnabled {
           condition = "gitdir:${config.den.notes.path}/";
           path = "${config.den.workspace.path}/public/.gitconfig";
         })
@@ -59,5 +61,6 @@ in
         }
       ];
     };
+
   };
 }

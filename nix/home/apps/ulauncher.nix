@@ -14,6 +14,7 @@ in
   options.den.apps.ulauncher.enable = mkEnableOption "ulauncher";
 
   config = mkIf cfg.enable {
+
     home.packages = [ pkgs.ulauncher ];
 
     dconf.settings =
@@ -31,5 +32,6 @@ in
           name = "ulauncher";
         };
       };
+
   };
 }

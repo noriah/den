@@ -9,7 +9,7 @@ let
   cfg = config.den.packs.x11;
 in
 {
-  options.den.packs.x11.enable = mkEnableOption "x11 module";
+  options.den.packs.x11.enable = mkEnableOption "x11 pack";
 
   config = mkIf cfg.enable {
     home.file.".Xresources" = {

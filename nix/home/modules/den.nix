@@ -70,13 +70,13 @@ in
   };
 
   config = mkIf cfg.enable {
+
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfree;
 
     news.display = "silent";
 
     den.shell.aliases.hm = mkDefault "home-manager --flake ${cfg.dir.self}";
     den.shell.aliases.nosrb = mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}";
-
 
     # enable our host configuration
     den.hosts.${cfg.hostName}.enable = mkDefault true;
@@ -128,5 +128,6 @@ in
       '';
       force = true;
     };
+
   };
 }

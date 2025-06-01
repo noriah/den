@@ -12,12 +12,14 @@ let
 in
 {
   options.den.apps.go = {
+
     enable = mkEnableOption "golang";
 
     goPath = mkOption {
       type = types.str;
       default = "${config.den.dir.opt}/go";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -40,5 +42,6 @@ in
         }
       ];
     };
+
   };
 }

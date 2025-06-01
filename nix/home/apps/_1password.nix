@@ -16,6 +16,7 @@ in
   options.den.apps._1password.enable = mkEnableOption "1password";
 
   config = mkIf cfg.enable {
+
     home.sessionVariables.SSH_HOST_SOCK = sockPath;
 
     den.unfree = [ "1password" ];
@@ -46,5 +47,6 @@ in
         StandardError = "journal";
       };
     };
+
   };
 }

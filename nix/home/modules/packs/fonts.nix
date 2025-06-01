@@ -13,6 +13,7 @@ let
 in
 {
   options.den.packs.fonts = {
+
     enable = mkOption {
       type = types.bool;
       default = config.den.gui.enable;
@@ -23,6 +24,7 @@ in
       type = types.bool;
       default = false;
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -57,5 +59,6 @@ in
     #   source = "${config.den.dir.share}/fonts";
     #   recursive = true;
     # };
+
   };
 }

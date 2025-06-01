@@ -11,7 +11,7 @@ in
 {
 
   options.den.packs.xdg = {
-    enable = mkEnableOption "XDG module";
+    enable = mkEnableOption "XDG pack";
 
     userDirRoot = mkOption {
       type = types.path;

@@ -10,9 +10,11 @@ let
 in
 {
   options.den.apps.julia = {
+
     enable = mkEnableOption "julia language";
 
     package = mkPackageOption pkgs "julia" { };
+
   };
 
   config = mkIf cfg.enable {

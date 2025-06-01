@@ -11,6 +11,7 @@
     ./helix.nix
     ./hyprland.nix
     ./i3.nix
+    ./jamesdsp.nix
     ./julia.nix
     ./neofetch.nix
     ./openrgb.nix

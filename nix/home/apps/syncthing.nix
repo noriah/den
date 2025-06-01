@@ -12,8 +12,10 @@ in
   options.den.apps.syncthing.enable = mkEnableOption "syncthing";
 
   config = mkIf cfg.enable {
+
     # xdg.configFile = {}
 
     services.syncthing.enable = true;
+
   };
 }
