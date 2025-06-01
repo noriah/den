@@ -4,11 +4,11 @@
   outputs,
   ...
 }:
-
 {
   imports = [
     ./hardware.nix
     ./gdm-monitors.nix
+    ./network.nix
     ./openrgb.nix
     # ./persist.nix
 
@@ -31,18 +31,6 @@
   boot.loader.systemd-boot.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  networking.hostName = "niji"; # Define your hostname.
-  networking.domain = "home.noriah.dev";
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -111,14 +99,6 @@
     #media-session.enable = true;
   };
 
-  services.resolved = {
-    enable = false;
-    domains = [
-      # "~.sub.example.com"
-      "~."
-    ];
-  };
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -129,7 +109,7 @@
     group = "vix";
     extraGroups = [
       "users"
-      "networkmanager"
+      # "networkmanager"
       "i2c"
       "wheel"
     ];
@@ -238,13 +218,6 @@
 
   # explicitly disable flatpak
   services.flatpak.enable = true;
-
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [
-    22000 # allow syncthing
-  ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -76,6 +76,11 @@ in
 
       # net util
       rdap
+
+      ffmpeg-full
+
+      lingot
+
       socat
 
       # rtpmidi
