@@ -41,6 +41,7 @@ in
       notes = {
         enable = true;
         path = "${homeDir}/notes";
+        obsidian.enable = true;
       };
 
       packs = {
@@ -91,16 +92,9 @@ in
 
       seahorse
 
-      # info
-      obsidian
-
       virt-viewer
 
       incus
-    ];
-
-    den.unfree = [
-      "obsidian"
     ];
 
     programs.gpg.enable = true;

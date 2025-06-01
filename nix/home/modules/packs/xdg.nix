@@ -64,19 +64,17 @@ in
     # TODO(impermanence): include XDG user dirs in impermanence data
 
     xdg.userDirs = {
-      enable = true;
-      createDirectories = false;
+      enable = mkDefault true;
+      createDirectories = mkDefault false;
 
-      desktop = "${cfg.userDirRoot}/desk";
-      download = "${cfg.userDirRoot}/dls";
-      documents = "${cfg.userDirRoot}/docs";
-      pictures = "${cfg.userDirRoot}/pics";
-      music = "${cfg.userDirRoot}/audio";
-      videos = "${cfg.userDirRoot}/vids";
-
-      templates = "${cfg.userDirRoot}/tmpls";
-
-      publicShare = "${cfg.userDirRoot}/pub";
+      desktop = mkDefault "${cfg.userDirRoot}/desk";
+      download = mkDefault "${cfg.userDirRoot}/dls";
+      documents = mkDefault "${cfg.userDirRoot}/docs";
+      pictures = mkDefault "${cfg.userDirRoot}/pics";
+      music = mkDefault "${cfg.userDirRoot}/audio";
+      videos = mkDefault "${cfg.userDirRoot}/vids";
+      templates = mkDefault "${cfg.userDirRoot}/tmpls";
+      publicShare = mkDefault "${cfg.userDirRoot}/pub";
     };
 
     xdg.dataFile.applications = {

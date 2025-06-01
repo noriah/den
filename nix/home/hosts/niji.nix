@@ -44,6 +44,7 @@ in
       notes = {
         enable = true;
         path = "${homeDir}/notes";
+        obsidian.enable = true;
       };
 
       packs = {
@@ -104,9 +105,6 @@ in
       google-chrome
       librewolf
 
-      # info
-      obsidian
-
       cheese
 
       r2modman
@@ -116,7 +114,6 @@ in
 
     den.unfree = [
       "google-chrome"
-      "obsidian"
     ];
 
     programs.gpg.enable = true;

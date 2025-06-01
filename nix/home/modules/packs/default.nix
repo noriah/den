@@ -7,5 +7,6 @@
     ./media.nix
     ./x11.nix
     ./xdg.nix
+    ./wayland.nix
   ];
 }
