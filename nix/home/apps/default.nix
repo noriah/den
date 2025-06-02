@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./albert.nix
     ./budgie.nix
+    ./firefox.nix
     ./git.nix
     ./gnome.nix
     ./go.nix

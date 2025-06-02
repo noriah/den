@@ -1,12 +1,8 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 with lib;
 let
   notesEnabled = config.den.notes.enable;
+  workspaceEnabled = config.den.workspace.enable;
 
   cfg = config.den.apps.git;
 in
@@ -45,20 +41,20 @@ in
       includes = [
         {
           condition = "gitdir:${config.den.dir.self}/.git";
-          path = "${config.den.workspace.path}/public/.gitconfig";
-        }
-        {
-          condition = "gitdir:${config.den.workspace.path}/public/";
-          path = "${config.den.workspace.path}/public/.gitconfig";
+          path = "${config.den.dir.etc}/git/public.gitconfig";
         }
         (mkIf notesEnabled {
           condition = "gitdir:${config.den.notes.path}/";
-          path = "${config.den.workspace.path}/public/.gitconfig";
+          path = "${config.den.dir.etc}/git/public.gitconfig";
         })
-        {
+        (mkIf workspaceEnabled {
+          condition = "gitdir:${config.den.workspace.path}/public/";
+          path = "${config.den.dir.etc}/git/public.gitconfig";
+        })
+        (mkIf workspaceEnabled {
           condition = "gitdir:${config.den.workspace.path}/phase/";
           path = "${config.den.workspace.path}/phase/.gitconfig";
-        }
+        })
       ];
     };
 

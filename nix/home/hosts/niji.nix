@@ -29,6 +29,8 @@ in
         _1password.enable = true;
         alacritty.enable = true;
         albert.enable = true;
+        # enable firefox custom config
+        firefox.enable = true;
         gnome.enable = true;
         openrgb.enable = true;
         # polybar.enable = true;

@@ -1,0 +1,7 @@
+[user]
+	name = noriah
+	email = vix@noriah.dev
+	signingkey = C6ACD7663C0FE39B
+
+[commit]
+  gpgsign = true

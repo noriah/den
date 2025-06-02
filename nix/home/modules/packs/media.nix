@@ -33,7 +33,7 @@ in
 
         # for pactl
         pulseaudio
-        pavucontrol
+        pwvucontrol
         qpwgraph
 
         vlc
