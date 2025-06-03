@@ -6,8 +6,12 @@
 }:
 with lib;
 let
+  optNoHome = (builtins.replaceStrings [ config.den.dir.home ] [ "" ] config.den.dir.opt);
+  defaultGoPath = "${optNoHome}/go";
+
   # https://github.com/nix-community/home-manager/blob/release-24.11/modules/programs/go.nix#L41
   goFullPath = "${config.home.homeDirectory}/${config.programs.go.goPath}";
+
   cfg = config.den.apps.go;
 in
 {
@@ -17,7 +21,7 @@ in
 
     goPath = mkOption {
       type = types.str;
-      default = "${config.den.dir.opt}/go";
+      default = defaultGoPath;
     };
 
   };

@@ -53,7 +53,7 @@ in
     yubikey = {
       slot = 2;
       twoFactor = false;
-      gracePeriod = 1;
+      gracePeriod = 3;
       keyLength = 64;
       saltLength = 16;
 
