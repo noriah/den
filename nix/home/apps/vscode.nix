@@ -8,7 +8,7 @@ with lib;
 let
   clientConfPath = "${config.xdg.configHome}/Code/User";
   serverConfPath = "${config.den.dir.home}/.vscode-server/data/Machine";
-  srcPath = "${config.den.dir.share}/vscode";
+  srcPath = "${config.den.dir.self}/share/vscode";
 
   cfg = config.den.apps.vscode;
 in

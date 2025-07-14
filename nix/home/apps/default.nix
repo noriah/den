@@ -1,6 +1,15 @@
 { ... }:
 {
   imports = [
+    # generic apps
+    ./ebook-reader.nix
+    ./pdf-reader.nix
+    ./terminal.nix
+    # ./dictionary.nix
+    # ./password-manager.nix
+    # ./web-browser.nix
+
+    # specific apps
     ./_1password.nix
     ./alacritty.nix
     ./albert.nix

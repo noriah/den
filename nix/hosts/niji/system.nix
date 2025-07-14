@@ -32,11 +32,22 @@
     displayManager.gdm = {
       enable = true;
       #debug = true;
-      wayland = true;
+      wayland = false;
       autoSuspend = false;
     };
     # Enable the GNOME Desktop Environment.
     desktopManager.gnome.enable = true;
+  };
+
+  services.gnome = {
+    gnome.gnome-keyring.enable = true;
+    gnome-settings-daemon.enable = true;
+
+    gnome-user-share.enable
+    evolution-data-server.enable = false;
+    gnome-remote-desktop.enable = false;
+    gnome.gnome-online-accounts.enable = false;
+    games.enable = false;
   };
 
   # Configure keymap in X11
@@ -48,6 +59,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     fira-code
+    fira-sans
     twitter-color-emoji
   ];
 
@@ -64,6 +76,7 @@
       # "networkmanager"
       "i2c"
       "wheel"
+      "wireshark"
     ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
@@ -72,7 +85,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGL53RzbJFXsmbaFsQofeUzM3jOE8jekkISLFzP9+L0 v@n.d_op"
     ];
 
-    linger = true;
+    linger = false;
   };
 
   users.groups.vix.gid = 1000;
@@ -115,6 +128,11 @@
     ripgrep
     fd
     tree
+
+    iptables
+
+    usbutils
+    pciutils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

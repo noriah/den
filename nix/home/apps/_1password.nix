@@ -31,22 +31,22 @@ in
         };
 
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/1password" = {
-          binding = "<Shift><Control>space";
+          binding = "<Shift><Control><Super>space";
           command = "1password --quick-access";
           name = "1password quick-access";
         };
       };
 
-    systemd.user.services."1password" = {
-      Unit.Description = "1Pass password manager";
-      Install.WantedBy = [ "graphical-session.target" ];
-      Service = {
-        Type = "simple";
-        Restart = "on-failure";
-        ExecStart = ''${pkgs._1password-gui}/bin/1password --silent'';
-        StandardError = "journal";
-      };
-    };
+    # systemd.user.services."1password" = {
+    #   Unit.Description = "1Pass password manager";
+    #   Install.WantedBy = [ "graphical-session.target" ];
+    #   Service = {
+    #     Type = "simple";
+    #     Restart = "on-failure";
+    #     ExecStart = ''${pkgs._1password-gui}/bin/1password --silent'';
+    #     StandardError = "journal";
+    #   };
+    # };
 
   };
 }

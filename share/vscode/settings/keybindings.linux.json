@@ -346,13 +346,15 @@
   },
   // addedkey
   {
-    "key": "ctrl+alt+backspace",
+    // should be ctrl+alt+backspace. linux or gnome is fucking this.
+    "key": "ctrl+meta+backspace",
     "command": "deleteWordPartLeft",
     "when": "textInputFocus && !editorReadonly"
   },
   // addedkey
   {
-    "key": "ctrl+alt+delete",
+    // should be ctrl+alt+delete. linux or gnome is fucking this.
+    "key": "ctrl+meta+delete",
     "command": "deleteWordPartRight",
     "when": "textInputFocus && !editorReadonly"
   },

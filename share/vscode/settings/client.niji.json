@@ -43,7 +43,8 @@
   "explorer.confirmDelete": false,
   "files.associations": {
     "**/i3/**": "i3",
-    "**/udev/**.rules": "udev"
+    "**/udev/**.rules": "udev",
+    "*.make": "makefile"
   },
   "files.exclude": {
     "**/.classpath": true,
@@ -131,7 +132,7 @@
       "snippet": "c++ header template"
     }
   ],
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 120 }",
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, ColumnLimit: 120, AllowShortIfStatementsOnASingleLine: false }",
   "color-highlight.markerType": "dot-after",
   "color-highlight.markRuler": false,
   "go.autocompleteUnimportedPackages": true,
@@ -162,7 +163,8 @@
   "gopls": {
     "usePlaceholders": true,
     "completeUnimported": true,
-    "deepCompletion": true
+    "deepCompletion": true,
+    "ui.semanticTokens": true
   },
   "julia.symbolCacheDownload": true,
   "julia.enableTelemetry": false,

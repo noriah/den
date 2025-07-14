@@ -28,7 +28,7 @@ in
       apps = {
         _1password.enable = true;
         alacritty.enable = true;
-        albert.enable = true;
+        # albert.enable = true;
         # enable firefox custom config
         firefox.enable = true;
         gnome.enable = true;
@@ -41,6 +41,9 @@ in
 
         vscode.enable = true;
         vscode.server = true;
+
+        ebook-reader.enable = true;
+        pdf-reader.enable = true;
       };
 
       notes = {
@@ -111,7 +114,11 @@ in
 
       r2modman
 
+      wireshark
+
       rtpmidi
+
+      lsp-plugins
     ];
 
     den.unfree = [
@@ -122,5 +129,11 @@ in
     services.gpg-agent.enable = true;
 
     systemd.user.startServices = "sd-switch";
+
+    # see https://wiki.libsdl.org/SDL2/FAQUsingSDL
+    # home.sessionVariables.SDL_VIDEODRIVER = "wayland";
+    # we use pipewire, but the pulseaudio driver gives best results in SDL games
+    home.sessionVariables.SDL_AUDIODRIVER = "pulseaudio";
+    home.sessionVariables.SDL_AUDIO_DRIVER = "pulseaudio";
   };
 }

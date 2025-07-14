@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 WINDOW_NAME="Catnip Visualizer"
-DEVICE_NAME="spotify"
+DEVICE_NAME="vis_source"
 #DEVICE_NAME="Google Chrome"
 
 wmctrl -r "$WINDOW_NAME" -b add,above,sticky

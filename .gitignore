@@ -6,4 +6,5 @@
 /var
 /tmp
 /private
+/secrets
 result

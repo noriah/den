@@ -26,7 +26,8 @@ window:
   position:
     x: 1472
     # y: 1674
-    y: 1795
+    # y: 1795
+    y: 1614
 
 
 #  position:

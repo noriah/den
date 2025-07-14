@@ -13,7 +13,7 @@ in
 
     enable = mkEnableOption "jamesdsp terminal";
 
-    package = mkPackageOption pkgs.pkgs_6ec9e25 "jamesdsp" { };
+    package = mkPackageOption pkgs "jamesdsp" { };
 
     systemdService = mkOption {
       type = types.bool;

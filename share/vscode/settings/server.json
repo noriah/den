@@ -17,9 +17,7 @@
     "**/Thumbs.db": true
   },
   "gopls": {
-    "ui.semanticTokens": true,
-    "ui.noSemanticString": true,
-    "ui.noSemanticNumber": true
+    "ui.semanticTokens": true
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,

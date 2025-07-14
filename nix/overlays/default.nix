@@ -9,9 +9,18 @@
     openrgb-plugin-effects = prev.callPackage ./openrgb-plugin-effects.nix { };
     openrgb-plugin-visual-map = prev.callPackage ./openrgb-plugin-visual-map.nix { };
 
-    r2modman = prev.callPackage ./r2modman { };
+    # r2modman = prev.callPackage ./r2modman { };
 
     rtpmidi = prev.callPackage ./rtpmidi.nix { };
+
+    # firefox = prev.firefox.overrideAttrs (oldAttrs: {
+    #   postInstall =
+    #     (oldAttrs.postInstall or "")
+    #     + ''
+    #       substituteInPlace $out/share/applications/firefox.desktop \
+    #         --replace "Name=Firefox" "Name=Web Browser"
+    #     '';
+    # });
 
   };
 

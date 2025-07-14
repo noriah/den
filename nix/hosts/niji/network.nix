@@ -10,6 +10,10 @@
   networking.hostName = "niji"; # Define your hostname.
   networking.domain = "home.noriah.dev";
 
+  # networking.hosts = {
+  #   "10.56.0.1" = [ "git.torres.tech" ];
+  # };
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -32,41 +36,43 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
 
+  programs.wireshark.enable = true;
+
   # networking.hostId = "be575255";
 
   networking.interfaces.enp8s0.useDHCP = true;
 
-  networking.vlans.phase28 = {
-    id = 28;
-    interface = "enp8s0";
-  };
+  # networking.vlans.phase28 = {
+  #   id = 28;
+  #   interface = "enp8s0";
+  # };
 
-  networking.interfaces.phase28 = {
-    macAddress = "c8:f8:58:7d:7d:01";
+  # networking.interfaces.phase28 = {
+  #   macAddress = "c8:f8:58:7d:7d:01";
 
-    ipv4 = {
-      # routes = [
-      #   {
-      #     address = "10.8.3.1";
-      #     prefixLength = 32;
-      #     via = "10.0.28.1";
-      #     # options.scope = "global";
-      #   }
-      #   {
-      #     address = "10.10.0.0";
-      #     prefixLength = 16;
-      #     via = "10.8.3.1";
-      #     # options.scope = "global";
-      #   }
-      # ];
-      addresses = [
-        {
-          address = "10.0.28.5";
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
+  #   ipv4 = {
+  #     # routes = [
+  #     #   {
+  #     #     address = "10.8.3.1";
+  #     #     prefixLength = 32;
+  #     #     via = "10.0.28.1";
+  #     #     # options.scope = "global";
+  #     #   }
+  #     #   {
+  #     #     address = "10.10.0.0";
+  #     #     prefixLength = 16;
+  #     #     via = "10.8.3.1";
+  #     #     # options.scope = "global";
+  #     #   }
+  #     # ];
+  #     addresses = [
+  #       {
+  #         address = "10.0.28.5";
+  #         prefixLength = 24;
+  #       }
+  #     ];
+  #   };
+  # };
 
   services.resolved = {
     enable = false;

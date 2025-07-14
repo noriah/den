@@ -18,7 +18,7 @@
 
     # ./persist.nix
 
-    # ./wireguard
+    ./wireguard
   ];
 
   nixpkgs.overlays = [
