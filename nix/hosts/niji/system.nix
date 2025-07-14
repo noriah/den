@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
 
   boot.loader.timeout = 3;
@@ -40,14 +40,14 @@
   };
 
   services.gnome = {
-    gnome.gnome-keyring.enable = true;
+    gnome-keyring.enable = true;
     gnome-settings-daemon.enable = true;
 
-    gnome-user-share.enable
-    evolution-data-server.enable = false;
-    gnome-remote-desktop.enable = false;
-    gnome.gnome-online-accounts.enable = false;
-    games.enable = false;
+    gnome-user-share.enable = lib.mkForce false;
+    evolution-data-server.enable = lib.mkForce false;
+    gnome-remote-desktop.enable = lib.mkForce false;
+    gnome-online-accounts.enable = lib.mkForce false;
+    games.enable = lib.mkForce false;
   };
 
   # Configure keymap in X11
