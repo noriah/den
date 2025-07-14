@@ -42,8 +42,8 @@
   services.gnome = {
     gnome-keyring.enable = true;
     gnome-settings-daemon.enable = true;
+    gnome-user-share.enable = true;
 
-    gnome-user-share.enable = lib.mkForce false;
     evolution-data-server.enable = lib.mkForce false;
     gnome-remote-desktop.enable = lib.mkForce false;
     gnome-online-accounts.enable = lib.mkForce false;
