@@ -17,8 +17,6 @@
     ./openrgb.nix
 
     # ./persist.nix
-
-    ./wireguard
   ];
 
   nixpkgs.overlays = [

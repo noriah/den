@@ -8,11 +8,7 @@
 {
 
   networking.hostName = "niji"; # Define your hostname.
-  networking.domain = "home.noriah.dev";
-
-  # networking.hosts = {
-  #   "10.56.0.1" = [ "git.torres.tech" ];
-  # };
+  networking.domain = "den.noriah.dev";
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

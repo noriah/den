@@ -58,7 +58,7 @@
   "files.simpleDialog.enable": true,
   "npm.fetchOnlinePackageInfo": false,
   "notebook.lineNumbers": "on",
-  "editor.lineNumbers": "on",
+  "editor.lineNumbers": "relative",
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.commandsToSkipShell": [
     "language-julia.interrupt"

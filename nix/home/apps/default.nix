@@ -3,6 +3,8 @@
   imports = [
     # generic apps
     ./ebook-reader.nix
+    ./irc-client.nix
+    ./microblogger.nix
     ./pdf-reader.nix
     ./terminal.nix
     # ./dictionary.nix

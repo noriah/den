@@ -43,6 +43,8 @@ in
         vscode.server = true;
 
         ebook-reader.enable = true;
+        irc-client.enable = true;
+        microblogger.enable = true;
         pdf-reader.enable = true;
       };
 
@@ -96,6 +98,8 @@ in
       subnetcalc
       dnsutils
       nmap
+
+      mumble
 
       # hardware util
       ddcutil
