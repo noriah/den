@@ -31,7 +31,10 @@ in
     "video=DP-1:2560x1440@165"
     "video=DP-2:2560x1440@60"
     "video=DP-3:2560x1440@60"
+    "amd_pstate=guided"
   ];
+  powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   #boot.kernelPatches = [{
   #  name = "NCT6775 driver";
