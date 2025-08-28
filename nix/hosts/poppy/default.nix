@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    # ./wireguard
+    # ./wireguard.nix
   ];
 
   nixpkgs.overlays = [
