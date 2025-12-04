@@ -21,7 +21,7 @@ in
 
       dir.home = homeDir;
       dir.self = "${homeDir}/den";
-      dir.opt = "${homeDir}/.opt";
+      dir.opt = "${homeDir}/opt";
 
       gui.enable = true;
 
@@ -44,7 +44,7 @@ in
 
         ebook-reader.enable = true;
         irc-client.enable = true;
-        microblogger.enable = true;
+        #microblogger.enable = true;
         pdf-reader.enable = true;
       };
 
@@ -116,7 +116,7 @@ in
 
       cheese
 
-      r2modman
+      # r2modman
 
       wireshark
 

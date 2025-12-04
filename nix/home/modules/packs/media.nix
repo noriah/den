@@ -65,5 +65,8 @@ in
           [ ]
       );
 
+    xdg.configFile."pipewire".source = "${config.den.dir.share}/pipewire";
+    xdg.configFile."wireplumber".source = "${config.den.dir.share}/wireplumber";
+
   };
 }

@@ -31,6 +31,13 @@ in
       type = types.path;
     };
 
+    standalone = mkOption {
+      type = types.bool;
+      default = true;
+      example = false;
+      description = "standalone home manager without NixOS";
+    };
+
     dir = {
       self = mkOption {
         type = types.path;
@@ -67,11 +74,18 @@ in
       default = [ ];
       description = "A list of unfree packages that are allowed to be installed";
     };
+
+    insecure = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [ ];
+      description = "A list of insecure packages that are allowed to be installed";
+    };
   };
 
   config = mkIf cfg.enable {
 
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) cfg.unfree;
+    nixpkgs.config.permittedInsecurePackages = cfg.insecure;
 
     news.display = "silent";
 
@@ -96,6 +110,9 @@ in
       HOME_SHARE = cfg.dir.share;
       HOME_OPT = cfg.dir.opt;
       HOME_VAR = cfg.dir.var;
+      LC_ALL = "C.UTF-8";
+      LANG = "en_US";
+      LANGUAGE = "en_US";
     };
 
     home.sessionPath = [
@@ -114,6 +131,10 @@ in
       text = cfg.hostName;
       force = true;
     };
+
+    systemd.user.tmpfiles.rules = [
+      "L+ ${config.den.dir.home}/tmp - - - - /run/user/1000"
+    ];
 
     # home.file.den_domain = mkIf (domain != null) {
     #   target = ".den/domain";

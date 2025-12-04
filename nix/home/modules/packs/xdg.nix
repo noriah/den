@@ -7,6 +7,8 @@
 with lib;
 let
   cfg = config.den.packs.xdg;
+
+  # denCfg = config.den;
 in
 {
 
@@ -52,9 +54,12 @@ in
       XDG_CONFIG_HOME = cfg.configHome;
       XDG_CACHE_HOME = cfg.cacheHome;
       XDG_DATA_HOME = cfg.dataHome;
-      XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
+      #XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
       XDG_STATE_HOME = cfg.stateHome;
     };
+    #// mkIf denCfg.standalone {
+    #  XDG_DATA_DIRS = "$HOME/.nix-profile/share:/usr/local/share/:/usr/share/:$XDG_DATA_DIRS";
+    #};
 
     xdg.configFile."user-dirs.conf" = {
       text = "enabled=False\n";

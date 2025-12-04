@@ -19,6 +19,8 @@ in
       pkgs.openrgb-plugin-visual-map
     ];
 
+    den.insecure = [ "mbedtls-2.28.10" ];
+
     xdg.configFile = {
       openrgb-plugin-effects = {
         target = "OpenRGB/plugins/libOpenRGBEffectsPlugin.so";

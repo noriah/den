@@ -1,0 +1,10 @@
+[Unit]
+Description=Disable RGB on boot
+After=openrgb.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/no-rgb.sh
+
+[Install]
+WantedBy=multi-user.target
