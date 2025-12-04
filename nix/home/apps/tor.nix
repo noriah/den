@@ -33,6 +33,7 @@ in
         #ExitNodes {us}
         StrictNodes 1
         SocksPort localhost:9050
+        DisableNetwork 0
 
         # Log info stdout
       '';

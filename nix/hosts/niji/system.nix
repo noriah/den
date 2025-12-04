@@ -117,6 +117,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "mbedtls-2.28.10"
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -179,5 +183,11 @@
 
   # explicitly ~~disable~~ flatpak
   services.flatpak.enable = true;
+
+  # services.synergy.client = {
+  #   enable = true;
+  #   autoStart = false;
+  #   serverAddress = "vyxn.mobile.noriah.dev";
+  # };
 
 }

@@ -123,10 +123,19 @@ in
       rtpmidi
 
       lsp-plugins
+      vcv-rack-pro
+
+      (wrapOBS {
+        plugins = with obs-studio-plugins; [
+          obs-ndi
+        ];
+      })
     ];
 
     den.unfree = [
       "google-chrome"
+      "ndi"
+      # "vcv-rack"
     ];
 
     programs.gpg.enable = true;

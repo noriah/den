@@ -8,6 +8,7 @@
 
 let
   luksRootName = "luks_nixos";
+  luksVixHomeKeyFile = "vix-home.key";
 in
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -28,9 +29,9 @@ in
   boot.extraModulePackages = [ ];
 
   boot.kernelParams = [
-    "video=DP-1:2560x1440@165"
-    "video=DP-2:2560x1440@60"
-    "video=DP-3:2560x1440@60"
+    "video=DP-1:2560x1440@240"
+    "video=DP-2:2560x1440@165"
+    # "video=DP-3:2560x1440@60"
     "amd_pstate=guided"
   ];
   powerManagement.enable = true;
@@ -68,6 +69,10 @@ in
     };
   };
 
+  # environment.etc.crypttab.text = ''
+  #   cryptstorage UUID=32bf85e7-9ba1-4540-8221-15d5f5a9f932 /root/cryptkeys/vix-home.key
+  # '';
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/9daf62cb-2ef6-4b93-8946-daceafe96fd7";
     fsType = "ext4";
@@ -86,6 +91,16 @@ in
     device = "/dev/disk/by-uuid/402a4ff8-ed7c-4681-b46c-f140858c249d";
     fsType = "ext4";
   };
+
+  # fileSystems."/home/vix" = {
+  #   device = "/dev/disk/by-uuid/";
+  #   fsType = "ext4";
+  # };
+
+  # fileSystems."/home/vix/space" = {
+  #   device = "/dev/disk/by-uuid/";
+  #   fsType = "ext4";
+  # };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/bb89d350-c95d-4e60-b6be-5678537f4005";
@@ -106,9 +121,13 @@ in
     { device = "/dev/disk/by-uuid/1553f220-7e15-4fbb-a21c-65520f047b7c"; }
   ];
 
-  # hardware.graphics.enable32Bit = true;
-  # hardware.graphics.enable = true;
-  # hardware.graphics.extraPackages = [ pkgs.amdvlk ];
+  hardware.graphics = {
+    # enable32Bit = true;
+    enable = true;
+
+    extraPackages = [ pkgs.amdvlk ];
+    # extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

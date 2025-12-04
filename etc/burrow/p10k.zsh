@@ -72,7 +72,7 @@ rightPlugin() {
   p10k-on-post-prompt() {
     p10k display \
       '(3|4)/(left|right)/*'=hide \
-      '3/left/(os_icon|time)'=show \
+      '3/left/(os_icon|time|background_jobs)'=show \
       '4/left/(status|prompt_char)'=show
 
     if [[ "$PWD" != "$OLD_PWD" ]] {
@@ -111,58 +111,65 @@ rightPlugin() {
   # ---- Line 3 ----
   left os_icon
   left time
+  left background_jobs
   left dir dir_writable
   left vcs
+
+  leftPlugin golang go_version
+
+  leftPlugin rust rust_version
+
+  leftPlugin node node_version
 
   left newline
 
   # ---- Line 4 ----
   left context
+
   left prompt_char
 
 
   # ---- Right Elements ----
   # ---- Line 1 ----
-  right newline
+  # right newline
 
   # ---- Line 2 ----
-  right newline
+  # right newline
 
   # ---- Line 3 ----
-  right background_jobs
+
   # right load
 
-  right newline
+  # right newline
 
   # ---- Line 4 ----
 
-  rightPlugin battery
+  # rightPlugin battery
 
-  rightPlugin direnv
-  rightPlugin terraform
+  # rightPlugin direnv
+  # rightPlugin terraform
 
   # right virtualenv pyenv goenv nodenv
-  right ranger vim_shell vpn_ip
-
-  rightPlugin golang go_version
-
-  rightPlugin rust rust_version
-
-  rightPlugin node node_version
+  # right ranger vim_shell vpn_ip
 
   # rightPlugin taskwarrior
 
-  rightPlugin todo
+  # rightPlugin todo
 
   ### Stuffs
 
   #typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=''
   #typeset -g POWERLEVEL9K_LEGACY_ICON_SPACING=false
 
+  typeset -g POWERLEVEL9K_SHOW_RULER=false
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=''
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=''
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=''
+
   typeset -g POWERLEVEL9K_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
 
   typeset -g POWERLEVEL9K_BACKGROUND=
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_BACKGROUND=
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_GAP_BACKGROUND=
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_GAP_BACKGROUND=
@@ -178,8 +185,8 @@ rightPlugin() {
   typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B1'
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B3'
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
-  typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
-  typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
+  typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
 
 
   # ---- [os_icon] ----

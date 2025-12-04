@@ -315,8 +315,22 @@
   "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
   "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "with_block",
   "rust-analyzer.inlayHints.bindingModeHints.enable": true,
-  "editor.minimap.autohide": false,
+  "editor.minimap.autohide": "none",
   "workbench.colorTheme": "vixn dark",
   "chat.commandCenter.enabled": false,
-  "window.zoomLevel": 0
+  "chat.agent.enabled": false,
+  "chat.mcp.access": "none",
+  "remote.SSH.experimental.chat": false,
+  "window.zoomLevel": 0,
+  "[html]": {
+    "editor.suggest.insertMode": "replace"
+  },
+  "chat.disableAIFeatures": true,
+  "C_Cpp.copilotHover": "disabled",
+  "html.autoClosingTags": false,
+  "html.autoCreateQuotes": false,
+  "notebook.experimental.generate": false,
+  "accessibility.verbosity.inlineChat": false,
+  "accessibility.verbosity.panelChat": false,
+  "accessibility.openChatEditedFiles": false
 }

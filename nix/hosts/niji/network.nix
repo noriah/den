@@ -23,8 +23,39 @@
   networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [
     22000 # allow syncthing
+    # 5960
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPortRanges = [
+    # {
+    #   from = 5959;
+    #   to = 5969;
+    # }
+    # {
+    #   from = 6960;
+    #   to = 6070;
+    # }
+    # {
+    #   from = 7960;
+    #   to = 7970;
+    # }
+  # ];
+  # networking.firewall.allowedUDPPorts = [
+    # 5353
+  # ];
+  # networking.firewall.allowedUDPPortRanges = [
+    # {
+    #   from = 5959;
+    #   to = 5969;
+    # }
+    # {
+    #   from = 6960;
+    #   to = 6070;
+    # }
+    # {
+    #   from = 7960;
+    #   to = 7970;
+    # }
+  # ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -69,6 +100,10 @@
   #     ];
   #   };
   # };
+
+  # networking.nameservers = [
+  #   "127.0.0.1"
+  # ];
 
   services.resolved = {
     enable = false;
