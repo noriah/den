@@ -214,34 +214,34 @@
     "DOIT",
     "LATER",
     "WARNING",
-    "WARN",
+    "WARN"
   ],
   "todo-tree.general.revealBehaviour": "end of todo",
   "todo-tree.general.tagGroups": {
     "FIX": [
       "FIXME",
       "FIXIT",
-      "FIX",
+      "FIX"
     ],
     "BUG": [
       "BUG",
-      "TICKET",
+      "TICKET"
     ],
     "HACK": [
-      "HACK",
+      "HACK"
     ],
     "INFO": [
       "INFO",
-      "NOTE",
+      "NOTE"
     ],
     "TODO": [
       "TODO",
       "DOIT",
-      "LATER",
+      "LATER"
     ],
     "WARN": [
       "WARN",
-      "WARNING",
+      "WARNING"
     ]
   },
   // todotree
@@ -255,37 +255,37 @@
       "icon": "tools",
       "iconColour": "#72aee0",
       "foreground": "#72aee0",
-      "rulerColour": "#72aee0",
+      "rulerColour": "#72aee0"
     },
     "BUG": {
       "icon": "bug",
       "iconColour": "#dbd6d3",
       "foreground": "#dbd6d3",
-      "rulerColour": "#dbd6d3",
+      "rulerColour": "#dbd6d3"
     },
     "HACK": {
       "icon": "flame",
       "iconColour": "#e07972",
       "foreground": "#e07972",
-      "rulerColour": "#e07972",
+      "rulerColour": "#e07972"
     },
     "INFO": {
       "icon": "search",
       "iconColour": "#8d72e0",
       "foreground": "#8d72e0",
-      "rulerColour": "#8d72e0",
+      "rulerColour": "#8d72e0"
     },
     "TODO": {
       "icon": "checkbox",
       "iconColour": "#72e084",
       "foreground": "#72e084",
-      "rulerColour": "#72e084",
+      "rulerColour": "#72e084"
     },
     "WARN": {
       "icon": "alert",
       "iconColour": "#e0df72",
       "foreground": "#e0df72",
-      "rulerColour": "#e0df72",
+      "rulerColour": "#e0df72"
     },
   },
   "todo-tree.highlights.defaultHighlight": {
@@ -332,5 +332,10 @@
   "notebook.experimental.generate": false,
   "accessibility.verbosity.inlineChat": false,
   "accessibility.verbosity.panelChat": false,
-  "accessibility.openChatEditedFiles": false
+  "accessibility.openChatEditedFiles": false,
+  "security.workspace.trust.untrustedFiles": "open",
+  "python.analysis.supportAllPythonDocuments": true,
+  "markdownlint.config": {
+    "MD036": false
+  }
 }

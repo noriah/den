@@ -13,8 +13,6 @@ in
 
     programs.git = {
       enable = true;
-      userName = "noriah";
-      userEmail = "vix@noriah.dev";
       signing.key = "C6ACD7663C0FE39B";
 
       ignores = [
@@ -24,9 +22,11 @@ in
         "*.code-workspace"
       ];
 
-      extraConfig = {
+      settings = {
         core.editor = config.den.shell.editorBin;
 
+        user.mame = "noriah";
+        user.email = "vix@noriah.dev";
         user.useConfigOnly = true;
         init.defaultBranch = "main";
 

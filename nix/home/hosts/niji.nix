@@ -104,11 +104,17 @@ in
       # hardware util
       ddcutil
 
-      kitty
+      mediainfo
+
+      # kitty
+
+      tidal-hifi
+
+      ksnip
 
       # communication
       signal-desktop
-      telegram-desktop
+      # telegram-desktop
 
       # web
       google-chrome
@@ -127,14 +133,15 @@ in
 
       (wrapOBS {
         plugins = with obs-studio-plugins; [
-          obs-ndi
+          distroav
         ];
       })
     ];
 
     den.unfree = [
       "google-chrome"
-      "ndi"
+      "ndi-6"
+      "castlabs-electron"
       # "vcv-rack"
     ];
 

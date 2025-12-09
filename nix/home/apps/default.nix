@@ -6,6 +6,7 @@
     ./irc-client.nix
     ./microblogger.nix
     ./pdf-reader.nix
+    ./screenshot.nix
     ./terminal.nix
     # ./dictionary.nix
     # ./password-manager.nix

@@ -47,6 +47,7 @@ in
     home.packages = with pkgs; [
       nerd-fonts.fira-code
       fira-code
+      fira-sans
       twitter-color-emoji
     ];
 

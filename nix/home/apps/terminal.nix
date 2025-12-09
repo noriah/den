@@ -12,7 +12,7 @@ in
   options.den.apps.terminal = {
     enable = mkEnableOption "terminal";
 
-    package = mkPackageOption pkgs "gnome-console" { };
+    package = mkPackageOption pkgs "alacritty" { };
     backupTerminalPackage = mkPackageOption pkgs "st" { };
   };
 

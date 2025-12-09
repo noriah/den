@@ -29,7 +29,7 @@ in
 
     programs.go = {
       enable = mkDefault true;
-      goPath = mkDefault cfg.goPath;
+      env.GOPATH = mkDefault cfg.goPath;
     };
 
     home.sessionPath = [ "${goFullPath}/bin" ];

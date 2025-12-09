@@ -33,7 +33,7 @@ blinking = "On"
 
 [font]
 builtin_box_drawing = true
-size = 12.0
+size = 10.0
 
 [font.normal]
 family = "FiraCode Nerd Font"
@@ -52,9 +52,17 @@ mods = "Super"
 decorations = "full"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.9
+opacity = 1.0
 resize_increments = true
+
+[window.dimensions]
+# columns = 2496
+columns = 110
+lines = 30
 
 [window.padding]
 x = 5
 y = 5
+
+[keyboard]
+bindings = [{ key = "N", mods = "Control|Shift", action = "CreateNewWindow" }]

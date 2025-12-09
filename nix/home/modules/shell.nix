@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  rcVarsStr = config.lib.zsh.exportAll cfg.rcVariables;
+  rcVarsStr = (config.lib.zsh.exportAll cfg.rcVariables) {};
 
   aliasesStr =
     concatStringsSep "\n" (

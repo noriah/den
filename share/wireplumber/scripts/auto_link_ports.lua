@@ -218,6 +218,15 @@ auto_connect_ports {
   }
 }
 
+auto_connect_ports {
+  output = Constraint { "port.alias", "matches", "Rhythmbox:output_*" },
+  input = Constraint { "object.path", "matches", "vis_source:input_*" },
+  connect = {
+    ["FL"] = "FL",
+    ["FR"] = "FR",
+  }
+}
+
 -- system output
 auto_connect_ports {
   output = Constraint { "object.path", "matches", "system_sink:monitor_*" },

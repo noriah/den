@@ -2,7 +2,7 @@
   description = "noriah's den";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # for later
@@ -11,7 +11,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -45,12 +45,6 @@
       packages = forEachSystem (system: import ./nix/pkgs nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
-        niji = lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [ ./nix/hosts/niji ];
-        };
-
         poppy = lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
@@ -62,6 +56,7 @@
 
         "vix@niji" = lib.homeManagerConfiguration {
           # TODO(user-data): move niji home to separate physical drive
+          # (complete, but) how should this be documented / is it relevant here?
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [

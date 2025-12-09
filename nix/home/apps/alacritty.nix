@@ -18,7 +18,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.alacritty ];
+    # home.packages = [ pkgs.alacritty ];
     xdg.configFile.alacritty = mkIf xdgEnabled {
       source = "${config.den.dir.etc}/${subPath}";
       force = true;

@@ -39,22 +39,10 @@ in
         vlc
         audacity
 
+        rhythmbox
+
         # catnip
-        (buildGoModule rec {
-          name = "catnip";
-          version = "1.8.6";
-
-          src = fetchFromGitHub {
-            owner = "noriah";
-            repo = "catnip";
-            rev = "v${version}";
-            sha256 = "sha256-oWin5PT/VZe9IAO3csMoHEn0GfdtBhntq5Db/2rFd0g=";
-          };
-
-          env.CGO_ENABLED = 0;
-
-          vendorHash = "sha256-Hj453+5fhbUL6YMeupT5D6ydaEMe+ZQNgEYHtCUtTx4=";
-        })
+        catnip
       ]
       ++ (
         if cfg.focusrite then

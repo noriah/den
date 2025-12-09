@@ -5,8 +5,7 @@ contains scripts to configure the environment.
 - [home.zsh](home.zsh) - common configuration script
 - [host/](host/) - host specific configuration scripts
 
-### home.zsh
----
+## home.zsh
 
 - sources [burrow](/share/burrow/)
 - loads the [host](host/) configuration script

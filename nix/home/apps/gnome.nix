@@ -29,7 +29,7 @@ in
       iconTheme.package = pkgs.adwaita-icon-theme;
       iconTheme.name = "Adwaita";
 
-      theme.name = "Adwaita-dark";
+      theme.name = "Adwaita";
 
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;
@@ -47,7 +47,9 @@ in
       "org/gnome/desktop/interface" = {
         accent-color = "pink";
         color-scheme = "prefer-dark";
-        gtk-theme = "Adwaita-dark";
+        gtk-theme = "Adwaita";
+        cursor-theme = "Adwaita";
+        icon-theme = "Adwaita";
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
