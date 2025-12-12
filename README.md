@@ -5,13 +5,31 @@
 hi! if you are reading this, you have found noriah's den.
 a perpetual work in progress.
 
+```plain
+      ██              ██
+    ██  ██          ██  ██
+    ██  ##██      ██##  ██
+    ██  ####██████####  ██
+    ██  ████######████  ██
+    ████##############████
+    ██##################██
+    ██##/\##########/\##██
+  ████##\/##██████##\/##████
+  ██########  ██  ########██
+██████████          ██████████
+  ████                  ████
+      ██████████████████
+```
+
+*see [fetch logo](etc/neofetch/noriah.txt)*
+
 ## structure
 
 - [bin/](bin/) - shell scripts (and possibly binaries)
 - [etc/](etc/) - this is where configuration files are
 - [share/](share/) - contains things for the environment
-- [nix/](nix/) - nixos and home-manager configuration
-- [src/](src/) - sources for den-focused tools
+- [tools/](tools/) - collections/source for den-focused tools
+- [nix/](nix/) - ~~nixos and~~\* home-manager configuration
 
 ## items of interest
 
@@ -22,6 +40,6 @@ a perpetual work in progress.
 - [share/burrow/](share/burrow/) - plugin manager for den
 - [nix flake](flake.nix) - nix flake configuration
 
-*i have found nix/nixos adds too much friction for development systems.*
-*i now use it only for home-manager on most of my systems.*
-*updates to reflect this are coming*
+*\*i have found nix/nixos adds too much friction for development systems.*
+*i now use it for home-manager only.*
+*updates to reflect this are coming.*
