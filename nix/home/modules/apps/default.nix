@@ -2,7 +2,6 @@
 {
   imports = [
     ./generic
-    ./plangs
 
     ./_1password.nix
     ./alacritty.nix
@@ -27,5 +26,6 @@
     ./vim.nix
     ./vscode.nix
     ./wezterm.nix
+    ./xorg.nix
   ];
 }

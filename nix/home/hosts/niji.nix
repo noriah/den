@@ -26,14 +26,19 @@ in
       gui.enable = true;
 
       apps = {
+        # desktop environment
+        # this should be a select, maybe
+        budgie.enable = true;
+
         _1password.enable = true;
+
         alacritty.enable = true;
-        # albert.enable = true;
+
         # enable firefox custom config
         firefox.enable = true;
-        gnome.enable = true;
+
         openrgb.enable = true;
-        # polybar.enable = true;
+
         spotify.enable = true;
         tor.enable = true;
 
@@ -54,18 +59,21 @@ in
         obsidian.enable = true;
       };
 
+      xdg = {
+        enable = true;
+        userDirRoot = "${homeDir}/stuff";
+      };
+
+      development.enable = true;
+
       packs = {
         comfy.enable = true;
-        development.enable = true;
 
         fonts.enable = true;
         fonts.installDenFonts = true;
 
         media.enable = true;
         media.focusrite = true;
-
-        xdg.enable = true;
-        xdg.userDirRoot = "${homeDir}/stuff";
       };
 
       shell.enable = true;
@@ -128,7 +136,7 @@ in
 
       rtpmidi
 
-      lsp-plugins
+      # lsp-plugins
       vcv-rack-pro
 
       (wrapOBS {

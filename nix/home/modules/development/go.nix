@@ -8,13 +8,13 @@ with lib;
 let
   # https://github.com/nix-community/home-manager/blob/release-24.11/modules/programs/go.nix#L41
   optNoHome = (builtins.replaceStrings [ config.den.dir.home ] [ "" ] config.den.dir.opt);
-  defaultGoPath = "${optNoHome}/go";
+  defaultGoPath = "${config.den.dir.opt}/go";
   goFullPath = "${config.den.dir.home}${config.programs.go.goPath}";
 
-  cfg = config.den.apps.go;
+  cfg = config.den.development.go;
 in
 {
-  options.den.apps.go = {
+  options.den.development.go = {
 
     enable = mkEnableOption "golang";
 

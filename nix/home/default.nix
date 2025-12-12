@@ -1,9 +1,8 @@
 { outputs, lib, ... }:
 {
   imports = [
-    ./apps
-    ./hosts
     ./modules
+    ./hosts
   ];
 
   nixpkgs.overlays = [

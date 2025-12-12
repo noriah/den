@@ -14,13 +14,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    den.packs = {
-      comfy.enable = true;
-    };
-
-    den.apps = {
-      git.enable = true;
-    };
+    den.packs.comfy.enable = true;
+    den.apps.git.enable = true;
 
     # unknown hosts may be uncontrolled hosts
     # disable check for compatibility

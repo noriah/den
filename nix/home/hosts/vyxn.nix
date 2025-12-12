@@ -19,16 +19,14 @@ in
       user = "noriah";
 
       dir.home = homeDir;
+      development.enable = true;
 
       apps = {
         alacritty.enable = true;
         tor.enable = true;
       };
 
-      packs = {
-        comfy.enable = true;
-        development.enable = true;
-      };
+      packs.comfy.enable = true;
     };
 
     home.packages = with pkgs; [

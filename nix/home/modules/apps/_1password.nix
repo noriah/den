@@ -9,6 +9,7 @@ let
   sockPath = "${config.den.dir.home}/.1password/agent.sock";
 
   gnome-enabled = config.den.apps.gnome.enable;
+  budgie-enabled = config.den.apps.budgie.enable;
 
   cfg = config.den.apps._1password;
 in
@@ -35,6 +36,19 @@ in
           command = "1password --quick-access";
           name = "1password quick-access";
         };
+      }
+      // mkIf budgie-enabled {
+        "org/buddiesofbudgie/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/1password/"
+          ];
+        };
+
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/1password" = {
+          binding = "<Shift><Control><Super>space";
+          command = "1password --quick-access";
+          name = "1password quick-access";
+        };
       };
 
     # systemd.user.services."1password" = {
@@ -47,6 +61,5 @@ in
     #     StandardError = "journal";
     #   };
     # };
-
   };
 }

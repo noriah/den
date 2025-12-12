@@ -6,14 +6,14 @@
 }:
 with lib;
 let
-  cfg = config.den.packs.xdg;
+  cfg = config.den.xdg;
 
   # denCfg = config.den;
 in
 {
 
-  options.den.packs.xdg = {
-    enable = mkEnableOption "XDG pack";
+  options.den.xdg = {
+    enable = mkEnableOption "XDG module";
 
     userDirRoot = mkOption {
       type = types.path;
@@ -57,7 +57,7 @@ in
       #XDG_DATA_DIRS = "$HOME/.nix-profile/share:$XDG_DATA_DIRS";
       XDG_STATE_HOME = cfg.stateHome;
     };
-    #// mkIf denCfg.standalone {
+    #// mkIf (!denCfg.nixos-host) {
     #  XDG_DATA_DIRS = "$HOME/.nix-profile/share:/usr/local/share/:/usr/share/:$XDG_DATA_DIRS";
     #};
 

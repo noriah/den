@@ -21,6 +21,7 @@ in
       dir.home = homeDir;
 
       gui.enable = true;
+      development.enable = true;
 
       apps = {
         alacritty.enable = true;
@@ -33,12 +34,11 @@ in
 
       packs = {
         comfy.enable = true;
-        development.enable = true;
         fonts.enable = true;
         media.enable = true;
-
-        xdg.enable = true;
       };
+
+      xdg.enable = true;
 
       shell.enable = true;
     };

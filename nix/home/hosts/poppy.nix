@@ -44,15 +44,18 @@ in
         obsidian.enable = true;
       };
 
+      xdg = {
+        enable = true;
+        userDirRoot = "${homeDir}/stuff";
+      };
+
+      development.enable = true;
+
       packs = {
         comfy.enable = true;
-        development.enable = true;
 
         fonts.enable = true;
         media.enable = true;
-
-        xdg.enable = true;
-        xdg.userDirRoot = "${homeDir}/stuff";
       };
 
       workspace = {

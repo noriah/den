@@ -61,9 +61,11 @@
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [
             {
+              home.stateVersion = "24.11";
+              targets.genericLinux.enable = true;
+
               den.enable = true;
               den.hostName = "niji";
-              home.stateVersion = "24.11";
             }
             ./nix/home
           ];

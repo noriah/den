@@ -5,6 +5,8 @@
 
   modified-packages = final: prev: {
 
+    juno-theme = prev.callPackage ./juno-theme.nix { };
+
     openrgb = prev.callPackage ./openrgb.nix { };
     openrgb-plugin-effects = prev.callPackage ./openrgb-plugin-effects.nix { };
     openrgb-plugin-visual-map = prev.callPackage ./openrgb-plugin-visual-map.nix { };

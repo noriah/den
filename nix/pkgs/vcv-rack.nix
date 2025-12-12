@@ -8,13 +8,13 @@
 pkgs.vcv-rack.overrideAttrs (old: {
   # https://community.vcvrack.com/t/vcv-rack-2-on-nixos-nix/16007/7
   name = "VCV-RackPro";
-  version = "2.6.4";
+  version = "2.6.6";
   src = pkgs.requireFile {
     # https://vcvrack.com/RackProDownload?version=2.6.4&arch=lin-x64
-    message = "run \"nix store add-file RackPro-2.6.4-lin-x64.zip\"";
-    name = "RackPro-2.6.4-lin-x64.zip";
+    message = "run \"nix store add-file RackPro-2.6.6-lin-x64.zip\"";
+    name = "RackPro-2.6.6-lin-x64.zip";
     # sha256 obtained with: nix-hash --flat --type sha256 RackPro-2.6.4-lin-x64.zip
-    sha256 = "e193806d54b41ca3da3488d05d1d6729e46068c3ebdee9f7e6c3961706bc3cfe";
+    sha256 = "88b170fb267dab127a09fb4502e5d629757b106e52578b01796cb94bbae6ab47";
   };
   nativeBuildInputs = with pkgs; [
     copyDesktopItems
@@ -62,7 +62,7 @@ pkgs.vcv-rack.overrideAttrs (old: {
 
     mkdir -p $out/share/vcv-rack
     cp -r cacert.pem Core.json res translations $out/share/vcv-rack
-    cp -r Fundamental-2.6.2-lin-x64.vcvplugin LICENSE.html template.vcv template-plugin.vcv $out/share/vcv-rack
+    cp -r Fundamental-2.6.4-lin-x64.vcvplugin LICENSE.html template.vcv template-plugin.vcv $out/share/vcv-rack
 
     runHook postInstall
   '';

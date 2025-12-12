@@ -13,7 +13,7 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [ pkgs.i3 ];
+    # home.packages = [ pkgs.i3 ];
 
     xdg.configFile.i3 = {
       source = "${config.den.dir.etc}/i3";

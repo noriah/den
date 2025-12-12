@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.den.apps.julia;
+  cfg = config.den.development.julia;
 in
 {
-  options.den.apps.julia = {
+  options.den.development.julia = {
 
     enable = mkEnableOption "julia language";
 

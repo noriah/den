@@ -31,11 +31,11 @@ in
       type = types.path;
     };
 
-    standalone = mkOption {
+    nixos-host = mkOption {
       type = types.bool;
-      default = true;
-      example = false;
-      description = "standalone home manager without NixOS";
+      default = false;
+      example = true;
+      description = "home manager den running on NixOS";
     };
 
     dir = {
@@ -91,7 +91,7 @@ in
 
     den.shell.aliases.hm = mkDefault "home-manager --flake ${cfg.dir.self}";
 
-    den.shell.aliases.nosrb = mkIf (!cfg.standalone) (mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}");
+    den.shell.aliases.nosrb = mkIf cfg.nixos-host (mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}");
 
     # enable our host configuration
     den.hosts.${cfg.hostName}.enable = mkDefault true;

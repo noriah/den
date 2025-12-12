@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.den.apps.rust;
+  cfg = config.den.development.rust;
 in
 {
-  options.den.apps.rust.enable = mkEnableOption "rust language";
+  options.den.development.rust.enable = mkEnableOption "rust language";
 
   config = mkIf cfg.enable {
 

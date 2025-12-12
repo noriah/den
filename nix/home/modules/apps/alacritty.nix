@@ -9,7 +9,7 @@ let
   subPath = "alacritty/default";
   visualizerConfig = "${config.den.dir.etc}/${subPath}/visualizer.toml";
 
-  xdgEnabled = config.den.packs.xdg.enable;
+  xdgEnabled = config.den.xdg.enable;
 
   cfg = config.den.apps.alacritty;
 in
