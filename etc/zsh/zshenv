@@ -1,6 +1,6 @@
 # Common Stuff
 
-export DEN="$(dirname "$(dirname "${0:h:A}")")"
+export DEN="${DEN:="$(dirname "$(dirname "${0:h:A}")")"}"
 
 export HOME_TMP="${HOME_TMP:-"$HOME/tmp"}"
 

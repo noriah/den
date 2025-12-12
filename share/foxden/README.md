@@ -2,13 +2,15 @@
 
 contains helper functions and scripts used by the rest of [den](https://github.com/noriah/den).
 
+## entry points
+
 ### [rc.zsh](rc.zsh) - environment loader
----
+
 - loads several scripts that configure the base environment
 - configures and runs compinit
 
-### [install.zsh](install.zsh) - environment installation script.
----
+### [install.zsh](install.zsh) - environment installation script
+
 - creates `$HOME/opt/` directory
 - creates `$DEN/var/` directory
 - adds symlinks from the home directory to [`$DEN/etc`](/etc), [`$DEN/share`](/share) and `$DEN/var`

@@ -1,6 +1,6 @@
 # burrow
 
-plugin manager for den.
+plugin manager for zsh in den.
 
 - [plans/](plans/) - built in plugins
 
@@ -74,4 +74,3 @@ burrow COMMAND [ARGUMENTS]
     Usage
       runs git fetch inside all loaded plugins and libraries
 ```
-

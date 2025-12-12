@@ -91,7 +91,9 @@ in
 
     den.shell.aliases.hm = mkDefault "home-manager --flake ${cfg.dir.self}";
 
-    den.shell.aliases.nosrb = mkIf cfg.nixos-host (mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}");
+    den.shell.aliases.nosrb = mkIf cfg.nixos-host (
+      mkDefault "sudo nixos-rebuild --flake ${cfg.dir.self}"
+    );
 
     # enable our host configuration
     den.hosts.${cfg.hostName}.enable = mkDefault true;
@@ -107,10 +109,6 @@ in
 
     home.sessionVariables = {
       NIXPKGS_ALLOW_UNFREE = "1";
-      HOME_ETC = cfg.dir.etc;
-      HOME_SHARE = cfg.dir.share;
-      HOME_OPT = cfg.dir.opt;
-      HOME_VAR = cfg.dir.var;
       LC_ALL = "C.UTF-8";
       LANG = "en_US";
       LANGUAGE = "en_US";
@@ -120,6 +118,19 @@ in
       "${cfg.dir.self}/bin"
       "${cfg.dir.home}/rbin"
     ];
+
+    home.file.den_env = {
+      target = ".den/env";
+      text = ''
+        # volatile variables that should be set for each shell session
+        export DEN="${cfg.dir.self}"
+        export HOME_ETC="${cfg.dir.etc}"
+        export HOME_SHARE="${cfg.dir.share}"
+        export HOME_OPT="${cfg.dir.opt}";
+        export HOME_VAR="${cfg.dir.var}";
+      '';
+      force = true;
+    };
 
     home.file.den_user = {
       target = ".den/user";

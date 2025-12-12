@@ -248,12 +248,14 @@ rightPlugin() {
     local notes_dir="$DEN_NOTES_DIR"
     local vault_dir="$WORKSPACE_DIR/$WORKSPACE_VAULT_KEY"
 
+    # find glyphs at https://www.nerdfonts.com/cheat-sheet
+
     POWERLEVEL9K_DIR_CLASSES+=(
-      "$WORKSPACE_DIR" WORKSPACE '%B\uF44F'
       "$public_dir|$public_dir/*" WORKSPACE_PUBLIC '%B\uE780'
       "$local_dir|$local_dir/*" WORKSPACE_LOCAL '%B\U000f02ca'
       "$notes_dir|$notes_dir/*" DEN_NOTES '%B\U000f082e'
       "$vault_dir|$vault_dir/*" WORKSPACE_VAULT '%B\U000f0773'
+      "$WORKSPACE_DIR|$WORKSPACE_DIR/*" WORKSPACE '%B\uF44F'
     )
 
     if [ ! -z "$WORKSPACE_DIR_CLASSES_EXTRA" ]; then
@@ -278,7 +280,7 @@ rightPlugin() {
 
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER='->'
-  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+  typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
 
   typeset -g POWERLEVEL9K_HISTORY_FOREGROUND=204
   # typeset -g POWERLEVEL9K_HISTORY_CONTENT_EXPANSION='%B${P9K_CONTENT}'

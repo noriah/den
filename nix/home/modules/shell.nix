@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  rcVarsStr = (config.lib.zsh.exportAll cfg.rcVariables) {};
+  rcVarsStr = (config.lib.zsh.exportAll cfg.rcVariables) { };
 
   aliasesStr =
     concatStringsSep "\n" (
@@ -72,6 +72,7 @@ in
           target = ".zshenv";
           text = ''
             . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+            . "${config.den.dir.home}/.den/env"
             . "${config.den.dir.etc}/zsh/zshenv"
           '';
           force = true;
