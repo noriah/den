@@ -13,8 +13,8 @@ in
 
   config = mkIf cfg.enable {
 
-    home.packages = [
-      "ksnip"
+    home.packages = with pkgs; [
+      ksnip
     ];
 
   };

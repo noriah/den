@@ -13,11 +13,7 @@ in
 
   config = mkIf cfg.enable {
 
-    den.apps = {
-      neofetch.enable = mkDefault true;
-    };
-
-    den.packs = { };
+    den.apps.neofetch.enable = mkDefault true;
 
   };
 }

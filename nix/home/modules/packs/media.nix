@@ -20,7 +20,7 @@ in
 
   config = mkIf cfg.enable {
 
-    den.apps.jamesdsp.enable = true;
+    # den.apps.jamesdsp.enable = mkDefault true;
 
     home.packages =
       with pkgs;

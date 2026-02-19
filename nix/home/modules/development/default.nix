@@ -12,8 +12,11 @@ in
   imports = [
     ./go.nix
     ./julia.nix
+    ./node.nix
     ./python.nix
     ./rust.nix
+
+    ./api.nix
   ];
 
   options.den.development = {
@@ -37,6 +40,7 @@ in
       julia.enable = mkDefault cfg.all-languages.enable;
       rust.enable = mkDefault cfg.all-languages.enable;
       python.enable = mkDefault cfg.all-languages.enable;
+      node.enable = mkDefault cfg.all-languages.enable;
     };
 
     den.apps = mkMerge [
@@ -65,16 +69,7 @@ in
 
     home.sessionVariables = {
       # LD_LIBRARY_PATH = "${pkgs.gfortran.cc.lib}/lib:$LD_LIBRARY_PATH";
-
-      # node stuff
-      NPM_PATH = "${config.den.dir.opt}/npm";
-      NPM_CONFIG_CACHE = "${config.den.dir.opt}/npm/cache";
     };
-
-    home.sessionPath = [
-      # node paths
-      "./node_modules/.bin"
-    ];
 
   };
 }

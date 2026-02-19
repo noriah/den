@@ -36,6 +36,9 @@ in
       default = null;
     };
 
+    # see https://github.com/nix-community/home-manager/blob/d787ec69c3216ea33be1c0424fe65cb23aa8fb31/modules/home-environment.nix#L265-L311
+    # and https://github.com/nix-community/home-manager/blob/d787ec69c3216ea33be1c0424fe65cb23aa8fb31/modules/home-environment.nix#L648C4-L666C7
+    # to fix "never changing" variables
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -64,6 +67,7 @@ in
 
             . "${config.den.dir.etc}/zsh/zshrc"
             unsetopt sharehistory
+            source /usr/share/nvm/init-nvm.sh
           '';
           force = true;
         };

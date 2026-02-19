@@ -58,7 +58,7 @@ resize_increments = true
 
 [window.dimensions]
 # columns = 2496
-columns = 110
+columns = 120
 lines = 30
 
 [window.padding]

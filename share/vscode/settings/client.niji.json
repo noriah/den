@@ -157,6 +157,7 @@
     "playground": true,
     "debugTestAtCursor": true
   },
+  "go.diagnostic.vulncheck": "Off",
   "go.languageServerExperimentalFeatures": {
     "diagnostics": true
   },
@@ -337,5 +338,18 @@
   "python.analysis.supportAllPythonDocuments": true,
   "markdownlint.config": {
     "MD036": false
-  }
+  },
+  "go.inlayHints.compositeLiteralTypes": true,
+  "go.inlayHints.compositeLiteralFields": true,
+  "go.inlayHints.assignVariableTypes": true,
+  "go.inlayHints.constantValues": true,
+  "go.inlayHints.functionTypeParameters": true,
+  "go.inlayHints.ignoredError": true,
+  "go.inlayHints.parameterNames": true,
+  "go.inlayHints.rangeVariableTypes": true,
+  "salesforcedx-vscode-core.telemetry.enabled": false,
+  "salesforcedx-vscode-apex.java.home": "/home/vix/opt/jdks/corretto-19.0.2",
+  "salesforcedx-vscode-core.push-or-deploy-on-save.enabled": true,
+  "salesforcedx-vscode-core.push-or-deploy-on-save.showOutputPanel": true,
+  "salesforcedx-vscode-core.push-or-deploy-on-save.preferDeployOnSave": true
 }

@@ -7,7 +7,7 @@
 with lib;
 let
   # https://github.com/nix-community/home-manager/blob/release-24.11/modules/programs/go.nix#L41
-  optNoHome = (builtins.replaceStrings [ config.den.dir.home ] [ "" ] config.den.dir.opt);
+  # optNoHome = (builtins.replaceStrings [ config.den.dir.home ] [ "" ] config.den.dir.opt);
   defaultGoPath = "${config.den.dir.opt}/go";
   goFullPath = "${config.den.dir.home}${config.programs.go.goPath}";
 
@@ -32,7 +32,7 @@ in
       env.GOPATH = mkDefault cfg.goPath;
     };
 
-    home.sessionPath = [ "${goFullPath}/bin" ];
+    home.sessionPath = [ "${cfg.goPath}/bin" ];
 
     programs.helix.languages = {
       language-server.gopls.command = "${pkgs.gopls}/bin/gopls";

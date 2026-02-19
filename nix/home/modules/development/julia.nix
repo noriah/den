@@ -21,7 +21,7 @@ in
 
     home.packages = [ cfg.package ];
 
-    home.sessionVariables = {
+    den.shell.rcVariables = {
       JULIA_HISTORY = "$HISTORY/julia_repl_history.jl";
       JULIA_DEPOT_PATH = "${config.den.dir.opt}/julia";
     };

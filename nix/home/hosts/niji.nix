@@ -34,15 +34,16 @@ in
 
         alacritty.enable = true;
 
-        # enable firefox custom config
-        firefox.enable = true;
+        firefox.enable = true; # enable firefox custom config
 
         openrgb.enable = true;
 
-        spotify.enable = true;
+        # spotify.enable = true;
         tor.enable = true;
 
         syncthing.enable = true;
+
+        polybar.enable = true;
 
         vscode.enable = true;
         vscode.server = true;
@@ -51,6 +52,8 @@ in
         irc-client.enable = true;
         #microblogger.enable = true;
         pdf-reader.enable = true;
+        screenshot.enable = true;
+        terminal.enable = true;
       };
 
       notes = {
@@ -116,8 +119,6 @@ in
 
       # kitty
 
-      tidal-hifi
-
       ksnip
 
       # communication
@@ -152,6 +153,20 @@ in
       "castlabs-electron"
       # "vcv-rack"
     ];
+
+    systemd.user.services.set-default-audio = {
+      Unit = {
+        Description = "Set default audio";
+        After = "wireplumber.service";
+        BindsTo = "wireplumber.service";
+      };
+      Install.WantedBy = [ "wireplumber.service" ];
+      Service = {
+        Type = "oneshot";
+        ExecStart = ''${config.den.store}/bin/set-default-audio-devices-niji.sh'';
+        StandardError = "journal";
+      };
+    };
 
     programs.gpg.enable = true;
     services.gpg-agent.enable = true;

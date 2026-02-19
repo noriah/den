@@ -59,8 +59,8 @@ in
       };
 
       "com/solus-project/budgie-wm" = {
-        button-layout = "appmenu:minimize,maximize,close";
-        button-style = "traditional";
+        button-layout = "close,minimize,maximize:appmenu";
+        button-style = "left";
         caffeine-mode = false;
         # center-windows = false;
         clear-notifications = [ ];
@@ -93,10 +93,10 @@ in
         activate-window-menu = [ "<Alt>space" ];
         close = [ "<Super>q" ];
         maximize = [ ];
-        move-to-monitor-down = [ ];
-        move-to-monitor-left = [ ];
-        move-to-monitor-right = [ ];
         move-to-monitor-up = [ ];
+        move-to-monitor-down = [ ];
+        move-to-monitor-left = [ "<Primary><Shift><Super>Left" ];
+        move-to-monitor-right = [ "<Primary><Shift><Super>Right" ];
         move-to-workspace-1 = [ ];
         move-to-workspace-last = [ ];
         move-to-workspace-left = [ "<Super><Shift>Home" ];
@@ -109,7 +109,6 @@ in
         switch-group-backward = [ ];
         switch-input-source = [ ];
         switch-input-source-backward = [ ];
-        switch-to-workspace-1 = [ ];
         switch-to-workspace-first = [ ];
         switch-to-workspace-last = [ ];
         switch-to-workspace-left = [ "<Super>Home" ];
@@ -122,11 +121,11 @@ in
         # mutter has so many random broken things, and so many 3rd party apps
         # just go with them.
         # /shrug
-        overlay-key = "Alt_L" ;
+        overlay-key = "";
       };
 
       "org/gnome/desktop/wm/preferences" = {
-        button-layout = "appmenu:minimize,maximize,close";
+        button-layout = "close,minimize,maximize:appmenu";
         mouse-button-modifier = "<Control><Super>";
         resize-with-right-button = true;
         titlebar-font = "Noto Sans Bold 10";
@@ -147,6 +146,34 @@ in
         screensaver = [ "<Primary><Super>q" ];
       };
 
+    };
+
+    systemd.user.services.budgie-previews-creator = {
+      Unit = {
+        Description = "Budgie Previews Creator";
+        After = "graphical-session.target";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service = {
+        Type = "simple";
+        Restart = "on-failure";
+        ExecStart = ''/usr/lib/budgie-previews/previews_creator'';
+        StandardError = "journal";
+      };
+    };
+
+    systemd.user.services.budgie-previews-daemon = {
+      Unit = {
+        Description = "Budgie Previews Daemon";
+        After = "graphical-session.target";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service = {
+        Type = "simple";
+        Restart = "on-failure";
+        ExecStart = ''/usr/lib/budgie-previews/previews_daemon'';
+        StandardError = "journal";
+      };
     };
   };
 }

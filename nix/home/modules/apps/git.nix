@@ -52,6 +52,10 @@ in
           path = "${config.den.dir.etc}/git/public.gitconfig";
         })
         (mkIf workspaceEnabled {
+          condition = "gitdir:${config.den.workspace.path}/taro/";
+          path = "${config.den.dir.etc}/git/public.gitconfig";
+        })
+        (mkIf workspaceEnabled {
           condition = "gitdir:${config.den.workspace.path}/phase/";
           path = "${config.den.workspace.path}/phase/.gitconfig";
         })
