@@ -35,7 +35,7 @@ pkgs: {
       #   sha256 = "o22KMEGpcd8MkqC0CD/s8rgPehR3+n9onjV3GFxh/7E=";
       # }
       # + "/src/polyden";
-    vendorHash = "sha256-QduatMLXBdpmwNuTNcGDNS6oe8kmL/wNOJrKXBhzj6A=";
+    vendorHash = "sha256-OgBBmYD844sl0OVQJ04bjACFnhF0o3074NwBbXboi48=";
   };
 
   vcv-rack-pro = pkgs.callPackage ./vcv-rack.nix { };

@@ -50,6 +50,16 @@ func Font(font int, text string) string {
 	return fmt.Sprintf("%%{T%d}%s%%{T-}", font, text)
 }
 
+// FontChange returns a font change code
+func FontChange(font int) string {
+	return fmt.Sprintf("%%{T%d}", font)
+}
+
+// FontReset returns a font reset code
+func FontReset() string {
+	return "%{T-}"
+}
+
 // Offset by pixels
 // https://github.com/polybar/polybar/wiki/Formatting#offset-o
 func OffsetPixel(offset int, text string) string {

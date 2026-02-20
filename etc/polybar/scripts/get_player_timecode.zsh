@@ -13,8 +13,6 @@ print_timecode() {
     {p=$1/1000000; t=$2/1000000}
     END {
       f="%M:%S"
-      b = ""
-      a = ""
       if (t > 3600) {
         f="%T"
       }
@@ -34,7 +32,7 @@ if [ "$1" = "--status" ]; then
 else
   case "$STATUS" in
     Stopped|"No players found")
-      echo " |  --:--/--:--"
+      echo " | --:--/--:--"
       ;;
     *)
       print_timecode
