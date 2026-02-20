@@ -111,12 +111,27 @@ func (a *audioPlayerStatus) PadText() (string, error) {
 	return " <!> ", nil
 }
 
+func updatePlayerControls(status string) error {
+	data := "1"
+
+	switch status {
+	case "Playing":
+		data = "2"
+	default:
+		data = "1"
+	}
+
+	return util.PolybarMsg("hook", "player-controls", data)
+}
+
 func drawAudioPlayerStatus(config polyden.Config) error {
 	ctx, cancelCause := context.WithCancelCause(context.Background())
 	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt, os.Kill)
 	defer cancel()
 
-	mprisConn := pdbus.NewMpris()
+	mprisConn := pdbus.NewMpris(&pdbus.MprisOptions{
+		StatusChangeAction: updatePlayerControls,
+	})
 
 	textWidth := config.GetIntDefault("audioplayer.textWidth", 30)
 	scrollDelay := time.Millisecond * time.Duration(config.GetIntDefault("audioplayer.scrollDelay", 250))

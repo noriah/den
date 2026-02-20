@@ -18,6 +18,8 @@ const (
 	// playerInterface  = "org.mpris.MediaPlayer2.Player"
 )
 
+type MprisStatusChangeAction func(string) error
+
 type Mpris interface {
 	Run(context.Context) error
 	PlayerName() string
@@ -30,15 +32,30 @@ type Mpris interface {
 
 var _ Mpris = &mprisBlock{}
 
-func NewMpris() Mpris {
-	return &mprisBlock{
-		status:   "none",
-		player:   "none",
+type MprisOptions struct {
+	StatusChangeAction MprisStatusChangeAction
+}
+
+func NewMpris(opts ...*MprisOptions) Mpris {
+
+	block := &mprisBlock{
+		player:   "unknown",
+		status:   "unknown",
 		artist:   "none",
 		title:    "none",
 		duration: 0,
 		position: 0,
 	}
+
+	if len(opts) <= 0 {
+		return block
+	}
+
+	opt := opts[0]
+
+	block.statusChangeAction = opt.StatusChangeAction
+
+	return block
 }
 
 type mprisBlock struct {
@@ -52,6 +69,8 @@ type mprisBlock struct {
 
 	duration int64
 	position int64
+
+	statusChangeAction MprisStatusChangeAction
 
 	conn *dbus.Conn
 }
@@ -86,6 +105,8 @@ func (m *mprisBlock) updateCurrentPlayer(ctx context.Context) error {
 		return err
 	}
 
+	// TODO: be aware of removed player when more than one is still active
+
 	switch len(allPlayers) {
 	case 0:
 		m.player = "none"
@@ -113,7 +134,7 @@ func (m *mprisBlock) updateCurrentPlayer(ctx context.Context) error {
 }
 
 func (m *mprisBlock) updateStatus() error {
-	if m.player == "none" {
+	if m.player == "none" || m.player == "unknown" {
 		m.status = "none"
 		return nil
 	}
@@ -132,7 +153,7 @@ func (m *mprisBlock) updateStatus() error {
 
 func (m *mprisBlock) updateMetadata() error {
 	switch m.status {
-	case "Stopped", "Unknown", "none":
+	case "Stopped", "unknown", "none":
 		m.artist = "none"
 		m.title = "none"
 		m.duration = 0
@@ -190,8 +211,14 @@ func (m *mprisBlock) update(ctx context.Context) error {
 		return errors.Wrap(err, "failed to update player")
 	}
 
+	status := m.status
 	if err := m.updateStatus(); err != nil {
 		return errors.Wrap(err, "failed to update status")
+	}
+	if m.status != status && m.statusChangeAction != nil {
+		if err := m.statusChangeAction(m.status); err != nil {
+			return err
+		}
 	}
 
 	if err := m.updateMetadata(); err != nil {
