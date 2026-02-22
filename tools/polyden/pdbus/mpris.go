@@ -158,6 +158,7 @@ func (m *mprisBlock) updateMetadata() error {
 		m.title = "none"
 		m.duration = 0
 		m.position = 0
+		return nil
 
 	default:
 	}
@@ -169,10 +170,7 @@ func (m *mprisBlock) updateMetadata() error {
 		return err
 	}
 
-	artists, err := metadata.XESAMArtist()
-	if err != nil {
-		return err
-	}
+	artists, _ := metadata.XESAMArtist()
 
 	switch len(artists) {
 	case 0:
@@ -183,10 +181,7 @@ func (m *mprisBlock) updateMetadata() error {
 		m.artist = artists[0]
 	}
 
-	m.title, err = metadata.XESAMTitle()
-	if err != nil {
-		return err
-	}
+	m.title, _ = metadata.XESAMTitle()
 
 	vl := metadata["mpris:length"].Value()
 	if vl == nil {
@@ -197,7 +192,7 @@ func (m *mprisBlock) updateMetadata() error {
 
 	m.position, err = p.Position()
 	if err != nil {
-		return err
+		m.position = 0
 	}
 
 	return nil
