@@ -5,13 +5,13 @@ import "fmt"
 // Foreground Color
 // https://github.com/polybar/polybar/wiki/Formatting#font-t
 func FgColor(color Color, text string) string {
-	return fmt.Sprintf("%%{F#%x}%s%%{F-}", color, text)
+	return fmt.Sprintf("%%{F#%06x}%s%%{F-}", color, text)
 }
 
 // Background Color
 // https://github.com/polybar/polybar/wiki/Formatting#background-color-b
 func BgColor(color Color, text string) string {
-	return fmt.Sprintf("%%{B#%x}%s%%{B-}", color, text)
+	return fmt.Sprintf("%%{B#%06x}%s%%{B-}", color, text)
 }
 
 // Reverse back/foreground colors

@@ -1,6 +1,6 @@
 package polyden
 
-type Color int
+type Color uint
 
 // Colors and color names from https://colorhexa.com/web-safe-colors
 const (

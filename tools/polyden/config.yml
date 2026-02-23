@@ -1,11 +1,18 @@
 fonts:
   icons: 3
 
+trimet:
+  appId: 'key'
+  stopIds:
+    - '0'
+    - '1'
+    - '2'
+
 weather:
   aqi:
-    apiKey: key
+    apiKey: 'key'
     city: A123456
   forecast:
-    apiKey: key
+    apiKey: 'key'
     city: '123456'
     units: both

@@ -14,6 +14,7 @@ type Config interface {
 	GetStringDefault(key, def string) string
 	GetInt(key string) int
 	GetIntDefault(key string, def int) int
+	GetStringList(key string) []string
 }
 
 type config struct {
@@ -55,6 +56,20 @@ func (c *config) GetIntDefault(key string, def int) int {
 		return val.(int)
 	}
 	return def
+}
+
+func (c *config) GetStringList(key string) []string {
+	out := make([]string, 0)
+	if val := c.getForKey(key, false); val != nil {
+		if lVal, ok := val.([]any); ok {
+			for _, v := range lVal {
+				if sv, ok := v.(string); ok {
+					out = append(out, sv)
+				}
+			}
+		}
+	}
+	return out
 }
 
 func (c *config) getForKey(key string, fail bool) any {
