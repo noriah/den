@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"time"
 
 	"github.com/noriah/den/src/polyden"
@@ -21,9 +23,10 @@ const (
 var version = "whatever"
 
 type config struct {
-	command    string
-	interval   float32
-	configPath string
+	command     string
+	interval    float32
+	configPath  string
+	listModules bool
 }
 
 func defaultConfig() config {
@@ -35,6 +38,11 @@ func defaultConfig() config {
 func main() {
 	cfg := defaultConfig()
 	doFlags(&cfg)
+
+	if cfg.listModules {
+		listModules()
+		return
+	}
 
 	config := polyden.NewConfig()
 
@@ -66,6 +74,13 @@ func main() {
 	}
 }
 
+func listModules() {
+	modules := polyden.ListModules()
+	for _, mod := range modules {
+		fmt.Printf("- %s, %s\n", mod.Id(), strings.Join(mod.Aliases(), ", "))
+	}
+}
+
 func doFlags(cfg *config) bool {
 
 	parser := flaggy.NewParser(AppName)
@@ -73,11 +88,19 @@ func doFlags(cfg *config) bool {
 	// parser.AdditionalHelpPrepend = AppSite
 	parser.Version = version
 
-	parser.AddPositionalValue(&cfg.command, "module", 1, true, "module to run")
+	parser.AddPositionalValue(&cfg.command, "module", 1, false, "module to run")
 	parser.String(&cfg.configPath, "c", "config", "path to config. env variables allowed")
 	parser.Float32(&cfg.interval, "n", "interval", "draw interval")
+	parser.Bool(&cfg.listModules, "l", "list-modules", "list all modules")
 
 	chk(parser.Parse(), "failed to parse arguments")
+
+	if !cfg.listModules {
+		if len(cfg.command) == 0 {
+			parser.ShowHelpWithMessage("missing required parameter [module]")
+			os.Exit(2)
+		}
+	}
 
 	return false
 }

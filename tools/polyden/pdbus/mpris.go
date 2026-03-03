@@ -187,7 +187,14 @@ func (m *mprisBlock) updateMetadata() error {
 	if vl == nil {
 		m.duration = 0
 	} else {
-		m.duration = int64(vl.(uint64))
+		switch vl := vl.(type) {
+		case int64:
+			m.duration = vl
+		case uint64:
+			m.duration = int64(vl)
+		default:
+			m.duration = 0
+		}
 	}
 
 	m.position, err = p.Position()

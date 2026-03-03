@@ -46,7 +46,7 @@ in
       Unit = {
         Description = "Polybar Target";
       };
-      Install.WantedBy = [ "graphical-session.target" ];
+      Install.WantedBy = [ "default.target" ];
     };
 
     systemd.user.services.polybar-main-top = {

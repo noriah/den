@@ -41,17 +41,24 @@ var trimetIconTypeMap = map[string]rune{
 	routeTypeStreetcar: iconStreetcar,
 }
 
+// see https://developer.trimet.org/ws_docs/arrivals2_ws.shtml
 type trimetArrival struct {
-	Type       string `json:"routeSubType"`
-	Color      string `json:"routeColor"`
-	Sign       string `json:"shortSign"`
-	Status     string `json:"status"`
-	DepartTime int64  `json:"estimated"`
-	Location   int    `json:"locid"`
-	Departed   bool   `json:"departed"`
+	Type         string `json:"routeSubType"`
+	Color        string `json:"routeColor"`
+	Sign         string `json:"shortSign"`
+	Status       string `json:"status"`
+	DepartTime   int64  `json:"estimated"`
+	Location     int    `json:"locid"`
+	InRoute      bool   `json:"departed"`
+	StreetCarApi bool   `json:"streetCar"`
+	DropOffOnly  bool   `json:"dropOffOnly"`
 }
 
 func (ta *trimetArrival) String() string {
+	if ta == nil {
+		return " n/a "
+	}
+
 	fmt.Println(ta.Color)
 	colorU64, err := strconv.ParseUint(ta.Color, 16, 32)
 	if err != nil {
@@ -131,8 +138,8 @@ func drawTrimetStatus(config polyden.Config) error {
 	}
 
 	arrivalData := make(map[string]*trimetArrival)
-	for x, v := range allArrivalData {
-		arrivalData["s"+x] = v.closestArrival()
+	for k, v := range allArrivalData {
+		arrivalData["s"+k] = v.closestArrival()
 	}
 
 	t, err := template.New("trimet").Parse(format)
@@ -145,5 +152,4 @@ func drawTrimetStatus(config polyden.Config) error {
 	fmt.Println(buf)
 
 	return nil
-
 }
