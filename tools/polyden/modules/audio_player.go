@@ -43,7 +43,9 @@ var audioPlayerIconMap = map[string]*audioPlayerIcon{
 }
 
 type audioPlayerStatus struct {
-	conn pdbus.Mpris
+	conn       pdbus.Mpris
+	iconFont   int
+	playerFont int
 }
 
 var _ util.ScrollerTextSource = &audioPlayerStatus{}
@@ -57,7 +59,7 @@ func (a *audioPlayerStatus) getMetadata() string {
 	return fmt.Sprintf("%s - %s", a.conn.Title(), a.conn.Artist())
 }
 
-// TODO: controls
+// TODO: display controls
 
 func (a *audioPlayerStatus) Text() (string, error) {
 	status := a.conn.Status()
@@ -80,9 +82,9 @@ func (a *audioPlayerStatus) BeforeText() (string, error) {
 	}
 
 	builder := new(strings.Builder)
-	builder.WriteString(polyden.FontChange(4))
+	builder.WriteString(polyden.FontChange(a.iconFont))
 	builder.WriteString(polyden.FgColor(icon.color, fmt.Sprintf("%c ", icon.icon)))
-	builder.WriteString(polyden.FontChange(7))
+	builder.WriteString(polyden.FontChange(a.playerFont))
 
 	return builder.String(), nil
 }
@@ -111,17 +113,19 @@ func (a *audioPlayerStatus) PadText() (string, error) {
 	return " <!> ", nil
 }
 
-func updatePlayerControls(status string) error {
-	data := "1"
+func updatePlayerControlsFn(module string) pdbus.MprisStatusChangeAction {
+	return func(status string) error {
+		data := "1"
 
-	switch status {
-	case "Playing":
-		data = "2"
-	default:
-		data = "1"
+		switch status {
+		case "Playing":
+			data = "2"
+		default:
+			data = "1"
+		}
+
+		return util.PolybarMsg("hook", module, data)
 	}
-
-	return util.PolybarMsg("hook", "player-controls", data)
 }
 
 func drawAudioPlayerStatus(config polyden.Config) error {
@@ -129,18 +133,25 @@ func drawAudioPlayerStatus(config polyden.Config) error {
 	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt, os.Kill)
 	defer cancel()
 
+	iconFont := config.GetIntDefault("fonts.bigIcons", 4)
+	playerFont := config.GetIntDefault("audioplayer.textFont", 7)
+	controlsModule := config.GetStringDefault("audioplayer.controlsModule", "player-controls")
+	textWidth := config.GetIntDefault("audioplayer.textWidth", 30)
+	scrollDelayMs := config.GetIntDefault("audioplayer.scrollDelay", 250)
+
 	mprisConn := pdbus.NewMpris(&pdbus.MprisOptions{
-		StatusChangeAction: updatePlayerControls,
+		StatusChangeAction: updatePlayerControlsFn(controlsModule),
 	})
 
-	textWidth := config.GetIntDefault("audioplayer.textWidth", 30)
-	scrollDelay := time.Millisecond * time.Duration(config.GetIntDefault("audioplayer.scrollDelay", 250))
+	scrollDelay := time.Millisecond * time.Duration(scrollDelayMs)
 
 	t := time.NewTicker(scrollDelay)
 	defer t.Stop()
 
 	playerStatus := &audioPlayerStatus{
-		conn: mprisConn,
+		conn:       mprisConn,
+		iconFont:   iconFont,
+		playerFont: playerFont,
 	}
 
 	scroller := util.NewScroller(playerStatus, textWidth)

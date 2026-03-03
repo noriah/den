@@ -1,8 +1,11 @@
 package polyden
 
-import "slices"
+import (
+	"cmp"
+	"slices"
+)
 
-type DrawFunc func(Config) error
+type DrawFn func(Config) error
 
 type Module interface {
 	Id() string
@@ -13,7 +16,7 @@ type Module interface {
 type module struct {
 	id      string
 	aliases []string
-	drawFn  DrawFunc
+	drawFn  DrawFn
 }
 
 func (m *module) Id() string {
@@ -56,10 +59,14 @@ func GetModule(key string) Module {
 	return nil
 }
 
-func RegisterModule(id string, fn DrawFunc, aliases ...string) {
+func RegisterModule(id string, fn DrawFn, aliases ...string) {
 	store = append(store, &module{
 		id:      id,
 		aliases: aliases,
 		drawFn:  fn,
+	})
+
+	slices.SortFunc(store, func(a, b *module) int {
+		return cmp.Compare(a.id, b.id)
 	})
 }
