@@ -49,86 +49,86 @@ in
       Install.WantedBy = [ "default.target" ];
     };
 
-    systemd.user.services.polybar-main-top = {
+    systemd.user.services.polybar-primary-top = {
       Unit = {
-        Description = "Polybar main top";
+        Description = "Polybar primary top";
         PartOf = "polybar.target";
       };
       Install.WantedBy = [ "polybar.target" ];
       Service = {
         Type = "simple";
         Restart = "on-failure";
-        ExecStart = ''${cfg.package}/bin/polybar -r main-top'';
+        ExecStart = ''${cfg.package}/bin/polybar -r primary-top'';
         StandardError = "journal";
       };
     };
 
-    systemd.user.services.polybar-main-bottom = {
+    systemd.user.services.polybar-primary-bottom = {
       Unit = {
-        Description = "Polybar main bottom";
+        Description = "Polybar primary bottom";
         PartOf = "polybar.target";
       };
       Install.WantedBy = [ "polybar.target" ];
       Service = {
         Type = "simple";
         Restart = "on-failure";
-        ExecStart = ''${cfg.package}/bin/polybar -r main-bottom'';
+        ExecStart = ''${cfg.package}/bin/polybar -r primary-bottom'';
         StandardError = "journal";
       };
     };
 
-    # systemd.user.services.polybar-left-top = {
+    systemd.user.services.polybar-secondary-top = {
+      Unit = {
+        Description = "Polybar secondary top";
+        PartOf = "polybar.target";
+      };
+      Install.WantedBy = [ "polybar.target" ];
+      Service = {
+        Type = "simple";
+        Restart = "on-failure";
+        ExecStart = ''${cfg.package}/bin/polybar -r secondary-top'';
+        StandardError = "journal";
+      };
+    };
+
+    # systemd.user.services.polybar-secondary-bottom = {
     #   Unit = {
-    #     Description = "Polybar left top";
+    #     Description = "Polybar secondary bottom";
     #     PartOf = "polybar.target";
     #   };
     #   Install.WantedBy = [ "polybar.target" ];
     #   Service = {
     #     Type = "simple";
     #     Restart = "on-failure";
-    #     ExecStart = ''${cfg.package}/bin/polybar -r left-top'';
+    #     ExecStart = ''${cfg.package}/bin/polybar -r secondary-bottom'';
     #     StandardError = "journal";
     #   };
     # };
 
-    # systemd.user.services.polybar-left-bottom = {
+    # systemd.user.services.polybar-tertiary-top = {
     #   Unit = {
-    #     Description = "Polybar left bottom";
+    #     Description = "Polybar tertiary top";
     #     PartOf = "polybar.target";
     #   };
     #   Install.WantedBy = [ "polybar.target" ];
     #   Service = {
     #     Type = "simple";
     #     Restart = "on-failure";
-    #     ExecStart = ''${cfg.package}/bin/polybar -r left-bottom'';
+    #     ExecStart = ''${cfg.package}/bin/polybar -r tertiary-top'';
     #     StandardError = "journal";
     #   };
     # };
 
-    # systemd.user.services.polybar-right-top = {
+    # systemd.user.services.polybar-tertiary-bottom = {
     #   Unit = {
-    #     Description = "Polybar right top";
+    #     Description = "Polybar tertiary bottom";
     #     PartOf = "polybar.target";
     #   };
     #   Install.WantedBy = [ "polybar.target" ];
     #   Service = {
     #     Type = "simple";
     #     Restart = "on-failure";
-    #     ExecStart = ''${cfg.package}/bin/polybar -r right-top'';
-    #     StandardError = "journal";
-    #   };
-    # };
-
-    # systemd.user.services.polybar-right-bottom = {
-    #   Unit = {
-    #     Description = "Polybar right bottom";
-    #     PartOf = "polybar.target";
-    #   };
-    #   Install.WantedBy = [ "polybar.target" ];
-    #   Service = {
-    #     Type = "simple";
-    #     Restart = "on-failure";
-    #     ExecStart = ''${cfg.package}/bin/polybar -r right-bottom'';
+    #     ExecStart = ''${cfg.package}/bin/polybar -r tertiary-bottom'';
     #     StandardError = "journal";
     #   };
     # };

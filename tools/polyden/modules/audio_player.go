@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/noriah/den/src/polyden"
-	"github.com/noriah/den/src/polyden/pdbus"
+	"github.com/noriah/den/src/polyden/dbus"
 	"github.com/noriah/den/src/polyden/util"
 )
 
@@ -43,7 +43,7 @@ var audioPlayerIconMap = map[string]*audioPlayerIcon{
 }
 
 type audioPlayerStatus struct {
-	conn       pdbus.Mpris
+	conn       dbus.Mpris
 	iconFont   int
 	playerFont int
 }
@@ -53,7 +53,7 @@ var _ util.ScrollerTextSource = &audioPlayerStatus{}
 func (a *audioPlayerStatus) getMetadata() string {
 	player := a.conn.PlayerName()
 	if _, found := audioPlayerIconMap[player]; !found {
-		return fmt.Sprintf("-\\_/-\\_/-%s-\\_/-\\_/-", player)
+		return fmt.Sprintf("-\\_/-%s-\\_/-", player)
 	}
 
 	return fmt.Sprintf("%s - %s", a.conn.Title(), a.conn.Artist())
@@ -113,7 +113,7 @@ func (a *audioPlayerStatus) PadText() (string, error) {
 	return " <!> ", nil
 }
 
-func updatePlayerControlsFn(module string) pdbus.MprisStatusChangeAction {
+func updatePlayerControlsFn(module string) dbus.MprisStatusChangeAction {
 	return func(status string) error {
 		data := "1"
 
@@ -139,7 +139,7 @@ func drawAudioPlayerStatus(config polyden.Config) error {
 	textWidth := config.GetIntDefault("audioplayer.textWidth", 30)
 	scrollDelayMs := config.GetIntDefault("audioplayer.scrollDelay", 250)
 
-	mprisConn := pdbus.NewMpris(&pdbus.MprisOptions{
+	mprisConn := dbus.NewMpris(&dbus.MprisOptions{
 		StatusChangeAction: updatePlayerControlsFn(controlsModule),
 	})
 

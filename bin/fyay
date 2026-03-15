@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+PATH=$(echo "$PATH" | sed -e 's/:\/home\/vix\/\.nix-profile\/bin//g')
+PATH=$(echo "$PATH" | sed -e 's/:\/nix\/var\/nix\/profiles\/default\/bin//g')
+
+export PATH
+
+yay $@

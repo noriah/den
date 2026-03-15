@@ -1,4 +1,4 @@
-package pdbus
+package dbus
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/godbus/dbus/v5"
+	godbus "github.com/godbus/dbus/v5"
 	"github.com/leberKleber/go-mpris"
 	"github.com/pkg/errors"
 )
@@ -72,10 +72,10 @@ type mprisBlock struct {
 
 	statusChangeAction MprisStatusChangeAction
 
-	conn *dbus.Conn
+	conn *godbus.Conn
 }
 
-func listPlayers(conn *dbus.Conn, ctx context.Context) ([]string, error) {
+func listPlayers(conn *godbus.Conn, ctx context.Context) ([]string, error) {
 	var names []string
 
 	err := conn.BusObject().CallWithContext(ctx, listNamesMethod, 0).Store(&names)
@@ -234,7 +234,7 @@ func (m *mprisBlock) Run(ctx context.Context) error {
 	t := time.NewTicker(time.Millisecond * 50)
 	defer t.Stop()
 
-	conn, err := dbus.ConnectSessionBus()
+	conn, err := godbus.ConnectSessionBus()
 	if err != nil {
 		return err
 	}

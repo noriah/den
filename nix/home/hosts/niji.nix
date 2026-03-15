@@ -29,6 +29,7 @@ in
         # desktop environment
         # this should be a select, maybe
         budgie.enable = true;
+        i3.enable = true;
 
         _1password.enable = true;
 
@@ -142,7 +143,7 @@ in
 
       (wrapOBS {
         plugins = with obs-studio-plugins; [
-          distroav
+          # distroav
         ];
       })
     ];
