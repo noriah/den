@@ -73,7 +73,19 @@ func OffsetPoint(offset int, text string) string {
 }
 
 // Action command
-// https://github.com/polybar/polybar/wiki/Formatting#offset-o
+// https://github.com/polybar/polybar/wiki/Formatting#action-a
 func Action(btn int, cmd string, text string) string {
 	return fmt.Sprintf("%%{A%d:%s:}%s%%{A}", btn, cmd, text)
 }
+
+const (
+	ActionNone = iota
+	LeftClick
+	MiddleClick
+	RightClick
+	ScrollUp
+	ScrollDown
+	DoubleLeftClick
+	DoubleMiddleClick
+	DoubleRightClick
+)

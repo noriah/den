@@ -7,6 +7,7 @@
     ./alacritty.nix
     ./albert.nix
     ./budgie.nix
+    # ./eww.nix
     ./firefox.nix
     ./git.nix
     ./gnome.nix

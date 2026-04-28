@@ -136,7 +136,6 @@
   "color-highlight.markerType": "dot-after",
   "color-highlight.markRuler": false,
   "go.autocompleteUnimportedPackages": true,
-  "go.useLanguageServer": true,
   "go.useCodeSnippetsOnFunctionSuggest": true,
   "go.testFlags": [
     "-count=1"

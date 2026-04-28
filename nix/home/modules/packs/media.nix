@@ -27,11 +27,12 @@ in
       [
 
         (pkgs.writeShellScriptBin "playerctl2" ''
-          PLAYER=spotify
-          ${pkgs.playerctl}/bin/playerctl -p "$PLAYER" "$@"
+          # PLAYER=spotify
+          ${pkgs.playerctl}/bin/playerctl "$@"
         '')
 
         # for pactl
+        pipewire
         pulseaudio
         pwvucontrol
         qpwgraph

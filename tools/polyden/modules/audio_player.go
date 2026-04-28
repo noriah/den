@@ -18,6 +18,10 @@ func init() {
 		/* id= */ "audio-player-status",
 		/* fn= */ drawAudioPlayerStatus,
 		/* aliases= */ "audio-player", "music-player")
+	polyden.RegisterModule(
+		/* id= */ "audio-player-controls",
+		/* fn= */ drawAudioPlayerControls,
+		/* aliases= */ "audio-player-controls", "music-player-controls")
 }
 
 type audioPlayerIcon struct {
@@ -40,7 +44,18 @@ var audioPlayerIconMap = map[string]*audioPlayerIcon{
 		icon:  '󰕼',
 		color: 0xff9800,
 	},
+	"rhythmbox": {
+		icon:  '󰓃',
+		color: 0xf6d730,
+	},
 }
+
+const (
+	AudioPlayerControlsPrevious = '󰒮'
+	AudioPlayerControlsNext     = '󰒭'
+	AudioPlayerControlsPlay     = '󰐊'
+	AudioPlayerControlsPause    = '󰏤'
+)
 
 type audioPlayerStatus struct {
 	conn       dbus.Mpris
@@ -188,6 +203,76 @@ func drawAudioPlayerStatus(config polyden.Config) error {
 			}
 			return nil
 
+		case <-t.C:
+		}
+	}
+}
+
+func drawAudioPlayerControls(config polyden.Config) error {
+	bumpChan := make(chan string, 2)
+
+	updateFn := func(status string) error {
+		bumpChan <- status
+		return nil
+	}
+
+	ctx, cancelCause := context.WithCancelCause(context.Background())
+	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt, os.Kill)
+	defer cancel()
+
+	mprisConn := dbus.NewMpris(&dbus.MprisOptions{
+		StatusChangeAction: updateFn,
+	})
+
+	updateDelay := time.Millisecond * 500
+
+	t := time.NewTicker(updateDelay)
+	defer t.Stop()
+
+	go func() {
+		if err := mprisConn.Run(ctx); err != nil {
+			cancelCause(err)
+			return
+		}
+		cancel()
+	}()
+
+	for {
+		player := mprisConn.PlayerName()
+		status := mprisConn.Status()
+
+		padding := polyden.Font(6, " ")
+
+		previousCmd := fmt.Sprintf("playerctl2 -p %s previous", player)
+		previousControl := polyden.Action(polyden.LeftClick, previousCmd, string(AudioPlayerControlsPrevious))
+		previousControl = polyden.Font(4, previousControl)
+		nextCmd := fmt.Sprintf("playerctl2 -p %s next", player)
+		nextControl := polyden.Action(polyden.LeftClick, nextCmd, string(AudioPlayerControlsNext))
+		nextControl = polyden.Font(4, nextControl)
+
+		activeCmd := fmt.Sprintf("playerctl2 -p %s play-pause", player)
+
+		control := AudioPlayerControlsPlay
+
+		if status == "Playing" {
+			control = AudioPlayerControlsPause
+		}
+
+		activeControl := polyden.Action(polyden.LeftClick, activeCmd, string(control))
+		activeControl = polyden.Font(4, activeControl)
+
+		output := fmt.Sprintf("%s%s%s%s%s", previousControl, padding, activeControl, padding, nextControl)
+
+		fmt.Println(output)
+
+		select {
+		case <-ctx.Done():
+			if ctx.Err() != nil && context.Cause(ctx) != ctx.Err() {
+				return context.Cause(ctx)
+			}
+			return nil
+
+		case <-bumpChan:
 		case <-t.C:
 		}
 	}
